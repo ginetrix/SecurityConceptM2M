@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="SecuriyConcept" nsURI="http://www.example.org/securityconcept"
+    nsPrefix="SC">
+  <eClassifiers xsi:type="ecore:EClass" name="SecurityGoal">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="securityGoalClass" unique="false"
+        eType="#//SecurityGoalClassType" defaultValueLiteral="Confidentiality"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="threatenedBy" eType="#//Threat"
+        eKeys="#//Threat/threatID"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="damagePotential" eType="#//Damages"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependsOnSecurityGoal"
+        upperBound="5" eType="#//SecurityGoal" eKeys="#//SecurityGoal/securityGoalID"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="securityGoalID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Threat">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="threatens" unique="false"
+        lowerBound="1" upperBound="5" eType="#//Asset" eKeys="#//Asset/name"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="threatID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mitigatedBy" upperBound="5"
+        eType="#//Control" eKeys="#//Control/controlID"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attackPotential" eType="#//Damages"
+        defaultValueLiteral="low"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Control">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="controlID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependsOn" upperBound="3"
+        eType="#//SecurityGoal"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Component">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="#//Component"
+        containment="true" eKeys="#//Component/componentID"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="isAn" eType="#//Asset"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="componentID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Function"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="SecurityGoalClassType">
+    <eLiterals name="Confidentiality"/>
+    <eLiterals name="Integrity" value="1"/>
+    <eLiterals name="Availability" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Asset">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="assetID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasSecurityGoal" eType="#//SecurityGoal"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Damages">
+    <eLiterals name="low" literal="low"/>
+    <eLiterals name="medium" value="1" literal="medium"/>
+    <eLiterals name="high" value="2" literal="high"/>
+    <eLiterals name="extreme" value="3"/>
+  </eClassifiers>
+</ecore:EPackage>
