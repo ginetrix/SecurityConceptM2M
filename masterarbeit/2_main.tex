@@ -68,14 +68,40 @@ Common Criteria proposes an evaluation by using a so called \textit{Security Tar
 \label{fig:sectarget}
 \end{figure}
 
-A description of all the contents of a ST is unnecessary here and only the key security attributes of a ST, that will be used to construct a \textit{Security Concept} (Subsection \ref{subsubsec:secconc}), are being introduced.
+A description of all the contents of a ST is unnecessary here and only the key security attributes of a ST that will be used to construct a \textit{Security Concept} (Subsection \ref{subsubsec:secconc}) are being introduced.
 
 The \textit{Security Problem Definition} defines, as the name suggests, the security problem that is being addressed. Apart from containing guidelines and assumptions it contains \textit{Threats} which are \textit{\glqq[...] adverse actions performed by a threat agent on an asset\grqq} (\cite{iso27001}, p. 66).
 
-\textit{Security Objectives} is an abstract solution to the previously defined security problem. There exists a possibility to divide the \textit{Security Objectives} into part wise solutions, one being the \textit{Security Objectives for the TOE} and the other being the \textit{Security Objectives for the Operational Environment}
+A \textit{Security Objective} is an abstract solution to the previously defined security problem. There exists a possibility to divide the \textit{Security Objectives} into part wise solutions, one being the \textit{Security Objectives for the TOE} and the other being the \textit{Security Objectives for the Operational Environment}. Moreover does the ST contain traces showing which objectives address which threats, guidelines and assumptions and a set showing that all threats, guidelines and assumptions are addressed by the security objective.
+
+\textit{Security Functional Requirements} (SFR) are a more detailed translation of the previously defined \textit{Security Objective}. Despite being more detailed, SFR have to be still independent from specific technical solutions. 
+
+Lastly, STs contain a TOE summary specification where it is stated how the TOE meets all the SFRs and how exactly those requirements are met on a technical level.
 
 \subsubsection{Security Concept}
 \label{subsubsec:secconc}
+
+The term \textit{Security Concept}, as it is defined here, is based on the constructs introduced in the previous chapters, namely \textit{Security Architecture} and \textit{Security Target}. An overview follows. 
+
+\textit{Assets} are the to be secured objects of interest, i.e. TOE according to Common Criteria. \textit{Assets} can be either logical or physical and can be grouped to sets, if needed.
+
+\textit{Security Goals} (SG) is the equivalent to the \textit{Security Objective}. A valid SG must address an \textit{Asset} and a \textit{Security Goal Class} that defines the actual purpose of the SG. In general the set of \textit{Security Goal Classes} consists of \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} but can also be expanded by further classes such as \textit{Authenticity}.
+
+\textit{Threats} serve the same purpose as proposed by the Common Criteria. They are adverse actions performed by an entity against an \textit{Asset}. 
+
+This information is all brought together in \textit{Security Requirements} that are defined in natural language and show the interrelationships between elements. A \textit{Security Goal} has to be mentioned as well as an \textit{Asset} and a \textit{Threat} against which the object of interest should be protected. Lastly, \textit{Controls} are the technical measures that counter or minimize the \textit{Threats}.     
+
+The following table depicts the relationships between all the security attributes:
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Name & Consists of & Description & Example \\
+\hline
+Asset & & Bla & Shit \\
+\end{tabular}
+\end{table}
+
 
 \subsection{Granularity Levels}
 
