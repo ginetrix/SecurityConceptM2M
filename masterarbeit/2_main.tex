@@ -93,33 +93,44 @@ This information is all brought together in \textit{Security Requirements} that 
 
 Lastly, \textit{Controls} are the technical measures that counter or minimize the \textit{Threats}.     
 
-The following table depicts the relationships between all the security attributes:
+The Table \ref{table:secconc} depicts the relationships between all the security attributes:
 
-\begin{table}[H]
+\begin{sidewaystable}
 \begin{tabular}{|c|c|c|c|}
 \hline
-Name & Contains & Description & Example \\
+\textbf{Name} & \textbf{Contains} & \textbf{Description} & \textbf{Example} \\
 \hline
-Asset & - & Digital or physical object of interest \\ 
- & & that should be secured & Sensible user data \\
+\multirowcell{3}{Asset} & \multirowcell{3}{-} & \multirowcell{3}{Digital or physical object of \\ interest \\ that should be secured} & \multirowcell{3}{Sensible user data} \\
+& & & \\
+& & & \\
 \hline
-Security Goal Class & - & Defines the purpose of the Security Goal & Confidentiality of sensible user data \\
+\multirow{2}{*}{Security Goal Class} & \multirow{2}{*}{-} & \multirowcell{2}{Defines the purpose \\ of the Security Goal} & \multirowcell{2}{Confidentiality of sensible \\ user  data} \\
+& & & \\
 \hline
-Security Goal & Security Goal Class, \\
-& Asset & Defines the security objective & The Confidentiality of sensible user data shall be protected \\
+\multirow{2}{*}{Security Goal} & \multirow{2}{*}{Security Goal Class, Asset} & \multirowcell{2}{Defines the security \\ objective} & \multirowcell{2}{ Confidentiality of sensible \\ user data shall be protected} \\
+& & & \\
 \hline
-Threat & Asset & Adverse action against an Asset & Eavesdropping of sensible user data \\
+\multirow{2}{*}{Threat} & \multirow{2}{*}{Asset} & \multirowcell{2}{Adverse action against an \\ Asset} & \multirowcell{2}{Eavesdropping of sensible \\ user data} \\
+& & & \\
 \hline
-Security Requirement & Asset, Security Goal, Threat & Security Objective in natural language & The Confidentiality of sensible user data shall be protected against eavesdropping \\
+\multirowcell{4}{Security Requirement} & \multirowcell{4}{Asset, Security Goal, Threat} & \multirowcell{4}{Security Objective \\ in natural language} & \multirowcell{4}{
+The Confidentiality of \\ sensible user data shall \\ be protected against \\ eavesdropping} \\
+& & & \\
+& & & \\
+& & & \\
 \hline
-Control & Threat & Measure to minimize or mitigate the Threat & Encryption of sensible user data with AES-256 to prevent Eavesdropping \\
+\multirowcell{3}{Control} & \multirowcell{3}{Threat} & \multirowcell{3}{Measure to minimize \\ or mitigate the Threat} & \multirowcell{3}{Encryption of sensible user \\ data with AES-256 \\ to prevent eavesdropping} \\
+& & & \\
+& & & \\
+
 \hline
 \end{tabular}
-\end{table}
-
+\caption{Elements of a Security Concept}
+\label{table:secconc}
+\end{sidewaystable}
 
 \subsection{Granularity Levels}
+\subsubsection{Allocation}
 
 \subsection{Model Transformation}
-\subsubsection{Allocation}
 \subsubsection{Aggregation rules}

@@ -6,6 +6,8 @@
 \usepackage{textcomp} 
 \usepackage{float}
 \usepackage{enumitem}
+\usepackage[colorlinks=false,urlcolor=black]{hyperref}
+
 %
 \usepackage{fancyref}
 \usepackage{fancyhdr} 
@@ -15,10 +17,15 @@
 \usepackage{makeidx}
 \usepackage{listings}
 \usepackage{acronym}
+\usepackage{rotating}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{multirow, makecell}
+
+
 %
 % PDF settings
-\usepackage[pdftex]{graphicx}
-\usepackage[pdfstartview=FitH,pdftitle={<Titel>},pdfauthor={<Name>}, colorlinks=false, linktocpage]{hyperref}
+
 % colorlinks=false, pdfborder={0 0 0} = keine farbigen Links
 %
 % Header and Footer Style
@@ -39,7 +46,7 @@
 \renewcommand\dh{d.\,h.\ }
 \newcommand\parbig{\par\bigskip}
 \newcommand\parmed{\par\medskip}
-\newcommand{\mailto}[1]{\href{mailto:#1}{#1}}
+%\newcommand{\mailto}[1]{\href{mailto:#1}{#1}}
 %
 % C# Code Listing Style
 \definecolor{darkblue}{rgb}{0,0,.6}
@@ -58,7 +65,7 @@ Master of Science \\[3ex]
 
 \author{\\Artemij Voskobojnikov \\
 {\normalsize Student ID: 4557770 }\\
-{\normalsize \mailto{voskobojnikov.artemij@gmail.com}}\\\\
+{\normalsize \href{mailto:voskobojnikov.artemij@gmail.com}{voskobojnikov.artemij@gmail.com}}\\\\
 {\normalsize First Reviewer: Prof. Dr. Jörn Eichler}\\
 {\normalsize First Reviewer: Prof. Dr. Marian Margraf}\\
 }
