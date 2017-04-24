@@ -87,18 +87,33 @@ The term \textit{Security Concept}, as it is defined here, is based on the const
 
 \textit{Security Goals} (SG) is the equivalent to the \textit{Security Objective}. A valid SG must address an \textit{Asset} and a \textit{Security Goal Class} that defines the actual purpose of the SG. In general the set of \textit{Security Goal Classes} consists of \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} but can also be expanded by further classes such as \textit{Authenticity}.
 
-\textit{Threats} serve the same purpose as proposed by the Common Criteria. They are adverse actions performed by an entity against an \textit{Asset}. 
+\textit{Threats} serve the same purpose as proposed by Common Criteria. They are adverse actions performed by an entity against an \textit{Asset}. 
 
-This information is all brought together in \textit{Security Requirements} that are defined in natural language and show the interrelationships between elements. A \textit{Security Goal} has to be mentioned as well as an \textit{Asset} and a \textit{Threat} against which the object of interest should be protected. Lastly, \textit{Controls} are the technical measures that counter or minimize the \textit{Threats}.     
+This information is all brought together in \textit{Security Requirements} that are defined in natural language and show the interrelationships between elements. A \textit{Security Goal} has to be mentioned as well as an \textit{Asset} and a \textit{Threat} against which the object of interest should be protected.
+
+Lastly, \textit{Controls} are the technical measures that counter or minimize the \textit{Threats}.     
 
 The following table depicts the relationships between all the security attributes:
 
-\begin{table}
+\begin{table}[H]
 \begin{tabular}{|c|c|c|c|}
 \hline
-Name & Consists of & Description & Example \\
+Name & Contains & Description & Example \\
 \hline
-Asset & & Bla & Shit \\
+Asset & - & Digital or physical object of interest \\ 
+ & & that should be secured & Sensible user data \\
+\hline
+Security Goal Class & - & Defines the purpose of the Security Goal & Confidentiality of sensible user data \\
+\hline
+Security Goal & Security Goal Class, \\
+& Asset & Defines the security objective & The Confidentiality of sensible user data shall be protected \\
+\hline
+Threat & Asset & Adverse action against an Asset & Eavesdropping of sensible user data \\
+\hline
+Security Requirement & Asset, Security Goal, Threat & Security Objective in natural language & The Confidentiality of sensible user data shall be protected against eavesdropping \\
+\hline
+Control & Threat & Measure to minimize or mitigate the Threat & Encryption of sensible user data with AES-256 to prevent Eavesdropping \\
+\hline
 \end{tabular}
 \end{table}
 
