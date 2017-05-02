@@ -85,7 +85,7 @@ The term \textit{Security Concept}, as it is defined here, is based on the const
 
 \textit{Assets} are the to be secured objects of interest, i.e. TOE according to Common Criteria. \textit{Assets} can be either logical or physical and can be grouped to sets, if needed.
 
-\textit{Security Goals} (SG) is the equivalent to the \textit{Security Objective}. A valid SG must address an \textit{Asset} and a \textit{Security Goal Class} that defines the actual purpose of the SG. In general the set of \textit{Security Goal Classes} consists of \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} but can also be expanded by further classes such as \textit{Authenticity}.
+A \textit{Security Goal} (SG) is the equivalent to the \textit{Security Objective}. A valid SG must address an \textit{Asset} and a \textit{Security Goal Class} that defines the actual purpose of the SG. In general the set of \textit{Security Goal Classes} consists of \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} but can also be expanded by further classes such as \textit{Authenticity}.
 
 \textit{Threats} serve the same purpose as proposed by Common Criteria. They are adverse actions performed by an entity against an \textit{Asset}. 
 
@@ -130,7 +130,13 @@ The Confidentiality of \\ sensible user data shall \\ be protected against \\ ea
 \end{sidewaystable}
 
 \subsection{Granularity Levels}
-\subsubsection{Allocation}
 
-\subsection{Model Transformation}
-\subsubsection{Aggregation rules}
+Information systems are often complex because of the number of interconnections and interdependencies between components and therefore it might be difficult to assess potential impacts and risks of a system \cite{branagan}.
+
+One logical goal would be to decrease the overall complexity to enable a better risk assessment. \textit{System abstraction} tries to achieve this by reducing the level of details \cite{branagan}. Branagan et al. differentiate between two possibilities, \textit{Whole-part decomposition} which decomposes a system into smaller subsystems and \textit{Distinct development perspectives} which focuses on certain parts of a system depending on the current development perspective. 
+
+In this thesis the focus will be on the \textit{Whole-part decomposition} even though an adaption of development perspectives is certainly possible. The main difficulty would be the definition of such perspectives in the security context because they would be highly dependent on the actual security analyst. The perspectives would not be unambiguous.
+  
+Therefore the change of the level of detail, i.e. the granularity level, will be achieved by uniting or decomposing components of a system of interest. By decomposing a larger system into smaller subsystems one could focus on only specific security attributes and dismiss others.
+
+
