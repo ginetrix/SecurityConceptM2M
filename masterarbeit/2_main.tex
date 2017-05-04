@@ -130,8 +130,38 @@ The Confidentiality of \\ sensible user data shall \\ be protected against \\ ea
 \end{sidewaystable}
 
 \subsection{Modeling}
+\label{subsec:interpretation}
+To ensure a viable solution one has to think of a representation of real life systems. \textit{Models} can be used to achieve this by depicting the key properties and processes of a certain system. According to Ed Seidewitz \cite{seidewitz} a model is a \textit{\glqq set of statements about some system under study\grqq} with the statements being either correct or incorrect.
+
+A system modeled using the Unified Modeling Language (UML) serves as an example. In this case such statements could be made on the relationships between classes and would only be correct if they are consistent with the actual structure of the respective system under study (SUS), i.e. the described (modeled) relationships do indeed exist. 
+
+In our case we would try to create a model that reflects the security attributes and their interrelationships in a SUS. This interpretation of a model is key because only then the model is given a meaning \cite{seidewitz}.
+
+A definition of a model is not enough. A \textit{metamodel} has to be clearly defined to verify whether a model is conform to its metamodel, i.e. whether a security concept instance is conform to its security concept metamodel. The following figure shows the interrelationships.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{pictures/metamodel.png}
+\caption{Relationships between Model and Metamodel}
+\label{fig:metamodel}
+\end{figure}
+
+A security concept of a SUS would be modeled in a modeling language, e.g. UML which is a representation of its own metamodel. At the same time the security concept would be conform to its metamodel. This conformity, be it the security concept or the modeling language, is needed for a model to be considered valid. 
 
 \subsubsection{Model Transformation}
+\label{subsubsec:modeltrans}
+Throughout the introduction and the background chapter the derivation of security attributes based on structural properties of a system of interest was mentioned. Given a model $M$ this derivation can be seen as alteration of $M$ and therefore as a \textit{model transformation}. The resulting model $M'$ is different to $M$, both however, are conform to their metamodel $MM$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{pictures/transformation.png}
+\caption{Model transformation}
+\label{fig:transformation}
+\end{figure}
+
+The definition of a transformation $T$, or better a \textit{transformation rule set}, that alters a model $M$ is the main goal of this thesis.
+
+Prior to the actual rule set definition one final concept has to be introduced. A user-selected \textit{Granularity levels} serves as a second input in the model transformation.
 
 \subsubsection{Granularity Levels}
 
@@ -139,6 +169,11 @@ Information systems are often complex because of the number of interconnections 
 
 One logical goal would be to decrease the overall complexity to enable a better risk assessment. \textit{System abstraction} tries to achieve this by reducing the level of details \cite{branagan}. Branagan et al. differentiate between two possibilities, \textit{Whole-part decomposition} which decomposes a system into smaller subsystems and \textit{Distinct development perspectives} which focuses on certain parts of a system depending on the current development perspective. 
 
-In this thesis the focus will be on the \textit{Whole-part decomposition} even though an adaption of development perspectives is certainly possible. The main difficulty would be the definition of such perspectives in the security context because they would be highly dependent on the actual security analyst. The perspectives would not be unambiguous.
+In this thesis the focus will be on the \textit{Whole-part decomposition} even though an adaption of development perspectives is certainly possible. The main difficulty would be the definition of such perspectives in the security context because they would be highly dependent on the respective security analyst. The perspectives would not be unambiguous.
   
 Therefore the change of the level of detail, i.e. the granularity level, will be achieved by uniting or decomposing components of a system of interest. By decomposing a larger system into smaller subsystems one could focus on only specific security attributes and dismiss others.
+
+A user will select a certain granularity level, i.e. a certain set of components, as an input to the transformation function $T$ as mentioned in \ref{subsubsec:modeltrans}. Together with the defined rule set a valid model $M'$ will be generated which to be considered valid has to be conform to its metamodel $MM$.
+
+\section{Approach}
+\label{sec:approach}
