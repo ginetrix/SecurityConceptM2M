@@ -182,10 +182,25 @@ The second part will deal with the actual transformation rules. Model transforma
 
 \label{sec:approach}
 \subsection{Security Concept}
+
+The following metamodel is based on the security elements mentioned in Section \ref{subsubsec:secconc}. It shows the interconnections between elements and adds restrictions. This metamodel serves as a base enabling the creation of model instances capturing the relations between components/assets of a specific SUS. It also provides a security context and the option for the user to select a granularity level. 
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{pictures/concept_metamodel.png}
 \caption{Security Concept Metamodel}
 \label{fig:transformation}
 \end{figure}
+
+In the figure above all the core elements \textit{Security Goal}, \textit{Asset}, \textit{Control} and \textit{Threat} are pictured. All of these elements are part of a \textit{SecurityConcept}, which in this model will be simply identified by a name. 
+
+SGs have a \textit{Security Goal Class} attribute which describes the purpose of each SG. The \textit{Damage Potential} attribute indicates at the importance of a Goal, i.e. how important it is to secure a certain asset. The higher the damage potential the higher the impact if the security of an asset is breached. One key aspect of this metamodel is the dependency between SGs. A SG is dependent on another SG if both belong to the same asset and have the same security goal class. These dependencies, amongst others, have to be considered during potential transformation steps (Section \ref{subsec:secgoal}). 
+
+
+
+\subsection{Metamodel elements and their security properties}
+
 \subsection{Model Transformation}
+
+\subsection{Security Goal}
+\label{subsec:secgoal}
