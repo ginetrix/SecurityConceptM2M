@@ -175,6 +175,8 @@ Therefore the change of the level of detail, i.e. the granularity level, will be
 
 A user will select a certain granularity level, i.e. a certain set of components, as an input to the transformation function $T$ as mentioned in \ref{subsubsec:modeltrans}. Together with the defined rule set a valid model $M'$ will be generated which to be considered valid has to be conform to its metamodel $MM$.
 
+\section{Related Work}
+
 \section{Approach}
 This section presents the approach addressing the previously mentioned goal of a model transformation based on the user-selected granularity level of a system of interest. Firstly, the security concept metamodel will be thoroughly described, each element of the metamodel will be put in the security context and advantages and disadvantages of such an interpretation will be highlighted.
 
@@ -196,6 +198,29 @@ In the figure above all the core elements \textit{Security Goal}, \textit{Asset}
 
 SGs have a \textit{Security Goal Class} attribute which describes the purpose of each SG. The \textit{Damage Potential} attribute indicates at the importance of a Goal, i.e. how important it is to secure a certain asset. The higher the damage potential the higher the impact if the security of an asset is breached. One key aspect of this metamodel is the dependency between SGs. A SG is dependent on another SG if both belong to the same asset and have the same security goal class. These dependencies, amongst others, have to be considered during potential transformation steps (Section \ref{subsec:secgoal}). 
 
+Each SG belongs to exactly one asset whereas an asset itself can have unlimited SGs. In this thesis both physical and virtual components can be considered an asset. Both \textit{Data} and \textit{Component} can be assets according to the metamodel. 
+
+There will be two different types of data. For once \textit{processed data}, i.e. data that is being processed or kept in storage by a specific component. On top of that \textit{transmitted data} will be considered separately since the transmission channel itself can be seen as an asset. The resulting interconnections are shown in the following figure:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{pictures/two_data.png}
+\caption{Two different interpretations of data}
+\label{fig:data}
+\end{figure} 
+
+As already mentioned data can be viewed as being processed and transmitted. Therefore \textit{Connection} was added. A connection is the transmission channel between two components. It must have an associated data. The processed or stored data however can be directly associated with a component. In both cases the data can be viewed as an asset. There is no possibility to assign a connection as an asset, the reason being that the transmission medium itself, i.e. the cable, wire, is rarely an object of interest but more so the data which is being transmitted.
+
+Lastly the selection of \textit{Granularity Levels} by users should be enabled. Instead of having two different input models, one security concept model and one model depicting the system structure, one can reproduce the structural properties by adding a reference to the component element.      
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{pictures/component_structure.png}
+\caption{Structural information}
+\label{fig:data}
+\end{figure} 
+
+Having this extra reference one can create infinitely deep structural dependencies within the model. Therefore the actual transformation will only require one model instead of two separate ones.
 
 
 \subsection{Metamodel elements and their security properties}
