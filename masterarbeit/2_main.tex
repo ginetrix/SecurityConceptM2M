@@ -209,7 +209,7 @@ There will be two different types of data. For once \textit{processed data}, i.e
 \label{fig:data}
 \end{figure} 
 
-As already mentioned data can be viewed as being processed and transmitted. Therefore \textit{Connection} was added. A connection is the transmission channel between two components. It must have an associated data. The processed or stored data however can be directly associated with a component. In both cases the data can be viewed as an asset. There is no possibility to assign a connection as an asset, the reason being that the transmission medium itself, i.e. the cable, wire, is rarely an object of interest but more so the data which is being transmitted.
+As already mentioned data can be viewed as being processed and transmitted. Therefore an element \textit{Connection} was added. A connection is the transmission channel between two components. It must have an associated data. The processed or stored data however can be directly associated with a component. In both cases data can be viewed as an asset. There is no possibility to assign a connection as an asset, the reason being that the transmission medium itself, i.e. the cable, wire, is rarely an object of interest but more so the data which is being transmitted.
 
 Lastly the selection of \textit{Granularity Levels} by users should be enabled. Instead of having two different input models, one security concept model and one model depicting the system structure, one can reproduce the structural properties by adding a reference to the component element.      
 
@@ -222,10 +222,57 @@ Lastly the selection of \textit{Granularity Levels} by users should be enabled. 
 
 Having this extra reference one can create infinitely deep structural dependencies within the model. Therefore the actual transformation will only require one model instead of two separate ones.
 
-
 \subsection{Metamodel elements and their security properties}
+To put the different elements of the metamodel into a security context one has to clearly define the Security Goal Classes for possible assets. Moreover is it important to consider the edge-cases of such an interpretation and possible pitfalls.
+
+\subsubsection{Components}
+
+\subsubsection*{Physical Component}
+
+\begin{enumerate}
+\item Confidentiality
+\item Integrity
+\item Availability
+\end{enumerate}
+
+\subsubsection*{Virtual Component}
+
+\begin{enumerate}
+\item Confidentiality
+\item Integrity
+\item Availability
+\end{enumerate}
+
+\subsubsection{Data}
+
+\subsubsection*{Stored Data}
+
+\begin{enumerate}
+\item Confidentiality
+\item Integrity
+\item Availability
+\end{enumerate}
+
+\subsubsection*{Processed Data}
+
+\begin{enumerate}
+\item Confidentiality
+\item Integrity
+\item Availability
+\end{enumerate}
+
+
+\subsubsection*{Transmitted Data}
+
+\begin{enumerate}
+\item Confidentiality
+\item Integrity
+\item Availability
+\end{enumerate}
+
+\subsubsection{Edge-cases and potential pitfalls}
 
 \subsection{Model Transformation}
 
-\subsection{Security Goal}
+\subsection{Transformation Rule Set for Security Goals}
 \label{subsec:secgoal}
