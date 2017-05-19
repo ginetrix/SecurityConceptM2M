@@ -18,43 +18,43 @@ It is also added that the ISMS is integrated into the overall management structu
 
 The definition above only covers information security, which in the scope of this thesis, is insufficient. Here, we define security as the preservation of confidentiality, integrity and availability of assets, where assets can be either physical or logical.
 
-\subsection{Enterprise Security}
-To define the term \textit{security concept} one has to look at the architecture of enterprises to understand the interconnectivity and interdependence between services, security being one of them. 
-
-\subsubsection{Enterprise Architecture}
-
-Information systems tend to be a very complex artifacts that combine different views and requirements from various stakeholders of different backgrounds \cite{alex}. 
-
-Software, IT platforms and IT related goals in general are covered in an \textit{Information System Architecture} (ISA). ISA does not take any business-driven influences into account and is therefore insufficient when describing the complex dependencies in corporations, especially when it comes to security as described in Subsection \ref{subsec:secarch}.   
-
-\textit{Enterprise Architecture Modeling} tries to overcome such possible difficulties and combines IT related concerns with business and organizational goals and shows possible interrelationships. It therefore provides an approach for an improved understanding of complex enterprise processes \cite{earch}. The Federal Deposit Insurance Corporation (FDIC) published the results of an audit of its own implementation of E-Government principles \cite{fdicaudit} and their division of information technology in Figure \ref{fig:fdic} depicts the interrelations very well. 
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{pictures/fdic.jpg}
-\caption{Division of Information Technology by FDIC}
-\label{fig:fdic}
-\end{figure}
-
-\subsubsection{Security Architecture}
-\label{subsec:secarch}
-
-Information Security has often been merely an afterthought in corporations \cite{ansfederal} until a concept of a \textit{Security Architecture}, published in a whitepaper by The Gartner Group \cite{kreizman}, was introduced. According to \cite{kreizman} an \textit{Enterprise Information Security Architecture} (EISA) is an essential tool for improving security processes in corporations. EISA principles stand in a direct relationship with the EA principles and should be validated against them \cite{kreizman}. To highlight this relationship security considerations during phases of the \textit{The Open Group Architecture Framework Architecture Development Method} (TOGAF ADM), which is shown in Figure \ref{fig:togaf}, will be briefly described.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.6\textwidth]{pictures/togaf_overview.png}
-\caption{Overview of the phases of TOGAF}
-\label{fig:togaf}
-\end{figure}
-
-Security concerns can be found throughout the TOGAF phases which hints at the overall importance of security in corporations. TOGAF combines four architecture domains, the \textit{Business Architecture}, the \textit{Data Architecture}, the \textit{Application Architecture} and the \textit{Technology Architecture}. The following section will depict security considerations of two domains to show possible interrelations.
-
-During the \textit{Business Architecture} phase in the ADM actors and handlers of the system have to be identified. Costs and potential incoveniences because of security measures have to be assessed as well. In general one can say that the impacts of security/insecurity on the business/product are being highlighted. It is tried to put an emphasis on security as early as possible to prevent costly changes in later phases in the ADM.
-
-During the \textit{Information System Architecture} phase the classification levels of processed data have to be determined and documented. Direct dependencies to the \textit{Business Architecture} are also listed, e.g. the identification of information lifespan according to business goals and regulations. 
-
-Similar relations can be found for security considerations from various phases of the ADM. This once again shows the overall presence of security and the high level of complexity within an enterprise.
+%\subsection{Enterprise Security}
+%To define the term \textit{security concept} one has to look at the architecture of enterprises to understand the interconnectivity and interdependence between services, security being one of them. 
+%
+%\subsubsection{Enterprise Architecture}
+%
+%Information systems tend to be a very complex artifacts that combine different views and requirements from various stakeholders of different backgrounds \cite{alex}. 
+%
+%Software, IT platforms and IT related goals in general are covered in an \textit{Information System Architecture} (ISA). ISA does not take any business-driven influences into account and is therefore insufficient when describing the complex dependencies in corporations, especially when it comes to security as described in Subsection \ref{subsec:secarch}.   
+%
+%\textit{Enterprise Architecture Modeling} tries to overcome such possible difficulties and combines IT related concerns with business and organizational goals and shows possible interrelationships. It therefore provides an approach for an improved understanding of complex enterprise processes \cite{earch}. The Federal Deposit Insurance Corporation (FDIC) published the results of an audit of its own implementation of E-Government principles \cite{fdicaudit} and their division of information technology in Figure \ref{fig:fdic} depicts the interrelations very well. 
+%
+%\begin{figure}[H]
+%\centering
+%\includegraphics[width=0.75\textwidth]{pictures/fdic.jpg}
+%\caption{Division of Information Technology by FDIC}
+%\label{fig:fdic}
+%\end{figure}
+%
+%\subsubsection{Security Architecture}
+%\label{subsec:secarch}
+%
+%Information Security has often been merely an afterthought in corporations \cite{ansfederal} until a concept of a \textit{Security Architecture}, published in a whitepaper by The Gartner Group \cite{kreizman}, was introduced. According to \cite{kreizman} an \textit{Enterprise Information Security Architecture} (EISA) is an essential tool for improving security processes in corporations. EISA principles stand in a direct relationship with the EA principles and should be validated against them \cite{kreizman}. To highlight this relationship security considerations during phases of the \textit{The Open Group Architecture Framework Architecture Development Method} (TOGAF ADM), which is shown in Figure \ref{fig:togaf}, will be briefly described.
+%
+%\begin{figure}[H]
+%\centering
+%\includegraphics[width=0.6\textwidth]{pictures/togaf_overview.png}
+%\caption{Overview of the phases of TOGAF}
+%\label{fig:togaf}
+%\end{figure}
+%
+%Security concerns can be found throughout the TOGAF phases which hints at the overall importance of security in corporations. TOGAF combines four architecture domains, the \textit{Business Architecture}, the \textit{Data Architecture}, the \textit{Application Architecture} and the \textit{Technology Architecture}. The following section will depict security considerations of two domains to show possible interrelations.
+%
+%During the \textit{Business Architecture} phase in the ADM actors and handlers of the system have to be identified. Costs and potential incoveniences because of security measures have to be assessed as well. In general one can say that the impacts of security/insecurity on the business/product are being highlighted. It is tried to put an emphasis on security as early as possible to prevent costly changes in later phases in the ADM.
+%
+%During the \textit{Information System Architecture} phase the classification levels of processed data have to be determined and documented. Direct dependencies to the \textit{Business Architecture} are also listed, e.g. the identification of information lifespan according to business goals and regulations. 
+%
+%Similar relations can be found for security considerations from various phases of the ADM. This once again shows the overall presence of security and the high level of complexity within an enterprise.
 
 \subsubsection{Common Criteria}
 The overview of TOGAF showed the importance of security in corporations. The following section will present a way of modeling security concerns for an asset of interest.
@@ -154,6 +154,13 @@ Throughout the introduction and the background chapter the derivation of securit
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{pictures/metametamodel.png}
+\caption{Model transformation according to Jouault et al.}
+\label{fig:metametamodel}
+\end{figure}
+
+\begin{figure}[H]
+\centering
 \includegraphics[width=0.45\textwidth]{pictures/transformation.png}
 \caption{Model transformation}
 \label{fig:transformation}
@@ -223,9 +230,10 @@ Lastly the selection of \textit{Granularity Levels} by users should be enabled. 
 Having this extra reference one can create infinitely deep structural dependencies within the model. Therefore the actual transformation will only require one model instead of two separate ones.
 
 \subsection{Metamodel elements and their security properties}
-To put the different elements of the metamodel into a security context one has to clearly define the Security Goal Classes for possible assets. Moreover is it important to consider the edge-cases of such an interpretation and possible pitfalls.
+To put the different elements of the metamodel into a security context one has to clearly define the Security Goal Classes for possible assets. Interpretations of the classes are not unambiguous and it is necessary to discuss how security attributes propagate through different abstraction layers and what kind of impact interrelated components on different layers have on each other. 
 
 \subsubsection{Components}
+
 
 \subsubsection*{Physical Component}
 
