@@ -150,7 +150,9 @@ A security concept of a SUS would be modeled in a modeling language, e.g. UML wh
 
 \subsubsection{Model Transformation}
 \label{subsubsec:modeltrans}
-Throughout the introduction and the background chapter the derivation of security attributes based on structural properties of a system of interest was mentioned. Given a model $M$ this derivation can be seen as alteration of $M$ and therefore as a \textit{model transformation}. The resulting model $M'$ is different to $M$, both however, are conform to their metamodel $MM$.
+The Meta Object Facility (MOF) \cite{omg2013mof} is a standard metametamodel proposed by the Object Management Group (OMG) and captures the relationships between models in a three-layered architecture consisting of M1, M2 and M3. Models (M1) are representations of systems and are expressed in a modeling language M2, e.g. UML as mentioned in the previous section, which is conform to a so called metamodel. Metamodels themselves are also expressed in a metamodeling language which is conform to a metametamodel (M3). 
+
+These architecture levels can be found in the \textit{model transformation pattern} by Jouault et al. \cite{modeltrans} which can be seen in Figure \ref{fig:metametamodel}. 
 
 \begin{figure}[H]
 \centering
@@ -159,9 +161,13 @@ Throughout the introduction and the background chapter the derivation of securit
 \label{fig:metametamodel}
 \end{figure}
 
+Here a source model $Ma$ is being transformed into a target model $Mb$ using a transformation language. Both models and the transformation language are conform to their respective metamodel which is the traditional understanding of a model transformation but is unnecessarily complex for the security concept transformation.
+
+Throughout the introduction and the background chapter the derivation of security attributes based on structural properties of a system of interest was mentioned. Given a model $M$ this derivation can be seen as alteration of $M$ and therefore as a \textit{model transformation}. The resulting model $M'$ is different to $M$, both however, are conform to the same metamodel $MM$. The transformation is being shown in Figure \ref{fig:transformation}.
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{pictures/transformation.png}
+\includegraphics[width=0.55\textwidth]{pictures/transformation.png}
 \caption{Model transformation}
 \label{fig:transformation}
 \end{figure}
@@ -235,6 +241,7 @@ To put the different elements of the metamodel into a security context one has t
 \subsubsection{Components}
 
 
+
 \subsubsection*{Physical Component}
 
 \begin{enumerate}
@@ -269,7 +276,6 @@ To put the different elements of the metamodel into a security context one has t
 \item Availability
 \end{enumerate}
 
-
 \subsubsection*{Transmitted Data}
 
 \begin{enumerate}
@@ -278,7 +284,7 @@ To put the different elements of the metamodel into a security context one has t
 \item Availability
 \end{enumerate}
 
-\subsubsection{Edge-cases and potential pitfalls}
+\subsubsection{Interpretation of Interconnections between Elements}
 
 \subsection{Model Transformation}
 
