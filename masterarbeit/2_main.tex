@@ -240,53 +240,71 @@ To put the different elements of the metamodel into a security context one has t
 
 \subsubsection{Components}
 
-
+Before introducing the transformation rules one has to look at the different kinds of components that can be potentially found in a model instance. Even though the model element remains the same (\textit{Component}) a distinction which is made here is necessary because the interpretation of Security Goal Classes differs depending on the component type. 
 
 \subsubsection*{Physical Component}
 
+Physical components are components that can be accessed physically, e.g. computers, servers, switches etc. Since those can be accessed physically and therefore be manipulated physically one has to define the Security Goal Classes accordingly.
+
 \begin{enumerate}
-\item Confidentiality
-\item Integrity
-\item Availability
+\item \textbf{Confidentiality} - Will be \textit{undefined} for physical components and will only hold for data stored/processed on those components
+\item \textbf{Integrity} - Ensured when the component has not been altered by an adversary in any way; can be broken by an adversary having physical access
+\item \textbf{Availability} - Ensured when the component is able to carry out its designated task; can be broken by an adversary having physical access
 \end{enumerate}
 
 \subsubsection*{Virtual Component}
 
+Virtual components cannot be directly accessed physically. Examples would be virtual machines, virtual switches etc. The classes are similar to the physical counterpart except from the breach of the respective class.
+
 \begin{enumerate}
-\item Confidentiality
-\item Integrity
-\item Availability
+\item \textbf{Confidentiality} - Will be \textit{undefined} for virtual components and will only hold for data stored/processed on those components
+\item \textbf{Integrity} - Ensured when the component has not been altered by an adversary in any way; can be broken remotely by an adversary, i.e. without having physical access
+\item \textbf{Availability} - Ensured when the component is able to carry out its designated task; can be broken remotely by an adversary, i.e. without having physical access
 \end{enumerate}
 
 \subsubsection{Data}
 
-\subsubsection*{Stored Data}
+Similar to the component element the data element can be interpreted in different ways.
+The distinctions between the different data types are very minor but noteworthy nonetheless. We consider three types of data, data which is being stored by a component, data which is being processed by a component and data which is being transmitted between components. The common terminology is \textit{Data at Rest}, \textit{Data in Motion} and \textit{Data in Use} \cite{kanagasingham2008data}. The used terms might be new, the distinction between different states of data however can be found in publications going as far back as 1982, e.g. by Dorothy E. Denning \cite{robling1982cryptography}.
+
+\subsubsection*{Data at Rest}
+
+Data at Rest applies to devices that hold data \cite{kanagasingham2008data}. An example would be a database containing sensitive information. The database being the \textit{Virtual Component} and the stored data being the \textit{Data at Rest}. One could also define the server with the database as a \textit{Physical Component}.
 
 \begin{enumerate}
-\item Confidentiality
-\item Integrity
-\item Availability
+\item \textbf{Confidentiality} - Ensured when the data is protected from unauthorized disclosure at rest
+\item \textbf{Integrity} - Ensured when the data is protected from unauthorized modification at rest
+\item \textbf{Availability} - Ensured when the data is available to authorized parties when needed, i.e. authorized parties can access and use the data when needed
 \end{enumerate}
 
-\subsubsection*{Processed Data}
+\subsubsection*{Data in Use}
+
+Data in Use applies to data that is being processed by a component, i.e. is being used by a service running on a component. An example would be data that is being processed by an API on a server. The API being the \textit{Virtual Component} and the server being the \textit{Physical Component}. The \textit{Data in Use} would be the arriving information at the API.
 
 \begin{enumerate}
-\item Confidentiality
-\item Integrity
-\item Availability
+\item \textbf{Confidentiality} - Ensured when the data is protected from unauthorized disclosure during processing
+\item \textbf{Integrity} - Ensured when the data is protected from unauthorized modification during processing
+\item \textbf{Availability} - Ensured when the data is available to authorized parties when needed, i.e. the data is being processed by the service/the respective service is running when needed
 \end{enumerate}
 
-\subsubsection*{Transmitted Data}
+\subsubsection*{Data in Motion}
+
+Data in Motion applies to all data transmitted between components. We do not specify any protocols here to keep the definition as broad as possible.
 
 \begin{enumerate}
-\item Confidentiality
-\item Integrity
-\item Availability
+\item \textbf{Confidentiality} - Ensured when the data is protected from unauthorized disclosure during transmission
+\item \textbf{Integrity} - Ensured when the data is protected from unauthorized modification during transmission
+\item \textbf{Availability} - Ensured when the data is available to authorized parties when needed, i.e. is not lost or intercepted during transmission 
 \end{enumerate}
+
+The different component/data types shown here should only show the different interpretations of the elements of the security concept metamodel. The interpretation of the element itself does not have an influence on the chosen metamodel element, i.e. the element for both physical and virtual components will still be \textit{Component}. The only difference can be found in data since transmitted data always belongs to a \textit{Connection}. For both processed and stored data however the metamodel element \textit{Data} will be used.
 
 \subsubsection{Interpretation of Interconnections between Elements}
 
 \subsection{Model Transformation}
 
 \subsection{Transformation Rule Set for Security Goals}
+\subsection{Transformation Rule Set for Threats}
+\subsection{Transformation Rule Set for Controls}
+
 \label{subsec:secgoal}
