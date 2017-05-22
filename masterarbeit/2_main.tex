@@ -7,16 +7,30 @@
 Prior to addressing the actual approach and implementation some concepts and terms have to be introduced. Firstly, the term \textit{security concept}, as it is used throughout the thesis, is being described. A definition of \textit{granularity levels} and system abstraction follows. Lastly, a section covers \textit{model transformations} and \textit{aggregation rules} on security attributes.
 
 \subsection{Security}
-Many different definitions of security exist. Here, a slightly adapted definition of a \textit{information security management system} (ISMS), as it is found in the ISO/IEC 27001 \cite{iso27001}, is being used.
-\begin{quote}
-\textit{\glqq The information security management system preserves the confidentiality, integrity and availability
-of information by applying a risk management process and gives confidence to interested parties that
-risks are adequately managed\grqq}    
-\end{quote}
 
-It is also added that the ISMS is integrated into the overall management structure and is vital for many of the organizational processes \cite{iso27001}.
+Morrie Gasser \cite{Gasser} published a book in 1988 providing solutions for computer scpecialists interested in computer security. The term \textit{Computer Security} usually dealt with three aspects:
 
-The definition above only covers information security, which in the scope of this thesis, is insufficient. Here, we define security as the preservation of confidentiality, integrity and availability of assets, where assets can be either physical or logical.
+\begin{itemize}
+\item Prevention of theft or damage to the hardware 
+\item Prevention of theft or damage to the information
+\item Prevention of service disruption
+\end{itemize}
+
+With the invention of the Internet the (personal) computers got interconnected and the sharing of data became prevalent and thus data security.
+
+Nowadays security is seen as a process. No combination of products are guaranteed to make a system secure since they are only as secure as the people configuring them \cite{vacca2012computer}.
+
+Information systems consist of hardware, software and data and it is of high importance for the respective stakeholder to secure the object of interest. When speaking about securing systems or components we look at two different terminologies, \textit{Vulnerabilities} and \textit{Threats}. A \textit{vulnerability} is a system weakness, be it in implementation or design, that can be potentially exploited by an adversary. Without the intent of exploiting it the vulnerability has no further effect on the system.
+
+A \textit{threat} however is a set of circumstances that has the theoretical potential to cause harm by exploiting a specific vulnerability \cite{vacca2012computer}. An example to demonstrate the differences follows:
+
+\begin{itemize}
+\item \textbf{Vulnerability}: Sending sensitive data over an unsecured channel
+\item \textbf{Threat}: Exploiting the unsecured channel by eavesdropping and gathering the sensitive data
+\end{itemize}
+
+
+\subsubsection{Security Architecture}
 
 %\subsection{Enterprise Security}
 %To define the term \textit{security concept} one has to look at the architecture of enterprises to understand the interconnectivity and interdependence between services, security being one of them. 
@@ -279,7 +293,7 @@ Data at Rest applies to devices that hold data \cite{kanagasingham2008data}. An 
 
 \subsubsection*{Data in Use}
 
-Data in Use applies to data that is being processed by a component, i.e. is being used by a service running on a component. An example would be data that is being processed by an API on a server. The API being the \textit{Virtual Component} and the server being the \textit{Physical Component}. The \textit{Data in Use} would be the arriving information at the API.
+Data in Use applies to data that is being processed by a component, i.e. is being used by a service running on a component. An example would be data that is being processed by an API on a server. The API being the \textit{Virtual Component} and the server being the \textit{Physical Component}. The \textit{Data in Use} would be the processed information by the API backend.
 
 \begin{enumerate}
 \item \textbf{Confidentiality} - Ensured when the data is protected from unauthorized disclosure during processing
@@ -300,6 +314,8 @@ Data in Motion applies to all data transmitted between components. We do not spe
 The different component/data types shown here should only show the different interpretations of the elements of the security concept metamodel. The interpretation of the element itself does not have an influence on the chosen metamodel element, i.e. the element for both physical and virtual components will still be \textit{Component}. The only difference can be found in data since transmitted data always belongs to a \textit{Connection}. For both processed and stored data however the metamodel element \textit{Data} will be used.
 
 \subsubsection{Interpretation of Interconnections between Elements}
+
+
 
 \subsection{Model Transformation}
 
