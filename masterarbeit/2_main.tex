@@ -20,17 +20,43 @@ With the invention of the Internet the (personal) computers got interconnected a
 
 Nowadays security is seen as a process. No combination of products are guaranteed to make a system secure since they are only as secure as the people configuring them \cite{vacca2012computer}.
 
+In general when talking about computer security three aspects are addressed, \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} \cite{Pfleeger:2006:SC:1177321}. Each of them will no be defined:
+
+\begin{itemize}
+\item[] \textbf{Confidentiality} Assets can only be accessed by authorized parties
+\item[] \textbf{Integrity} Assets can only be modified by authorized parties
+\item[] \textbf{Availability} Assets are available to authorized parties when needed
+\end{itemize} 
+
+The challenge is seen in finding the right balance between the three \textit{Security Goals}. This situation is aggravated by the fact that the goals can overlap, be independent or even mutually exclusive. Charles P. Pfleeger \cite{Pfleeger:2006:SC:1177321} for example, addresses this problem by stating that a strong protection of confidentiality might restrict availability in a system.   
+
 Information systems consist of hardware, software and data and it is of high importance for the respective stakeholder to secure the object of interest. When speaking about securing systems or components we look at two different terminologies, \textit{Vulnerabilities} and \textit{Threats}. A \textit{vulnerability} is a system weakness, be it in implementation or design, that can be potentially exploited by an adversary. Without the intent of exploiting it the vulnerability has no further effect on the system.
 
 A \textit{threat} however is a set of circumstances that has the theoretical potential to cause harm by exploiting a specific vulnerability \cite{vacca2012computer}. An example to demonstrate the differences follows:
 
-\begin{itemize}
-\item \textbf{Vulnerability}: Sending sensitive data over an unsecured channel
-\item \textbf{Threat}: Exploiting the unsecured channel by eavesdropping and gathering the sensitive data
-\end{itemize}
+\begin{enumerate}[label=\textbf{Def.\arabic*}]
+\item \textbf{Vulnerability}: Sending sensitive data over an unsecured channel \label{item:vuln}
+\item \textbf{Threat}: Exploiting the unsecured channel by eavesdropping and gathering the sensitive data 
+\end{enumerate}
 
+As mentioned before a system weakness does not necessarily mean loss of data or any other system breach. Only when coupled with a set of circumstances and the intent of exploitation it turns into a threat. Figure \ref{fig:threats} illustrates the four acts that cause security harm as mentioned by Pfleeger \cite{Pfleeger:2006:SC:1177321}. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{pictures/threats.png}
+\caption{Four acts that cause security harm}
+\label{fig:threats}
+\end{figure}
+
+Confidentiality, integrity and availability, or the C-I-A triad like it is also being called, can be viewed from a perspective of the causes of harm. Confidentiality can suffer if some unauthorized party intercepts the data, availability can be lost if a flow of data is being interrupted and lastly integrity can be broken if the data is being modified or false data is being fabricated by an adversary.
+
+To prevent the vulnerabilities from being exploited and the threats from potentially causing harm one can use \textit{Controls} or \textit{Countermeasures} to secure parts of a system. An example would be the use of encryption to prevent sensitive data from being eavesdropped on as mentioned in \ref{item:vuln}. 
+
+To put everything into perspective the term \textit{Security Architecture} will be introduced.
 
 \subsubsection{Security Architecture}
+
+Gacek et al. discussed the definition of a \textit{Software System Architecture} which will be used and adapted in the security context.
 
 %\subsection{Enterprise Security}
 %To define the term \textit{security concept} one has to look at the architecture of enterprises to understand the interconnectivity and interdependence between services, security being one of them. 
@@ -124,7 +150,7 @@ The Table \ref{table:secconc} depicts the relationships between all the security
 \multirow{2}{*}{Security Goal} & \multirow{2}{*}{Security Goal Class, Asset} & \multirowcell{2}{Defines the security \\ objective} & \multirowcell{2}{ Confidentiality of sensible \\ user data shall be protected} \\
 & & & \\
 \hline
-\multirow{2}{*}{Threat} & \multirow{2}{*}{Asset} & \multirowcell{2}{Adverse action against an \\ Asset} & \multirowcell{2}{Eavesdropping of sensible \\ user data} \\
+\multirow{2}{*}{Threat} & \multirow{2}{*}{Asset} & \multirowcell{2}{Adverse action against an \\ Asset} & \multirowcell{2}{Eavesdropping on sensible \\ user data} \\
 & & & \\
 \hline
 \multirowcell{4}{Security Requirement} & \multirowcell{4}{Asset, Security Goal, Threat} & \multirowcell{4}{Security Objective \\ in natural language} & \multirowcell{4}{
