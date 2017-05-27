@@ -18,7 +18,7 @@ Morrie Gasser \cite{Gasser} published a book in 1988 providing solutions for com
 
 With the invention of the Internet the (personal) computers got interconnected and the sharing of data became prevalent and thus data security.
 
-Nowadays security is seen as a process. No combination of products are guaranteed to make a system secure since they are only as secure as the people configuring them \cite{vacca2012computer}.
+Nowadays security is seen as a process. No combination of products are guaranteed to make a system secure since they are only as secure as the people configuring them \cite{vacca2012computer}. \label{sec:security}
 
 In general when talking about computer security three aspects are addressed, \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} \cite{Pfleeger:2006:SC:1177321}. Each of them will no be defined:
 
@@ -56,7 +56,51 @@ To put everything into perspective the term \textit{Security Architecture} will 
 
 \subsubsection{Security Architecture}
 
-Gacek et al. discussed the definition of a \textit{Software System Architecture} which will be used and adapted in the security context.
+Gacek et al. discussed the definition of a \textit{Software System Architecture} (SSA) which will be used and adapted in the security context. According to the authors a \textit{Software System Architecture} is:
+
+\begin{itemize}
+\item A collection of software and system components, connections and constraints
+\item A collection of system stakeholders' need statements
+\item A rationale which demonstrates that the elements which define a system satisfy the the stakeholders' needs, if implemented correctly
+\end{itemize}
+
+Here, a \textit{Security Architecture} (SA) would be an adapted definition where, if implemented correctly, the stakerholders' \textit{security} needs will be satisfied. Naturally, the connections as well as the respective components might differ from the Software System Architecture as they might have to be enhanced or altered to satisfy the security needs. 
+
+The stakeholders themselves however, are very similar. Gacek et al. differentiate between five parties, the \textit{Customer}, the \textit{User}, the \textit{Architect and System Engineer}, the \textit{Developer} and the \textit{Maintainer}. 
+
+The International Standard ISO 27001 provides a model for establishing, impelementing, operating, monitoring, reviewing, maintaining and improving an organization's Information Security Management System \cite{iso27001}, i.e. a system that is responsible for establishing and maintaining organization's security needs and guidelines. When comparing these rather short definitions one can already see an overlap when looking at potential stakeholders. An overview on the SSA stakeholders follows:
+
+\begin{tabular}{|c|c|}
+\hline
+Stakeholder & SSA Concern \\
+\hline
+Customer & \makecell{Schedule and budget estimation \\ Feasibility and risk assessment \\ Requirements traceability \\ Progress tracking} \\
+\hline
+User & \makecell{Consistency with requirements and usage scenarios \\ Future requirement growth accommodation \\ Performance, reliability, interoperability} \\
+\hline
+\makecell{Architect and \\ System Engineer} & \makecell{Requirements traceability \\ Support of tradeoff analyses \\ Completeness, consistency of architecture} \\
+\hline
+Developer & \makecell{Sufficient detail for design \\ Reference for selecting/assembling components \\ Maintain interoperability with existing systems} \\
+\hline
+Maintainer & \makecell{Guidance on software modification \\ Guidance on architecture evolution \\ Maintain interoperability with existing systems} \\
+\hline
+\end{tabular}      
+\vspace{3mm}
+
+When looking into the International Standard, one can see that similar concerns can be also found in the adaptation of the \glqq Plan-Do-Check-Act\grqq \ model for the establishment of an ISMS process. In the case of ISMS similar aspects can be found in the four different phases as seen in Figure \ref{fig:isms_stakeholder}. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{pictures/isms_concerns.png}
+\caption{ISMS Stakeholder Concerns}
+\label{fig:isms_stakeholder}
+\end{figure}
+
+Security requirements and objectives have to be defined in the earlier phases so they can be planned, implemented and carried out by the respective security architects/developers/security engineers. Here, the term user is not as clear since a variety of employees can be seen as such, e.g. any employee that accepts the established security policies. Since systems, as mentioned in Section \ref{sec:security}, are just as secure as the people using them, many employees can be viewed as ISMS users. They would be interested in implementing and operating the processes and procedures which have been defined in the previous phase.
+
+Established security policies have to be also monitored and maintained. Security is never guaranteed and is a complex process \cite{vacca2012computer} - systems have to be constantly updated and possibly upgraded. 
+
+The needs of the variety of security stakeholders have to be considered throughout the system processes and have to be registered in some way. Security requirements have been mentioned and, amongst others, will be described more thoroughly in the next section.
 
 %\subsection{Enterprise Security}
 %To define the term \textit{security concept} one has to look at the architecture of enterprises to understand the interconnectivity and interdependence between services, security being one of them. 
@@ -97,7 +141,7 @@ Gacek et al. discussed the definition of a \textit{Software System Architecture}
 %Similar relations can be found for security considerations from various phases of the ADM. This once again shows the overall presence of security and the high level of complexity within an enterprise.
 
 \subsubsection{Common Criteria}
-The overview of TOGAF showed the importance of security in corporations. The following section will present a way of modeling security concerns for an asset of interest.
+The following section will present a way of modeling security concerns for an asset of interest.
 
 Common Criteria proposes an evaluation by using a so called \textit{Security Target} (ST), a construct that encapsulates the \textit{Target of Evaluation} (TOE), threats to the TOE and countermeasures \cite{commoncriteria}. The goal of the evaluation is to show that the used countermeasures are sufficient to counter potential threats and thus implying that the TOE is sufficiently protected.
 
