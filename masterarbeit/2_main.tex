@@ -273,6 +273,7 @@ Therefore the change of the level of detail, i.e. the granularity level, will be
 A user will select a certain granularity level, i.e. a certain set of components, as an input to the transformation function $T$ as mentioned in \ref{subsubsec:modeltrans}. Together with the defined rule set a valid model $M'$ will be generated which to be considered valid has to be conform to its metamodel $MM$.
 
 \section{Related Work}
+\label{sec:related_work}
 
 \section{Approach}
 This section presents the approach addressing the previously mentioned goal of a model transformation based on the user-selected granularity level of a system of interest. Firstly, the security concept metamodel will be thoroughly described, each element of the metamodel will be put in the security context and advantages and disadvantages of such an interpretation will be highlighted.
@@ -288,7 +289,6 @@ The following metamodel is based on the security elements mentioned in Section \
 \centering
 \includegraphics[width=\textwidth]{pictures/concept_metamodel.png}
 \caption{Security Concept Metamodel}
-\label{fig:transformation}
 \end{figure}
 
 In the figure above all the core elements \textit{Security Goal}, \textit{Asset}, \textit{Control} and \textit{Threat} are pictured. All of these elements are part of a \textit{SecurityConcept}, which in this model will be simply identified by a name. 
@@ -385,12 +385,57 @@ The different component/data types shown here should only show the different int
 
 \subsubsection{Interpretation of Interconnections between Elements}
 
+To describe model transformations in the security context one has to discuss how exactly the security attributes propagate through the respective abstraction layers. Here we will look into the dependencies between components and their security properties during transformations.
 
+\subsubsection*{Sub-component}
+
+A sub-component \textit{SC} will be defined as a component that directly belongs to a component \textit{C} which is in an abstraction layer above, i.e. encapsulates one or more sub-components. According to the previously defined metamodel such a relationship between components is being defined by the \textit{hasComponent} aggregation, i.e. a sub-component cannot exist without a component here. An example would be a database encapsulation a sub-component such as a secure key storage.   
+
+\subsubsection*{Security Goals}
+
+For security goals the interconnections between components and sub-components have to be interpreted in an unambiguous way. There is no clear definition on how SGs for components in higher abstraction layers propagate to the respective sub-components in the abstraction layers below. We therefore adopt the idea for security requirements which was proposed by Menzel et al. \cite{Menzel2008}. Here, the main focus will be on two characteristics, \textit{Independent} and \textit{Require} to capture interdependencies between SGs on different granularity levels. According to the metamodel each SG has the following attributes:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{pictures/securitygoal.png}
+\caption{Attributes of a Security Goal}
+\label{fig:security_goal}
+\end{figure} 
+
+The key attributes are here the \textit{}
+
+\subsubsection*{Threats}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{pictures/threat.png}
+\caption{Attributes of a Threat}
+\label{fig:threat}
+\end{figure} 
+
+\subsubsection*{Controls}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.35\textwidth]{pictures/control.png}
+\caption{Attributes of a Control}
+\label{fig:control}
+\end{figure} 
 
 \subsection{Model Transformation}
 
 \subsection{Transformation Rule Set for Security Goals}
+\subsubsection{Aggregation Rules}
 \subsection{Transformation Rule Set for Threats}
+\subsubsection{Aggregation Rules}
 \subsection{Transformation Rule Set for Controls}
+\subsubsection{Aggregation Rules}
 
+\section{Implementation}
+\subsection{Technology}
+\subsection{Validity \& Verification}
+\subsection{Runtime \& Complexity}
+
+\section{Summary}
+\section{Outlook}
 \label{subsec:secgoal}
