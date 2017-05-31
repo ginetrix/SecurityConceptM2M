@@ -402,10 +402,60 @@ For security goals the interconnections between components and sub-components ha
 \label{fig:security_goal}
 \end{figure} 
 
-The key attributes are here the \textit{}
+The key attributes are \textit{securityGoalClass} and \textit{damagePotential}. Both are relevant when it comes to aggregation rules and dependencies amongst components. In this chapter the focus will be on the latter.
 
-\subsubsection*{Threats}
+One has to define when exactly a security goal $SG_{C_{1.1}}$ of a sub-component $C_{1.1}$ is dependent on its parent component and the corresponding security goal ($SG_{C_1}$).
 
+\begin{figure}[H]
+\centering
+Beziehung zwischen Komponente und Subkomponente
+\caption{Relationships between Security Goals}
+\label{fig:subcomponent}
+\end{figure} 
+
+A structural dependency as seen in Figure \ref{fig:subcomponent} does not necessarily mean a dependency when it comes to security and the propagation/aggregation of attributes. A formalization for security goals follows:
+
+Let $SG_{CIA}$ be the set of security goals for a SUS. A security goal SG is defined as $SG(cl, asset, dmg)$ where $cl$ is the security goal class ($C$ for confidentiality, $I$ for Integrity and $A$ for availability), $asset$ being the element of interest which the SG was defined for and $dmg$ is the damage potential in case of a security breach ($H$ = high, $M$ = medium and $L$ = low).
+
+\begin{figure}[H]
+\centering
+Beziehung zwischen einer Subkomponente und zwei Überkomponenten
+\caption{Ambiguous propagation}
+\label{fig:subcomponent_dilemma}
+\end{figure} 
+
+In Figure \ref{fig:subcomponent_dilemma} it is not obvious what kind of influence the sub-component has on its parental nodes, if at all. If the confidentiality of component $C_{12_1}$ is protected it is not clear how it will propagate to higher abstraction layers. Similar observations can be made for the aggregation from higher abstraction layers to lower ones. One has therefore to decide when a SG of a component has an influence on another.  
+
+\begin{theorem}
+A security goal $SG_{C_1}$ of a component $C_1$ has a direct influence on another component $C_2$ if and only if there is: 
+\begin{enumerate}
+\item a direct link between the two components, i.e. a hierarchical relationship between the two components AND
+\item component $C_2$ processes/holds the data type that is being addressed by $SG_{C_1}$
+\end{enumerate} 
+\end{theorem}
+
+This definition might seem very restrictive at first but it is necessary since it is not possible to make correct assumptions otherwise. 
+
+\begin{figure}[H]
+\centering
+Zwei Goals, Subkomponenten. Zeigen, dass es Quatsch ist
+\caption{Ambiguous propagation}
+\label{fig:lemma_def}
+\end{figure} 
+
+As just mentioned it is not enough to only look at the components as a whole to deduct dependencies amongst them.  A SG will be defined for a sub-component to show this:
+
+\begin{itemize}
+\item[]\textbf{$SG_{C_{1.1}}$} The Availability of the key storage should be protected
+(availability vllt nochmal durchgucken wegen aggregation. keine existenz ohne papa-knoten)
+\end{itemize}
+
+Now if the availability of the key storage is being sufficiently protected it does not necessarily mean that the availability of the whole database is as well. 
+
+\begin{itemize}
+\item[]\textbf{$SG_{C_{1.1}}$} The Confidentiality of sensible user data should be protected
+\end{itemize}
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.45\textwidth]{pictures/threat.png}
@@ -417,7 +467,7 @@ The key attributes are here the \textit{}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.35\textwidth]{pictures/control.png}
+\includegraphics[width=0.3\textwidth]{pictures/control.png}
 \caption{Attributes of a Control}
 \label{fig:control}
 \end{figure} 
