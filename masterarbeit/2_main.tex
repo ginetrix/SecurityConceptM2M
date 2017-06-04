@@ -388,8 +388,8 @@ The different component/data types shown here should only show the different int
 To describe model transformations in the security context one has to discuss how exactly the security attributes propagate through the respective abstraction layers. Here we will look into the dependencies between components and their security properties during transformations.
 
 \subsubsection*{Sub-component}
-
-A sub-component \textit{SC} will be defined as a component that directly belongs to a component \textit{C} which is in an abstraction layer above, i.e. encapsulates one or more sub-components. According to the previously defined metamodel such a relationship between components is being defined by the \textit{hasComponent} aggregation, i.e. a sub-component cannot exist without a component here. An example would be a database encapsulation a sub-component such as a secure key storage.   
+\label{subsubsec:sub_comp}
+A sub-component \textit{SC} will be defined as a component that directly belongs to a component \textit{C} which is in an abstraction layer above, i.e. encapsulates one or more sub-components. According to the previously defined metamodel such a relationship between components is being defined by the \textit{hasComponent} composition, i.e. a sub-component cannot exist without a component here. This also means that no new data types or structures are added when changing to higher granularity levels. Sub-components can only process data that has already been defined in the layers above. An example would be a database encapsulating a sub-component such as a secure key storage.   
 
 \subsubsection*{Security Goals}
 
@@ -404,27 +404,25 @@ For security goals the interconnections between components and sub-components ha
 
 The key attributes are \textit{securityGoalClass} and \textit{damagePotential}. Both are relevant when it comes to aggregation rules and dependencies amongst components. In this chapter the focus will be on the latter.
 
-One has to define when exactly a security goal $SG_{C_{1.1}}$ of a sub-component $C_{1.1}$ is dependent on its parent component and the corresponding security goal ($SG_{C_1}$).
+In case of a complete security concept definition interdependencies amongst components and security goals are clear, similar to Figure \ref{fig:subcomponent}. Out of simplicity security goals will be linked directly to components and not through assets.
 
 \begin{figure}[H]
 \centering
-Beziehung zwischen Komponente und Subkomponente
+\includegraphics[scale=0.75]{pictures/rel_component.png}
 \caption{Relationships between Security Goals}
 \label{fig:subcomponent}
 \end{figure} 
 
-A structural dependency as seen in Figure \ref{fig:subcomponent} does not necessarily mean a dependency when it comes to security and the propagation/aggregation of attributes. A formalization for security goals follows:
-
-Let $SG_{CIA}$ be the set of security goals for a SUS. A security goal SG is defined as $SG(cl, asset, dmg)$ where $cl$ is the security goal class ($C$ for confidentiality, $I$ for Integrity and $A$ for availability), $asset$ being the element of interest which the SG was defined for and $dmg$ is the damage potential in case of a security breach ($H$ = high, $M$ = medium and $L$ = low).
+Figure \ref{fig:subcomponent} has shown the dependencies between components and their security attributes in case of a complete security concept definiton. In underspecified security concepts, such as shown in Figure \ref{fig:subcomponent_dilemma}, the dependencies are not as trivial. 
 
 \begin{figure}[H]
 \centering
-Beziehung zwischen einer Subkomponente und zwei Überkomponenten
+\includegraphics[width=0.75\textwidth]{pictures/sg_dilemma_no_goal.png}
 \caption{Ambiguous propagation}
 \label{fig:subcomponent_dilemma}
 \end{figure} 
 
-In Figure \ref{fig:subcomponent_dilemma} it is not obvious what kind of influence the sub-component has on its parental nodes, if at all. If the confidentiality of component $C_{12_1}$ is protected it is not clear how it will propagate to higher abstraction layers. Similar observations can be made for the aggregation from higher abstraction layers to lower ones. One has therefore to decide when a SG of a component has an influence on another.  
+It is not obvious what kind of influence the sub-component has on its parental node, if at all. If the confidentiality of component $C_{1.1}$ is protected it is not clear how it will propagate to higher abstraction layers. Similar observations can be made for the aggregation from higher abstraction layers to lower ones. One has therefore to define when and how security attributes will propagate based on structural features of the SUS.
 
 \begin{theorem}
 A security goal $SG_{C_1}$ of a component $C_1$ has a direct influence on another component $C_2$ if and only if there is: 
@@ -434,31 +432,39 @@ A security goal $SG_{C_1}$ of a component $C_1$ has a direct influence on anothe
 \end{enumerate} 
 \end{theorem}
 
-This definition might seem very restrictive at first but it is necessary since it is not possible to make correct assumptions otherwise. 
+This \textit{direct influence} is one of the more obvious dependencies amongst components. At first glance matching data types are needed to aggregate SGs through different abstraction layers but it is certainly possible that security concepts might be underspecified. Relying on this definition might therefore severely limit the transformation and thus, the resulting model.
+
+An examplary model instance follows showing security attribute propagation with an underspecified security concept. Similarly to previous examples data/components will be directly linked with security goals without asset elements in between in the interest of greater clarity.
 
 \begin{figure}[H]
 \centering
-Zwei Goals, Subkomponenten. Zeigen, dass es Quatsch ist
+\includegraphics[width=0.75\textwidth]{pictures/sg_deduction.png}
 \caption{Ambiguous propagation}
-\label{fig:lemma_def}
+\label{fig:subcomponent_dilemma}
 \end{figure} 
 
-As just mentioned it is not enough to only look at the components as a whole to deduct dependencies amongst them.  A SG will be defined for a sub-component to show this:
+The corresponding security goal of the key data in natural text could be the following:
 
 \begin{itemize}
-\item[]\textbf{$SG_{C_{1.1}}$} The Availability of the key storage should be protected
-(availability vllt nochmal durchgucken wegen aggregation. keine existenz ohne papa-knoten)
+\item[]\textbf{$SG_{KD}:$} The Confidentiality of sensible key data should be protected
 \end{itemize}
 
-Now if the availability of the key storage is being sufficiently protected it does not necessarily mean that the availability of the whole database is as well. 
+Now we will look at component $C_{1.1}$ which has a link to key data. When looking through its SGs we will only find $SG_{KD}$ which should protect the \textit{Confidentiality} of said data. There is also a direct connection from $C_{1.1}$ to component $C_1$ which is in a granularity level above. 
 
-\begin{itemize}
-\item[]\textbf{$SG_{C_{1.1}}$} The Confidentiality of sensible user data should be protected
-\end{itemize}
+According to the definition (Section \ref{subsubsec:sub_comp}) a sub-component can only process data that already exists in the abstraction layers above. Thus, a correct conclusion would be that if the confidentiality of key data is protected in $C_{1.1}$ it is also protected in the layer above even though there is no explicit link between $C_1$ and key data. This however, does \textit{NOT} mean that the overall confidentiality is being protected since $C_1$ may process other data, such 
+as user data in the example.
+
+Propagation from higher layers to lower ones is generally not possible without explicit links to data types. This will be discussed more thoroughly in Section \ref{subsec:sec_goals_rules}.
+
+Similar conclusions can be made for the \textit{Integrity} of sub-components and its propagation to abstraction layers with higher or lower granularity levels with one slight difference. When looking at components at higher abstraction layers we can say that if the integrity of a component $C_1$ is being protected then all of its sub-components are being protected as well. 
+
+For \textit{Availability} however, the situation differs. The connection between components (\textit{hasComponent}) has been defined as a composition. This means that the availability of a specific sub-component is pre-determined by the structural features of the SUS. If the availability of a component $C_1$ is protected it necessarily means that the availability of its sub-components is protected as well and vice versa. 
+
+\subsubsection*{Threats}
  
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{pictures/threat.png}
+\includegraphics[scale=0.85]{pictures/threat.png}
 \caption{Attributes of a Threat}
 \label{fig:threat}
 \end{figure} 
@@ -467,14 +473,17 @@ Now if the availability of the key storage is being sufficiently protected it do
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.3\textwidth]{pictures/control.png}
+\includegraphics[scale=0.85]{pictures/control.png}
 \caption{Attributes of a Control}
 \label{fig:control}
 \end{figure} 
 
 \subsection{Model Transformation}
 
+Let $SG_{CIA}$ be the set of security goals for a SUS. A security goal SG is defined as $SG(cl, asset, dmg)$ where $cl$ is the security goal class ($C$ for confidentiality, $I$ for Integrity and $A$ for availability), $asset$ being the element of interest which the SG was defined for and $dmg$ is the damage potential in case of a security breach ($H$ = high, $M$ = medium and $L$ = low).
+
 \subsection{Transformation Rule Set for Security Goals}
+\label{subsec:sec_goals_rules}
 \subsubsection{Aggregation Rules}
 \subsection{Transformation Rule Set for Threats}
 \subsubsection{Aggregation Rules}
