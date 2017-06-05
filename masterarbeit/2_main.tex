@@ -289,6 +289,7 @@ The following metamodel is based on the security elements mentioned in Section \
 \centering
 \includegraphics[width=\textwidth]{pictures/concept_metamodel.png}
 \caption{Security Concept Metamodel}
+\label{fig:concept_metamodel}
 \end{figure}
 
 In the figure above all the core elements \textit{Security Goal}, \textit{Asset}, \textit{Control} and \textit{Threat} are pictured. All of these elements are part of a \textit{SecurityConcept}, which in this model will be simply identified by a name. 
@@ -458,9 +459,11 @@ Propagation from higher layers to lower ones is generally not possible without e
 
 Similar conclusions can be made for the \textit{Integrity} of sub-components and its propagation to abstraction layers with higher or lower granularity levels with one slight difference. When looking at components at higher abstraction layers we can say that if the integrity of a component $C_1$ is being protected then all of its sub-components are being protected as well. 
 
-For \textit{Availability} however, the situation differs. The connection between components (\textit{hasComponent}) has been defined as a composition. This means that the availability of a specific sub-component is pre-determined by the structural features of the SUS. If the availability of a component $C_1$ is protected it necessarily means that the availability of its sub-components is protected as well and vice versa. 
+For \textit{Availability} however, the situation differs. The connection between components (\textit{hasComponent}) has been defined as a composition. This means that the availability of a specific sub-component is pre-determined by the structural features of the SUS. If the availability of a component $C_1$ is protected it necessarily means that the availability of its sub-components is protected as well. To have the availability of a component protected however all of the sub-components have to be protected individually. The availability of a component is therefore the union of availabilities of its sub-components.
 
 \subsubsection*{Threats}
+
+Similar to SGs one can look into propagation rules for threats. Firstly we will look at the important attributes of a threat. The key attribute here will be \textit{attackPotential} which will be considered during the transformation steps in Section \ref{subsec:sec_goals_rules}.  
  
 \begin{figure}[H]
 \centering
@@ -468,6 +471,43 @@ For \textit{Availability} however, the situation differs. The connection between
 \caption{Attributes of a Threat}
 \label{fig:threat}
 \end{figure} 
+
+Here, the focus will be on the propagation of threats through granularity levels based on an underspecified security concept.
+
+Every defined threat threatens at least one SG according to the metamodel (Figure \ref{fig:concept_metamodel}) and since every SG addresses one asset (component or data) we can use adapt the observations made in the previous section. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.85]{pictures/threat_overview.png}
+\caption{Underspecified Security Concept with a Threat}
+\label{fig:threat_overview}
+\end{figure} 
+
+In Figure \ref{fig:threat_overview} a threat $T_{SG_{UD}}$ threatens $SG_{UD}$ which addresses the user data that is being used by sub-component $C_{1.1}$. The influence of $T_{KD}$ on higher abstraction layers is of interest since neither SGs nor threats are explicitly defined in the example.
+
+\begin{itemize}
+\item[]\textbf{$SG_{UD}:$} The Confidentiality of sensible user data should be protected
+\item[]\textbf{$T_{SG_{UD}}:$} Eavesdropping on sensible user data
+\end{itemize}
+
+Similar to SGs, we can assume that $T_{SG_{UD}}$ propagates to the layer above based on the definition of sub-components. User data which is only explicitly addressed $SG_{UD}$ is also present at parental nodes. Thus, if the \textit{Confidentiality} of user data is being threatened by $T_{SG_{UD}}$, it is also being threatened when looking at $C1$.
+
+For the propagation from abstraction layers depicting lower granularities ($C_1$) to layers with higher granularity ($C_{1.1}$) we have to take the data types into account. We will define a SG addressing key data and the corresponding threat.
+
+\begin{itemize}
+\item[]\textbf{$SG_{KD}:$} The Confidentiality of key data should be protected
+\item[]\textbf{$T_{SG_{KD}}:$} Disclosure of key data
+\end{itemize}
+
+Now if the the confidentiality is being threatened by $T_{SG_{KD}}$ it is not clear how it will propagate to the layers below since $C_{1.1}$ is not addressing key data in any observable way. 
+
+Threats that threaten SGs with \textit{Integrity} as their security goal classes behave in a very similar manner. Contrary to confidentiality assumptions can be made when looking at propagation from higher abstraction layers to lower ones. When integrity of a component $C_n$ is being threatened the integrity of all the sub-components $C_{n.1} ... C_{n.m}$ are being threatened as well.
+
+Lastly, for \textit{Availability} the propagation is pre-determined by the structural features and the definition of sub-components. If the availability of a component $C_n$ is threatened it propagates to its sub-components $C_{n.1} ... C_{n.m}$. 
+
+If the availability of one sub-component is being threatened it will also propagate to its parental nodes. This however does not mean that in case of an attack on the availability of $C_{n.i}$ the whole component $C_n$ will no longer be available. The availability of $C_n$ is a union of availabilities of its sub-components and one threat on a specific $C_{n.i}$ would alter said set.
+
+We can therefore conclude that to ensure a SG of a component $C_n$ all its sub-components have to be protected as well. For threats however it is enough to threaten one sub-component to have an effect on its parental node.
 
 \subsubsection*{Controls}
 
@@ -486,6 +526,7 @@ Let $SG_{CIA}$ be the set of security goals for a SUS. A security goal SG is def
 \label{subsec:sec_goals_rules}
 \subsubsection{Aggregation Rules}
 \subsection{Transformation Rule Set for Threats}
+\label{subsec:threat_rules}
 \subsubsection{Aggregation Rules}
 \subsection{Transformation Rule Set for Controls}
 \subsubsection{Aggregation Rules}
