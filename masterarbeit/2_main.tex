@@ -501,22 +501,17 @@ For the propagation from abstraction layers depicting lower granularities ($C_1$
 
 Now if the the confidentiality is being threatened by $T_{SG_{KD}}$ it is not clear how it will propagate to the layers below since $C_{1.1}$ is not addressing key data in any observable way. 
 
-Threats that threaten SGs with \textit{Integrity} as their security goal classes behave in a very similar manner. Contrary to confidentiality assumptions can be made when looking at propagation from higher abstraction layers to lower ones. When integrity of a component $C_n$ is being threatened the integrity of all the sub-components $C_{n.1} ... C_{n.m}$ are being threatened as well.
+Threats that threaten SGs with \textit{Integrity} as their security goal classes behave in a very similar manner. Contrary to confidentiality, assumptions can be made when looking at propagation from higher abstraction layers to lower ones. When integrity of a component $C_n$ is being threatened the integrity of all respective sub-components $C_{n.1} ... C_{n.m}$ is being threatened as well.
 
 Lastly, for \textit{Availability} the propagation is pre-determined by the structural features and the definition of sub-components. If the availability of a component $C_n$ is threatened it propagates to its sub-components $C_{n.1} ... C_{n.m}$. 
 
-If the availability of one sub-component is being threatened it will also propagate to its parental nodes. This however does not mean that in case of an attack on the availability of $C_{n.i}$ the whole component $C_n$ will no longer be available. The availability of $C_n$ is a union of availabilities of its sub-components and one threat on a specific $C_{n.i}$ would alter said set.
+If the availability of one sub-component is being threatened it will also propagate to its parental nodes. This however does not mean that in case of an attack on the availability of $C_{n.i}$ the availability of $C_n$ will also be impaired. The availability of $C_n$ is a union of availabilities of its sub-components and one threat on a specific $C_{n.i}$ would alter said set.
 
 We can therefore conclude that to ensure a SG of a component $C_n$ all its sub-components have to be protected as well. For threats however it is enough to threaten one sub-component to have an effect on its parental node.
 
 \subsubsection*{Controls}
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.85]{pictures/control.png}
-\caption{Attributes of a Control}
-\label{fig:control}
-\end{figure} 
+Controls try to mitigate threats and are therefore directly linked to at least one threat at all times. 
 
 \subsection{Model Transformation}
 
