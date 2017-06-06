@@ -279,6 +279,8 @@ A user will select a certain granularity level, i.e. a certain set of components
 \section{Related Work}
 \label{sec:related_work}
 
+Several publications that provide an essential basis for this thesis will now be presented. A variety of different topics will be briefly covered such as abstraction layers/granularity layers, security attribute aggregation and propagation as well as model transformations and formal verification. 
+
 \section{Approach}
 This section presents the approach addressing the previously mentioned goal of a model transformation based on the user-selected granularity level of a system of interest. Firstly, the security concept metamodel will be thoroughly described, each element of the metamodel will be put in the security context and advantages and disadvantages of such an interpretation will be highlighted.
 
@@ -478,7 +480,7 @@ Similar to SGs one can look into propagation rules for threats. Firstly we will 
 
 Here, the focus will be on the propagation of threats through granularity levels based on an underspecified security concept.
 
-Every defined threat threatens at least one SG according to the metamodel (Figure \ref{fig:concept_metamodel}) and since every SG addresses one asset (component or data) we can use adapt the observations made in the previous section. 
+Every defined threat threatens at least one SG according to the metamodel (Figure \ref{fig:concept_metamodel}) and since every SG addresses one asset (component or data) we can adapt the observations made in the previous section. 
 
 \begin{figure}[H]
 \centering
@@ -494,7 +496,7 @@ In Figure \ref{fig:threat_overview} a threat $T_{SG_{UD}}$ threatens $SG_{UD}$ w
 \item[]\textbf{$T_{SG_{UD}}:$} Eavesdropping on sensible user data
 \end{itemize}
 
-Similar to SGs, we can assume that $T_{SG_{UD}}$ propagates to the layer above based on the definition of sub-components. User data which is only explicitly addressed $SG_{UD}$ is also present at parental nodes. Thus, if the \textit{Confidentiality} of user data is being threatened by $T_{SG_{UD}}$, it is also being threatened when looking at $C1$.
+Similar to SGs, we can assume that $T_{SG_{UD}}$ propagates to the layer above based on the definition of sub-components. User data, which is only explicitly addressed by $SG_{UD}$, is also present at parental nodes. Thus, if the \textit{Confidentiality} of user data is being threatened by $T_{SG_{UD}}$, it is also being threatened when looking at $C1$.
 
 For the propagation from abstraction layers depicting lower granularities ($C_1$) to layers with higher granularity ($C_{1.1}$) we have to take the data types into account. We will define a SG addressing key data and the corresponding threat.
 
@@ -505,11 +507,11 @@ For the propagation from abstraction layers depicting lower granularities ($C_1$
 
 Now if the the confidentiality is being threatened by $T_{SG_{KD}}$ it is not clear how it will propagate to the layers below since $C_{1.1}$ is not addressing key data in any observable way. 
 
-Threats that threaten SGs with \textit{Integrity} as their security goal classes behave in a very similar manner. Contrary to confidentiality, assumptions can be made when looking at propagation from higher abstraction layers to lower ones. When integrity of a component $C_n$ is being threatened the integrity of all respective sub-components $C_{n.1} ... C_{n.m}$ is being threatened as well. If the integritiy of a sub-component $C_{n.i}$ is being threatened it will also propagate to its parental node $C_n$ since a node can only be as secure as its sub-nodes.
+Threats that threaten SGs with \textit{Integrity} as their security goal classes behave differently. Contrary to confidentiality, assumptions can be made when looking at propagation from higher abstraction layers to lower ones. When integrity of a component $C_n$ is being threatened the integrity of all respective sub-components $C_{n.1} ... C_{n.m}$ is being threatened as well. If the integritiy of a sub-component $C_{n.i}$ is being threatened it will also propagate to its parental node $C_n$ since a node can only be as secure as its sub-nodes.
 
 Lastly, for \textit{Availability} the propagation is pre-determined by the structural features and the definition of sub-components. If the availability of a component $C_n$ is threatened it propagates to its sub-components $C_{n.1} ... C_{n.m}$. 
 
-If the availability of one sub-component is being threatened it will also propagate to its parental nodes. This however does not mean that in case of an attack on the availability of $C_{n.i}$ the availability of $C_n$ will also be impaired. The availability of $C_n$ is a union of availabilities of its sub-components and one threat on a specific $C_{n.i}$ would alter said set.
+If the availability of one sub-component is being threatened it will also propagate to its parental nodes. This however does not provide information on how severely the availability of $C_n$ as a whole will be impaired in case of an attack on the availability of $C_{n.i}$. This propagation from sub-components to their parental nodes is very similar to the just mentioned integrity behavior. The availability of $C_n$ is a union of availabilities of its sub-components and one threat on a specific $C_{n.i}$ would alter said set.
 
 We can therefore conclude that to ensure a SG of a component $C_n$ all its sub-components have to be protected as well. For threats however it is enough to threaten one sub-component to have an effect on its parental node.
 
