@@ -225,7 +225,7 @@ A definition of a model is not enough. A \textit{metamodel} has to be clearly de
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.65\textwidth]{pictures/metamodel.png}
+\includegraphics[width=0.75\textwidth]{pictures/metamodel.png}
 \caption{Relationships between Model and Metamodel}
 \label{fig:metamodel}
 \end{figure}
@@ -245,9 +245,13 @@ These architecture levels can be found in the \textit{model transformation patte
 \label{fig:metametamodel}
 \end{figure}
 
-Here a source model $Ma$ is being transformed into a target model $Mb$ using a transformation language. Both models and the transformation language are conform to their respective metamodel which is the traditional understanding of a model transformation but is unnecessarily complex for the security concept transformation.
+Here a source model $Ma$ is being transformed into a target model $Mb$ using a transformation language. Both models and the transformation language are conform to their respective metamodel which is the traditional understanding of a model transformation.
 
-Throughout the introduction and the background chapter the derivation of security attributes based on structural properties of a system of interest was mentioned. Given a model $M$ this derivation can be seen as alteration of $M$ and therefore as a \textit{model transformation}. The resulting model $M'$ is different to $M$, both however, are conform to the same metamodel $MM$. The transformation is being shown in Figure \ref{fig:transformation}.
+Kleppe et al. defined a \textit{transformation} as an automatic generation of a target model from a source model according to \textit{transformation rules} that describe how elements from the source model can be transformed into a target model \cite{Kleppe:2003:MEM:829557}. 
+
+This transformation may have different levels of automation. An \textit{automatic} transformation would not need any manual intervention from the user. In cases where incompleteness or inconsistencies may occur a manual intervention may be needed \cite{mt_taxonomy}.
+
+Throughout the introduction and the background chapter the derivation of security attributes based on structural properties of a system of interest was mentioned. Given a model $M$ this derivation can be seen as alteration of $M$ and therefore as a \textit{model transformation}. The resulting model $M'$ is different to $M$, both however, are conform to the same metamodel $MM$ whereas $MM$ is conform to $MMM$. In our case both source and target languages are identicial. We can therefore simplify the transformation graph shown in Figure \ref{fig:metametamodel}.
 
 \begin{figure}[H]
 \centering
@@ -258,7 +262,7 @@ Throughout the introduction and the background chapter the derivation of securit
 
 The definition of a transformation $T$, or better a \textit{transformation rule set}, that alters a model $M$ is the main goal of this thesis.
 
-Prior to the actual rule set definition one final concept has to be introduced. A user-selected \textit{Granularity level} serves as a second input in the model transformation.
+Prior to the actual rule set definition one final concept has to be introduced. A user-selected \textit{Granularity level} serves as a second input in the model transformation. The transformation itself should be automatic, the only user input should be the just mentioned granularity level.
 
 \subsubsection{Granularity Levels}
 
@@ -444,7 +448,7 @@ An examplary model instance follows showing security attribute propagation with 
 \label{fig:subcomponent_dilemma}
 \end{figure} 
 
-The corresponding security goal of the key data in natural text could be the following:
+The corresponding security goal of the key data in natural text could be:
 
 \begin{itemize}
 \item[]\textbf{$SG_{KD}:$} The Confidentiality of sensible key data should be protected
