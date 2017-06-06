@@ -501,7 +501,7 @@ For the propagation from abstraction layers depicting lower granularities ($C_1$
 
 Now if the the confidentiality is being threatened by $T_{SG_{KD}}$ it is not clear how it will propagate to the layers below since $C_{1.1}$ is not addressing key data in any observable way. 
 
-Threats that threaten SGs with \textit{Integrity} as their security goal classes behave in a very similar manner. Contrary to confidentiality, assumptions can be made when looking at propagation from higher abstraction layers to lower ones. When integrity of a component $C_n$ is being threatened the integrity of all respective sub-components $C_{n.1} ... C_{n.m}$ is being threatened as well.
+Threats that threaten SGs with \textit{Integrity} as their security goal classes behave in a very similar manner. Contrary to confidentiality, assumptions can be made when looking at propagation from higher abstraction layers to lower ones. When integrity of a component $C_n$ is being threatened the integrity of all respective sub-components $C_{n.1} ... C_{n.m}$ is being threatened as well. If the integritiy of a sub-component $C_{n.i}$ is being threatened it will also propagate to its parental node $C_n$ since a node can only be as secure as its sub-nodes.
 
 Lastly, for \textit{Availability} the propagation is pre-determined by the structural features and the definition of sub-components. If the availability of a component $C_n$ is threatened it propagates to its sub-components $C_{n.1} ... C_{n.m}$. 
 
@@ -511,7 +511,28 @@ We can therefore conclude that to ensure a SG of a component $C_n$ all its sub-c
 
 \subsubsection*{Controls}
 
-Controls try to mitigate threats and are therefore directly linked to at least one threat at all times. 
+Controls try to mitigate threats and are directly linked to at least one threat at all times. The propagation of controls through abstraction layers will therefore be closely coupled with threats and SGs.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{pictures/control_propagation.png}
+\caption{Underspecified Security Concept with a Control}
+\label{fig:control_propagation}
+\end{figure} 
+
+We have already discussed the propagation of SGs and threats in the previous chapters and thus, indirectly the propagation of controls. The example in Figure \ref{fig:control_propagation} shows a control that mitigates the threat $T_{SG_{UD}}$. In natural text the security attributes could be the following:
+
+\begin{itemize}
+\item[]\textbf{$SG_{KD}:$} The Confidentiality of sensible user data should be protected
+\item[]\textbf{$T_{SG_{KD}}:$} Eavesdropping on sensible user data
+\item[]\textbf{$C_{T_{SG_{KD}}}:$} Encryption of sensible user data with AES-256 to pevent eavesdropping
+\end{itemize}
+
+Similar to threats which propagate to the upper abstraction layers, controls will as well. The rules will be the same since the controls are very tightly coupled and cannot exist without threats.
+
+For this example this would mean that when looking at the abstraction layer above and at $C_1$ we will consider the control $C_{T_{SG_{KD}}}$ as well the threat $T_{SG_{KD}}$ it is mitigating.
+
+This section was only giving an overview on the conclusions for security attributes that can be made based on the structural features of an (underspecified) security concept definition. A more thorough definition will be discussed in the following section. 
 
 \subsection{Model Transformation}
 
