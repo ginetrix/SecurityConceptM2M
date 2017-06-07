@@ -34,9 +34,9 @@ Information systems consist of hardware, software and data and it is of high imp
 
 A \textit{threat} however is a set of circumstances that has the theoretical potential to cause harm by exploiting a specific vulnerability \cite{vacca2012computer}. An example to demonstrate the differences follows:
 
-\begin{enumerate}[label=\textbf{Def.\arabic*}]
-\item \textbf{Vulnerability}: Sending sensitive data over an unsecured channel \label{item:vuln}
-\item \textbf{Threat}: Exploiting the unsecured channel by eavesdropping and gathering the sensitive data 
+\begin{enumerate}
+\item[] \textbf{Vulnerability}: Sending sensitive data over an unsecured channel \label{item:vuln}
+\item[] \textbf{Threat}: Exploiting the unsecured channel by eavesdropping and gathering the sensitive data 
 \end{enumerate}
 
 As mentioned before a system weakness does not necessarily mean loss of data or any other system breach. Only when coupled with a set of circumstances and the intent of exploitation it turns into a threat. Figure \ref{fig:threats} illustrates the four acts that cause security harm as mentioned by Pfleeger \cite{Pfleeger:2006:SC:1177321}. 
@@ -100,7 +100,8 @@ Security requirements and objectives have to be defined in the earlier phases so
 
 Established security policies have to be also monitored and maintained. Security is never guaranteed and is a complex process \cite{vacca2012computer} - systems have to be constantly updated and possibly upgraded. 
 
-The needs of the variety of security stakeholders have to be considered throughout the system processes and have to be registered in some way. Security requirements have been mentioned and, amongst others, will be described more thoroughly in the next section.
+A Security Architecture is therefore a union of security objectives by different stakeholders and, if properly implemented, guaranteees the stakeholders' needs.
+These needs have to be considered throughout the system processes and have to be registered in a comprehensible manner. Security requirements have been mentioned and, amongst others, will be described more thoroughly in the next section.
 
 %\subsection{Enterprise Security}
 %To define the term \textit{security concept} one has to look at the architecture of enterprises to understand the interconnectivity and interdependence between services, security being one of them. 
@@ -265,14 +266,15 @@ The definition of a transformation $T$, or better a \textit{transformation rule 
 Prior to the actual rule set definition one final concept has to be introduced. A user-selected \textit{Granularity level} serves as a second input in the model transformation. The transformation itself should be automatic, the only user input should be the just mentioned granularity level.
 
 \subsubsection{Granularity Levels}
+\label{subsubsec:granularity}
 
 Information systems are often complex because of the number of interconnections and interdependencies between components and therefore it might be difficult to assess potential impacts and risks of a system \cite{branagan}.
 
-One logical goal would be to decrease the overall complexity to enable a better risk assessment. \textit{System abstraction} tries to achieve this by reducing the level of details \cite{branagan}. Branagan et al. differentiate between two possibilities, \textit{Whole-part decomposition} which decomposes a system into smaller subsystems and \textit{Distinct development perspectives} which focuses on certain parts of a system depending on the current development perspective. 
+One logical goal would be to decrease the overall complexity to enable a better risk assessment. \textit{System abstraction} tries to achieve this by reducing the level of details \cite{branagan}. Thyssen et al. differentiate between two possibilities, \textit{Whole-part decomposition} which decomposes a system into smaller sub-systems and \textit{Distinct development perspectives} which focuses on certain parts of a system depending on the current development perspective. 
 
 In this thesis the focus will be on the \textit{Whole-part decomposition} even though an adaption of development perspectives is certainly possible. The main difficulty would be the definition of such perspectives in the security context because they would be highly dependent on the respective security analyst. The perspectives would not be unambiguous.
   
-Therefore the change of the level of detail, i.e. the granularity level, will be achieved by uniting or decomposing components of a system of interest. By decomposing a larger system into smaller subsystems one could focus on only specific security attributes and dismiss others.
+Therefore the change of the level of detail, i.e. the granularity level, will be achieved by uniting or decomposing components of a system of interest. By decomposing a larger system into smaller sub-systems one could focus on only specific security attributes and dismiss others.
 
 A user will select a certain granularity level, i.e. a certain set of components, as an input to the transformation function $T$ as mentioned in \ref{subsubsec:modeltrans}. Together with the defined rule set a valid model $M'$ will be generated which to be considered valid has to be conform to its metamodel $MM$.
 
@@ -280,6 +282,18 @@ A user will select a certain granularity level, i.e. a certain set of components
 \label{sec:related_work}
 
 Several publications that provide an essential basis for this thesis will now be presented. A variety of different topics will be briefly covered such as abstraction layers/granularity layers, security attribute aggregation and propagation as well as model transformations and formal verification. 
+
+\subsection{Granularity layers}
+
+Thyssen et al. presented a framework which allowed them to view models under different levels of abstraction \cite{thyssen2010system}. This abstraction is achieved by introducing granularity levels which are based on the different needs of the stakeholders. 
+
+Two different approaches were suggested where one is \textit{Whole-part decomposition} which applies the divide-and-conquer principle and decomposes the SUS into smaller blocks until atomic blocks are reached. The other possible method is viewing the system from \textit{Distinct development perspectives}. The differences have already been discussed in Section \ref{subsubsec:granularity} and therefore only whole-part decomposition will be discussed in detail. 
+
+
+
+\subsection{Security Attribute Aggregation}
+
+\subsection{Formal Verification}
 
 \section{Approach}
 This section presents the approach addressing the previously mentioned goal of a model transformation based on the user-selected granularity level of a system of interest. Firstly, the security concept metamodel will be thoroughly described, each element of the metamodel will be put in the security context and advantages and disadvantages of such an interpretation will be highlighted.
