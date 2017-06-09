@@ -287,11 +287,22 @@ Several publications that provide an essential basis for this thesis will now be
 
 Thyssen et al. presented a framework which allowed them to view models under different levels of abstraction \cite{thyssen2010system}. This abstraction is achieved by introducing granularity levels which are based on the different needs of the stakeholders. 
 
-Two different approaches were suggested where one is \textit{Whole-part decomposition} which applies the divide-and-conquer principle and decomposes the SUS into smaller blocks until atomic blocks are reached. The other possible method is viewing the system from \textit{Distinct development perspectives}. The differences have already been discussed in Section \ref{subsubsec:granularity} and therefore only whole-part decomposition will be discussed in detail. 
+Two different approaches were suggested where one is \textit{Whole-part decomposition} which applies the divide-and-conquer principle and decomposes the SUS into smaller blocks until atomic blocks are reached. The other possible method is viewing the system from \textit{Distinct development perspectives}. The differences have already been briefly discussed in Section \ref{subsubsec:granularity} and therefore only whole-part decomposition will be presented in more detail. 
 
+Thyssen et al. propose a decomposition of systems into sub-systems to overcome the complexity. A sub-system is seen as a independent system by itself and the goal is to achieve \glqq seamless\grqq \ abstraction. This way the sub-systems could be viewed separately and, if needed, could be aggregated to the overall system.
 
+Different development perspectives were also proposed to focus on specific stakeholders and their needs during the system abstraction. 
+
+The \textit{user perspective} describes, as the name suggests, the user's interests and the fulfilment of such by the respective system. The focus is on the hierarchical structuring of the general system functionality based on the users' needs and the functional interrelationships between components. The \textit{logical perspective} can be seen as a bridge between the user-defined requirements and the technical implementation and lastly, the \textit{technical perspective} describes the technical side, i.e. the hardware components that incorporate the needs of the respective users.  
+
+In this thesis however, the main focus is the combination of the security perspective and the \glqq seamless\grqq \ abstraction of systems. As previously mentioned security in information systems is seen as a complex process \cite{vacca2012computer} and the realization of security policies may have effects on different perspectives. Throughout the thesis system abstraction will be addressed from the perspective of a security architect that tries to incorporate all the stakeholders' security needs in a system. The goal is to propose a solution on how security properties of systems propagate through different levels of abstraction. Dependencies amongst them have to be taken into account and appropriate aggregation rules have to be defined. 
+
+Thyssen et al. have introduced the theoretical idea of \glqq seamless\grqq \ abstraction but have not addressed the the transformation steps that are needed to transform a system from one granularity level to another.  
 
 \subsection{Security Attribute Aggregation}
+
+
+
 
 \subsection{Formal Verification}
 
