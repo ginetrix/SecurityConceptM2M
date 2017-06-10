@@ -301,8 +301,15 @@ Thyssen et al. have introduced the theoretical idea of \glqq seamless\grqq \ abs
 
 \subsection{Security Attribute Aggregation}
 
+Aggregation of security attributes has been studied and aggregation rules have been discussed by multiple researchers. Menzel et al. focused on the aggregation of security requirements and dependencies amongst them \cite{Menzel2008}. They defined interaction sets for requirements that classified the effects two requirements $r_1$ and $r_2$ might have on each other. According to \cite{Menzel2008} requirements could be independent, equivalent or conflicting, just to name a few.
 
+Furthermore, when addressing the actual aggregation, Menzel et al. argued that to propose correct rules one has to look at two core aspects. Firstly one has to determine whether two requirements belong to the same class of security goals or not and secondly, the addressed entities and dependencies amongst the requirements have to be considered.
 
+The transformation rules, which will be defined in Section \ref{sec:approach}, use this concept as the basis. Even though Menzel et al. have not addressed the needed transformation steps they provided core aspects that are essential for the aggregation of requirements. These will also be considered during application for different security attributes.
+
+Similarities can be found when looking at the work carried out by Noel et al. \cite{Noel:2004:MAG:1029208.1029225} which addresses attack graph aggregation. 
+
+Attack graphs are a representation of possible vulnerabilities in a network.  Interactions and dependencies are represented by edges and for large networks such graphs may become very complex. 
 
 \subsection{Formal Verification}
 
