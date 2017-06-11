@@ -309,10 +309,40 @@ The transformation rules, which will be defined in Section \ref{sec:approach}, u
 
 Similarities can be found when looking at the work carried out by Noel et al. \cite{Noel:2004:MAG:1029208.1029225} which addresses attack graph aggregation. 
 
-Attack graphs are a representation of possible vulnerabilities in a network.  Interactions and dependencies are represented by edges and for large networks such graphs may become very complex. 
+Attack graphs are a representation of possible vulnerabilities in a network that can be exploited by attackers.  Interactions and dependencies are represented by edges and for large networks such graphs may become very complex. To reduce the just mentioned complexity rules have been introduced that hierarchically aggregate graph elements. 
 
-\subsection{Formal Verification}
+Rules for exploits and security conditions, i.e. states that exist prior to or after an exploit, have been proposed. Exploits are being aggregated based on the attacker/victim machines where only exploits on the same machines are being aggregated into exploit sets. 
 
+Conditions are being aggregated into condition sets when they are either preconditions or postconditions of the same exploit. Later on, an aggregation based on machine level is being executed, i.e. conditions are being aggregated if they all occur on the respective machine. A machine is therefore a union of all its conditions. 
+
+Both the idea of aggregation based on same elements/machines as well as the idea of union sets consisting of conditions will be adapted in this thesis.
+
+Lastly, risk aggregation is being covered. Lenstra et al. \cite{Lenstra2004}  have discussed both the qualitative as well as the quantitative risk analysis providing both the advantages and disadvantages of the respective method. Qualitative risk analysis assigns subjective values to risks or threats (such as High, Medium or Low) and these values then display the severity of the respective threat or risk. Qualitative approaches however, only provide very vague indications which might not be suitable for specific, more complex systems. 
+
+Quantitative approaches view the underlying events as distribution functions and derive the overall risk of an element from said functions. As mentioned by Lestra et al. and example could be the \textit{Annual Loss Expectancy} for an event which can then be aggregated when viewing different events.
+
+In our case quantitative aggregation is not necessary and might not even be possible in many cases since the given security concepts might be underspecified. 
+
+Our goal is to provide a solution on security attribute propagation for as many systems as possible applying qualitative aggregation for security attributes defined in the metamodel in Section \ref{subsec:sec_concept}. Although it is less precise than quantitative approaches \cite{Lenstra2004} it suffices when considering the possibility of underspecification of security concepts and the overhead during aggregation steps when applying such an analysis.
+
+\subsection{Validation of Model Transformations}
+
+When proposing the model transformation one has to determine its correctness. Varro et al. define four properties that verify the correctness of a model transformation \cite{vacca2012computer}.
+
+\begin{itemize}
+\item[]\textbf{Syntactic correctness:} The generated model is a syntactically correct model instance (is conform to its metamodel)
+\item[]\textbf{Termination:} Model transformations must terminate
+\item[]\textbf{Uniqueness:} Model transformations must be deterministic 
+\end{itemize}
+
+The fourth criterion is the \textit{semantic correctness} which usually implies a semantic equivalence between source and target model. Here however, the model transformation is a projection, i.e. a possible gain/loss of information is possible.  
+
+Oracle functions serve the purpose of validating a model transformation output. The definition of such may become very difficult because of the complex nature of models as data structures \cite{mottu}. Model comparison is described as one possible solution to validate a model transformation.  Mottu et al. introduce a general oracle containing six different functions validating a given test case. Our primary goal however is the semantic gain of the projection and to verify this we have to define a very specific oracle in the security context. 
+
+Model verification through testing is the most common form of validation \cite{fleurey} and thus, we will provide an implementation of the transformation rules and will validate its results by testing with sample models as inputs. The purpose of the testing process is the \textit{detection of errors in the implementation}, the \textit{completion of the specification} and lastly the \textit{assessment of the result}, as mentioned by Fleurey et al.
+
+The most important aspect is the result assessment. In our case the satisfaction highly depends on the respective user (e.g. security engineer) and we therefore have to define a criterion which reflects a successful model transformation of the initial security concept while being independent of the user. The approach will be an oracle based on model comparison and will be discussed in Section \ref{subsec:validation}.
+ 
 \section{Approach}
 This section presents the approach addressing the previously mentioned goal of a model transformation based on the user-selected granularity level of a system of interest. Firstly, the security concept metamodel will be thoroughly described, each element of the metamodel will be put in the security context and advantages and disadvantages of such an interpretation will be highlighted.
 
@@ -320,7 +350,7 @@ The second part will deal with the actual transformation rules. Model transforma
 
 \label{sec:approach}
 \subsection{Security Concept}
-
+\label{subsec:sec_concept}
 The following metamodel is based on the security elements mentioned in Section \ref{subsubsec:secconc}. It shows the interconnections between elements and adds restrictions. This metamodel serves as a base enabling the creation of model instances capturing the relations between components/assets of a specific SUS. It also provides a security context and the option for the user to select a granularity level. 
 
 \begin{figure}[H]
@@ -588,6 +618,7 @@ Let $SG_{CIA}$ be the set of security goals for a SUS. A security goal SG is def
 \section{Implementation}
 \subsection{Technology}
 \subsection{Validity \& Verification}
+\label{subsec:validation}
 \subsection{Runtime \& Complexity}
 
 \section{Summary}
