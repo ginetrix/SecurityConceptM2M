@@ -604,7 +604,7 @@ This section was only giving an overview on the conclusions for security attribu
 
 \subsection{Model Transformation}
 
-Let $SG_{CIA}(SUS)$ be the set of security goals for a SUS. A security goal SG is defined as $SG(cl, asset, dmg)$ where $cl$ is the security goal class ($C$ for confidentiality, $I$ for Integrity and $A$ for availability), $asset$ being the element of interest which the SG was defined for and $dmg$ is the damage potential in case of a security breach ($H$ = high, $M$ = medium and $L$ = low).
+Let $SG_{CIA}(SUS)$ be the set of security goals for a SUS. A security goal SG is defined as $SG(cl, c, asset, dmg)$ where $cl$ is the security goal class ($C$ for confidentiality, $I$ for Integrity and $A$ for availability), $c$ being the component, $asset$ being the element of interest which the SG was defined for, i.e. the component itself or data which is being processed by it and $dmg$ is the damage potential in case of a security breach ($H$ = high, $M$ = medium and $L$ = low).
 
 Similarly we define a threat set $T_{STRIDE}$ for a SUS where STRIDE is the threat modeling technique developed by Microsoft. According to \cite{torr} a component can be exposed to the following threats:
 
@@ -621,39 +621,46 @@ Every threat has therefore a specific threat class that it can be assigned to. $
 
 Controls are tightly coupled with security goals and threats. $C_{SUS}$ is the set of controls for a SUS that contains all the controls. A Control $C(T)$ has a set of threats $T$ it mitigates.
 
-Each asset can be viewed separately when looking at security goals and threats. For SGs we can define three separate sets, $SG_C(asset)$, $SG_I(asset)$ and $SG_A(asset)$ where each one contains the respective SGs with either confidentiality, integrity or availability as the security goal class. It follows:
+Each asset can be viewed separately when looking at security goals and threats. For SGs we can define three separate sets, $SG_C(c)$, $SG_I(c)$ and $SG_A(c)$ where each one contains the respective SGs with either confidentiality, integrity or availability as the security goal class.
 
 \begin{theorem}
-$SG_{CIA}(asset) = SG_C(asset) \cup SG_I(asset) \cup SG_A(asset)$
+$SG_{CIA}(c) = SG_C(c) \cup SG_I(c) \cup SG_A(c)$
 \end{theorem}
 
-Furthermore we define that for every component $C$ the SG sets are the union of the SGs of its sub-components with the same security goal class. For the confidentiality we have to consider pairs of components and data, since confidentiality is only defined on data. Therefore when looking at a component $c_i$ and a data asset $asset_{d_{j}}$ we can say that the confidentiality of data $d_j$ for component $c_i$ is the union of the SGs of its subcomponents also covering $d_j$. $sgc$ is either confidentiality ($C$), integrity ($I$) or availability ($A$).
- 
+The respective sets covering one security goal class can be defined as follows:
+
+\begin{theorem}
+$SG_{sgc}(c) = SG(sgc, c, asset_j, dmg) \cup SG(sgc, c, asset_{j+1}, dmg)  \cup ... \cup SG(sgc, c, asset_m, dmg) $
+\end{theorem}
+
+%
+%Furthermore we define that for every component $C$ the SG sets are the union of the SGs of its sub-components with the same security goal class. For the confidentiality we have to consider pairs of components and data, since confidentiality is only defined on data. Therefore when looking at a component $c_i$ and a data asset $asset_{d_{j}}$ we can say that the confidentiality of data $d_j$ for component $c_i$ is the union of the SGs of its sub-components also covering $d_j$. $sgc$ is either confidentiality ($C$), integrity ($I$) or availability ($A$).
+% 
+%\begin{theorem} 
+%$SG_{sgc}(c_i, asset_{d_{j}}) = SG_{sgc}(c_{i_{1}}, asset_{d_{j}}) \cup ... \cup SG_{sgc} (c_{i_{n}}, asset_{d_{j}}) $
+%\end{theorem}
+%
+%The unions for data assets for integrity and availability can be created accordingly.
+%
+%For non-data assets the union set is very similar with the security goal class being either integrity or availability.
+%
+%\begin{theorem} 
+%$SG_{sgc}(c_i, asset_{c_{i}}) = SG_{sgc}(c_{i_{1}}, asset_{c_{i_{1}}}) \cup ... \cup SG_{sgc} (c_{i_{n}}, asset_{c_{i_{n}}}) $
+%\end{theorem}
+
+Threats can be defined accordingly. For a threat $T$ with the threat class $tc$ the following union set can be defined. 
+
 \begin{theorem} 
-$SG_{sgc}(c_i, asset_{d_{j}}) = SG_{sgc}(c_{i_{1}}, asset_{d_{j}}) \cup ... \cup SG_{sgc} (c_{i_{n}}, asset_{d_{j}}) $
+$T_{tc}(c) = T(tc, sg_i, sev) \cup T(tc, sg_{i+1}, sev) \cup ... \cup T(tc, sg_n, sev) | sg_i \in SG_{CIA}(c)$
 \end{theorem}
 
-The unions for data assets for integrity and availability can be created accordingly.
-
-For non-data assets the union set is very similar with the security goal class being either integrity or availability.
+The set $T_{STRIDE}$ ist therefore a union of all threat sets:
 
 \begin{theorem} 
-$SG_{sgc}(asset_{c_{i}}) = SG_{sgc}(asset_{c_{i_{1}}}) \cup ... \cup SG_{sgc} (asset_{c_{i_{n}}}) $
+$T_{STRIDE}(c) = T_S(c) \cup T_T(c) \cup T_R(c) \cup T_I(c) \cup T_D(c) \cup T_E(c)$
 \end{theorem}
 
-Threats can be defined accordingly. For a threat $T$ with the threat class $tc$ the following union set can be defined. Once again we differentiate between data assets and non-data assets.
-
-\begin{theorem} 
-$T_{tc}(c_i, asset_{d_{j}}) = T_{tc}(c_{i_{1}}, asset_{d_{j}}) \cup ... \cup T_{tc} (c_{i_{n}}, asset_{d_{j}}) $
-\end{theorem}
-
-The set of threats for non-data assets can be defined accordingly.
-
-\begin{theorem} 
-$T_{tc}(asset_{c_{i}}) = T_{tc}(asset_{c_{i_{1}}}) \cup ... \cup T_{tc} (asset_{c_{i_{n}}}) $
-\end{theorem}
-
-These were defined to show the transformation steps as well to easy the validation of the model transformation in Section \ref{subsec:validation}.
+The just mentioned sets are the basic sets for components without looking at structural features of a SUS. As mentioned in Section \ref{subsec:interpretation} we can derive further security properties from sub-components and overall structural features of the system. This derivation will be covered in the following Sections.
 
 \subsection{Transformation Rule Set for Security Goals}
 \label{subsec:sec_goals_rules}
