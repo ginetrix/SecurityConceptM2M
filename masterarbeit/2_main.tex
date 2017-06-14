@@ -503,7 +503,7 @@ A security goal $SG_{C_1}$ of a component $C_1$ has a direct influence on anothe
 
 This \textit{direct influence} is one of the more obvious dependencies amongst components. At first glance matching data types are needed to aggregate SGs through different abstraction layers but it is certainly possible that security concepts might be underspecified. Relying on this definition might therefore severely limit the transformation and thus, the resulting model.
 
-An examplary model instance follows showing security attribute propagation with an underspecified security concept. Similarly to previous examples data/components will be directly linked with security goals without asset elements in between in the interest of greater clarity.
+An exemplary model instance follows showing security attribute propagation with an underspecified security concept. Similarly to previous examples data/components will be directly linked with security goals without asset elements in between in the interest of greater clarity.
 
 \begin{figure}[H]
 \centering
@@ -664,6 +664,27 @@ The just mentioned sets are the basic sets for components without looking at str
 
 \subsection{Transformation Rule Set for Security Goals}
 \label{subsec:sec_goals_rules}
+
+The transformation rules for security goals will now be introduced. The following pseudocode will then be explained afterwards using an exemplary security concept.
+
+\begin{algorithm}[H]
+\caption{Transformation rules for security goals}
+\begin{algorithmic}[1]
+\Function{compute\_sg}{componentIDs}
+
+\If {$i\geq maxval$}
+    \State $i\gets 0$
+\Else
+    \If {$i+k\leq maxval$}
+        \State $i\gets i+k$
+    \EndIf
+\EndIf
+
+\EndFunction
+
+\end{algorithmic}
+\end{algorithm}
+
 \subsubsection{Aggregation Rules}
 \subsection{Transformation Rule Set for Threats}
 \label{subsec:threat_rules}
