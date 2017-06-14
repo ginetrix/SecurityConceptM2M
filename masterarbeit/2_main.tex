@@ -665,13 +665,12 @@ The just mentioned sets are the basic sets for components without looking at str
 \subsection{Transformation Rule Set for Security Goals}
 \label{subsec:sec_goals_rules}
 
-The transformation rules for security goals will now be introduced. The following pseudocode will then be explained afterwards using an exemplary security concept.
+The transformation rules for security goals will now be introduced. The following pseudocode will then be explained afterwards using an exemplary security concept. The function  \texttt{compute\_SG} has two inputs, $Lc$ is the list of the component IDs selected by the user and \texttt{security\_concept} is the initial security concept model. The user-selected component IDs display the granularity level. The user can select as many components as needed and the result will be a security concept with the aggregated security attributes for the selected elements.
 
 \begin{algorithm}[H]
 \caption{Transformation rules for security goals}
 \begin{algorithmic}[1]
-\Function{compute\_sg}{componentIDs}
-
+\Function{compute\_sg}{Lc, security\_concept}\\
 \If {$i\geq maxval$}
     \State $i\gets 0$
 \Else
@@ -684,6 +683,7 @@ The transformation rules for security goals will now be introduced. The followin
 
 \end{algorithmic}
 \end{algorithm}
+
 
 \subsubsection{Aggregation Rules}
 \subsection{Transformation Rule Set for Threats}
