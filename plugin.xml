@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated SecurityConcept -->
+      <package
+            uri="http://www.example.org/securityconcept"
+            class="SecuriyConcept.SecuriyConceptPackage"
+            genModel="Metamodel/SecurityConcept.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated SecurityConcept -->
+      <factory
+            uri="http://www.example.org/securityconcept"
+            class="SecuriyConcept.provider.SecuriyConceptItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated SecurityConcept -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="SecuriyConcept.presentation.SecuriyConceptModelWizardID"
+            name="%_UI_SecuriyConceptModelWizard_label"
+            class="SecuriyConcept.presentation.SecuriyConceptModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/SecuriyConceptModelFile.gif">
+         <description>%_UI_SecuriyConceptModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated SecurityConcept -->
+      <editor
+            id="SecuriyConcept.presentation.SecuriyConceptEditorID"
+            name="%_UI_SecuriyConceptEditor_label"
+            icon="icons/full/obj16/SecuriyConceptModelFile.gif"
+            extensions="securiyconcept"
+            class="SecuriyConcept.presentation.SecuriyConceptEditor"
+            contributorClass="SecuriyConcept.presentation.SecuriyConceptActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

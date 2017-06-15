@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SC:SecurityConcept
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:SC="http://www.example.org/securityconcept"
+    xsi:schemaLocation="http://www.example.org/securityconcept SecurityConcept.ecore">
+  <securityGoals
+      securityGoalClass="Integrity"
+      damagePotential="medium"/>
+  <assets name="asset_c_1"
+      assetID="1"/>
+  <components
+      name="component_1"
+      isAn="//@assets.0"
+      componentID="1">
+    <hasComponent
+        name="sub_component_1.1"
+        componentID="2"/>
+  </components>
+</SC:SecurityConcept>

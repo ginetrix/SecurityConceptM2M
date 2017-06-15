@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SC:SecurityConcept
+    xmi:version="2.0"
+    xmlns:xmi="http://www.example.org/securityconcept"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:SC="http://www.example.org/securityconcept"
+    xsi:schemaLocation="">
+  <securityGoals
+      damagePotential="high"
+      securityGoalID="2"
+      name="SG1"/>
+  <securityGoals
+      securityGoalID="1"
+      name="SG2"/>
+  <assets name="A1"
+      hasSecurityGoal="//@securityGoals.0"/>
+  <assets name="A2"
+      hasSecurityGoal="//@securityGoals.1"/>
+</SC:SecurityConcept>
