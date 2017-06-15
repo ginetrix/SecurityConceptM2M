@@ -24,7 +24,6 @@ class Transformation {
   }
 
  	def dispatch generateCode(SecurityConcept securityConcept){ 	
- 		findComponentByID(securityConcept, 1)
 		for (component : securityConcept.components){
 			print (component.name +  "\n")
 		}

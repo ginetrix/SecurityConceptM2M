@@ -36,7 +36,6 @@ public class Transformation {
   }
   
   protected String _generateCode(final SecurityConcept securityConcept) {
-    this.findComponentByID(securityConcept, 1);
     EList<Component> _components = securityConcept.getComponents();
     for (final Component component : _components) {
       String _name = component.getName();

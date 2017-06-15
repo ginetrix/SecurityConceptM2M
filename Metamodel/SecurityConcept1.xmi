@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ASCII"?>
 <SC:SecurityConcept
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
@@ -6,16 +6,8 @@
     xmlns:SC="http://www.example.org/securityconcept"
     xsi:schemaLocation="http://www.example.org/securityconcept SecurityConcept.ecore">
   <securityGoals
-      securityGoalClass="Integrity"
-      damagePotential="medium"/>
-  <assets name="asset_c_1"
-      assetID="1"/>
+      description="mydesc"
+      name=""/>
   <components
-      name="component_1"
-      isAn="//@assets.0"
-      componentID="1">
-    <hasComponent
-        name="sub_component_1.1"
-        componentID="2"/>
-  </components>
+      name="test"/>
 </SC:SecurityConcept>
