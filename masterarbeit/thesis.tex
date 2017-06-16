@@ -12,7 +12,7 @@
 \usepackage{fancyref}
 \usepackage{fancyhdr} 
 \usepackage{amsmath}
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{url}
 \usepackage{makeidx}
 \usepackage{listings}
@@ -22,10 +22,19 @@
 \usepackage{multirow}
 \usepackage{multirow, makecell}
 \newtheorem{theorem}{Definition}
-\usepackage[]{algorithmicx}
+\usepackage{algcompatible}% http://ctan.org/pkg/algorithmicx
 \usepackage{algpseudocode}
 \usepackage[]{algorithm}
 
+
+\makeatletter
+\newcommand{\algcolor}[2]{%
+  \hskip-\ALG@thistlm\colorbox{#1}{\parbox{\dimexpr\linewidth-2\fboxsep}{\hskip\ALG@thistlm\relax #2}}%
+}
+\newcommand{\algemph}[1]{\algcolor{Graysw}{#1}}
+\makeatother
+
+\renewcommand{\algorithmicforall}{\textbf{for each}}
 %
 % PDF settings
 

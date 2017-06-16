@@ -665,22 +665,49 @@ The just mentioned sets are the basic sets for components without looking at str
 \subsection{Transformation Rule Set for Security Goals}
 \label{subsec:sec_goals_rules}
 
-The transformation rules for security goals will now be introduced. The following pseudocode will then be explained afterwards using an exemplary security concept. The function  \texttt{compute\_SG} has two inputs, $Lc$ is the list of the component IDs selected by the user and \texttt{security\_concept} is the initial security concept model. The user-selected component IDs display the granularity level. The user can select as many components as needed and the result will be a security concept with the aggregated security attributes for the selected elements.
+The transformation rules for security goals will now be introduced. The following pseudocode will then be explained afterwards using an exemplary security concept. The function  \texttt{compute\_SG} has two inputs, $L_{cid}y$ is the list of the component IDs selected by the user and \texttt{security\_concept} is the initial security concept model. The user-selected component IDs display the granularity level. The user can select as many components as needed and the result will be a security concept with the aggregated security attributes for the selected elements.
 
 \begin{algorithm}[H]
 \caption{Transformation rules for security goals}
+$L_v$ $\gets$ \text{list of visited nodes} \\
+$L_c$ $\gets$ \text{list of components} \\
+$L_{sg}$ $\gets$ \text{list of security goals} \\
+
 \begin{algorithmic}[1]
-\Function{compute\_sg}{Lc, security\_concept}\\
-\If {$i\geq maxval$}
-    \State $i\gets 0$
-\Else
-    \If {$i+k\leq maxval$}
-        \State $i\gets i+k$
-    \EndIf
-\EndIf
+
+\Function{compute\_sg}{$L_{cid}$, security\_concept}\\
+$L_c$ = findComponentsByID($L_{cid}$)
+\ForAll{component in $L_c$ } 
+\ForAll{sg in component.asset.securityGoals} 
+	\State $L_{sg}$.add(sg)	
+\EndFor
+\State checkConnections(component) 
+\State findAncestors(component) 
+\State findChildren(component) 
+\EndFor
+\State filterDuplicates($L_{sg}$)
+\State checkSecurityGoalCorrectness($L_{sg}$) \
+\EndFunction
+
+\Function{findAncestors}{component}\\
 
 \EndFunction
 
+\Function{findChildren}{component}\\
+
+\EndFunction
+
+\Function{checkConnections}{component}\\
+
+\EndFunction
+
+\Function{filterDuplicates}{$L_{sg}$}\\
+
+\EndFunction
+
+\Function{checkSecurityGoalCorrectness}{$L_{sg}$}\\
+
+\EndFunction
 \end{algorithmic}
 \end{algorithm}
 
@@ -691,7 +718,7 @@ The following security concept serves as an example.
 \begin{figure}[p]
     \vspace*{-2cm}
     \makebox[\linewidth]{
-        \includegraphics[width=1.3\linewidth]{pictures/sg_transformation}
+        \includegraphics[width=1.2\linewidth]{pictures/sg_transformation}
     }
     \caption{Security Concept Model}
 \end{figure}
