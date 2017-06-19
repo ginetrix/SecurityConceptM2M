@@ -13,7 +13,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="securityGoalID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="asset" lowerBound="1" eType="#//Asset"
-        eOpposite="#//Asset/securitygoal"/>
+        eOpposite="#//Asset/securitygoals"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="threat" upperBound="-1"
         eType="#//Threat" eOpposite="#//Threat/securitygoal"/>
   </eClassifiers>
@@ -36,16 +36,17 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Component">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="isAn" eType="#//Asset"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="componentID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" upperBound="-1"
         eType="#//Connection" eOpposite="#//Connection/component"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="data" upperBound="-1" eType="#//Data"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="hasComponent" upperBound="-1"
-        eType="#//Component" eOpposite="#//Component/hasAncestor"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="hasAncestor" eType="#//Component"
-        eOpposite="#//Component/hasComponent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Subcomponents" upperBound="-1"
+        eType="#//Component" eOpposite="#//Component/Ancestor"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Ancestor" eType="#//Component"
+        eOpposite="#//Component/Subcomponents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="asset" eType="#//Asset"
+        eOpposite="#//Asset/component"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Function"/>
   <eClassifiers xsi:type="ecore:EEnum" name="SecurityGoalClassType">
@@ -56,14 +57,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="Asset">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="assetID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="securitygoal" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="securitygoals" upperBound="-1"
         eType="#//SecurityGoal" eOpposite="#//SecurityGoal/asset"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="#//Component"
+        eOpposite="#//Component/asset"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Damages">
     <eLiterals name="low" literal="low"/>
     <eLiterals name="medium" value="1" literal="medium"/>
     <eLiterals name="high" value="2" literal="high"/>
-    <eLiterals name="extreme" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SecurityConcept">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
