@@ -1,0 +1,123 @@
+\begin{thebibliography}{10}
+
+\bibitem{iso27001}
+{ISO}/{IEC} 27001:2005 - information technology -- security techniques --
+  information security management systems -- requirements.
+\newblock Technical report, 2005.
+
+\bibitem{branagan}
+Mark Branagan, Robert Dawson, and Dennis Longley.
+\newblock Security risk analysis for complex systems.
+\newblock pages 1--12, 2006.
+
+\bibitem{fleurey}
+F.~Fleurey, J.~Steel, and B.~Baudry.
+\newblock Validation in model-driven engineering: testing model
+  transformations.
+\newblock In {\em Proceedings. 2004 First International Workshop on Model,
+  Design and Validation, 2004.}, pages 29--40, Nov 2004.
+
+\bibitem{Gasser}
+Morrie Gasser.
+\newblock {\em Building a Secure Computer System}.
+\newblock Van Nostrand Reinhold Co., New York, NY, USA, 1988.
+
+\bibitem{modeltrans}
+Frédéric Jouault, Freddy Allilaire, Jean Bézivin, and Ivan Kurtev.
+\newblock Atl: A model transformation tool.
+\newblock {\em Science of Computer Programming}, 72(1):31 -- 39, 2008.
+
+\bibitem{kanagasingham2008data}
+Prathaben Kanagasingham.
+\newblock Data loss prevention.
+\newblock {\em SANS Institute. Aug}, 2008.
+
+\bibitem{Kleppe:2003:MEM:829557}
+Anneke~G. Kleppe, Jos Warmer, and Wim Bast.
+\newblock {\em MDA Explained: The Model Driven Architecture: Practice and
+  Promise}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., Boston, MA, USA, 2003.
+
+\bibitem{Lenstra2004}
+Arjen Lenstra and Tim Voss.
+\newblock {\em Information Security Risk Assessment, Aggregation, and
+  Mitigation}, pages 391--401.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2004.
+
+\bibitem{mt_taxonomy}
+Tom Mens and Pieter~Van Gorp.
+\newblock A taxonomy of model transformation.
+\newblock {\em Electronic Notes in Theoretical Computer Science}, 152:125 --
+  142, 2006.
+\newblock Proceedings of the International Workshop on Graph and Model
+  Transformation (GraMoT 2005).
+
+\bibitem{Menzel2008}
+Michael Menzel, Christian Wolter, and Christoph Meinel.
+\newblock {\em Towards the Aggregation of Security Requirements in
+  Cross-Organisational Service Compositions}, pages 297--308.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2008.
+
+\bibitem{mottu}
+J.~M. Mottu, B.~Baudry, and Y.~L. Traon.
+\newblock Model transformation testing: oracle issue.
+\newblock In {\em 2008 IEEE International Conference on Software Testing
+  Verification and Validation Workshop}, pages 105--112, April 2008.
+
+\bibitem{Noel:2004:MAG:1029208.1029225}
+Steven Noel and Sushil Jajodia.
+\newblock Managing attack graph complexity through visual hierarchical
+  aggregation.
+\newblock In {\em Proceedings of the 2004 ACM Workshop on Visualization and
+  Data Mining for Computer Security}, VizSEC/DMSEC '04, pages 109--118, New
+  York, NY, USA, 2004. ACM.
+
+\bibitem{omg2013mof}
+OMG.
+\newblock {OMG Meta Object Facility (MOF) Core Specification, Version 2.4.1},
+  June 2013.
+
+\bibitem{Pfleeger:2006:SC:1177321}
+Charles~P. Pfleeger and Shari~Lawrence Pfleeger.
+\newblock {\em Security in Computing (4th Edition)}.
+\newblock Prentice Hall PTR, Upper Saddle River, NJ, USA, 2006.
+
+\bibitem{pohl}
+Klaus Pohl, Harald Hönninger, Reinhold Achatz, and Manfred Broy.
+\newblock {\em Model-Based Engineering of Embedded Systems: The SPES 2020
+  Methodology}.
+\newblock Springer Publishing Company, Incorporated, 2012.
+
+\bibitem{robling1982cryptography}
+Dorothy~Elizabeth Robling~Denning.
+\newblock {\em Cryptography and data security}.
+\newblock Addison-Wesley Longman Publishing Co., Inc., 1982.
+
+\bibitem{seidewitz}
+E.~Seidewitz.
+\newblock What models mean.
+\newblock {\em IEEE Software}, 20(5):26--32, Sept 2003.
+
+\bibitem{commoncriteria}
+{The Common Criteria Recognition Agreement Members}.
+\newblock Common criteria for information technology security evaluation.
+\newblock http://www.commoncriteriaportal.org/, September 2012.
+
+\bibitem{thyssen2010system}
+Judith Thyssen, Daniel Ratiu, Wolfgang Schwitzer, Alexander Harhurin, Martin
+  Feilkas, and Eike Thaden.
+\newblock A system for seamless abstraction layers for model-based development
+  of embedded software.
+\newblock In {\em Software Engineering (Workshops)}, pages 137--148, 2010.
+
+\bibitem{torr}
+P.~Torr.
+\newblock Demystifying the threat modeling process.
+\newblock {\em IEEE Security Privacy}, 3(5):66--70, Sept 2005.
+
+\bibitem{vacca2012computer}
+J.R. Vacca.
+\newblock {\em Computer and Information Security Handbook}.
+\newblock Elsevier Science, 2012.
+
+\end{thebibliography}
