@@ -686,11 +686,13 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \ForAll{sg in $component$.asset.securityGoals} 
 	\State $L_{sg}$.add(sg)	
 \EndFor
-\State checkConnections($component$) 
+\ForAll{con in $component$.connections}
+\State $L_{sg}$.add(con.data.asset.securityGoal)
+\EndFor
 \State findAncestors($component$) 
 \State findChildren($component$) 
-\State filterDuplicates($L_{sg}$)
-\State checkSecurityGoalCorrectness($component$, $L_{sg}$)
+\State securityGoalAggregation({$L_{sg}$})
+\State checkConnectionCorrectness()
 \State writeToSecurityConcept($cid$, $L_{sg}$) 
 \Else
 \State break
@@ -706,7 +708,7 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \Else
 \ForAll{cmp in $S_{anc}$}
 \State sg\_compute($cmp.id$, security\_concept)
-\State add\_sg($cmp.id$, $component$)
+\State add\_sg\_anc($cmp.id$, $component$)
 \EndFor
 \EndIf
 
@@ -726,28 +728,75 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \If{cmp in $L.c$}
 \State{$S_{subc}$.add(cmp)} 
 \State{findChildren(cmp)}
+\State{fixConnection($component$, $cmp$)}
 \EndIf
 \State $L_{sg}$.add(cmp.asset.securityGoals)
-\State{findChildren(cmp)}
+\State fixConnection($component$, $cmp$)
 \EndFor
 \Else
 \ForAll{cmp in $S_{subc}$}
 \State sg\_compute($cmp.id$, security\_concept)
-\State add\_sg($cmp.id$, $component$)
+\State add\_sg\_child($cmp$, $component$)
 \EndFor
 \EndIf
 \EndFunction
 
-\Function{checkConnections}{$component$}\\
-
+\Function{add\_sg\_anc}{$anc$, $child$} \Comment{ancestor to child}
+\ForAll {sg in $anc$.asset.securityGoals}
+\If{sg.securityGoalClass == 'Confidentiality' \&\& sg.asset in $child$.assets}
+\State $child$.asset.securityGoals.add(sg)
+\ElsIf{sg.securityGoalClass == 'Integrity' || 'Availability'}
+\State sg.asset = $child$.asset
+\State $child$.asset.securityGoal.add(sg)
+\EndIf
+\EndFor
 \EndFunction
 
-\Function{filterDuplicates}{$L_{sg}$}\\
-
+\Function{add\_sg\_child}{$child$, $anc$} \Comment{child to ancestor}
+\ForAll {sg in $child$.asset.securityGoals}
+\If{sg.securityGoalClass == 'Confidentiality'}
+\State $anc$.asset.securityGoals.add(sg)
+\ElsIf{sg.securityGoalClass == 'Availability'}
+\State sg.asset = $anc$.asset
+\State $anc$.asset.securityGoal.add(sg)
+\EndIf
+\EndFor
 \EndFunction
 
-\Function{checkSecurityGoalCorrectness}{$L_{sg}$}\\
+\algstore{testcont}
+\end{algorithmic}
+\end{algorithm}
 
+\begin{algorithm}[H] 
+\begin{algorithmic}
+\algrestore{testcont} 
+
+\Function{fixConnection}{$child$, $anc$}
+\ForAll {con in $child$.connections}
+\If {con.source == $child$}
+\State con.source = $anc$
+\ElsIf {con.target == $child$}
+\State con.target = $anc$
+\EndIf
+\EndFor
+\EndFunction
+
+\Function{checkConnections}{$L_{sg}$, $component$}
+\ForAll {con in $component$.connections}
+\If {(con.source || con.target) not in $L_c$}
+\State $component$.connections.delete(con)
+\State $L_{sg}$.add(con.data.asset.securityGoal)
+\EndIf
+\EndFor
+\EndFunction
+
+\Function{securityGoalAggregation}{$L_{sg}$}
+\State final\_sgs $\gets$ empty
+\ForAll {sg in $L_{sg}$}
+\State tmp\_sg = $L_{sg}$.where(\_sg.securityGoalClass == sg.securityGoalClass  \&\& \_sg.asset == sg.asset)
+\State tmp\_sg.first.damagePotential = tmp\_sg.where(damagePotential.max)
+\State final\_sgs.add(tmp\_sg.first)
+\EndFor
 \EndFunction
 \end{algorithmic}
 \end{algorithm}
