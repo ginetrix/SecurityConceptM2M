@@ -355,7 +355,7 @@ The following metamodel is based on the security elements mentioned in Section \
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{pictures/concept_metamodel.png}
+\includegraphics[width=1.2\textwidth]{pictures/concept_metamodel.png}
 \caption{Security Concept Metamodel}
 \label{fig:concept_metamodel}
 \end{figure}
@@ -669,35 +669,76 @@ The transformation rules for security goals will now be introduced. The followin
 
 \begin{algorithm}[H]
 \caption{Transformation rules for security goals}
+security\_concept $\gets$ \text{security concept model} \\
 $L_v$ $\gets$ \text{list of visited nodes} \\
-$L_c$ $\gets$ \text{list of components} \\
+$L_c$ $\gets$ \text{list of components of interest} \\
 $L_{sg}$ $\gets$ \text{list of security goals} \\
+$S_{anc}$ $\gets$ \text{ancestor node stack} \\
+$S_{subc}$ $\gets$ \text{children node stack} \\
 
 \begin{algorithmic}[1]
 
-\Function{compute\_sg}{$L_{cid}$, security\_concept}\\
-$L_c$ = findComponentsByID($L_{cid}$)
-\ForAll{component in $L_c$ } 
-\ForAll{sg in component.asset.securityGoals} 
+\Function{compute\_sg}{$cid$, security\_concept}
+\State $L_{sg}$ $\gets$ empty
+\State $component$ = findComponentByID($cid$)
+\If {$component$ not in $L_v$}
+\State $L_v$.add($component$)
+\ForAll{sg in $component$.asset.securityGoals} 
 	\State $L_{sg}$.add(sg)	
 \EndFor
-\State checkConnections(component) 
-\State findAncestors(component) 
-\State findChildren(component) 
-\EndFor
+\State checkConnections($component$) 
+\State findAncestors($component$) 
+\State findChildren($component$) 
 \State filterDuplicates($L_{sg}$)
-\State checkSecurityGoalCorrectness($L_{sg}$) \
+\State checkSecurityGoalCorrectness($component$, $L_{sg}$)
+\State writeToSecurityConcept($cid$, $L_{sg}$) 
+\Else
+\State break
+\EndIf
 \EndFunction
 
-\Function{findAncestors}{component}\\
+\Function{findAncestors}{$component$}
+\If{$component$.Ancestor} 
+\If{$component$.Ancestor in $L.c$}
+\State{$S_{anc}$.add($component$.Ancestor)} 
+\State{findAncestors($component$.Ancestor)}
+\EndIf
+\Else
+\ForAll{cmp in $S_{anc}$}
+\State sg\_compute($cmp.id$, security\_concept)
+\State add\_sg($cmp.id$, $component$)
+\EndFor
+\EndIf
 
 \EndFunction
+\algstore{testcont} 
 
-\Function{findChildren}{component}\\
+\end{algorithmic}
+\end{algorithm}
 
+\begin{algorithm}[H] 
+\begin{algorithmic}
+\algrestore{testcont} 
+
+\Function{findChildren}{$component$}
+\If{$component$.SubComponents}
+\ForAll{cmp in $component$.SubComponents}
+\If{cmp in $L.c$}
+\State{$S_{subc}$.add(cmp)} 
+\State{findChildren(cmp)}
+\EndIf
+\State $L_{sg}$.add(cmp.asset.securityGoals)
+\State{findChildren(cmp)}
+\EndFor
+\Else
+\ForAll{cmp in $S_{subc}$}
+\State sg\_compute($cmp.id$, security\_concept)
+\State add\_sg($cmp.id$, $component$)
+\EndFor
+\EndIf
 \EndFunction
 
-\Function{checkConnections}{component}\\
+\Function{checkConnections}{$component$}\\
 
 \EndFunction
 
