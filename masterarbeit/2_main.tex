@@ -730,7 +730,7 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \State{findChildren(cmp)}
 \State{fixConnection($component$, $cmp$)}
 \EndIf
-\State $L_{sg}$.add(cmp.asset.securityGoals)
+\State $L_{sg}$.addEach(cmp.asset.securityGoals)
 \State fixConnection($component$, $cmp$)
 \EndFor
 \Else
@@ -785,7 +785,7 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \ForAll {con in $component$.connections}
 \If {(con.source || con.target) not in $L_c$}
 \State $component$.connections.delete(con)
-\State $L_{sg}$.add(con.data.asset.securityGoal)
+\State $L_{sg}$.addEach(con.data.asset.securityGoals)
 \EndIf
 \EndFor
 \EndFunction
