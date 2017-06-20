@@ -692,7 +692,7 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \State findAncestors($component$) 
 \State findChildren($component$) 
 \State securityGoalAggregation({$L_{sg}$})
-\State checkConnectionCorrectness()
+\State checkConnections($L_{sg}$, $component$)
 \State writeToSecurityConcept($cid$, $L_{sg}$) 
 \Else
 \State break
