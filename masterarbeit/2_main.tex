@@ -665,7 +665,7 @@ The just mentioned sets are the basic sets for components without looking at str
 \subsection{Transformation Rule Set for Security Goals}
 \label{subsec:sec_goals_rules}
 
-The transformation rules for security goals will now be introduced. The following pseudocode will then be explained afterwards using an exemplary security concept. The function  \texttt{compute\_SG} has two inputs, $L_{cid}y$ is the list of the component IDs selected by the user and \texttt{security\_concept} is the initial security concept model. The user-selected component IDs display the granularity level. The user can select as many components as needed and the result will be a security concept with the aggregated security attributes for the selected elements.
+The transformation rules for security goals will now be introduced. The following pseudocode will then be explained afterwards using an exemplary security concept. The function  \texttt{compute\_SG} has two inputs, $cid$ is  an ID of the component selected by the user and \texttt{security\_concept} is the initial security concept model. The user-selected component IDs display the granularity level. The user can select as many components as needed and the result will be a security concept with the aggregated security attributes for the selected elements.
 
 \begin{algorithm}[H]
 \caption{Transformation rules for security goals}
@@ -683,7 +683,7 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \State $component$ = findComponentByID($cid$)
 \If {$component$ not in $L_v$}
 \State $L_v$.add($component$)
-\ForAll{sg in $component$.asset.securityGoals} 
+\ForAll{sg in $component$.asset.securityGoals} \label{line:iterate_own_sg}
 	\State $L_{sg}$.add(sg)	
 \EndFor
 \ForAll{con in $component$.connections}
@@ -705,6 +705,7 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \State{$S_{anc}$.add($component$.Ancestor)} 
 \State{findAncestors($component$.Ancestor)}
 \EndIf
+\State findAncestor($component$.Ancestor)
 \Else
 \ForAll{cmp in $S_{anc}$}
 \State sg\_compute($cmp.id$, security\_concept)
@@ -729,9 +730,10 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \State{$S_{subc}$.add(cmp)} 
 \State{findChildren(cmp)}
 \State{fixConnection($component$, $cmp$)}
-\EndIf
 \State $L_{sg}$.addEach(cmp.asset.securityGoals)
+\EndIf
 \State fixConnection($component$, $cmp$)
+\State findChildren($cmp$)
 \EndFor
 \Else
 \ForAll{cmp in $S_{subc}$}
@@ -803,15 +805,34 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 
 \subsubsection{Model Transformation using an Example}
 
-The following security concept serves as an example. 
+The following security concept serves as an example. The selected granularity level is displayed by the three marked components, $C1$, $C2$ and $C1.1.1$. Some of the components in the security concept have security goals defined. The goal now is to derive the influence these goals have on the selected components. In this chapter a complete transformation will be carried out and the resulting security concept will be presented. Key transformation steps will be discussed and highlighted.
 
-\begin{figure}[p]
+\begin{figure}[H]
     \vspace*{-2cm}
     \makebox[\linewidth]{
-        \includegraphics[width=1.2\linewidth]{pictures/sg_transformation}
+        \includegraphics[width=1\linewidth]{pictures/sg_transformation}
     }
     \caption{Security Concept Model}
 \end{figure}
+
+For every component of interest the function $compute\_sg$ will be called. First the list of components $L_c$ will be populated with the three component s $C1$, $C2$ and $C1.1.1$. Prior to applying the algorithm, we have to define the security goals. A definition follows:
+
+\begin{align*}
+SG_{CIA}(sec\_concept) = \{SG(A,C1.1.1,C1.1.1,"high") &, \\ SG(C,C1.1,D2,"medium")&, \\
+SG(I,C1,C1,"low")&, \\
+SG(C,,D1,"high")&, \\
+SG(C,,D1,"medium")\} 
+\end{align*}
+
+To cover as many cases as possible we will start with component $C1.1.1$. The first step, as seen in line \ref{line:iterate_own_sg}, is to add all the security goals of the component to its security goal list $L_{sg}$. We only have one goal to address and therefore the set will only have one element.
+
+\begin{align*}
+SG_{CIA}(C1.1.1) = \{SG(A,C1.1.1,C1.1.1,"high")\}
+\end{align*}
+
+Now, we will have to look at the ancestors/children of the node. We differentiate between two kinds of ancestors, an ancestor that is in $L_c$ and is therefore a component of interest and an ancestor that is not in $L_c$. Only security attributes from ancestors that have been chosen by the user can have an influence on their sub-components since the others are not present in the chosen granularity. 
+
+Therefore the component $C1.1$ will be skipped and the component $C1$ will be selected. 
 
 \subsubsection{Aggregation Rules}
 \subsection{Transformation Rule Set for Threats}
