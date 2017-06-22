@@ -701,14 +701,14 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 
 \Function{findAncestors}{$component$}
 \If{$component$.Ancestor} 
-\If{$component$.Ancestor in $L.c$}
+\If{$component$.Ancestor in $L_c$}
 \State{$S_{anc}$.add($component$.Ancestor)} 
 \State{findAncestors($component$.Ancestor)}
 \EndIf
 \State findAncestor($component$.Ancestor)
 \Else
 \ForAll{cmp in $S_{anc}$}
-\State sg\_compute($cmp.id$, security\_concept)
+\State sg\_compute($cmp.id$, security\_concept) \label{line:ancestor}
 \State add\_sg\_anc($cmp.id$, $component$)
 \EndFor
 \EndIf
@@ -726,7 +726,7 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \Function{findChildren}{$component$}
 \If{$component$.SubComponents}
 \ForAll{cmp in $component$.SubComponents}
-\If{cmp in $L.c$}
+\If{cmp in $L_c$}
 \State{$S_{subc}$.add(cmp)} 
 \State{findChildren(cmp)}
 \State{fixConnection($component$, $cmp$)}
@@ -832,7 +832,40 @@ SG_{CIA}(C1.1.1) = \{SG(A,C1.1.1,C1.1.1,"high")\}
 
 Now, we will have to look at the ancestors/children of the node. We differentiate between two kinds of ancestors, an ancestor that is in $L_c$ and is therefore a component of interest and an ancestor that is not in $L_c$. Only security attributes from ancestors that have been chosen by the user can have an influence on their sub-components since the others are not present in the chosen granularity. 
 
-Therefore the component $C1.1$ will be skipped and the component $C1$ will be selected. 
+Therefore the component $C1.1$ will be skipped and the component $C1$ will be selected. Since $C1$ is in $L_c$ it will be added to the ancestor stack that the algorithm will have to work through. This is important in cases where there is a chain of components that are all in $L_c$. In such case, we would have to iterate through all of those nodes starting with the one in the highest abstraction layer. $C1$ does not have an ancestor and therefore the function $sg\_compute$ for $C1$ will be called (line \ref{line:ancestor}).
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+\includegraphics[width=0.73\textwidth]{pictures/initial}
+\caption{Before connection adjustment}
+\label{fig:con_c1.1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+\includegraphics[width=0.7\textwidth]{pictures/con_c11}
+\caption{After connection adjustment}
+\label{fig:con_c1.1}
+\end{subfigure}
+\caption{A figure with two subfigures}
+\label{fig:test}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{pictures/con_c12}
+\caption{Underspecified Security Concept with a Control}
+\label{fig:con_c1.2}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{pictures/con_c2}
+\caption{Underspecified Security Concept with a Control}
+\label{fig:con_c2}
+\end{figure} 
+
 
 \subsubsection{Aggregation Rules}
 \subsection{Transformation Rule Set for Threats}
