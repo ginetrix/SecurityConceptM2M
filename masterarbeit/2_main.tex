@@ -682,7 +682,7 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \State $L_{sg}$ $\gets$ empty
 \State $component$ = findComponentByID($cid$)
 \If {$component$ not in $L_v$}
-\State $L_v$.add($component$)
+\State $L_v$.add($component$) \label{line:visited}
 \ForAll{sg in $component$.asset.securityGoals} \label{line:iterate_own_sg}
 	\State $L_{sg}$.add(sg)	
 \EndFor
@@ -705,6 +705,7 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \State{$S_{anc}$.add($component$.Ancestor)} 
 \State{findAncestors($component$.Ancestor)}
 \EndIf
+\State add\_sg\_anc($component$.Ancestor, $component$)
 \State findAncestor($component$.Ancestor)
 \Else
 \ForAll{cmp in $S_{anc}$}
@@ -725,13 +726,13 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 
 \Function{findChildren}{$component$}
 \If{$component$.SubComponents}
-\ForAll{cmp in $component$.SubComponents}
+\ForAll{cmp in $component$.SubComponents} \label{line:subcomponent}
 \If{cmp in $L_c$}
 \State{$S_{subc}$.add(cmp)} 
 \State{findChildren(cmp)}
 \State{fixConnection($component$, $cmp$)}
-\State $L_{sg}$.addEach(cmp.asset.securityGoals)
 \EndIf
+\State add\_sg\_child($cmp$, $component$)
 \State fixConnection($component$, $cmp$)
 \State findChildren($cmp$)
 \EndFor
@@ -743,7 +744,8 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \EndIf
 \EndFunction
 
-\Function{add\_sg\_anc}{$anc$, $child$} \Comment{ancestor to child}
+\Function{add\_sg\_AtoC}{$anc$, $child$} \label{line:anc_child} \Comment{ancestor to child} 
+\ForAll {asset in $anc$.assets}
 \ForAll {sg in $anc$.asset.securityGoals}
 \If{sg.securityGoalClass == 'Confidentiality' \&\& sg.asset in $child$.assets}
 \State $child$.asset.securityGoals.add(sg)
@@ -752,18 +754,9 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \State $child$.asset.securityGoal.add(sg)
 \EndIf
 \EndFor
-\EndFunction
-
-\Function{add\_sg\_child}{$child$, $anc$} \Comment{child to ancestor}
-\ForAll {sg in $child$.asset.securityGoals}
-\If{sg.securityGoalClass == 'Confidentiality'}
-\State $anc$.asset.securityGoals.add(sg)
-\ElsIf{sg.securityGoalClass == 'Availability'}
-\State sg.asset = $anc$.asset
-\State $anc$.asset.securityGoal.add(sg)
-\EndIf
 \EndFor
 \EndFunction
+
 
 \algstore{testcont}
 \end{algorithmic}
@@ -772,6 +765,21 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \begin{algorithm}[H] 
 \begin{algorithmic}
 \algrestore{testcont} 
+
+\Function{add\_sg\_CtoA}{$child$, $anc$} \label{line:child_anc} \Comment{child to ancestor}
+\ForAll {asset in $child$.assets}
+\ForAll {sg in $child$.asset.securityGoals}
+\If{!$anc$.assets.contain($child$.asset)}
+\State copyAsset($child$.asset, $anc$) \label{line:asset_copy}
+\ElsIf{sg.securityGoalClass == 'Confidentiality'}
+\State $anc$.asset.securityGoals.add(sg)
+\ElsIf{sg.securityGoalClass == 'Availability'}
+\State sg.asset = $anc$.asset
+\State $anc$.asset.securityGoal.add(sg)
+\EndIf
+\EndFor
+\EndFor
+\EndFunction
 
 \Function{fixConnection}{$child$, $anc$}
 \ForAll {con in $child$.connections}
@@ -820,8 +828,8 @@ For every component of interest the function $compute\_sg$ will be called. First
 \begin{align*}
 SG_{CIA}(sec\_concept) = \{SG(A,C1.1.1,C1.1.1,"high") &, \\ SG(C,C1.1,D2,"medium")&, \\
 SG(I,C1,C1,"low")&, \\
-SG(C,,D1,"high")&, \\
-SG(C,,D1,"medium")\} 
+SG(C,-,D1,"high")&, \\
+SG(C,-,D1,"medium")\} 
 \end{align*}
 
 To cover as many cases as possible we will start with component $C1.1.1$. The first step, as seen in line \ref{line:iterate_own_sg}, is to add all the security goals of the component to its security goal list $L_{sg}$. We only have one goal to address and therefore the set will only have one element.
@@ -830,9 +838,33 @@ To cover as many cases as possible we will start with component $C1.1.1$. The fi
 SG_{CIA}(C1.1.1) = \{SG(A,C1.1.1,C1.1.1,"high")\}
 \end{align*}
 
-Now, we will have to look at the ancestors/children of the node. We differentiate between two kinds of ancestors, an ancestor that is in $L_c$ and is therefore a component of interest and an ancestor that is not in $L_c$. Only security attributes from ancestors that have been chosen by the user can have an influence on their sub-components since the others are not present in the chosen granularity. 
+Now, we will have to look at the ancestors/children of the node. We differentiate between two kinds of ancestors, an ancestor that is in $L_c$ and is therefore a component of interest and an ancestor that is not in $L_c$. Ancestors that are in $L_c$ have to processed individually (line \ref{line:ancestor}).
 
-Therefore the component $C1.1$ will be skipped and the component $C1$ will be selected. Since $C1$ is in $L_c$ it will be added to the ancestor stack that the algorithm will have to work through. This is important in cases where there is a chain of components that are all in $L_c$. In such case, we would have to iterate through all of those nodes starting with the one in the highest abstraction layer. $C1$ does not have an ancestor and therefore the function $sg\_compute$ for $C1$ will be called (line \ref{line:ancestor}).
+$C1.1$ is not in $L_c$ and therefore only the function $add_sg_AtoC$ will be called (line \ref{line:anc_child}). $SG\_D2$ is the only security goal for component $C1.1$ but since data 2 is not an asset of the sub-component $C1.1.1$, it will not propagate to the abstraction layer below. $findAncestor$ is then called with the ancestor of $C1.1$, i.e. $C1$.
+
+Since $C1$ is in $L_c$ it will be added to the ancestor stack that the algorithm will have to work through. This is important in cases where there is a chain of components that are all in $L_c$. In such case, we would have to iterate through all of those nodes starting with the one in the highest abstraction layer. $C1$ does not have an ancestor and therefore the function $sg\_compute$ for $C1$ will be called (line \ref{line:ancestor}).
+
+Every time $sg\_compute$ is being called the respective component is being added to the list of visited nodes ($L_v$) to ensure that nodes would not be processed multiple times (line \ref{line:visited}). After calling $sg\_compute$ with $C1$ as the component, our list is now:
+
+\begin{align*}
+L_v = \{C1.1.1, C1\}
+\end{align*}
+
+Analogous to $C1.1.1$, the security goals of $C1$ will be added to $L_{sg}$.
+
+\begin{align*}
+L_{sg} = \{SG(I,C1,C1,"low")\}
+\end{align*}
+
+Since $C1$ does not have any ancestor nodes, the function $findChildren$ will be called.  Every sub-component of the current component will be processed (line \ref{line:subcomponent}). Similar to the ancestor function we differentiate between two kinds of children, ones that are in $L_c$ and ones that are not.
+
+$C1$ has two sub-components $C1.1$ and $C1.2$ that have to be processed as well. We start with $C1.1$ which is not in $L_c$ and therefore $C1.1$ will not be added to the sub-component stack $S_{subc}$. The security goals however will be added to $L_{sg}$ which still belongs to the ancestor $C.1$. The component must be altered. The initial security goal had $C1.1$ as the component which must be changed to $C1$. Moreover must one ensure that the asset exists in the layer above. This is not the case for $C1$ and therefore data 2 will be copied and inserted into the abstraction layer above (line \ref{line:asset_copy}).
+
+\begin{align*}
+L_{sg} = \{SG(I,C1,C1,"low"), SG(C,C1, D2, "medium")\}
+\end{align*}
+
+After having the security goal added we will proceed to the sub-component of $C1.1$, namely $C1.1.1$. 
 
 \begin{figure}[H]
 \centering
