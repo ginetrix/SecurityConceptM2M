@@ -747,14 +747,14 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \Function{add\_sg\_AtoC}{$anc$, $child$} \label{line:anc_child} \Comment{ancestor to child} 
 \ForAll {asset in $anc$.assets}
 \ForAll {sg in $anc$.asset.securityGoals}
-\If($asset.componentID$ == $anc$.id)
+\If{$asset.componentID$ == $anc$.ids}
 \State sg.c = $child$
 \State sg.asset = $child$
 \State $child$.asset.securityGoals.add(sg)
-\ElsIf{sg.securityGoalClass == 'Confidentiality' \&\& sg.asset in $child$.assets}
+\ElsIf{sg.securityGoalClass == 'Confidentiality' \\ \hspace{2cm} \&\& sg.asset in $child$.assets}
 \State sg.c = $child$
 \State $child$.asset.securityGoals.add(sg)
-\ElsIf{sg.securityGoalClass == 'Integrity' || 'Availability'}
+\ElsIf{sg.securityGoalClass == 'Integrity' \\ \hspace{2cm} || 'Availability'}
 \State sg.c = $child$
 \State $child$.asset.securityGoal.add(sg)
 \EndIf
