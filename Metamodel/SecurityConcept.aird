@@ -5995,7 +5995,7 @@
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_-sxJEVX1Eeej6JXExTT81A" showIcon="false">
           <customFeatures>labelFormat</customFeatures>
         </centerLabelStyle>
-        <endLabelStyle xmi:type="diagram:EndLabelStyle" xmi:id="_-sxJElX1Eeej6JXExTT81A" showIcon="false" labelColor="39,76,114">
+        <endLabelStyle xmi:type="diagram:EndLabelStyle" xmi:id="_-sxJElX1Eeej6JXExTT81A" labelSize="6" showIcon="false" labelColor="39,76,114">
           <customFeatures>labelFormat</customFeatures>
         </endLabelStyle>
       </ownedStyle>
@@ -6008,7 +6008,7 @@
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_ALa4YVX2Eeej6JXExTT81A" showIcon="false">
           <customFeatures>labelFormat</customFeatures>
         </centerLabelStyle>
-        <endLabelStyle xmi:type="diagram:EndLabelStyle" xmi:id="_ALa4YlX2Eeej6JXExTT81A" showIcon="false" labelColor="39,76,114">
+        <endLabelStyle xmi:type="diagram:EndLabelStyle" xmi:id="_ALa4YlX2Eeej6JXExTT81A" labelSize="6" showIcon="false" labelColor="39,76,114">
           <customFeatures>labelFormat</customFeatures>
         </endLabelStyle>
       </ownedStyle>

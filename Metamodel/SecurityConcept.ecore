@@ -44,7 +44,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="Ancestor" eType="#//Component"
         eOpposite="#//Component/Subcomponents"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="asset" eType="#//Asset"
-        eOpposite="#//Asset/component"/>
+        eOpposite="#//Asset/component" eKeys="#//Asset/assetID"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Function"/>
   <eClassifiers xsi:type="ecore:EEnum" name="SecurityGoalClassType">
@@ -58,7 +58,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="securitygoals" upperBound="-1"
         eType="#//SecurityGoal" eOpposite="#//SecurityGoal/asset"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="#//Component"
-        eOpposite="#//Component/asset"/>
+        eOpposite="#//Component/asset" eKeys="#//Component/componentID"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Damages">
     <eLiterals name="low" literal="low"/>
