@@ -461,7 +461,7 @@ To describe model transformations in the security context one has to discuss how
 A sub-component \textit{SC} will be defined as a component that directly belongs to a component \textit{C} which is in an abstraction layer above, i.e. encapsulates one or more sub-components. According to the previously defined metamodel such a relationship between components is being defined by the \textit{hasComponent} composition, i.e. a sub-component cannot exist without a component here. This also means that no new data types or structures are added when changing to higher granularity levels. Sub-components can only process data that has already been defined in the layers above. An example would be a database encapsulating a sub-component such as a secure key storage.   
 
 \subsubsection*{Security Goals}
-
+\label{subsubsec:sec_goal}
 For security goals the interconnections between components and sub-components have to be interpreted in an unambiguous way. There is no clear definition on how SGs for components in higher abstraction layers propagate to the respective sub-components in the abstraction layers below. We therefore adopt the idea for security requirements which was proposed by Menzel et al. \cite{Menzel2008}. Here, the main focus will be on two characteristics, \textit{Independent} and \textit{Require} to capture interdependencies between SGs on different granularity levels. According to the metamodel each SG has the following attributes:
 
 \begin{figure}[H]
@@ -691,22 +691,22 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \EndFor
 \State findAncestors($component$) 
 \State findChildren($component$) 
-\State securityGoalAggregation({$L_{sg}$})
 \State checkConnections($L_{sg}$, $component$)
+\State securityGoalAggregation({$L_{sg}$})
 \State writeToSecurityConcept($cid$, $L_{sg}$) 
 \Else
 \State break
 \EndIf
 \EndFunction
 
-\Function{findAncestors}{$component$}
+\Function{findAncestors}{$component$, $child$}
 \If{$component$.Ancestor} 
 \If{$component$.Ancestor in $L_c$}
 \State{$S_{anc}$.add($component$.Ancestor)} 
-\State{findAncestors($component$.Ancestor)}
+\State{findAncestors($component$.Ancestor, $child$)}
 \EndIf
 \State add\_sg\_anc($component$.Ancestor, $component$)
-\State findAncestor($component$.Ancestor)
+\State findAncestor($component$.Ancestor, $child$)
 \Else
 \ForAll{cmp in $S_{anc}$}
 \State sg\_compute($cmp.id$, security\_concept) \label{line:ancestor}
@@ -724,17 +724,17 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \begin{algorithmic}
 \algrestore{testcont} 
 
-\Function{findChildren}{$component$}
+\Function{findChildren}{$component$, $anc$}
 \If{$component$.SubComponents}
 \ForAll{cmp in $component$.SubComponents} \label{line:subcomponent}
 \If{cmp in $L_c$}
-\State{$S_{subc}$.add(cmp)} 
-\State{findChildren(cmp)}
-\State{fixConnection($component$, $cmp$)}
+\State{$S_{subc}$.add($cmp$)} 
+\State{findChildren($cmp$, $anc$)}
+\State{fixConnection($component$, $cmp$)} \label{line:connection}
 \EndIf
 \State add\_sg\_child($cmp$, $component$)
 \State fixConnection($component$, $cmp$)
-\State findChildren($cmp$)
+\State findChildren($cmp$, $anc$)
 \EndFor
 \Else
 \ForAll{cmp in $S_{subc}$}
@@ -747,16 +747,20 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \Function{add\_sg\_AtoC}{$anc$, $child$} \label{line:anc_child} \Comment{ancestor to child} 
 \ForAll {asset in $anc$.assets}
 \ForAll {sg in $anc$.asset.securityGoals}
-\If{sg.securityGoalClass == 'Confidentiality' \&\& sg.asset in $child$.assets}
+\If($asset.componentID$ == $anc$.id)
+\State sg.c = $child$
+\State sg.asset = $child$
+\State $child$.asset.securityGoals.add(sg)
+\ElsIf{sg.securityGoalClass == 'Confidentiality' \&\& sg.asset in $child$.assets}
+\State sg.c = $child$
 \State $child$.asset.securityGoals.add(sg)
 \ElsIf{sg.securityGoalClass == 'Integrity' || 'Availability'}
-\State sg.asset = $child$.asset
+\State sg.c = $child$
 \State $child$.asset.securityGoal.add(sg)
 \EndIf
 \EndFor
 \EndFor
 \EndFunction
-
 
 \algstore{testcont}
 \end{algorithmic}
@@ -772,9 +776,10 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \If{!$anc$.assets.contain($child$.asset)}
 \State copyAsset($child$.asset, $anc$) \label{line:asset_copy}
 \ElsIf{sg.securityGoalClass == 'Confidentiality'}
+\State sg.c = $anc$
 \State $anc$.asset.securityGoals.add(sg)
 \ElsIf{sg.securityGoalClass == 'Availability'}
-\State sg.asset = $anc$.asset
+\State sg.c = $anc$
 \State $anc$.asset.securityGoal.add(sg)
 \EndIf
 \EndFor
@@ -795,10 +800,19 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \ForAll {con in $component$.connections}
 \If {(con.source || con.target) not in $L_c$}
 \State $component$.connections.delete(con)
+\Else
 \State $L_{sg}$.addEach(con.data.asset.securityGoals)
 \EndIf
 \EndFor
 \EndFunction
+
+\algstore{testcont}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H] 
+\begin{algorithmic}
+\algrestore{testcont} 
 
 \Function{securityGoalAggregation}{$L_{sg}$}
 \State final\_sgs $\gets$ empty
@@ -816,10 +830,7 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 The following security concept serves as an example. The selected granularity level is displayed by the three marked components, $C1$, $C2$ and $C1.1.1$. Some of the components in the security concept have security goals defined. The goal now is to derive the influence these goals have on the selected components. In this chapter a complete transformation will be carried out and the resulting security concept will be presented. Key transformation steps will be discussed and highlighted.
 
 \begin{figure}[H]
-    \vspace*{-2cm}
-    \makebox[\linewidth]{
         \includegraphics[width=1\linewidth]{pictures/sg_transformation}
-    }
     \caption{Security Concept Model}
 \end{figure}
 
@@ -829,18 +840,18 @@ For every component of interest the function $compute\_sg$ will be called. First
 SG_{CIA}(sec\_concept) = \{SG(A,C1.1.1,C1.1.1,"high") &, \\ SG(C,C1.1,D2,"medium")&, \\
 SG(I,C1,C1,"low")&, \\
 SG(C,-,D1,"high")&, \\
-SG(C,-,D1,"medium")\} 
+SG(C,-,D3,"medium")\} 
 \end{align*}
 
 To cover as many cases as possible we will start with component $C1.1.1$. The first step, as seen in line \ref{line:iterate_own_sg}, is to add all the security goals of the component to its security goal list $L_{sg}$. We only have one goal to address and therefore the set will only have one element.
 
 \begin{align*}
-SG_{CIA}(C1.1.1) = \{SG(A,C1.1.1,C1.1.1,"high")\}
+L_{sg} = \{SG(A,C1.1.1,C1.1.1,"high")\}
 \end{align*}
 
 Now, we will have to look at the ancestors/children of the node. We differentiate between two kinds of ancestors, an ancestor that is in $L_c$ and is therefore a component of interest and an ancestor that is not in $L_c$. Ancestors that are in $L_c$ have to processed individually (line \ref{line:ancestor}).
 
-$C1.1$ is not in $L_c$ and therefore only the function $add_sg_AtoC$ will be called (line \ref{line:anc_child}). $SG\_D2$ is the only security goal for component $C1.1$ but since data 2 is not an asset of the sub-component $C1.1.1$, it will not propagate to the abstraction layer below. $findAncestor$ is then called with the ancestor of $C1.1$, i.e. $C1$.
+$C1.1$ is not in $L_c$ and therefore only the function $add\_sg\_AtoC$ will be called (line \ref{line:anc_child}). $SG\_D2$ is the only security goal for component $C1.1$ but since Data 2 is not an asset of the sub-component $C1.1.1$, it will not propagate to the abstraction layer below. $findAncestor$ is then called with the ancestor of $C1.1$, i.e. $C1$.
 
 Since $C1$ is in $L_c$ it will be added to the ancestor stack that the algorithm will have to work through. This is important in cases where there is a chain of components that are all in $L_c$. In such case, we would have to iterate through all of those nodes starting with the one in the highest abstraction layer. $C1$ does not have an ancestor and therefore the function $sg\_compute$ for $C1$ will be called (line \ref{line:ancestor}).
 
@@ -858,13 +869,19 @@ L_{sg} = \{SG(I,C1,C1,"low")\}
 
 Since $C1$ does not have any ancestor nodes, the function $findChildren$ will be called.  Every sub-component of the current component will be processed (line \ref{line:subcomponent}). Similar to the ancestor function we differentiate between two kinds of children, ones that are in $L_c$ and ones that are not.
 
-$C1$ has two sub-components $C1.1$ and $C1.2$ that have to be processed as well. We start with $C1.1$ which is not in $L_c$ and therefore $C1.1$ will not be added to the sub-component stack $S_{subc}$. The security goals however will be added to $L_{sg}$ which still belongs to the ancestor $C.1$. The component must be altered. The initial security goal had $C1.1$ as the component which must be changed to $C1$. Moreover must one ensure that the asset exists in the layer above. This is not the case for $C1$ and therefore data 2 will be copied and inserted into the abstraction layer above (line \ref{line:asset_copy}).
+$C1$ has two sub-components $C1.1$ and $C1.2$ that have to be processed as well. We start with $C1.1$ which is not in $L_c$ and therefore $C1.1$ will not be added to the sub-component stack $S_{subc}$. The security goals however will be added to $L_{sg}$ which still belongs to the ancestor $C.1$. The component must be altered. The initial security goal had $C1.1$ as the component which must be changed to $C1$. Moreover must one ensure that the asset exists in the layer above. This is not the case for $C1$ and therefore Data 2 will be copied and inserted into the abstraction layer above (line \ref{line:asset_copy}).
 
 \begin{align*}
-L_{sg} = \{SG(I,C1,C1,"low"), SG(C,C1, D2, "medium")\}
+L_{sg} = \{SG(I,C1,C1,"low"), SG(C,C1,D2, "medium")\}
 \end{align*}
 
-After having the security goal added we will proceed to the sub-component of $C1.1$, namely $C1.1.1$. 
+After having the security goal added we will proceed with the sub-component of $C1.1$, namely $C1.1.1$. The function $find\_children$ is being called recursively with two parameters, the current component $component$ which is $C1.1$ here and the initial parental node $anc$. This way the security attributes will be correctly aggregated regarding $anc$.
+
+$C1.1.1$ has one security goal, $SG\_C1.1.1$ that addresses the availability of the component. Since there are no further children $add\_sg\_CtoA$ will be called. According to the idea presented in Section \ref{subsubsec:sec_goal} the protection of the availability of a sub-component does not necessarily mean the availability of the components in higher abstraction layers. Thus, $SG\_C1.1.1$ will not be added to $L_{sg}$. The other sub-component $C1.1.2$ does not possess any security attributes and does not have any influence on its ancestors.
+
+The function $fixConnection$ that is called while processing the sub-components has not yet been addressed. The nodes $C1.1.1$ and $C1.1.2$ do not have connections to other components, $C1.1$ however, does. After iterating through the sub-components of $C1.1$ this function is being called. 
+
+The connection, that would be otherwise lost during abstraction, has to be processed. The connection that has $C1.1$ as the target will be changed in a way that $C1$ becomes the target. This way potential security attributes that address this connection and the data being transmitted on it will not be lost during the transformation. The following figure depicts the changed connection.
 
 \begin{figure}[H]
 \centering
@@ -880,9 +897,10 @@ After having the security goal added we will proceed to the sub-component of $C1
 \caption{After connection adjustment}
 \label{fig:con_c1.1}
 \end{subfigure}
-\caption{A figure with two subfigures}
 \label{fig:test}
 \end{figure}
+
+When processing the second sub-component of $C1$ we find another connection that needs to be addressed as well. The target is being changed from $C1.2$ to $C.1$ as the following figure suggests.
 
 \begin{figure}[H]
 \centering
@@ -891,13 +909,66 @@ After having the security goal added we will proceed to the sub-component of $C1
 \label{fig:con_c1.2}
 \end{figure} 
 
+Lastly the function $checkConnections$ will be called to verify that both sources and targets of the added connections are in $L_c$. Only then will the security attributes be added to the resulting model. In this case only one connection is correct having both the source and target in $L_c$. Therefore we will add the security goals addressing the transmitted data Data 3. The other connection will be deleted for now since the source is not in $L_c$.
+
+\begin{align*}
+SG_{CIA}(C1) = \{SG(I,C1,C1,"low"), SG(C,C1,D2, "medium"), \\ SG(C,-,D3,"medium")\}
+\end{align*}
+
+The aggregation for $C1$ has been carried out while iterating through the ancestors of $C1.1.1$. To conclude the aggregation the function $add\_sg\_AtoC$ will be called. $C1$ now has two security goals that might have an influence on $C1.1.1$. In Section \ref{subsubsec:sec_goal} the propagation of security attributes through abstraction layers has been discussed. If the integrity for a component $C$ is being protected it necessarily means that the integrity of its sub-components $C_i ... C_n$ is being protected as well. We can therefore add $SG\_C1$ to $L_{sg}$ for $C1.1.1$ while adjusting the properties of the security goal. The attributes component and assets will be changed from $C1$ to $C1.1.1$.
+
+\begin{align*}
+SG_{CIA}(C1.1.1) = \{SG(A,C1.1.1,C1.1.1,"high"), SG(I,C1.1.1,C1.1.1,"low")\}
+\end{align*}
+
+There is one final component that has to be addressed. $C2$ is in $L_c$ and similar to the previous nodes the function $compute\_sg$ will be called. $C2$ has no direct security attributes and no ancestors. The only component is the child $C2.1$ that has a connection to $C1$. 
+
+While processing $C2.1$ the function $fixConnection$ will be called that will  put its ancestor as the source of the connection. The resulting model follows.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{pictures/con_c2}
 \caption{Underspecified Security Concept with a Control}
 \label{fig:con_c2}
-\end{figure} 
+\end{figure}
 
+$checkConnections$ will be called at last and both outgoing connections will be processed. Since targets and sources are in $L_c$ security attributes of both connections will be added to the security goal set of $C2$. 
+
+\begin{align*}
+SG_{CIA}(C2) = \{SG(C,-,D1,"high"), SG(C,-,D3,"medium")\}
+\end{align*}
+
+One more iteration is needed to assure that all connections of all components have been added correctly. As a result a security goal addressing Data 1 will be added to the security goal set of $C1$.
+
+\begin{align*}
+SG_{CIA}(C1) = \{SG(I,C1,C1,"low"), SG(C,C1,D2, "medium"), \\ SG(C,-,D3,"medium"), SG(C,-,D1,"high")\}
+\end{align*} 
+
+The transformation result as well as a comparison between the initial set of security attributes and the resulting set follows.
+
+
+
+\begin{align*}
+SG_{CIA}(C1) = \{SG(I,C1,C1,"low")\}\\
+SG_{CIA}(C1.1.1) = \{SG(A,C1.1.1,C1.1.1,"high")\}\\
+SG_{CIA}(C2) = \emptyset
+\end{align*}
+
+\begingroup\vspace*{-\baselineskip}
+\captionof{figure}{Security goal set before aggregation}
+\vspace*{\baselineskip}\endgroup
+
+\begin{align*}
+SG_{CIA}(C1) = \{SG(I,C1,C1,"low"), SG(C,C1,D2, "medium"),\\ SG(C,C1,D3,"medium"), SG(C,C1,D1,"high")\} \\
+SG_{CIA}(C1.1.1) = \{SG(A,C1.1.1,C1.1.1,"high"), SG(I,C1.1.1,C1.1.1,"low")\} \\ 
+SG_{CIA}(C2) = \{SG(C,C2,D1,"high"), SG(C,C2,D3,"medium")\}
+\end{align*} 
+
+\begingroup\vspace*{-\baselineskip}
+\captionof{figure}{Security goal set after aggregation}
+\vspace*{\baselineskip}\endgroup
+
+The information gain that can be observed is substantial. We will now cover aggregation rules for security goals that can be used to derive new security goals based on the aggregated sets. 
 
 \subsubsection{Aggregation Rules}
 \subsection{Transformation Rule Set for Threats}
