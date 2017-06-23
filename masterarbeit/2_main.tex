@@ -946,6 +946,11 @@ SG_{CIA}(C1) = \{SG(I,C1,C1,"low"), SG(C,C1,D2, "medium"), \\ SG(C,-,D3,"medium"
 
 The transformation result as well as a comparison between the initial set of security attributes and the resulting set follows.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{pictures/finished_transformation}
+\caption{Security concept after the transformation}
+\end{figure} 
 
 
 \begin{align*}
@@ -957,6 +962,8 @@ SG_{CIA}(C2) = \emptyset
 \begingroup\vspace*{-\baselineskip}
 \captionof{figure}{Security goal set before aggregation}
 \vspace*{\baselineskip}\endgroup
+
+The initial security attribute sets for the respective components were sparse . Especially for component $C2$ where we cannot find any security attributes.
 
 \begin{align*}
 SG_{CIA}(C1) = \{SG(I,C1,C1,"low"), SG(C,C1,D2, "medium"),\\ SG(C,C1,D3,"medium"), SG(C,C1,D1,"high")\} \\
