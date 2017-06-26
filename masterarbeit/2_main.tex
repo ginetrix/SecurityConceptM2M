@@ -64,7 +64,7 @@ Gacek et al. discussed the definition of a \textit{Software System Architecture}
 \item A rationale which demonstrates that the elements which define a system satisfy the the stakeholders' needs, if implemented correctly
 \end{itemize}
 
-Here, a \textit{Security Architecture} (SA) would be an adapted definition where, if implemented correctly, the stakerholders' \textit{security} needs will be satisfied. Naturally, the connections as well as the respective components might differ from the Software System Architecture as they might have to be enhanced or altered to satisfy the security needs. 
+Here, a \textit{Security Architecture} (SA) would be an adapted definition where, if implemented correctly, the stakeholders' \textit{security} needs will be satisfied. Naturally, the connections as well as the respective components might differ from the Software System Architecture as they might have to be enhanced or altered to satisfy the security needs. 
 
 The stakeholders themselves however, are very similar. Gacek et al. differentiate between five parties, the \textit{Customer}, the \textit{User}, the \textit{Architect and System Engineer}, the \textit{Developer} and the \textit{Maintainer}. 
 
@@ -100,7 +100,7 @@ Security requirements and objectives have to be defined in the earlier phases so
 
 Established security policies have to be also monitored and maintained. Security is never guaranteed and is a complex process \cite{vacca2012computer} - systems have to be constantly updated and possibly upgraded. 
 
-A Security Architecture is therefore a union of security objectives by different stakeholders and, if properly implemented, guaranteees the stakeholders' needs.
+A Security Architecture is therefore a union of security objectives by different stakeholders and, if properly implemented, guarantees the stakeholders' needs.
 These needs have to be considered throughout the system processes and have to be registered in a comprehensible manner. Security requirements have been mentioned and, amongst others, will be described more thoroughly in the next section.
 
 %\subsection{Enterprise Security}
@@ -252,7 +252,7 @@ Kleppe et al. defined a \textit{transformation} as an automatic generation of a 
 
 This transformation may have different levels of automation. An \textit{automatic} transformation would not need any manual intervention from the user. In cases where incompleteness or inconsistencies may occur a manual intervention may be needed \cite{mt_taxonomy}.
 
-Throughout the introduction and the background chapter the derivation of security attributes based on structural properties of a system of interest was mentioned. Given a model $M$ this derivation can be seen as alteration of $M$ and therefore as a \textit{model transformation}. The resulting model $M'$ is different to $M$, both however, are conform to the same metamodel $MM$ whereas $MM$ is conform to $MMM$. In our case both source and target languages are identicial. We can therefore simplify the transformation graph shown in Figure \ref{fig:metametamodel}.
+Throughout the introduction and the background chapter the derivation of security attributes based on structural properties of a system of interest was mentioned. Given a model $M$ this derivation can be seen as alteration of $M$ and therefore as a \textit{model transformation}. The resulting model $M'$ is different to $M$, both however, are conform to the same metamodel $MM$ whereas $MM$ is conform to $MMM$. In our case both source and target languages are identical. We can therefore simplify the transformation graph shown in Figure \ref{fig:metametamodel}.
 
 \begin{figure}[H]
 \centering
@@ -293,14 +293,14 @@ Thyssen et al. propose a decomposition of systems into sub-systems to overcome t
 
 Different development perspectives were also proposed to focus on specific stakeholders and their needs during the system abstraction. 
 
-The \textit{user perspective} describes, as the name suggests, the user's interests and the fulfilment of such by the respective system. The focus is on the hierarchical structuring of the general system functionality based on the users' needs and the functional interrelationships between components. The \textit{logical perspective} can be seen as a bridge between the user-defined requirements and the technical implementation and lastly, the \textit{technical perspective} describes the technical side, i.e. the hardware components that incorporate the needs of the respective users.  
+The \textit{user perspective} describes, as the name suggests, the user's interests and the fulfillment of such by the respective system. The focus is on the hierarchical structuring of the general system functionality based on the users' needs and the functional interrelationships between components. The \textit{logical perspective} can be seen as a bridge between the user-defined requirements and the technical implementation and lastly, the \textit{technical perspective} describes the technical side, i.e. the hardware components that incorporate the needs of the respective users.  
 
 In this thesis however, the main focus is the combination of the security perspective and the \glqq seamless\grqq \ abstraction of systems. As previously mentioned security in information systems is seen as a complex process \cite{vacca2012computer} and the realization of security policies may have effects on different perspectives. Throughout the thesis system abstraction will be addressed from the perspective of a security architect that tries to incorporate all the stakeholders' security needs in a system. The goal is to propose a solution on how security properties of systems propagate through different levels of abstraction. Dependencies amongst them have to be taken into account and appropriate aggregation rules have to be defined. 
 
 Thyssen et al. have introduced the theoretical idea of \glqq seamless\grqq \ abstraction but have not addressed the the transformation steps that are needed to transform a system from one granularity level to another.  
 
 \subsection{Security Attribute Aggregation}
-
+\label{subsec:aggregation}
 Aggregation of security attributes has been studied and aggregation rules have been discussed by multiple researchers. Menzel et al. focused on the aggregation of security requirements and dependencies amongst them \cite{Menzel2008}. They defined interaction sets for requirements that classified the effects two requirements $r_1$ and $r_2$ might have on each other. According to \cite{Menzel2008} requirements could be independent, equivalent or conflicting, just to name a few.
 
 Furthermore, when addressing the actual aggregation, Menzel et al. argued that to propose correct rules one has to look at two core aspects. Firstly one has to determine whether two requirements belong to the same class of security goals or not and secondly, the addressed entities and dependencies amongst the requirements have to be considered.
@@ -665,7 +665,7 @@ The just mentioned sets are the basic sets for components without looking at str
 \subsection{Transformation Rule Set for Security Goals}
 \label{subsec:sec_goals_rules}
 
-The transformation rules for security goals will now be introduced. The following pseudocode will then be explained afterwards using an exemplary security concept. The function  \texttt{compute\_SG} has two inputs, $cid$ is  an ID of the component selected by the user and \texttt{security\_concept} is the initial security concept model. The user-selected component IDs display the granularity level. The user can select as many components as needed and the result will be a security concept with the aggregated security attributes for the selected elements.
+The transformation rules for security goals will now be introduced. The following pseudocode will then be explained afterwards using an exemplary security concept. The function  $compute\_SG$ has two inputs, $cid$ is  an ID of the component selected by the user and $security\_concept$ is the initial security concept model. The user-selected component IDs display the granularity level. The user can select as many components as needed and the result will be a security concept with the aggregated security attributes for the selected elements.
 
 \begin{algorithm}[H]
 \caption{Transformation rules for security goals}
@@ -692,7 +692,6 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \State findAncestors($component$) 
 \State findChildren($component$) 
 \State checkConnections($L_{sg}$, $component$)
-\State securityGoalAggregation({$L_{sg}$})
 \State writeToSecurityConcept($cid$, $L_{sg}$) 
 \Else
 \State break
@@ -810,23 +809,8 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[H] 
-\begin{algorithmic}
-\algrestore{testcont} 
-
-\Function{securityGoalAggregation}{$L_{sg}$}
-\State final\_sgs $\gets$ empty
-\ForAll {sg in $L_{sg}$}
-\State tmp\_sg = $L_{sg}$.where(\_sg.securityGoalClass == sg.securityGoalClass  \&\& \_sg.asset == sg.asset)
-\State tmp\_sg.first.damagePotential = tmp\_sg.where(damagePotential.max)
-\State final\_sgs.add(tmp\_sg.first)
-\EndFor
-\EndFunction
-\end{algorithmic}
-\end{algorithm}
-
 \subsubsection{Model Transformation using an Example}
-
+\label{subsubsec:transformation_example}
 The following security concept serves as an example. The selected granularity level is displayed by the three marked components, $C1$, $C2$ and $C1.1.1$. Some of the components in the security concept have security goals defined. The goal now is to derive the influence these goals have on the selected components. In this chapter a complete transformation will be carried out and the resulting security concept will be presented. Key transformation steps will be discussed and highlighted.
 
 \begin{figure}[H]
@@ -905,7 +889,7 @@ When processing the second sub-component of $C1$ we find another connection that
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{pictures/con_c12}
-\caption{Underspecified Security Concept with a Control}
+\caption{Connection adjustment}
 \label{fig:con_c1.2}
 \end{figure} 
 
@@ -928,7 +912,7 @@ While processing $C2.1$ the function $fixConnection$ will be called that will  p
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{pictures/con_c2}
-\caption{Underspecified Security Concept with a Control}
+\caption{Connection adjustment}
 \label{fig:con_c2}
 \end{figure}
 
@@ -978,11 +962,116 @@ SG_{CIA}(C2) = \{SG(C,C2,D1,"high"), SG(C,C2,D3,"medium")\}
 The information gain that can be observed is substantial. We will now cover aggregation rules for security goals that can be used to derive new security goals based on the aggregated sets. 
 
 \subsubsection{Aggregation Rules}
+
+So far we have only discussed the aggregation of security goals based on the granularity level of the SUS. The resulting security goal set has so far been a union of all the discovered security goals. As discussed in Section \ref{subsec:aggregation} there exist different approaches in how security attributes can be aggregated. In this thesis we will cover qualitative security attribute aggregation. In case of security goals the aggregation will be carried out based on the provided $damagePotential$ in case of a breach. The following snippet displays the idea:
+
+\begin{algorithm}[H] 
+\begin{algorithmic}
+\algrestore{testcont} 
+\Function{securityGoalAggregation}{$L_{sg}$}
+\State final\_sgs $\gets$ empty
+\ForAll {sg in $L_{sg}$}
+\State tmp\_sg = $L_{sg}$.where(\_sg => \_sg.securityGoalClass == sg.securityGoalClass  \&\& \_sg.asset == sg.asset)
+\State tmp\_sg.first.damagePotential = tmp\_sg.where(damagePotential.max)
+\State final\_sgs.add(tmp\_sg.first)
+\EndFor
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+Let $L_{sg}$ be the set of security goals for a component $C_i$. After iterating through the SUS and deriving security goals we receive the following set:
+
+\begin{align*}
+L_{sg} = \{&SG(I,C_i,C_i,"low"),\\ &SG(C,C_i,D_j, "medium"),\\ &SG(I,C_i,C_i,"high"),\\ &SG(C,C_i,D_j, "medium")\} \\
+\end{align*}
+
+The set has four security goals out of which two each address the same security goal class for the same asset. This might for example happen if two sub-components have security goals addressing their integrity and both propagate into the abstraction layers above up to $C_i$. 
+
+We have now two options. We either take this, possibly redundant, set as the result of the model transformation or we try to aggregate the security goals. When applying the $securityGoalAggregation$ function we iterate through $L_{sg}$ and try to find security goals with the same security goal class and  asset. Having found a match, we take the maximum $damagePotential$ and set this as the potential of the aggregated security goal. For this example the resulting set would be:
+
+\begin{align*}
+L_{sg} = \{&SG(I,C_i,C_i,"high"),\\ &SG(C,C_i,D_j, "medium")\} \\
+\end{align*}
+
+This aggregation is optional and should be carried out by the user if needed. When aggregating security goals we also have to discuss the effect it has on the closely coupled attributes threats and controls. This effect will be highlighted in Sections \ref{subsubsec:threat_aggregation} and \ref{subsubsec:control_aggregation}.
+   
 \subsection{Transformation Rule Set for Threats}
 \label{subsec:threat_rules}
+
+When covering the aggregation of threats we will take the example shown in Section \ref{subsubsec:transformation_example} and extend it by adding threats to the security concept. Further, to avoid redundancy it will be explained how to aggregate threats while iterating through components using the previously defined methods for security goals without providing code snippets. 
+
+As a start we have to define threats that threaten the initially defined security goals in Section \ref{subsec:sec_goals_rules}. This was the initial set:
+
+\begin{align*}
+SG_{CIA}(sec\_concept) = \{SG(A,C1.1.1,C1.1.1,"high") &, \\ SG(C,C1.1,D2,"medium")&, \\
+SG(I,C1,C1,"low")&, \\
+SG(C,-,D1,"high")&, \\
+SG(C,-,D3,"medium")\} 
+\end{align*}
+
+We will therefore define multiple threats addressing the just mentioned security goals. To put everything into perspective we will firstly add the \glqq dummy \grqq threat into our security concept to show the overall system picture.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{pictures/threat_transformation}
+\caption{Security Concept Model}
+\label{fig:con_c2}
+\end{figure}
+
+Now follows the definition of the respective threats with their attributes. 
+
+\begin{align*}
+T_{STRIDE}(sec\_concept) = \{&T(D, SG(A,C1.1.1,C1.1.1,"high"), "low"), \\
+&T(T, SG(C,C1.1,D2,"medium"), "high"), \\
+&T(S, SG(I,C1,C1,"low"), "medium"), \\
+&T(I, SG(C,-,D1,"high"), "low"), \\
+&T(I, SG(C,-,D1,"high"), "medium"), \\
+&T(I, SG(C,-,D3,"medium"), "medium"), \\
+&T(E, SG(C,-,D3,"medium"), "high")
+\} 
+\end{align*}
+
+To start off the transformation we have to define a list of threats $L_t$ where threats will be added to during the iteration. Similar to the previous section we begin with $C1.1.1$ and the threats that are associated with this component. We will add the threats on data and on the component itself. The only threat will be added to $L_t$.
+
+\begin{align*}
+L_t = \{T(D, SG(A,C1.1.1,C1.1.1,"high"), "low")\}
+\end{align*}
+
+When looking through the ancestors the threats will be added exactly when the security goals of the ancestor is added to $L_{sg}$. For $C1.1.1$ the direct ancestor is $C1.1$ but because the security goal does not propagate to the layer below, neither will the associated threats. It is important to note that even though we differentiate between rules for security goals, threats and controls all of these steps happen during one single iteration.
+
+The ancestor of $C1.1$ is $C1$ and since it is in the stack $sg\_compute$ is being called with $C1$ as the parameter. We will add $C1$ to $L_v$ and the initial threats to $L_t$.
+
+We can only find one threat for the security goal addressing the integrity of $C1$ and will add it to $L_t$.
+
+\begin{align*}
+L_t = \{T(S, SG(I,C1,C1,"low"), "medium")\}
+\end{align*}
+
+When looking at the sub-components of $C1$, $C1.1$ and $C1.2$ all security goals will be added. In this case there is only one direct security goal which is addressing the confidentiality of Data 2. We will therefore add the corresponding threat to $L_t$. It is important to note that the added threat already addresses the altered security goal, i.e. the asset and component has to be changed accordingly.
+
+\begin{align*}
+L_t = \{&T(S, SG(I,C1,C1,"low"), "medium"), \\
+&T(T, SG(C,C1,D2,"medium"), "high")
+\}
+\end{align*}
+
+The other sibling $C1.2$ has no security goals and therefore no threats that have to be considered. The big difference when looking at threats can be seen in the following step when changing to a lower abstraction layer and processing $C1.1.1$. The only security goal for this component addresses its availability and in the previous section we have discussed that it will not propagate to the higher abstraction layers because of the proposed interpretations in Section \ref{subsec:interpretation}. 
+
+Threats however, behave differently. Each and every threat of a sub-component has a direct influence on its parental nodes. A component can thus be only as secure as its sub-components. In this case the threat threatening the availability of $C1.1.1$ will also threaten its ancestors. We therefore add the threat to $L_t$.
+
+\begin{align*}
+L_t = \{&T(S, SG(I,C1,C1,"low"), "medium"), \\
+&T(T, SG(C,C1,D2,"medium"), "high"), \\
+&T(D, SG(A,C1,C1,"high"), "low")\}
+\end{align*}
+
+Now we have to adjust the connections. 
+
 \subsubsection{Aggregation Rules}
+\label{subsubsec:threat_aggregation}
 \subsection{Transformation Rule Set for Controls}
 \subsubsection{Aggregation Rules}
+\label{subsubsec:control_aggregation}
 
 \section{Implementation}
 \subsection{Technology}
