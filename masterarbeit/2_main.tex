@@ -8,7 +8,7 @@ Prior to addressing the actual approach and implementation some concepts and ter
 
 \subsection{Security}
 
-Morrie Gasser \cite{Gasser} published a book in 1988 providing solutions for computer scpecialists interested in computer security. The term \textit{Computer Security} usually dealt with three aspects:
+Morrie Gasser \cite{Gasser} published a book in 1988 providing solutions for computer specialists interested in computer security. The term \textit{Computer Security} usually dealt with three aspects:
 
 \begin{itemize}
 \item Prevention of theft or damage to the hardware 
@@ -16,11 +16,11 @@ Morrie Gasser \cite{Gasser} published a book in 1988 providing solutions for com
 \item Prevention of service disruption
 \end{itemize}
 
-With the invention of the Internet the (personal) computers got interconnected and the sharing of data became prevalent and thus data security.
+With the invention of the Internet the (personal) computers got interconnected and the sharing of data became prevalent and correspondingly also data security.
 
 Nowadays security is seen as a process. No combination of products are guaranteed to make a system secure since they are only as secure as the people configuring them \cite{vacca2012computer}. \label{sec:security}
 
-In general when talking about computer security three aspects are addressed, \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} \cite{Pfleeger:2006:SC:1177321}. Each of them will no be defined:
+In general when talking about computer security three aspects are addressed, \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} \cite{Pfleeger:2006:SC:1177321}. Each of them will now be defined:
 
 \begin{itemize}
 \item[] \textbf{Confidentiality} Assets can only be accessed by authorized parties
@@ -309,7 +309,7 @@ The transformation rules, which will be defined in Section \ref{sec:approach}, u
 
 Similarities can be found when looking at the work carried out by Noel et al. \cite{Noel:2004:MAG:1029208.1029225} which addresses attack graph aggregation. 
 
-Attack graphs are a representation of possible vulnerabilities in a network that can be exploited by attackers.  Interactions and dependencies are represented by edges and for large networks such graphs may become very complex. To reduce the just mentioned complexity rules have been introduced that hierarchically aggregate graph elements. 
+Attack graphs are a representation of possible vulnerabilities in a network that can be exploited by attackers. Interactions and dependencies are represented by edges and for large networks such graphs may become very complex. To reduce the just mentioned complexity rules have been introduced that hierarchically aggregate graph elements. 
 
 Rules for exploits and security conditions, i.e. states that exist prior to or after an exploit, have been proposed. Exploits are being aggregated based on the attacker/victim machines where only exploits on the same machines are being aggregated into exploit sets. 
 
@@ -319,7 +319,7 @@ Both the idea of aggregation based on same elements/machines as well as the idea
 
 Lastly, risk aggregation is being covered. Lenstra et al. \cite{Lenstra2004}  have discussed both the qualitative as well as the quantitative risk analysis providing both the advantages and disadvantages of the respective method. Qualitative risk analysis assigns subjective values to risks or threats (such as High, Medium or Low) and these values then display the severity of the respective threat or risk. Qualitative approaches however, only provide very vague indications which might not be suitable for specific, more complex systems. 
 
-Quantitative approaches view the underlying events as distribution functions and derive the overall risk of an element from said functions. As mentioned by Lestra et al. and example could be the \textit{Annual Loss Expectancy} for an event which can then be aggregated when viewing different events.
+Quantitative approaches view the underlying events as distribution functions and derive the overall risk of an element from said functions. As mentioned by Lestra et al. an example could be the \textit{Annual Loss Expectancy} for an event which can then be aggregated when viewing different events.
 
 In our case quantitative aggregation is not necessary and might not even be possible in many cases since the given security concepts might be underspecified. 
 
@@ -337,16 +337,16 @@ When proposing the model transformation one has to determine its correctness. Va
 
 The fourth criterion is the \textit{semantic correctness} which usually implies a semantic equivalence between source and target model. Here however, the model transformation is a projection, i.e. a possible gain/loss of information is possible.  
 
-Oracle functions serve the purpose of validating a model transformation output. The definition of such may become very difficult because of the complex nature of models as data structures \cite{mottu}. Model comparison is described as one possible solution to validate a model transformation.  Mottu et al. introduce a general oracle containing six different functions validating a given test case. Our primary goal however is the semantic gain of the projection and to verify this we have to define a very specific oracle in the security context. 
+Oracle functions serve the purpose of validating a model transformation output. The definition of such may become very difficult because of the complex nature of models as data structures \cite{mottu}. Model comparison is described as one possible solution to validate a model transformation. Mottu et al. introduce a general oracle containing six different functions validating a given test case. Our primary goal however is the semantic gain of the projection and to verify this we have to define a very specific oracle in the security context. 
 
 Model verification through testing is the most common form of validation \cite{fleurey} and thus, we will provide an implementation of the transformation rules and will validate its results by testing with sample models as inputs. The purpose of the testing process is the \textit{detection of errors in the implementation}, the \textit{completion of the specification} and lastly the \textit{assessment of the result}, as mentioned by Fleurey et al.
 
 The most important aspect is the result assessment. In our case the satisfaction highly depends on the respective user (e.g. security engineer) and we therefore have to define a criterion which reflects a successful model transformation of the initial security concept while being independent of the user. The approach will be an oracle based on model comparison and will be discussed in Section \ref{subsec:validation}.
  
 \section{Approach}
-This section presents the approach addressing the previously mentioned goal of a model transformation based on the user-selected granularity level of a system of interest. Firstly, the security concept metamodel will be thoroughly described, each element of the metamodel will be put in the security context and advantages and disadvantages of such an interpretation will be highlighted.
+This section presents the approach addressing the previously mentioned goal of a model transformation based on the user-selected granularity level of a system of interest. Firstly, the security concept metamodel will be thoroughly described and each element of the metamodel will be put in the security context.
 
-The second part will deal with the actual transformation rules. Model transformations will be mathematically defined and the transformation rules for each element of the model will follow. Aside from the solution possible edge cases will be presented and evaluated.
+The second part will deal with the actual transformation rules. Sets that are important for the model transformation will be defined and the transformation rules for each element of the model will follow. Aside from the solution possible edge cases will be presented and evaluated.
 
 \label{sec:approach}
 \subsection{Security Concept}
@@ -362,7 +362,7 @@ The following metamodel is based on the security elements mentioned in Section \
 
 In the figure above all the core elements \textit{Security Goal}, \textit{Asset}, \textit{Control} and \textit{Threat} are pictured. All of these elements are part of a \textit{SecurityConcept}, which in this model will be simply identified by a name. 
 
-SGs have a \textit{Security Goal Class} attribute which describes the purpose of each SG. The \textit{Damage Potential} attribute indicates at the importance of a Goal, i.e. how important it is to secure a certain asset. The higher the damage potential the higher the impact if the security of an asset is breached. One key aspect of this metamodel is the dependency between SGs. A SG is dependent on another SG if both belong to the same asset and have the same security goal class. These dependencies, amongst others, have to be considered during potential transformation steps (Section \ref{subsec:secgoal}). 
+SGs have a \textit{Security Goal Class} attribute which describes the purpose of each SG. The \textit{Damage Potential} attribute indicates at the importance of a goal, i.e. how important it is to secure a certain asset. The higher the damage potential the higher the impact if the security of an asset is breached. One key aspect of this metamodel is the dependency between SGs. A SG is dependent on another SG if both belong to the same asset and have the same security goal class. These dependencies, amongst others, have to be considered during potential transformation steps (Section \ref{subsec:secgoal}). 
 
 Each SG belongs to exactly one asset whereas an asset itself can have unlimited SGs. In this thesis both physical and virtual components can be considered an asset. Both \textit{Data} and \textit{Component} can be assets according to the metamodel. 
 
@@ -458,7 +458,7 @@ To describe model transformations in the security context one has to discuss how
 
 \subsubsection*{Sub-component}
 \label{subsubsec:sub_comp}
-A sub-component \textit{SC} will be defined as a component that directly belongs to a component \textit{C} which is in an abstraction layer above, i.e. encapsulates one or more sub-components. According to the previously defined metamodel such a relationship between components is being defined by the \textit{hasComponent} composition, i.e. a sub-component cannot exist without a component here. This also means that no new data types or structures are added when changing to higher granularity levels. Sub-components can only process data that has already been defined in the layers above. An example would be a database encapsulating a sub-component such as a secure key storage.   
+A sub-component \textit{SC} will be defined as a component that directly belongs to a component \textit{C} which is in an abstraction layer above, i.e. encapsulates one or more sub-components. According to the previously defined metamodel such a relationship between components is being defined by the \textit{subComponent} composition, i.e. a sub-component cannot exist without a component here. This also means that no new data types or structures are added when changing to higher granularity levels. Sub-components can only process data that has already been defined in the layers above. An example would be a database encapsulating a sub-component such as a secure key storage.   
 
 \subsubsection*{Security Goals}
 \label{subsubsec:sec_goal}
@@ -494,10 +494,10 @@ Figure \ref{fig:subcomponent} has shown the dependencies between components and 
 It is not obvious what kind of influence the sub-component has on its parental node, if at all. If the confidentiality of component $C_{1.1}$ is protected it is not clear how it will propagate to higher abstraction layers. Similar observations can be made for the aggregation from higher abstraction layers to lower ones. One has therefore to define when and how security attributes will propagate based on structural features of the SUS.
 
 \begin{theorem}
-A security goal $SG_{C_1}$ of a component $C_1$ has a direct influence on another component $C_2$ if and only if there is: 
+A security goal $SG\_C1$ of a component $C1$ has a direct influence on another component $C2$ if and only if there is: 
 \begin{enumerate}
 \item a direct link between the two components, i.e. a hierarchical relationship between the two components AND
-\item component $C_2$ processes/holds the data type that is being addressed by $SG_{C_1}$
+\item component $C2$ processes/holds the data type that is being addressed by $SG\_C1$
 \end{enumerate} 
 \end{theorem}
 
@@ -515,19 +515,19 @@ An exemplary model instance follows showing security attribute propagation with 
 The corresponding security goal of the key data in natural text could be:
 
 \begin{itemize}
-\item[]\textbf{$SG_{KD}:$} The Confidentiality of sensible key data should be protected
+\item[]\textbf{$SG\_{KD}:$} The Confidentiality of sensible key data should be protected
 \end{itemize}
 
-Now we will look at component $C_{1.1}$ which has a link to key data. When looking through its SGs we will only find $SG_{KD}$ which should protect the \textit{Confidentiality} of said data. There is also a direct connection from $C_{1.1}$ to component $C_1$ which is in a granularity level above. 
+Now we will look at component $C1.1$ which has a link to key data. When looking through its SGs we will only find $SG_{KD}$ which should protect the \textit{Confidentiality} of said data. There is also a direct connection from $C1.1$ to component $C1$ which is in a granularity level above. 
 
-According to the definition (Section \ref{subsubsec:sub_comp}) a sub-component can only process data that already exists in the abstraction layers above. Thus, a correct conclusion would be that if the confidentiality of key data is protected in $C_{1.1}$ it is also protected in the layer above even though there is no explicit link between $C_1$ and key data. This however, does \textit{NOT} mean that the overall confidentiality is being protected since $C_1$ may process other data, such 
+According to the definition (Section \ref{subsubsec:sub_comp}) a sub-component can only process data that already exists in the abstraction layers above. Thus, a correct conclusion would be that if the confidentiality of key data is protected in $C1.1$ it is also protected in the layer above even though there is no explicit link between $C1$ and key data. This however, does \textit{NOT} mean that the overall confidentiality is being protected since $C1$ may process other data, such 
 as user data in the example.
 
 Propagation from higher layers to lower ones is generally not possible without explicit links to data types. This will be discussed more thoroughly in Section \ref{subsec:sec_goals_rules}.
 
-Similar conclusions can be made for the \textit{Integrity} of sub-components and its propagation to abstraction layers with higher or lower granularity levels with one slight difference. When looking at components at higher abstraction layers we can say that if the integrity of a component $C_1$ is being protected then all of its sub-components are being protected as well. 
+Similar conclusions can be made for the \textit{Integrity} of sub-components and its propagation to abstraction layers with higher or lower granularity levels with one slight difference. When looking at components at higher abstraction layers we can say that if the integrity of a component $C1$ is being protected then all of its sub-components are being protected as well. 
 
-For \textit{Availability} however, the situation differs. The connection between components (\textit{hasComponent}) has been defined as a composition. This means that the availability of a specific sub-component is pre-determined by the structural features of the SUS. If the availability of a component $C_1$ is protected it necessarily means that the availability of its sub-components is protected as well. To have the availability of a component protected however all of the sub-components have to be protected individually. The availability of a component is therefore the union of availabilities of its sub-components.
+For \textit{Availability} however, the situation differs. The connection between components (\textit{subComponent}) has been defined as a composition. This means that the availability of a specific sub-component is pre-determined by the structural features of the SUS. If the availability of a component $C1$ is protected it necessarily means that the availability of its sub-components is protected as well. To have the availability of a component protected all of the sub-components have to be protected individually. At the same time a component $C1$ may have different data or interconnections that are independent from their sub-components. We therefore cannot draw conclusions based on the availability of sub-components. 
 
 \subsubsection*{Threats}
 
@@ -551,25 +551,25 @@ Every defined threat threatens at least one SG according to the metamodel (Figur
 \label{fig:threat_overview}
 \end{figure} 
 
-In Figure \ref{fig:threat_overview} a threat $T_{SG_{UD}}$ threatens $SG_{UD}$ which addresses the user data that is being used by sub-component $C_{1.1}$. The influence of $T_{KD}$ on higher abstraction layers is of interest since neither SGs nor threats are explicitly defined in the example.
+In Figure \ref{fig:threat_overview} a threat $T\_SG\_UD$ threatens $SG\_UD$ which addresses the user data that is being used by sub-component $C1.1$. The influence of $T\_KD$ on higher abstraction layers is of interest since neither SGs nor threats are explicitly defined in the example.
 
 \begin{itemize}
-\item[]\textbf{$SG_{UD}:$} The Confidentiality of sensible user data should be protected
-\item[]\textbf{$T_{SG_{UD}}:$} Eavesdropping on sensible user data
+\item[]\textbf{$SG\_UD:$} The Confidentiality of sensible user data should be protected
+\item[]\textbf{$T\_SG\_UD:$} Eavesdropping on sensible user data
 \end{itemize}
 
-Similar to SGs, we can assume that $T_{SG_{UD}}$ propagates to the layer above based on the definition of sub-components. User data, which is only explicitly addressed by $SG_{UD}$, is also present at parental nodes. Thus, if the \textit{Confidentiality} of user data is being threatened by $T_{SG_{UD}}$, it is also being threatened when looking at $C1$.
+Similar to SGs, we can assume that $T\_SG\_UD$ propagates to the layer above based on the definition of sub-components. User data, which is only explicitly addressed by $SG\_UD$, is also present at parental nodes. Thus, if the \textit{Confidentiality} of user data is being threatened by $T\_SG\_UD$, it is also being threatened when looking at $C1$.
 
-For the propagation from abstraction layers depicting lower granularities ($C_1$) to layers with higher granularity ($C_{1.1}$) we have to take the data types into account. We will define a SG addressing key data and the corresponding threat.
+For the propagation from abstraction layers depicting lower granularities ($C1$) to layers with higher granularity ($C1.1$) we have to take the data types into account. We will define a SG addressing key data and the corresponding threat.
 
 \begin{itemize}
-\item[]\textbf{$SG_{KD}:$} The Confidentiality of key data should be protected
-\item[]\textbf{$T_{SG_{KD}}:$} Disclosure of key data
+\item[]\textbf{$SG\_KD:$} The Confidentiality of key data should be protected
+\item[]\textbf{$T\_SG\_KD:$} Disclosure of key data
 \end{itemize}
 
-Now if the the confidentiality is being threatened by $T_{SG_{KD}}$ it is not clear how it will propagate to the layers below since $C_{1.1}$ is not addressing key data in any observable way. 
+Now if the the confidentiality is being threatened by $T\_SG\_KD$ it is not clear how it will propagate to the layers below since $C1.1$ is not addressing key data in any observable way. 
 
-Threats that threaten SGs with \textit{Integrity} as their security goal classes behave differently. Contrary to confidentiality, assumptions can be made when looking at propagation from higher abstraction layers to lower ones. When integrity of a component $C_n$ is being threatened the integrity of all respective sub-components $C_{n.1} ... C_{n.m}$ is being threatened as well. If the integritiy of a sub-component $C_{n.i}$ is being threatened it will also propagate to its parental node $C_n$ since a node can only be as secure as its sub-nodes.
+Threats that threaten SGs with \textit{Integrity} as their security goal classes behave differently. Contrary to confidentiality, assumptions can be made when looking at propagation from higher abstraction layers to lower ones. When integrity of a component $C_n$ is being threatened the integrity of all respective sub-components $C_{n.1} ... C_{n.m}$ is being threatened as well. If the integrity of a sub-component $C_{n.i}$ is being threatened it will also propagate to its parental node $C_n$ since a node can only be as secure as its sub-nodes.
 
 Lastly, for \textit{Availability} the propagation is pre-determined by the structural features and the definition of sub-components. If the availability of a component $C_n$ is threatened it propagates to its sub-components $C_{n.1} ... C_{n.m}$. 
 
@@ -588,17 +588,17 @@ Controls try to mitigate threats and are directly linked to at least one threat 
 \label{fig:control_propagation}
 \end{figure} 
 
-We have already discussed the propagation of SGs and threats in the previous chapters and thus, indirectly the propagation of controls. The example in Figure \ref{fig:control_propagation} shows a control that mitigates the threat $T_{SG_{UD}}$. In natural text the security attributes could be the following:
+We have already discussed the propagation of SGs and threats in the previous chapters and thus, indirectly the propagation of controls. The example in Figure \ref{fig:control_propagation} shows a control that mitigates the threat $T\_SG\_UD$. In natural text the security attributes could be the following:
 
 \begin{itemize}
-\item[]\textbf{$SG_{KD}:$} The Confidentiality of sensible user data should be protected
-\item[]\textbf{$T_{SG_{KD}}:$} Eavesdropping on sensible user data
-\item[]\textbf{$C_{T_{SG_{KD}}}:$} Encryption of sensible user data with AES-256 to pevent eavesdropping
+\item[]\textbf{$SG\_KD:$} The Confidentiality of sensible user data should be protected
+\item[]\textbf{$T\_SG\_KD:$} Eavesdropping on sensible user data
+\item[]\textbf{$C\_T\_SG\_KD:$} Encryption of sensible user data with AES-256 to pevent eavesdropping
 \end{itemize}
 
 Similar to threats which propagate to the upper abstraction layers, controls will as well. The rules will be the same since the controls are very tightly coupled and cannot exist without threats.
 
-For this example this would mean that when looking at the abstraction layer above and at $C_1$ we will consider the control $C_{T_{SG_{KD}}}$ as well the threat $T_{SG_{KD}}$ it is mitigating.
+For this example this would mean that when looking at the abstraction layer above and at $C1$ we will consider the control $C\_T\_SG\_KD$ as well the threat $T\_SG\_KD$ it is mitigating.
 
 This section was only giving an overview on the conclusions for security attributes that can be made based on the structural features of an (underspecified) security concept definition. A more thorough definition will be discussed in the following section. 
 
@@ -611,7 +611,7 @@ Similarly we define a threat set $T_{STRIDE}$ for a SUS where STRIDE is the thre
 \begin{enumerate}
 \item[]\textbf{Spoofing:} Adversaries pretend to be someone else
 \item[]\textbf{Tampering:} Adversaries change data in transit
-\item[]\textbf{Repudiation:} Adversdaries perform actions that can't be traced back to them
+\item[]\textbf{Repudiation:} Adversaries perform actions that can't be traced back to them
 \item[]\textbf{Information disclosure:} Unauthorized viewing/stealing of data
 \item[]\textbf{Denial of service:} Interruption of system services
 \item[]\textbf{Elevation of privilege:} Performing of unauthorized actions
@@ -654,7 +654,7 @@ Threats can be defined accordingly. For a threat $T$ with the threat class $tc$ 
 $T_{tc}(c) = T(tc, sg_i, sev) \cup T(tc, sg_{i+1}, sev) \cup ... \cup T(tc, sg_n, sev) | sg_i \in SG_{CIA}(c)$
 \end{theorem}
 
-The set $T_{STRIDE}$ ist therefore a union of all threat sets:
+The set $T_{STRIDE}$ is therefore a union of all threat sets:
 
 \begin{theorem} 
 $T_{STRIDE}(c) = T_S(c) \cup T_T(c) \cup T_R(c) \cup T_I(c) \cup T_D(c) \cup T_E(c)$
@@ -798,14 +798,31 @@ $S_{subc}$ $\gets$ \text{children node stack} \\
 \Function{checkConnections}{$L_{sg}$, $component$}
 \ForAll {con in $component$.connections}
 \If {(con.source || con.target) not in $L_c$}
-\State $component$.connections.delete(con)
-\Else
+\State $component$.connections.delete(con) \label{line:con_del}
+\Else 
 \State $L_{sg}$.addEach(con.data.asset.securityGoals)
 \EndIf
 \EndFor
 \EndFunction
-
 \algstore{testcont}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\begin{algorithmic}
+\algrestore{testcont} 
+
+\Function{checkSecurityGoalDependencies}{$L_{sg}$}
+\ForAll {$sg$ in $L_{sg}$}
+\ForAll {$dep\_sg$ in $sg$.dependsOnSecurityGoal}
+\If {$dep\_sg$.asset.component not in $L_c$}
+\State $L_{sg}$.delete($sg$)
+\EndIf
+\EndFor
+\EndFor
+\EndFunction
+\algstore{testcont}
+
 \end{algorithmic}
 \end{algorithm}
 
@@ -893,11 +910,13 @@ When processing the second sub-component of $C1$ we find another connection that
 \label{fig:con_c1.2}
 \end{figure} 
 
-Lastly the function $checkConnections$ will be called to verify that both sources and targets of the added connections are in $L_c$. Only then will the security attributes be added to the resulting model. In this case only one connection is correct having both the source and target in $L_c$. Therefore we will add the security goals addressing the transmitted data Data 3. The other connection will be deleted for now since the source is not in $L_c$.
+The function $checkConnections$ will be called to verify that both sources and targets of the added connections are in $L_c$. Only then will the security attributes be added to the resulting model. In this case only one connection is correct having both the source and target in $L_c$. Therefore we will add the security goals addressing the transmitted data Data 3. The other connection will be deleted for now since the source is not in $L_c$.
 
 \begin{align*}
-SG_{CIA}(C1) = \{SG(I,C1,C1,"low"), SG(C,C1,D2, "medium"), \\ SG(C,-,D3,"medium")\}
+SG_{CIA}(C1) = \{SG(I,C1,C1,"low"), SG(C,C1,D2, "medium"), \\ SG(C,C1,D3,"medium")\}
 \end{align*}
+
+Lastly it is possible that security goals had been added to the sets even though the security goals they are dependent on were not. To verify the correctness of the transformation the function $checkSecurityGoalDependencies$ will be called. Here however, no dependencies can be found.
 
 The aggregation for $C1$ has been carried out while iterating through the ancestors of $C1.1.1$. To conclude the aggregation the function $add\_sg\_AtoC$ will be called. $C1$ now has two security goals that might have an influence on $C1.1.1$. In Section \ref{subsubsec:sec_goal} the propagation of security attributes through abstraction layers has been discussed. If the integrity for a component $C$ is being protected it necessarily means that the integrity of its sub-components $C_i ... C_n$ is being protected as well. We can therefore add $SG\_C1$ to $L_{sg}$ for $C1.1.1$ while adjusting the properties of the security goal. The attributes component and assets will be changed from $C1$ to $C1.1.1$.
 
@@ -919,13 +938,13 @@ While processing $C2.1$ the function $fixConnection$ will be called that will  p
 $checkConnections$ will be called at last and both outgoing connections will be processed. Since targets and sources are in $L_c$ security attributes of both connections will be added to the security goal set of $C2$. 
 
 \begin{align*}
-SG_{CIA}(C2) = \{SG(C,-,D1,"high"), SG(C,-,D3,"medium")\}
+SG_{CIA}(C2) = \{SG(C,C2,D1,"high"), SG(C,C2,D3,"medium")\}
 \end{align*}
 
 One more iteration is needed to assure that all connections of all components have been added correctly. As a result a security goal addressing Data 1 will be added to the security goal set of $C1$.
 
 \begin{align*}
-SG_{CIA}(C1) = \{SG(I,C1,C1,"low"), SG(C,C1,D2, "medium"), \\ SG(C,-,D3,"medium"), SG(C,-,D1,"high")\}
+SG_{CIA}(C1) = \{SG(I,C1,C1,"low"), SG(C,C1,D2, "medium"), \\ SG(C,C1,D3,"medium"), SG(C,C1,D1,"high")\}
 \end{align*} 
 
 The transformation result as well as a comparison between the initial set of security attributes and the resulting set follows.
@@ -979,10 +998,10 @@ So far we have only discussed the aggregation of security goals based on the gra
 \end{algorithmic}
 \end{algorithm}
 
-Let $L_{sg}$ be the set of security goals for a component $C_i$. After iterating through the SUS and deriving security goals we receive the following set:
+Let $SG_{CIA}$ be the set of security goals for a component $C_i$. After iterating through the SUS and deriving security goals we receive the following set:
 
 \begin{align*}
-L_{sg} = \{&SG(I,C_i,C_i,"low"),\\ &SG(C,C_i,D_j, "medium"),\\ &SG(I,C_i,C_i,"high"),\\ &SG(C,C_i,D_j, "medium")\} \\
+SG_{CIA}(C_i) = \{&SG(I,C_i,C_i,"low"),\\ &SG(C,C_i,D_j, "medium"),\\ &SG(I,C_i,C_i,"high"),\\ &SG(C,C_i,D_j, "medium")\} \\
 \end{align*}
 
 The set has four security goals out of which two each address the same security goal class for the same asset. This might for example happen if two sub-components have security goals addressing their integrity and both propagate into the abstraction layers above up to $C_i$. 
@@ -990,7 +1009,7 @@ The set has four security goals out of which two each address the same security 
 We have now two options. We either take this, possibly redundant, set as the result of the model transformation or we try to aggregate the security goals. When applying the $securityGoalAggregation$ function we iterate through $L_{sg}$ and try to find security goals with the same security goal class and  asset. Having found a match, we take the maximum $damagePotential$ and set this as the potential of the aggregated security goal. For this example the resulting set would be:
 
 \begin{align*}
-L_{sg} = \{&SG(I,C_i,C_i,"high"),\\ &SG(C,C_i,D_j, "medium")\} \\
+SG_{CIA}(C_i) = \{&SG(I,C_i,C_i,"high"),\\ &SG(C,C_i,D_j, "medium")\} \\
 \end{align*}
 
 This aggregation is optional and should be carried out by the user if needed. When aggregating security goals we also have to discuss the effect it has on the closely coupled attributes threats and controls. This effect will be highlighted in Sections \ref{subsubsec:threat_aggregation} and \ref{subsubsec:control_aggregation}.
@@ -1065,20 +1084,219 @@ L_t = \{&T(S, SG(I,C1,C1,"low"), "medium"), \\
 &T(D, SG(A,C1,C1,"high"), "low")\}
 \end{align*}
 
-Now we have to adjust the connections. 
+The next step during the security goal aggregation is the adjustment of connections. Since threats are coupled with security goals we will add the respective threats when calling $checkConnections$ in the end of the security goal aggregation for a component. Only when both the source and target of a connection are in $L_c$, the goal and the threats will be added to $L_{sg}$ and $L_t$. As mentioned in the previous section the target of the connection was changed from $C1.1$ to $C1$, the source however has not been changed yet and is therefore not in $L_c$. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{pictures/con_c11}
+\caption{Connection adjustment}
+\end{figure}
+
+When looking at the sibling $C1.2$ we will find another connection that has to be adjusted as well. The source will be changed from $C1.2$ to $C1$ and the function $checkConnections$ will be called.
+
+Our components of interest are $C1.1.1$, $C1$ and $C2$, the source component of the connection transmitting Data 1 is $C2.1$ and as a result this connection will be deleted (line \ref{line:con_del}). The other connection has both the source and target in $L_c$ and its associated security goals will be added to the set. Threats will be added accordingly.
+
+\begin{algorithm}[H]
+\begin{algorithmic}
+\Function{checkConnections}{$L_{sg}$, $component$}
+\ForAll {con in $component$.connections}
+\If {(con.source || con.target) not in $L_c$}
+\State $component$.connections.delete(con) 
+\Else
+\State $L_{sg}$.addEach(con.data.asset.securityGoals)
+\State \algemph{$L_t$.addEach(con.data.asset.securityGoals.threats)}
+\EndIf
+\EndFor
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+The resulting threat set would be the following:
+
+\begin{align*}
+L_t = \{&T(S, SG(I,C1,C1,"low"), "medium"), \\
+&T(T, SG(C,C1,D2,"medium"), "high"), \\
+&T(D, SG(A,C1,C1,"high"), "low"), \\
+&T(I, SG(C,C1,D3,"medium"), "medium"), \\
+&T(E, SG(C,C1,D3,"medium"), "high")\}
+\end{align*}
+
+Threat aggregatin for $C1$ was concluded for now and we will now look at $C1.1.1$ that might inherit threats from its parental nodes. As a reminder this was the set before the call of $compute\_sg$ for $C1$.
+
+\begin{align*}
+L_t = \{T(D, SG(A,C1.1.1,C1.1.1,"high"), "low")\}
+\end{align*}
+
+The security goal addressing the integrity of $C1$ will be adapted and added to $L_{sg}$ of $C1.1.1$. The reasons for this aggregation have already been discussed. When adding the security goal its threats will also be added to the resulting threat set.
+
+\begin{align*}
+T_{STRIDE}(C1.1.1) = \{&T(D, SG(A,C1.1.1,C1.1.1,"high"), "low"), \\
+&T(S, SG(I,C1.1.1,C1.1.1,"low"), "medium")\}
+\end{align*}
+
+Lastly we will look into the component $C2$ and its children. The connections will be adjusted once again and all the threats will be added to the resulting threat set of $C2$. 
+
+\begin{align*}
+T_{STRIDE}(C2) = \{&T(I, SG(C,C2,D3,"medium"), "medium"), \\
+&T(E, SG(C,C2,D3,"medium"), "high"), \\
+&T(I, SG(C,C2,D1,"high"), "low"), \\
+&T(I, SG(C,C2,D1,"high"), "medium")
+\}
+\end{align*}
+
+A function iterating through the connections will add the security goal addressing Data 1 to the component $C1$ since both source and target of the respective connection are in $L_c$. The threats will be added accordingly.
+
+\begin{align*}
+T_{STRIDE}(C1) = \{&T(S, SG(I,C1,C1,"low"), "medium"), \\
+&T(T, SG(C,C1,D2,"medium"), "high"), \\
+&T(D, SG(A,C1,C1,"high"), "low"), \\
+&T(I, SG(C,C1,D3,"medium"), "medium"), \\
+&T(E, SG(C,C1,D3,"medium"), "high"), \\
+&T(I, SG(C,C1,D1,"high"), "low"), \\
+&T(I, SG(C,C1,D1,"high"), "medium")
+\}
+\end{align*}
+
+Because of the model transformation and the rules for threat aggregation we were able to extend the number of threats. For component $C1$ the total number of threats is seven in comparison to the single initial threat.
+
+Similarly to security goals we will now cover possible aggregation rules for threats. 
 
 \subsubsection{Aggregation Rules}
 \label{subsubsec:threat_aggregation}
+
+For security goals we have defined the following example security goal set:
+
+\begin{align*}
+SG_{CIA}(C_i) = \{&SG(I,C_i,C_i,"low"),\\ &SG(C,C_i,D_j, "medium"),\\ &SG(I,C_i,C_i,"high"),\\ &SG(C,C_i,D_j, "medium")\} \\
+\end{align*}
+
+The aggregation has been carried out according to the attribute $damagePotential$. As a result we have two security goals, each addressing one asset.  
+
+\begin{align*}
+SG_{CIA}(C_i) = \{&SG(I,C_i,C_i,"high"),\\ &SG(C,C_i,D_j, "medium")\} \\
+\end{align*}
+
+During this aggregation however we have to also look into the associated threats that must also be aggregated. 
+
+\begin{algorithm}[H] 
+\begin{algorithmic}
+\Function{securityGoalAggregation}{$L_{sg}$}
+\State final\_sgs $\gets$ empty
+\ForAll {sg in $L_{sg}$}
+\State tmp\_sg = $L_{sg}$.where(\_sg => \_sg.securityGoalClass == sg.securityGoalClass  \&\& \_sg.asset == sg.asset)
+\State tmp\_sg.first.damagePotential = tmp\_sg.where(damagePotential.max)
+\State \algemph{tmp\_sg.first.threat = tmp\_sg.where(damagePotential.max).threat}
+\State final\_sgs.add(tmp\_sg.first)
+\EndFor
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+To complete the example we will now define a threat set based on the initial security goals.
+
+\begin{align*}
+T_{STRIDE}(C_i) = \{&T(T, SG(I,C_i,C_i,"low"), "high"),\\ 
+&T(I, SG(C,C_i,D_j, "medium"), "medium"),\\ 
+&T(R, SG(I,C_i,C_i,"high"), "medium"),\\ 
+&T(I, SG(C,C_i,D_j, "medium"), "low")\}
+\end{align*}
+
+After applying the function for security goal aggregation, we receive the following set:
+
+\begin{align*}
+T_{STRIDE}(C_i) = \{&T(R, SG(I,C_i,C_i,"high"), "medium"),\\ 
+&T(I, SG(C,C_i,D_j, "medium"), "low")\}
+\end{align*}
+
+In this example the threat with the lower $attackPotential$ has been chosen. The reason herefore is the corresponding security goal. Even though the attack potential is higher, the $damagePotential$ in case of a security breach is lower. We therefore indirectly choose the threat based on the damage potential of the corresponding security goal.
+
 \subsection{Transformation Rule Set for Controls}
+
+Transformation rules for controls will only be covered very briefly. Every time when threats are being added to the respective threat set $L_t$ of an element $C_i$ the corresponding controls mitigating the threat are being added as well. An example showcasing this is unnecessary here. 
+
 \subsubsection{Aggregation Rules}
 \label{subsubsec:control_aggregation}
 
+Aggregation for controls is very similar to the previous aggregations. Whenever a threat is being aggregated its controls have to be processed as well. 
+
+\begin{algorithm}[H] 
+\begin{algorithmic}
+\Function{securityGoalAggregation}{$L_{sg}$}
+\State final\_sgs $\gets$ empty
+\ForAll {sg in $L_{sg}$}
+\State tmp\_sg = $L_{sg}$.where(\_sg => \_sg.securityGoalClass == sg.securityGoalClass  \&\& \_sg.asset == sg.asset)
+\State tmp\_sg.first.damagePotential = tmp\_sg.where(damagePotential.max)
+\State tmp\_sg.first.threat = tmp\_sg.where(damagePotential.max).threat
+\State \algemph{tmp\_sg.first.threat.control = tmp\_sg.where(damagePotential.max) \\ .threat.controls}
+\State final\_sgs.add(tmp\_sg.first)
+\EndFor
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+This code snippet is self-explanatory. All controls mitigating the aggregated threat are being added to the resulting security concept.
+
 \section{Implementation}
+
+In this section the chosen technologies that has been used to implement the just mentioned transformation rules are being covered. 
+
 \subsection{Technology}
+
+The implementation can be viewed from two perspectives, the modeling perspective and the actual implementation. Approaches for both perspectives will be introduced.
+
+The \textit{Eclipse Modeling Framework} (EMF) was used to create the security concept metamodel. EMF allows users to create their own models and to generate Java code based on the modeled dependencies. Classes such as Threats, Controls and Security Goals were defined as well as datatypes such as $Damage$ or $SecurityGoalClass$. The modeling itself was done using \textit{EcoreTools} \footnote{EcoreTools, online:\url{http://www.eclipse.org/ecoretools/index.html} } that allows a user interact with the EMF using Eclipse, an Integrated Development Environment (IDE).
+
+The automatically generated code can be used to interact with the metamodel and its elements. \textit{Xtend} \footnote{Xtend, online: \url{http://www.eclipse.org/xtend/}} was chosen as the language for the implementation of the transformation rules. \textit{Xtend} is a Java dialect that is being compiled to Java code. It can therefore be seamlessly integrated into the EMF environment and can interact with the auto-generated code by the EMF framework.    
+
 \subsection{Validity \& Verification}
 \label{subsec:validation}
+
+As mentioned in Section \ref{subsec:validation} model verification through testing is the most common form of validation \cite{fleurey}.
+
+To be able to verify whether or not the model transformation achieved its goal of providing new information for the respective user we will have to create an oracle based on model comparison. Even though the security interpretation of a concept is highly dependent on the user we will try to create a criterion based on which we will be able to determine whether the transformation was a success or not.
+
+Mottu et al. \cite{mottu} proposed six oracle functions that checked the validity of a model transformation output. Here, the main focus to provide a function that is able to determine the information gain from a security perspective.
+
+A possibility would be to iterate through the components of the resulting set and compare their security attributes with the initial set.
+
+\begin{algorithm}[H]
+\begin{algorithmic}
+\Function{securityConceptValidation}{$sc\_old$, $sc\_new$}
+\ForAll {$comp$ in $sc\_new$}
+\ForAll {$asset$ in $comp$.assets}
+\State $\_comp$ = $findComponentById(sc\_old, comp.id)$
+\If{$\_comp$.asset.securityGoals.size > \\ 
+\hspace{2cm} $comp$.asset.securityGoals.size || \\ 
+\hspace{2cm}$\_comp$.asset.securityGoals.threats.size > \\
+\hspace{2cm}$comp$.asset.securityGoals.threats.size || \\ 
+\hspace{2cm}$\_comp$.asset.securityGoals.threats.controls.size > \\
+\hspace{2cm}$comp$.asset.securityGoals.threats.controls.size}
+return false
+\EndIf
+\EndFor
+\EndFor
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+It is a very trivial oracle that only compares the number of security attributes of the resulting model with the initial set of security attributes. If the set after the model transformation is equal or bigger than the initial set then the transformation was successful. The validation function has to be called prior to $securityGoalAggregation$ because it is possible that security goals might be united with others and be therefore non-existent in the form they were in the initial set. 
+
 \subsection{Runtime \& Complexity}
 
+\begin{itemize}
+\item provide two \glqq extreme\grqq examples
+\end{itemize}
+
+One unbalanced tree with nodes of interest, testing recursion and dependencies
+
+\includegraphics[scale=1]{pictures/unbalanced}
+
+One security concept with multiple hundred of nodes where every node is a node of interest. 
+
+\includegraphics[scale=1]{pictures/many_nodes}
+
 \section{Summary}
+
 \section{Outlook}
+
 \label{subsec:secgoal}
