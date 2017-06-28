@@ -48,7 +48,8 @@ class Transformation {
 			SecuriyConceptPackage.eINSTANCE)
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
 		val resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"))
-		resource.contents.add(securityConcept)
+		val comp = securityConcept.components.get(0)
+		resource.contents.add(comp)
 		try {
 			resource.save(Collections.EMPTY_MAP)
 		} catch (IOException exception) {

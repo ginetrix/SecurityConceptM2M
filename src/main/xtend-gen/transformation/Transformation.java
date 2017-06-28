@@ -85,8 +85,10 @@ public class Transformation {
     _extensionToFactoryMap_1.put("xmi", _xMIResourceFactoryImpl);
     URI _createURI = URI.createURI("MetaModel/SecurityConceptTransformation.xmi");
     final Resource resource = resourceSet.createResource(_createURI);
+    EList<Component> _components = securityConcept.getComponents();
+    final Component comp = _components.get(0);
     EList<EObject> _contents = resource.getContents();
-    _contents.add(securityConcept);
+    _contents.add(comp);
     try {
       resource.save(Collections.EMPTY_MAP);
     } catch (final Throwable _t) {

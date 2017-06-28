@@ -1,5 +1,2 @@
 <?xml version="1.0" encoding="ASCII"?>
-<SC:SecurityConcept xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:SC="http://www.example.org/securityconcept">
-  <securityGoals description="mydesc" name=""/>
-  <components name="testssss"/>
-</SC:SecurityConcept>
+<SC:Component xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:SC="http://www.example.org/securityconcept" name="testssss"/>
