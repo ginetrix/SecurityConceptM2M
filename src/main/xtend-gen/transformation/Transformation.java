@@ -1,9 +1,9 @@
 package transformation;
 
-import SecuriyConcept.Asset;
-import SecuriyConcept.Component;
-import SecuriyConcept.SecurityConcept;
-import SecuriyConcept.SecuriyConceptPackage;
+import SC.Asset;
+import SC.Component;
+import SC.SCPackage;
+import SC.SecurityConcept;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,8 +30,8 @@ public class Transformation {
   public void generate(final String file) {
     final ResourceSetImpl resourceSet = new ResourceSetImpl();
     Map<String, Object> _extensionToFactoryMap = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
-    _extensionToFactoryMap.put(SecuriyConceptPackage.eNS_URI, 
-      SecuriyConceptPackage.eINSTANCE);
+    _extensionToFactoryMap.put(SCPackage.eNS_URI, 
+      SCPackage.eINSTANCE);
     Resource.Factory.Registry _resourceFactoryRegistry = resourceSet.getResourceFactoryRegistry();
     Map<String, Object> _extensionToFactoryMap_1 = _resourceFactoryRegistry.getExtensionToFactoryMap();
     XMIResourceFactoryImpl _xMIResourceFactoryImpl = new XMIResourceFactoryImpl();
@@ -69,16 +69,16 @@ public class Transformation {
     };
     Iterable<Component> _filter = IterableExtensions.<Component>filter(_components, _function);
     Component _get = ((Component[])Conversions.unwrapArray(_filter, Component.class))[0];
-    Asset _isAn = _get.getIsAn();
-    int _assetID = _isAn.getAssetID();
+    Asset _asset = _get.getAsset();
+    int _assetID = _asset.getAssetID();
     return InputOutput.<Integer>print(Integer.valueOf(_assetID));
   }
   
   public void writeToSecrutiyConcept(final SecurityConcept securityConcept) {
     final ResourceSetImpl resourceSet = new ResourceSetImpl();
     Map<String, Object> _extensionToFactoryMap = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
-    _extensionToFactoryMap.put(SecuriyConceptPackage.eNS_URI, 
-      SecuriyConceptPackage.eINSTANCE);
+    _extensionToFactoryMap.put(SCPackage.eNS_URI, 
+      SCPackage.eINSTANCE);
     Resource.Factory.Registry _resourceFactoryRegistry = resourceSet.getResourceFactoryRegistry();
     Map<String, Object> _extensionToFactoryMap_1 = _resourceFactoryRegistry.getExtensionToFactoryMap();
     XMIResourceFactoryImpl _xMIResourceFactoryImpl = new XMIResourceFactoryImpl();

@@ -55,4 +55,73 @@
       </editor>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated SecurityConcept3 -->
+      <package
+            uri="http://www.example.org/securityconcept"
+            class="SecurityConcept.SecurityConceptPackage"
+            genModel="Metamodel/SecurityConcept3.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated SecurityConcept3 -->
+      <parser
+            type="securityconcept"
+            class="SecurityConcept.util.SecurityConceptResourceFactoryImpl"/>
+   </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated SC -->
+      <package
+            uri="http://www.example.org/securityconcept"
+            class="SC.SCPackage"
+            genModel="Metamodel/SC.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated SC -->
+      <parser
+            type="sc"
+            class="SC.util.SCResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated SC -->
+      <factory
+            uri="http://www.example.org/securityconcept"
+            class="SC.provider.SCItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated SC -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="SC.presentation.SCModelWizardID"
+            name="%_UI_SCModelWizard_label"
+            class="SC.presentation.SCModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/SCModelFile.gif">
+         <description>%_UI_SCModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated SC -->
+      <editor
+            id="SC.presentation.SCEditorID"
+            name="%_UI_SCEditor_label"
+            icon="icons/full/obj16/SCModelFile.gif"
+            extensions="sc"
+            class="SC.presentation.SCEditor"
+            contributorClass="SC.presentation.SCActionBarContributor">
+      </editor>
+   </extension>
 </plugin>

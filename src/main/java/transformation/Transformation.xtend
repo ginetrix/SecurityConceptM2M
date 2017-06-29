@@ -4,11 +4,11 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.Resource$Factory
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
-import SecuriyConcept.SecurityConcept
 import org.eclipse.emf.ecore.EObject
-import SecuriyConcept.SecuriyConceptPackage
 import java.io.IOException
 import java.util.Collections
+import SC.SecurityConcept
+import SC.SCPackage
 
 class Transformation {
 	def static void main(String[] args) {
@@ -17,8 +17,8 @@ class Transformation {
 
 	def generate(String file) {
 		val resourceSet = new ResourceSetImpl
-		Resource$Factory.Registry.INSTANCE.extensionToFactoryMap.put(SecuriyConceptPackage.eNS_URI,
-			SecuriyConceptPackage.eINSTANCE)
+		Resource$Factory.Registry.INSTANCE.extensionToFactoryMap.put(SCPackage.eNS_URI,
+			SCPackage.eINSTANCE)
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
 		val resource = resourceSet.getResource(URI.createFileURI(file), true)
 		for (content : resource.contents) {
@@ -39,13 +39,13 @@ class Transformation {
 	}
 
 	def findComponentByID(SecurityConcept securityConcept, int id) {
-		print(securityConcept.components.filter[componentID.equals(id)].get(0).isAn.assetID)
+		print(securityConcept.components.filter[componentID.equals(id)].get(0).asset.assetID)
 	}
 
 	def writeToSecrutiyConcept(SecurityConcept securityConcept) {
 		val resourceSet = new ResourceSetImpl
-		Resource$Factory.Registry.INSTANCE.extensionToFactoryMap.put(SecuriyConceptPackage.eNS_URI,
-			SecuriyConceptPackage.eINSTANCE)
+		Resource$Factory.Registry.INSTANCE.extensionToFactoryMap.put(SCPackage.eNS_URI,
+			SCPackage.eINSTANCE)
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
 		val resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"))
 		val comp = securityConcept.components.get(0)
