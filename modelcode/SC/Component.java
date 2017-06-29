@@ -13,15 +13,15 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link SC.Component#getName <em>Name</em>}</li>
  *   <li>{@link SC.Component#getComponentID <em>Component ID</em>}</li>
- *   <li>{@link SC.Component#getData <em>Data</em>}</li>
  *   <li>{@link SC.Component#getSubcomponents <em>Subcomponents</em>}</li>
  *   <li>{@link SC.Component#getAncestor <em>Ancestor</em>}</li>
  *   <li>{@link SC.Component#getAsset <em>Asset</em>}</li>
+ *   <li>{@link SC.Component#getData <em>Data</em>}</li>
  * </ul>
+ * </p>
  *
  * @see SC.SCPackage#getComponent()
  * @model extendedMetaData="name='SecurityGoal'"
@@ -81,7 +81,7 @@ public interface Component extends EObject {
 	void setComponentID(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Data</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Data</b></em>' reference list.
 	 * The list contents are of type {@link SC.Data}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -89,10 +89,9 @@ public interface Component extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Data</em>' containment reference list.
+	 * @return the value of the '<em>Data</em>' reference list.
 	 * @see SC.SCPackage#getComponent_Data()
-	 * @model containment="true"
-	 *        extendedMetaData="name='SecurityGoal'"
+	 * @model
 	 * @generated
 	 */
 	EList<Data> getData();

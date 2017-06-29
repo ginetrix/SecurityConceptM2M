@@ -11,14 +11,14 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link SC.Connection#getName <em>Name</em>}</li>
  *   <li>{@link SC.Connection#getConnectionID <em>Connection ID</em>}</li>
- *   <li>{@link SC.Connection#getData <em>Data</em>}</li>
  *   <li>{@link SC.Connection#getSource <em>Source</em>}</li>
  *   <li>{@link SC.Connection#getTarget <em>Target</em>}</li>
+ *   <li>{@link SC.Connection#getData <em>Data</em>}</li>
  * </ul>
+ * </p>
  *
  * @see SC.SCPackage#getConnection()
  * @model extendedMetaData="name='SecurityGoal'"
@@ -78,27 +78,26 @@ public interface Connection extends EObject {
 	void setConnectionID(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Data</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Data</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Data</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Data</em>' containment reference.
+	 * @return the value of the '<em>Data</em>' reference.
 	 * @see #setData(Data)
 	 * @see SC.SCPackage#getConnection_Data()
-	 * @model containment="true" required="true"
-	 *        extendedMetaData="name='SecurityGoal'"
+	 * @model required="true"
 	 * @generated
 	 */
 	Data getData();
 
 	/**
-	 * Sets the value of the '{@link SC.Connection#getData <em>Data</em>}' containment reference.
+	 * Sets the value of the '{@link SC.Connection#getData <em>Data</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Data</em>' containment reference.
+	 * @param value the new value of the '<em>Data</em>' reference.
 	 * @see #getData()
 	 * @generated
 	 */

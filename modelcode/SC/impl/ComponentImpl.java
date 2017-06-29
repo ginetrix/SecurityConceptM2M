@@ -19,8 +19,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -30,15 +29,15 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link SC.impl.ComponentImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.ComponentImpl#getComponentID <em>Component ID</em>}</li>
- *   <li>{@link SC.impl.ComponentImpl#getData <em>Data</em>}</li>
  *   <li>{@link SC.impl.ComponentImpl#getSubcomponents <em>Subcomponents</em>}</li>
  *   <li>{@link SC.impl.ComponentImpl#getAncestor <em>Ancestor</em>}</li>
  *   <li>{@link SC.impl.ComponentImpl#getAsset <em>Asset</em>}</li>
+ *   <li>{@link SC.impl.ComponentImpl#getData <em>Data</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -84,16 +83,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 	protected int componentID = COMPONENT_ID_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getData() <em>Data</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getData()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Data> data;
-
-	/**
 	 * The cached value of the '{@link #getSubcomponents() <em>Subcomponents</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -122,6 +111,16 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 	 * @ordered
 	 */
 	protected Asset asset;
+
+	/**
+	 * The cached value of the '{@link #getData() <em>Data</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getData()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Data> data;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -191,7 +190,7 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 	 */
 	public EList<Data> getData() {
 		if (data == null) {
-			data = new EObjectContainmentEList<Data>(Data.class, this, SCPackage.COMPONENT__DATA);
+			data = new EObjectResolvingEList<Data>(Data.class, this, SCPackage.COMPONENT__DATA);
 		}
 		return data;
 	}
@@ -359,8 +358,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case SCPackage.COMPONENT__DATA:
-				return ((InternalEList<?>)getData()).basicRemove(otherEnd, msgs);
 			case SCPackage.COMPONENT__SUBCOMPONENTS:
 				return ((InternalEList<?>)getSubcomponents()).basicRemove(otherEnd, msgs);
 			case SCPackage.COMPONENT__ANCESTOR:
@@ -383,8 +380,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				return getName();
 			case SCPackage.COMPONENT__COMPONENT_ID:
 				return getComponentID();
-			case SCPackage.COMPONENT__DATA:
-				return getData();
 			case SCPackage.COMPONENT__SUBCOMPONENTS:
 				return getSubcomponents();
 			case SCPackage.COMPONENT__ANCESTOR:
@@ -393,6 +388,8 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 			case SCPackage.COMPONENT__ASSET:
 				if (resolve) return getAsset();
 				return basicGetAsset();
+			case SCPackage.COMPONENT__DATA:
+				return getData();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -412,10 +409,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 			case SCPackage.COMPONENT__COMPONENT_ID:
 				setComponentID((Integer)newValue);
 				return;
-			case SCPackage.COMPONENT__DATA:
-				getData().clear();
-				getData().addAll((Collection<? extends Data>)newValue);
-				return;
 			case SCPackage.COMPONENT__SUBCOMPONENTS:
 				getSubcomponents().clear();
 				getSubcomponents().addAll((Collection<? extends Component>)newValue);
@@ -425,6 +418,10 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				return;
 			case SCPackage.COMPONENT__ASSET:
 				setAsset((Asset)newValue);
+				return;
+			case SCPackage.COMPONENT__DATA:
+				getData().clear();
+				getData().addAll((Collection<? extends Data>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -444,9 +441,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 			case SCPackage.COMPONENT__COMPONENT_ID:
 				setComponentID(COMPONENT_ID_EDEFAULT);
 				return;
-			case SCPackage.COMPONENT__DATA:
-				getData().clear();
-				return;
 			case SCPackage.COMPONENT__SUBCOMPONENTS:
 				getSubcomponents().clear();
 				return;
@@ -455,6 +449,9 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				return;
 			case SCPackage.COMPONENT__ASSET:
 				setAsset((Asset)null);
+				return;
+			case SCPackage.COMPONENT__DATA:
+				getData().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -472,14 +469,14 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case SCPackage.COMPONENT__COMPONENT_ID:
 				return componentID != COMPONENT_ID_EDEFAULT;
-			case SCPackage.COMPONENT__DATA:
-				return data != null && !data.isEmpty();
 			case SCPackage.COMPONENT__SUBCOMPONENTS:
 				return subcomponents != null && !subcomponents.isEmpty();
 			case SCPackage.COMPONENT__ANCESTOR:
 				return ancestor != null;
 			case SCPackage.COMPONENT__ASSET:
 				return asset != null;
+			case SCPackage.COMPONENT__DATA:
+				return data != null && !data.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

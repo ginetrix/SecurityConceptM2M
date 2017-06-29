@@ -1,5 +1,10 @@
 package transformation
 
+import SC.SecurityConcept
+import SC.SCPackage
+import SC.Component
+import SC.SecurityGoal
+
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.Resource$Factory
@@ -7,12 +12,20 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
 import org.eclipse.emf.ecore.EObject
 import java.io.IOException
 import java.util.Collections
-import SC.SecurityConcept
-import SC.SCPackage
+import java.util.List
+import java.util.Stack
 
 class Transformation {
+	
+	List<Component> visitedNodes
+	List<Component> componentsOfInterest
+	List<SecurityGoal> securityGoals
+	Stack<Component> ancestorStack
+	Stack<Component> childStack
+	
+		
 	def static void main(String[] args) {
-		new Transformation().generate("MetaModel/SecurityConcept1.xmi")
+		new Transformation().generate("MetaModel/SecurityConcept_MT_example.xmi")
 	}
 
 	def generate(String file) {
@@ -27,19 +40,23 @@ class Transformation {
 	}
 
 	def dispatch generateCode(SecurityConcept securityConcept) {
-		for (component : securityConcept.components) {
-			print(component.name + "\n")
+		for (data : securityConcept.data) {
+			print(data.name + "\n")
 		}
-
-		writeToSecrutiyConcept(securityConcept)
+		val myComp = findComponentByID(securityConcept, 3)
+		print(myComp)
+		// writeToSecrutiyConcept(securityConcept)
 	}
 
 	def dispatch generateCode(EObject object) {
 		print("bla")
 	}
 
-	def findComponentByID(SecurityConcept securityConcept, int id) {
-		print(securityConcept.components.filter[componentID.equals(id)].get(0).asset.assetID)
+	
+
+	def Component findComponentByID(SecurityConcept securityConcept, int id) {
+		val component = securityConcept.components.findFirst[componentID.equals(id)]
+		return component
 	}
 
 	def writeToSecrutiyConcept(SecurityConcept securityConcept) {

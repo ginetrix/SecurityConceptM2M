@@ -8,8 +8,6 @@ import SC.Data;
 import SC.SCPackage;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -22,14 +20,14 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link SC.impl.ConnectionImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.ConnectionImpl#getConnectionID <em>Connection ID</em>}</li>
- *   <li>{@link SC.impl.ConnectionImpl#getData <em>Data</em>}</li>
  *   <li>{@link SC.impl.ConnectionImpl#getSource <em>Source</em>}</li>
  *   <li>{@link SC.impl.ConnectionImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link SC.impl.ConnectionImpl#getData <em>Data</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -75,16 +73,6 @@ public class ConnectionImpl extends MinimalEObjectImpl.Container implements Conn
 	protected int connectionID = CONNECTION_ID_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getData() <em>Data</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getData()
-	 * @generated
-	 * @ordered
-	 */
-	protected Data data;
-
-	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -103,6 +91,16 @@ public class ConnectionImpl extends MinimalEObjectImpl.Container implements Conn
 	 * @ordered
 	 */
 	protected Component target;
+
+	/**
+	 * The cached value of the '{@link #getData() <em>Data</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getData()
+	 * @generated
+	 * @ordered
+	 */
+	protected Data data;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -171,6 +169,14 @@ public class ConnectionImpl extends MinimalEObjectImpl.Container implements Conn
 	 * @generated
 	 */
 	public Data getData() {
+		if (data != null && data.eIsProxy()) {
+			InternalEObject oldData = (InternalEObject)data;
+			data = (Data)eResolveProxy(oldData);
+			if (data != oldData) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SCPackage.CONNECTION__DATA, oldData, data));
+			}
+		}
 		return data;
 	}
 
@@ -179,14 +185,8 @@ public class ConnectionImpl extends MinimalEObjectImpl.Container implements Conn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetData(Data newData, NotificationChain msgs) {
-		Data oldData = data;
-		data = newData;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SCPackage.CONNECTION__DATA, oldData, newData);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public Data basicGetData() {
+		return data;
 	}
 
 	/**
@@ -195,17 +195,10 @@ public class ConnectionImpl extends MinimalEObjectImpl.Container implements Conn
 	 * @generated
 	 */
 	public void setData(Data newData) {
-		if (newData != data) {
-			NotificationChain msgs = null;
-			if (data != null)
-				msgs = ((InternalEObject)data).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SCPackage.CONNECTION__DATA, null, msgs);
-			if (newData != null)
-				msgs = ((InternalEObject)newData).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SCPackage.CONNECTION__DATA, null, msgs);
-			msgs = basicSetData(newData, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.CONNECTION__DATA, newData, newData));
+		Data oldData = data;
+		data = newData;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.CONNECTION__DATA, oldData, data));
 	}
 
 	/**
@@ -290,34 +283,21 @@ public class ConnectionImpl extends MinimalEObjectImpl.Container implements Conn
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case SCPackage.CONNECTION__DATA:
-				return basicSetData(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case SCPackage.CONNECTION__NAME:
 				return getName();
 			case SCPackage.CONNECTION__CONNECTION_ID:
 				return getConnectionID();
-			case SCPackage.CONNECTION__DATA:
-				return getData();
 			case SCPackage.CONNECTION__SOURCE:
 				if (resolve) return getSource();
 				return basicGetSource();
 			case SCPackage.CONNECTION__TARGET:
 				if (resolve) return getTarget();
 				return basicGetTarget();
+			case SCPackage.CONNECTION__DATA:
+				if (resolve) return getData();
+				return basicGetData();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -336,14 +316,14 @@ public class ConnectionImpl extends MinimalEObjectImpl.Container implements Conn
 			case SCPackage.CONNECTION__CONNECTION_ID:
 				setConnectionID((Integer)newValue);
 				return;
-			case SCPackage.CONNECTION__DATA:
-				setData((Data)newValue);
-				return;
 			case SCPackage.CONNECTION__SOURCE:
 				setSource((Component)newValue);
 				return;
 			case SCPackage.CONNECTION__TARGET:
 				setTarget((Component)newValue);
+				return;
+			case SCPackage.CONNECTION__DATA:
+				setData((Data)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -363,14 +343,14 @@ public class ConnectionImpl extends MinimalEObjectImpl.Container implements Conn
 			case SCPackage.CONNECTION__CONNECTION_ID:
 				setConnectionID(CONNECTION_ID_EDEFAULT);
 				return;
-			case SCPackage.CONNECTION__DATA:
-				setData((Data)null);
-				return;
 			case SCPackage.CONNECTION__SOURCE:
 				setSource((Component)null);
 				return;
 			case SCPackage.CONNECTION__TARGET:
 				setTarget((Component)null);
+				return;
+			case SCPackage.CONNECTION__DATA:
+				setData((Data)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -388,12 +368,12 @@ public class ConnectionImpl extends MinimalEObjectImpl.Container implements Conn
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case SCPackage.CONNECTION__CONNECTION_ID:
 				return connectionID != CONNECTION_ID_EDEFAULT;
-			case SCPackage.CONNECTION__DATA:
-				return data != null;
 			case SCPackage.CONNECTION__SOURCE:
 				return source != null;
 			case SCPackage.CONNECTION__TARGET:
 				return target != null;
+			case SCPackage.CONNECTION__DATA:
+				return data != null;
 		}
 		return super.eIsSet(featureID);
 	}

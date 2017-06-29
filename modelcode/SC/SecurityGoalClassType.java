@@ -118,8 +118,6 @@ public enum SecurityGoalClassType implements Enumerator {
 	 * Returns the '<em><b>Security Goal Class Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param literal the literal.
-	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static SecurityGoalClassType get(String literal) {
@@ -136,8 +134,6 @@ public enum SecurityGoalClassType implements Enumerator {
 	 * Returns the '<em><b>Security Goal Class Type</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param name the name.
-	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static SecurityGoalClassType getByName(String name) {
@@ -154,8 +150,6 @@ public enum SecurityGoalClassType implements Enumerator {
 	 * Returns the '<em><b>Security Goal Class Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the integer value.
-	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static SecurityGoalClassType get(int value) {

@@ -4,7 +4,9 @@ package SC.impl;
 
 import SC.Asset;
 import SC.Component;
+import SC.Connection;
 import SC.Control;
+import SC.Data;
 import SC.SCPackage;
 import SC.SecurityConcept;
 import SC.SecurityGoal;
@@ -32,7 +34,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link SC.impl.SecurityConceptImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.SecurityConceptImpl#getSecurityGoals <em>Security Goals</em>}</li>
@@ -40,7 +41,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.SecurityConceptImpl#getControls <em>Controls</em>}</li>
  *   <li>{@link SC.impl.SecurityConceptImpl#getAssets <em>Assets</em>}</li>
  *   <li>{@link SC.impl.SecurityConceptImpl#getComponents <em>Components</em>}</li>
+ *   <li>{@link SC.impl.SecurityConceptImpl#getData <em>Data</em>}</li>
+ *   <li>{@link SC.impl.SecurityConceptImpl#getConnection <em>Connection</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -114,6 +118,26 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected EList<Component> components;
+
+	/**
+	 * The cached value of the '{@link #getData() <em>Data</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getData()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Data> data;
+
+	/**
+	 * The cached value of the '{@link #getConnection() <em>Connection</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConnection()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Connection> connection;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -220,6 +244,30 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Data> getData() {
+		if (data == null) {
+			data = new EObjectContainmentEList<Data>(Data.class, this, SCPackage.SECURITY_CONCEPT__DATA);
+		}
+		return data;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Connection> getConnection() {
+		if (connection == null) {
+			connection = new EObjectContainmentEList<Connection>(Connection.class, this, SCPackage.SECURITY_CONCEPT__CONNECTION);
+		}
+		return connection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -233,6 +281,10 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 				return ((InternalEList<?>)getAssets()).basicRemove(otherEnd, msgs);
 			case SCPackage.SECURITY_CONCEPT__COMPONENTS:
 				return ((InternalEList<?>)getComponents()).basicRemove(otherEnd, msgs);
+			case SCPackage.SECURITY_CONCEPT__DATA:
+				return ((InternalEList<?>)getData()).basicRemove(otherEnd, msgs);
+			case SCPackage.SECURITY_CONCEPT__CONNECTION:
+				return ((InternalEList<?>)getConnection()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -257,6 +309,10 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 				return getAssets();
 			case SCPackage.SECURITY_CONCEPT__COMPONENTS:
 				return getComponents();
+			case SCPackage.SECURITY_CONCEPT__DATA:
+				return getData();
+			case SCPackage.SECURITY_CONCEPT__CONNECTION:
+				return getConnection();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -293,6 +349,14 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 				getComponents().clear();
 				getComponents().addAll((Collection<? extends Component>)newValue);
 				return;
+			case SCPackage.SECURITY_CONCEPT__DATA:
+				getData().clear();
+				getData().addAll((Collection<? extends Data>)newValue);
+				return;
+			case SCPackage.SECURITY_CONCEPT__CONNECTION:
+				getConnection().clear();
+				getConnection().addAll((Collection<? extends Connection>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -323,6 +387,12 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 			case SCPackage.SECURITY_CONCEPT__COMPONENTS:
 				getComponents().clear();
 				return;
+			case SCPackage.SECURITY_CONCEPT__DATA:
+				getData().clear();
+				return;
+			case SCPackage.SECURITY_CONCEPT__CONNECTION:
+				getConnection().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -347,6 +417,10 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 				return assets != null && !assets.isEmpty();
 			case SCPackage.SECURITY_CONCEPT__COMPONENTS:
 				return components != null && !components.isEmpty();
+			case SCPackage.SECURITY_CONCEPT__DATA:
+				return data != null && !data.isEmpty();
+			case SCPackage.SECURITY_CONCEPT__CONNECTION:
+				return connection != null && !connection.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

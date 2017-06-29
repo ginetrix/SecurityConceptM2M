@@ -373,7 +373,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * @generated
 	 */
 	public EReference getComponent_Data() {
-		return (EReference)componentEClass.getEStructuralFeatures().get(2);
+		return (EReference)componentEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -382,7 +382,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * @generated
 	 */
 	public EReference getComponent_Subcomponents() {
-		return (EReference)componentEClass.getEStructuralFeatures().get(3);
+		return (EReference)componentEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -391,7 +391,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * @generated
 	 */
 	public EReference getComponent_Ancestor() {
-		return (EReference)componentEClass.getEStructuralFeatures().get(4);
+		return (EReference)componentEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -400,7 +400,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * @generated
 	 */
 	public EReference getComponent_Asset() {
-		return (EReference)componentEClass.getEStructuralFeatures().get(5);
+		return (EReference)componentEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -525,6 +525,24 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getSecurityConcept_Data() {
+		return (EReference)securityConceptEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSecurityConcept_Connection() {
+		return (EReference)securityConceptEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConnection() {
 		return connectionEClass;
 	}
@@ -553,7 +571,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * @generated
 	 */
 	public EReference getConnection_Data() {
-		return (EReference)connectionEClass.getEStructuralFeatures().get(2);
+		return (EReference)connectionEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -562,7 +580,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * @generated
 	 */
 	public EReference getConnection_Source() {
-		return (EReference)connectionEClass.getEStructuralFeatures().get(3);
+		return (EReference)connectionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -571,7 +589,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * @generated
 	 */
 	public EReference getConnection_Target() {
-		return (EReference)connectionEClass.getEStructuralFeatures().get(4);
+		return (EReference)connectionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -681,10 +699,10 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		componentEClass = createEClass(COMPONENT);
 		createEAttribute(componentEClass, COMPONENT__NAME);
 		createEAttribute(componentEClass, COMPONENT__COMPONENT_ID);
-		createEReference(componentEClass, COMPONENT__DATA);
 		createEReference(componentEClass, COMPONENT__SUBCOMPONENTS);
 		createEReference(componentEClass, COMPONENT__ANCESTOR);
 		createEReference(componentEClass, COMPONENT__ASSET);
+		createEReference(componentEClass, COMPONENT__DATA);
 
 		functionEClass = createEClass(FUNCTION);
 
@@ -701,13 +719,15 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		createEReference(securityConceptEClass, SECURITY_CONCEPT__CONTROLS);
 		createEReference(securityConceptEClass, SECURITY_CONCEPT__ASSETS);
 		createEReference(securityConceptEClass, SECURITY_CONCEPT__COMPONENTS);
+		createEReference(securityConceptEClass, SECURITY_CONCEPT__DATA);
+		createEReference(securityConceptEClass, SECURITY_CONCEPT__CONNECTION);
 
 		connectionEClass = createEClass(CONNECTION);
 		createEAttribute(connectionEClass, CONNECTION__NAME);
 		createEAttribute(connectionEClass, CONNECTION__CONNECTION_ID);
-		createEReference(connectionEClass, CONNECTION__DATA);
 		createEReference(connectionEClass, CONNECTION__SOURCE);
 		createEReference(connectionEClass, CONNECTION__TARGET);
+		createEReference(connectionEClass, CONNECTION__DATA);
 
 		dataEClass = createEClass(DATA);
 		createEAttribute(dataEClass, DATA__NAME);
@@ -776,11 +796,11 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComponent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComponent_ComponentID(), ecorePackage.getEInt(), "componentID", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComponent_Data(), this.getData(), null, "data", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Subcomponents(), this.getComponent(), this.getComponent_Ancestor(), "Subcomponents", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Ancestor(), this.getComponent(), this.getComponent_Subcomponents(), "Ancestor", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Asset(), this.getAsset(), this.getAsset_Component(), "asset", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		getComponent_Asset().getEKeys().add(this.getAsset_AssetID());
+		initEReference(getComponent_Data(), this.getData(), null, "data", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -798,13 +818,15 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		initEReference(getSecurityConcept_Controls(), this.getControl(), null, "controls", null, 0, -1, SecurityConcept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSecurityConcept_Assets(), this.getAsset(), null, "assets", null, 0, -1, SecurityConcept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSecurityConcept_Components(), this.getComponent(), null, "components", null, 0, -1, SecurityConcept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSecurityConcept_Data(), this.getData(), null, "data", null, 0, -1, SecurityConcept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSecurityConcept_Connection(), this.getConnection(), null, "connection", null, 0, -1, SecurityConcept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionEClass, Connection.class, "Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConnection_Name(), ecorePackage.getEString(), "name", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConnection_ConnectionID(), ecorePackage.getEInt(), "connectionID", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConnection_Data(), this.getData(), null, "data", null, 1, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConnection_Source(), this.getComponent(), null, "source", null, 1, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConnection_Target(), this.getComponent(), null, "target", null, 1, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConnection_Data(), this.getData(), null, "data", null, 1, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataEClass, Data.class, "Data", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getData_Name(), ecorePackage.getEString(), "name", null, 0, 1, Data.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -888,12 +910,6 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 			 "name", "SecurityGoal"
 		   });	
 		addAnnotation
-		  (getComponent_Data(), 
-		   source, 
-		   new String[] {
-			 "name", "SecurityGoal"
-		   });	
-		addAnnotation
 		  (getComponent_Subcomponents(), 
 		   source, 
 		   new String[] {
@@ -966,13 +982,13 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 			 "name", "SecurityGoal"
 		   });	
 		addAnnotation
-		  (connectionEClass, 
+		  (getSecurityConcept_Data(), 
 		   source, 
 		   new String[] {
 			 "name", "SecurityGoal"
 		   });	
 		addAnnotation
-		  (getConnection_Data(), 
+		  (connectionEClass, 
 		   source, 
 		   new String[] {
 			 "name", "SecurityGoal"

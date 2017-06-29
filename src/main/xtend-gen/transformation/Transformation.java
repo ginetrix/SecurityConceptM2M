@@ -1,20 +1,22 @@
 package transformation;
 
-import SC.Asset;
 import SC.Component;
+import SC.Data;
 import SC.SCPackage;
 import SC.SecurityConcept;
+import SC.SecurityGoal;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
@@ -22,73 +24,73 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class Transformation {
+  private List<Component> visitedNodes;
+  
+  private List<Component> componentsOfInterest;
+  
+  private List<SecurityGoal> securityGoals;
+  
+  private Stack<Component> ancestorStack;
+  
+  private Stack<Component> childStack;
+  
   public static void main(final String[] args) {
-    Transformation _transformation = new Transformation();
-    _transformation.generate("MetaModel/SecurityConcept1.xmi");
+    new Transformation().generate("MetaModel/SecurityConcept_MT_example.xmi");
   }
   
   public void generate(final String file) {
     final ResourceSetImpl resourceSet = new ResourceSetImpl();
-    Map<String, Object> _extensionToFactoryMap = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
-    _extensionToFactoryMap.put(SCPackage.eNS_URI, 
+    Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(SCPackage.eNS_URI, 
       SCPackage.eINSTANCE);
-    Resource.Factory.Registry _resourceFactoryRegistry = resourceSet.getResourceFactoryRegistry();
-    Map<String, Object> _extensionToFactoryMap_1 = _resourceFactoryRegistry.getExtensionToFactoryMap();
+    Map<String, Object> _extensionToFactoryMap = resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap();
     XMIResourceFactoryImpl _xMIResourceFactoryImpl = new XMIResourceFactoryImpl();
-    _extensionToFactoryMap_1.put("xmi", _xMIResourceFactoryImpl);
-    URI _createFileURI = URI.createFileURI(file);
-    final Resource resource = resourceSet.getResource(_createFileURI, true);
+    _extensionToFactoryMap.put("xmi", _xMIResourceFactoryImpl);
+    final Resource resource = resourceSet.getResource(URI.createFileURI(file), true);
     EList<EObject> _contents = resource.getContents();
     for (final EObject content : _contents) {
       this.generateCode(content);
     }
   }
   
-  protected String _generateCode(final SecurityConcept securityConcept) {
-    EList<Component> _components = securityConcept.getComponents();
-    for (final Component component : _components) {
-      String _name = component.getName();
-      String _plus = (_name + "\n");
-      InputOutput.<String>print(_plus);
+  protected Object _generateCode(final SecurityConcept securityConcept) {
+    Component _xblockexpression = null;
+    {
+      EList<Data> _data = securityConcept.getData();
+      for (final Data data : _data) {
+        String _name = data.getName();
+        String _plus = (_name + "\n");
+        InputOutput.<String>print(_plus);
+      }
+      final Component myComp = this.findComponentByID(securityConcept, 3);
+      _xblockexpression = InputOutput.<Component>print(myComp);
     }
-    this.writeToSecrutiyConcept(securityConcept);
-    return null;
+    return _xblockexpression;
   }
   
-  protected String _generateCode(final EObject object) {
+  protected Object _generateCode(final EObject object) {
     return InputOutput.<String>print("bla");
   }
   
-  public Integer findComponentByID(final SecurityConcept securityConcept, final int id) {
-    EList<Component> _components = securityConcept.getComponents();
+  public Component findComponentByID(final SecurityConcept securityConcept, final int id) {
     final Function1<Component, Boolean> _function = new Function1<Component, Boolean>() {
       public Boolean apply(final Component it) {
-        int _componentID = it.getComponentID();
-        return Boolean.valueOf(Integer.valueOf(_componentID).equals(Integer.valueOf(id)));
+        return Boolean.valueOf(Integer.valueOf(it.getComponentID()).equals(Integer.valueOf(id)));
       }
     };
-    Iterable<Component> _filter = IterableExtensions.<Component>filter(_components, _function);
-    Component _get = ((Component[])Conversions.unwrapArray(_filter, Component.class))[0];
-    Asset _asset = _get.getAsset();
-    int _assetID = _asset.getAssetID();
-    return InputOutput.<Integer>print(Integer.valueOf(_assetID));
+    final Component component = IterableExtensions.<Component>findFirst(securityConcept.getComponents(), _function);
+    return component;
   }
   
   public void writeToSecrutiyConcept(final SecurityConcept securityConcept) {
     final ResourceSetImpl resourceSet = new ResourceSetImpl();
-    Map<String, Object> _extensionToFactoryMap = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
-    _extensionToFactoryMap.put(SCPackage.eNS_URI, 
+    Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(SCPackage.eNS_URI, 
       SCPackage.eINSTANCE);
-    Resource.Factory.Registry _resourceFactoryRegistry = resourceSet.getResourceFactoryRegistry();
-    Map<String, Object> _extensionToFactoryMap_1 = _resourceFactoryRegistry.getExtensionToFactoryMap();
+    Map<String, Object> _extensionToFactoryMap = resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap();
     XMIResourceFactoryImpl _xMIResourceFactoryImpl = new XMIResourceFactoryImpl();
-    _extensionToFactoryMap_1.put("xmi", _xMIResourceFactoryImpl);
-    URI _createURI = URI.createURI("MetaModel/SecurityConceptTransformation.xmi");
-    final Resource resource = resourceSet.createResource(_createURI);
-    EList<Component> _components = securityConcept.getComponents();
-    final Component comp = _components.get(0);
-    EList<EObject> _contents = resource.getContents();
-    _contents.add(comp);
+    _extensionToFactoryMap.put("xmi", _xMIResourceFactoryImpl);
+    final Resource resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"));
+    final Component comp = securityConcept.getComponents().get(0);
+    resource.getContents().add(comp);
     try {
       resource.save(Collections.EMPTY_MAP);
     } catch (final Throwable _t) {
@@ -101,7 +103,7 @@ public class Transformation {
     }
   }
   
-  public String generateCode(final EObject securityConcept) {
+  public Object generateCode(final EObject securityConcept) {
     if (securityConcept instanceof SecurityConcept) {
       return _generateCode((SecurityConcept)securityConcept);
     } else if (securityConcept != null) {

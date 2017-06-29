@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/transformation/modelcode" editDirectory="/transformation/modelcode"
-    editorDirectory="/transformation/modelcode" modelPluginID="transformation" modelName="SC"
-    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" testsDirectory="/transformation/src"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
-    operationReflection="true" importOrganizing="true">
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/SecurityConceptM2M/modelcode" editDirectory="/SecurityConceptM2M/modelcode"
+    editorDirectory="/SecurityConceptM2M/modelcode" modelPluginID="transformation"
+    modelName="SC" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    testsDirectory="/SecurityConceptM2M/modelcode" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
   <foreignModel>SecurityConcept.ecore</foreignModel>
   <genPackages prefix="SC" resource="XML" disposableProviderFactory="true" ecorePackage="SecurityConcept.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="SecurityConcept.ecore#//SecurityGoalClassType">
@@ -42,10 +42,10 @@
     <genClasses ecoreClass="SecurityConcept.ecore#//Component">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SecurityConcept.ecore#//Component/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SecurityConcept.ecore#//Component/componentID"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//Component/data"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//Component/Subcomponents"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//Component/Ancestor"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//Component/asset"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//Component/data"/>
     </genClasses>
     <genClasses ecoreClass="SecurityConcept.ecore#//Function"/>
     <genClasses ecoreClass="SecurityConcept.ecore#//Asset">
@@ -61,13 +61,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//SecurityConcept/controls"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//SecurityConcept/assets"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//SecurityConcept/components"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//SecurityConcept/data"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//SecurityConcept/connection"/>
     </genClasses>
     <genClasses ecoreClass="SecurityConcept.ecore#//Connection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SecurityConcept.ecore#//Connection/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SecurityConcept.ecore#//Connection/connectionID"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//Connection/data"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//Connection/source"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//Connection/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SecurityConcept.ecore#//Connection/data"/>
     </genClasses>
     <genClasses ecoreClass="SecurityConcept.ecore#//Data">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SecurityConcept.ecore#//Data/name"/>

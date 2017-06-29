@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link SC.SecurityConcept#getName <em>Name</em>}</li>
  *   <li>{@link SC.SecurityConcept#getSecurityGoals <em>Security Goals</em>}</li>
@@ -21,7 +20,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.SecurityConcept#getControls <em>Controls</em>}</li>
  *   <li>{@link SC.SecurityConcept#getAssets <em>Assets</em>}</li>
  *   <li>{@link SC.SecurityConcept#getComponents <em>Components</em>}</li>
+ *   <li>{@link SC.SecurityConcept#getData <em>Data</em>}</li>
+ *   <li>{@link SC.SecurityConcept#getConnection <em>Connection</em>}</li>
  * </ul>
+ * </p>
  *
  * @see SC.SCPackage#getSecurityConcept()
  * @model extendedMetaData="name='SecurityGoal'"
@@ -138,5 +140,38 @@ public interface SecurityConcept extends EObject {
 	 * @generated
 	 */
 	EList<Component> getComponents();
+
+	/**
+	 * Returns the value of the '<em><b>Data</b></em>' containment reference list.
+	 * The list contents are of type {@link SC.Data}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Data</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data</em>' containment reference list.
+	 * @see SC.SCPackage#getSecurityConcept_Data()
+	 * @model containment="true"
+	 *        extendedMetaData="name='SecurityGoal'"
+	 * @generated
+	 */
+	EList<Data> getData();
+
+	/**
+	 * Returns the value of the '<em><b>Connection</b></em>' containment reference list.
+	 * The list contents are of type {@link SC.Connection}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Connection</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Connection</em>' containment reference list.
+	 * @see SC.SCPackage#getSecurityConcept_Connection()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Connection> getConnection();
 
 } // SecurityConcept

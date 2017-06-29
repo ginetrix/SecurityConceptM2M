@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<SC:SecurityConcept
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:SC="http://www.example.org/securityconcept"
+    xsi:schemaLocation="http://www.example.org/securityconcept SecurityConcept.ecore">
+  <components
+      name="C1"
+      componentID="1"/>
+  <components
+      name="C1.1"/>
+  <components
+      name="C2"/>
+</SC:SecurityConcept>

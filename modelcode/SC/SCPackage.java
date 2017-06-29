@@ -314,22 +314,13 @@ public interface SCPackage extends EPackage {
 	int COMPONENT__COMPONENT_ID = 1;
 
 	/**
-	 * The feature id for the '<em><b>Data</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT__DATA = 2;
-
-	/**
 	 * The feature id for the '<em><b>Subcomponents</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT__SUBCOMPONENTS = 3;
+	int COMPONENT__SUBCOMPONENTS = 2;
 
 	/**
 	 * The feature id for the '<em><b>Ancestor</b></em>' reference.
@@ -338,7 +329,7 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT__ANCESTOR = 4;
+	int COMPONENT__ANCESTOR = 3;
 
 	/**
 	 * The feature id for the '<em><b>Asset</b></em>' reference.
@@ -347,7 +338,16 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT__ASSET = 5;
+	int COMPONENT__ASSET = 4;
+
+	/**
+	 * The feature id for the '<em><b>Data</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__DATA = 5;
 
 	/**
 	 * The number of structural features of the '<em>Component</em>' class.
@@ -524,13 +524,31 @@ public interface SCPackage extends EPackage {
 	int SECURITY_CONCEPT__COMPONENTS = 5;
 
 	/**
+	 * The feature id for the '<em><b>Data</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECURITY_CONCEPT__DATA = 6;
+
+	/**
+	 * The feature id for the '<em><b>Connection</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECURITY_CONCEPT__CONNECTION = 7;
+
+	/**
 	 * The number of structural features of the '<em>Security Concept</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_CONCEPT_FEATURE_COUNT = 6;
+	int SECURITY_CONCEPT_FEATURE_COUNT = 8;
 
 	/**
 	 * The number of operations of the '<em>Security Concept</em>' class.
@@ -570,22 +588,13 @@ public interface SCPackage extends EPackage {
 	int CONNECTION__CONNECTION_ID = 1;
 
 	/**
-	 * The feature id for the '<em><b>Data</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__DATA = 2;
-
-	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION__SOURCE = 3;
+	int CONNECTION__SOURCE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference.
@@ -594,7 +603,16 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION__TARGET = 4;
+	int CONNECTION__TARGET = 3;
+
+	/**
+	 * The feature id for the '<em><b>Data</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__DATA = 4;
 
 	/**
 	 * The number of structural features of the '<em>Connection</em>' class.
@@ -929,10 +947,10 @@ public interface SCPackage extends EPackage {
 	EAttribute getComponent_ComponentID();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link SC.Component#getData <em>Data</em>}'.
+	 * Returns the meta object for the reference list '{@link SC.Component#getData <em>Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Data</em>'.
+	 * @return the meta object for the reference list '<em>Data</em>'.
 	 * @see SC.Component#getData()
 	 * @see #getComponent()
 	 * @generated
@@ -1113,6 +1131,28 @@ public interface SCPackage extends EPackage {
 	EReference getSecurityConcept_Components();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link SC.SecurityConcept#getData <em>Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Data</em>'.
+	 * @see SC.SecurityConcept#getData()
+	 * @see #getSecurityConcept()
+	 * @generated
+	 */
+	EReference getSecurityConcept_Data();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link SC.SecurityConcept#getConnection <em>Connection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Connection</em>'.
+	 * @see SC.SecurityConcept#getConnection()
+	 * @see #getSecurityConcept()
+	 * @generated
+	 */
+	EReference getSecurityConcept_Connection();
+
+	/**
 	 * Returns the meta object for class '{@link SC.Connection <em>Connection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1145,10 +1185,10 @@ public interface SCPackage extends EPackage {
 	EAttribute getConnection_ConnectionID();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link SC.Connection#getData <em>Data</em>}'.
+	 * Returns the meta object for the reference '{@link SC.Connection#getData <em>Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Data</em>'.
+	 * @return the meta object for the reference '<em>Data</em>'.
 	 * @see SC.Connection#getData()
 	 * @see #getConnection()
 	 * @generated
@@ -1448,7 +1488,7 @@ public interface SCPackage extends EPackage {
 		EAttribute COMPONENT__COMPONENT_ID = eINSTANCE.getComponent_ComponentID();
 
 		/**
-		 * The meta object literal for the '<em><b>Data</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Data</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1590,6 +1630,22 @@ public interface SCPackage extends EPackage {
 		EReference SECURITY_CONCEPT__COMPONENTS = eINSTANCE.getSecurityConcept_Components();
 
 		/**
+		 * The meta object literal for the '<em><b>Data</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_CONCEPT__DATA = eINSTANCE.getSecurityConcept_Data();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_CONCEPT__CONNECTION = eINSTANCE.getSecurityConcept_Connection();
+
+		/**
 		 * The meta object literal for the '{@link SC.impl.ConnectionImpl <em>Connection</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1616,7 +1672,7 @@ public interface SCPackage extends EPackage {
 		EAttribute CONNECTION__CONNECTION_ID = eINSTANCE.getConnection_ConnectionID();
 
 		/**
-		 * The meta object literal for the '<em><b>Data</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Data</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
