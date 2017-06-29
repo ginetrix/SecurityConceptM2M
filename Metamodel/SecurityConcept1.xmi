@@ -6,8 +6,62 @@
     xmlns:SC="http://www.example.org/securityconcept"
     xsi:schemaLocation="http://www.example.org/securityconcept SecurityConcept.ecore">
   <securityGoals
-      description="mydesc"
-      name=""/>
+      description=""
+      name="SG_C1"
+      asset="//@assets.0"/>
+  <securityGoals
+      name="SG_D2"
+      asset="//@assets.1"/>
+  <securityGoals
+      name="SG_C1.1.1"
+      asset="//@assets.2"/>
+  <securityGoals
+      name="SG_D1"
+      asset="//@assets.3"/>
+  <securityGoals
+      name="SG_D3"
+      asset="//@assets.4"/>
+  <assets name="C1"
+      securitygoals="//@securityGoals.0"/>
+  <assets name="Data 2"
+      securitygoals="//@securityGoals.1"/>
+  <assets name="C1.1.1"
+      securitygoals="//@securityGoals.2"/>
+  <assets name="Data 1"
+      securitygoals="//@securityGoals.3"/>
+  <assets name="Data 3"
+      securitygoals="//@securityGoals.4"/>
   <components
-      name="testssss"/>
+      name="C1"
+      Subcomponents="//@components.1 //@components.4"/>
+  <components
+      name="C1.1"
+      Subcomponents="//@components.2 //@components.3"
+      Ancestor="//@components.0"
+      data="//@data.2"/>
+  <components
+      name="C1.1.1"
+      Ancestor="//@components.1"/>
+  <components
+      name="C1.1.2"
+      Ancestor="//@components.1"/>
+  <components
+      name="C1.2"
+      Ancestor="//@components.0"/>
+  <components
+      name="C2"/>
+  <components
+      name="C2.1"
+      Subcomponents="//@components.6"
+      Ancestor="//@components.6"/>
+  <data name="Data 1"/>
+  <data name="Data 3"/>
+  <data name="Data 2"/>
+  <connection
+      name="Connection D3"
+      source="//@components.5"
+      target="//@components.4">
+    <data name="Data 3"
+        asset="//@assets.4"/>
+  </connection>
 </SC:SecurityConcept>
