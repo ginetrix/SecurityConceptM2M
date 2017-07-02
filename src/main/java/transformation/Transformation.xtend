@@ -14,6 +14,9 @@ import java.io.IOException
 import java.util.Collections
 import java.util.List
 import java.util.Stack
+import SC.impl.SecurityGoalImpl
+import SC.SecurityGoalClassType
+import SC.SCFactory
 
 class Transformation {
 	
@@ -43,9 +46,16 @@ class Transformation {
 		for (data : securityConcept.data) {
 			print(data.name + "\n")
 		}
-		val myComp = findComponentByID(securityConcept, 3)
-		print(myComp)
-		// writeToSecrutiyConcept(securityConcept)
+		val myComp = findComponentByID(securityConcept, 1)
+		// print(myComp.asset.securitygoals)
+		val factory = SCFactory.eINSTANCE
+		val sg = factory.createSecurityGoal()
+		sg.name = "Supergoal" 
+		sg.securityGoalClass = SecurityGoalClassType.INTEGRITY
+		sg.asset = securityConcept.assets.get(0)
+		print(sg.asset)
+		securityConcept.securityGoals.add(sg)
+		writeToSecrutiyConcept(securityConcept)
 	}
 
 	def dispatch generateCode(EObject object) {
@@ -65,8 +75,12 @@ class Transformation {
 			SCPackage.eINSTANCE)
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
 		val resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"))
-		val comp = securityConcept.components.get(0)
-		resource.contents.add(comp)
+		val comp = securityConcept.components
+		val asset = securityConcept.assets
+		val sg = securityConcept.securityGoals
+		resource.contents.addAll(comp)
+		resource.contents.addAll(asset)
+		resource.contents.addAll(sg)
 		try {
 			resource.save(Collections.EMPTY_MAP)
 		} catch (IOException exception) {

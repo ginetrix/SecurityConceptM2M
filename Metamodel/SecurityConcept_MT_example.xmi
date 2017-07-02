@@ -5,9 +5,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:SC="http://www.example.org/securityconcept"
     xsi:schemaLocation="http://www.example.org/securityconcept SecurityConcept.ecore">
+  <securityGoals
+      damagePotential="medium"
+      asset="//@assets.0"/>
+  <assets securitygoals="//@securityGoals.0"
+      component="//@components.0"/>
   <components
       name="C1"
-      componentID="1"/>
+      componentID="1"
+      asset="//@assets.0"/>
   <components
       name="C1.1"/>
   <components

@@ -1,10 +1,13 @@
 package transformation;
 
+import SC.Asset;
 import SC.Component;
 import SC.Data;
+import SC.SCFactory;
 import SC.SCPackage;
 import SC.SecurityConcept;
 import SC.SecurityGoal;
+import SC.SecurityGoalClassType;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,22 +55,26 @@ public class Transformation {
     }
   }
   
-  protected Object _generateCode(final SecurityConcept securityConcept) {
-    Component _xblockexpression = null;
-    {
-      EList<Data> _data = securityConcept.getData();
-      for (final Data data : _data) {
-        String _name = data.getName();
-        String _plus = (_name + "\n");
-        InputOutput.<String>print(_plus);
-      }
-      final Component myComp = this.findComponentByID(securityConcept, 3);
-      _xblockexpression = InputOutput.<Component>print(myComp);
+  protected String _generateCode(final SecurityConcept securityConcept) {
+    EList<Data> _data = securityConcept.getData();
+    for (final Data data : _data) {
+      String _name = data.getName();
+      String _plus = (_name + "\n");
+      InputOutput.<String>print(_plus);
     }
-    return _xblockexpression;
+    final Component myComp = this.findComponentByID(securityConcept, 1);
+    final SCFactory factory = SCFactory.eINSTANCE;
+    final SecurityGoal sg = factory.createSecurityGoal();
+    sg.setName("Supergoal");
+    sg.setSecurityGoalClass(SecurityGoalClassType.INTEGRITY);
+    sg.setAsset(securityConcept.getAssets().get(0));
+    InputOutput.<Asset>print(sg.getAsset());
+    securityConcept.getSecurityGoals().add(sg);
+    this.writeToSecrutiyConcept(securityConcept);
+    return null;
   }
   
-  protected Object _generateCode(final EObject object) {
+  protected String _generateCode(final EObject object) {
     return InputOutput.<String>print("bla");
   }
   
@@ -89,8 +96,12 @@ public class Transformation {
     XMIResourceFactoryImpl _xMIResourceFactoryImpl = new XMIResourceFactoryImpl();
     _extensionToFactoryMap.put("xmi", _xMIResourceFactoryImpl);
     final Resource resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"));
-    final Component comp = securityConcept.getComponents().get(0);
-    resource.getContents().add(comp);
+    final EList<Component> comp = securityConcept.getComponents();
+    final EList<Asset> asset = securityConcept.getAssets();
+    final EList<SecurityGoal> sg = securityConcept.getSecurityGoals();
+    resource.getContents().addAll(comp);
+    resource.getContents().addAll(asset);
+    resource.getContents().addAll(sg);
     try {
       resource.save(Collections.EMPTY_MAP);
     } catch (final Throwable _t) {
@@ -103,7 +114,7 @@ public class Transformation {
     }
   }
   
-  public Object generateCode(final EObject securityConcept) {
+  public String generateCode(final EObject securityConcept) {
     if (securityConcept instanceof SecurityConcept) {
       return _generateCode((SecurityConcept)securityConcept);
     } else if (securityConcept != null) {
