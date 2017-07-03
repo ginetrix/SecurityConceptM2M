@@ -24,6 +24,10 @@ public interface ComponentValidator {
 	boolean validateComponentID(int value);
 	boolean validateSubcomponents(EList<Component> value);
 	boolean validateAncestor(Component value);
+	boolean validateAssets(EList<Asset> value);
+
+	boolean validateAsset(EList<Asset> value);
+
 	boolean validateAsset(Asset value);
 	boolean validateData(EList<Data> value);
 

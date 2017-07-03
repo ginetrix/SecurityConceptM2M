@@ -165,7 +165,7 @@ public interface Component extends EObject {
 	 * It is bidirectional and its opposite is '{@link SC.Asset#getComponent <em>Component</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Asset</em>' reference isn't clear,
+	 * If the meaning of the '<em>Asset</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
