@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:SC="http://www.example.org/securityconcept">
-  <SC:Component name="C1" componentID="1" asset="/3"/>
-  <SC:Component name="C1.1"/>
-  <SC:Component name="C2"/>
-  <SC:Asset securitygoals="/4 /5" component="/0"/>
-  <SC:SecurityGoal damagePotential="medium" asset="/3"/>
-  <SC:SecurityGoal securityGoalClass="Integrity" name="Supergoalaaa" asset="/3"/>
+  <SC:Component name="C1" componentID="1" asset="/3">
+    <Subcomponents href="MetaModel/SecurityConcept_MT_example.xmi#//@components.0"/>
+    <Subcomponents href="MetaModel/SecurityConcept_MT_example.xmi#//@components.1"/>
+  </SC:Component>
+  <SC:Component name="C1.1.1" componentID="4" asset="/4">
+    <Ancestor href="MetaModel/SecurityConcept_MT_example.xmi#//@components.0"/>
+  </SC:Component>
+  <SC:Component name="C2" componentID="6" asset="/5">
+    <Subcomponents href="MetaModel/SecurityConcept_MT_example.xmi#//@components.3"/>
+    <connections href="MetaModel/SecurityConcept_MT_example.xmi#//@connection.1"/>
+  </SC:Component>
+  <SC:Asset name="Asset_C1" assetID="1" component="/0">
+    <securitygoals href="MetaModel/SecurityConcept_MT_example.xmi#//@securityGoals.0"/>
+  </SC:Asset>
+  <SC:Asset name="Asset_C1.1.1" assetID="3" component="/1">
+    <securitygoals href="MetaModel/SecurityConcept_MT_example.xmi#//@securityGoals.2"/>
+  </SC:Asset>
+  <SC:Asset name="Asset_C2" assetID="6" component="/2"/>
 </xmi:XMI>

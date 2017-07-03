@@ -350,13 +350,22 @@ public interface SCPackage extends EPackage {
 	int COMPONENT__DATA = 5;
 
 	/**
+	 * The feature id for the '<em><b>Connections</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__CONNECTIONS = 6;
+
+	/**
 	 * The number of structural features of the '<em>Component</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_FEATURE_COUNT = 6;
+	int COMPONENT_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Component</em>' class.
@@ -967,6 +976,17 @@ public interface SCPackage extends EPackage {
 	EReference getComponent_Data();
 
 	/**
+	 * Returns the meta object for the reference list '{@link SC.Component#getConnections <em>Connections</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Connections</em>'.
+	 * @see SC.Component#getConnections()
+	 * @see #getComponent()
+	 * @generated
+	 */
+	EReference getComponent_Connections();
+
+	/**
 	 * Returns the meta object for the reference list '{@link SC.Component#getSubcomponents <em>Subcomponents</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1514,6 +1534,14 @@ public interface SCPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPONENT__DATA = eINSTANCE.getComponent_Data();
+
+		/**
+		 * The meta object literal for the '<em><b>Connections</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPONENT__CONNECTIONS = eINSTANCE.getComponent_Connections();
 
 		/**
 		 * The meta object literal for the '<em><b>Subcomponents</b></em>' reference list feature.

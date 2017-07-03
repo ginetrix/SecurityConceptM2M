@@ -36,6 +36,7 @@ Package SC <http://www.example.org/securityconcept>
     Reference Ancestor : Component
     Reference asset : Asset
     Reference data : Data<<0..*>>
+    Reference connections : Connection<<0..*>>
 
   Class Function
 

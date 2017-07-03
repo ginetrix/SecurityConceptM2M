@@ -4,6 +4,7 @@ package SC.impl;
 
 import SC.Asset;
 import SC.Component;
+import SC.Connection;
 import SC.Data;
 import SC.SCPackage;
 
@@ -36,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.ComponentImpl#getAncestor <em>Ancestor</em>}</li>
  *   <li>{@link SC.impl.ComponentImpl#getAsset <em>Asset</em>}</li>
  *   <li>{@link SC.impl.ComponentImpl#getData <em>Data</em>}</li>
+ *   <li>{@link SC.impl.ComponentImpl#getConnections <em>Connections</em>}</li>
  * </ul>
  * </p>
  *
@@ -123,6 +125,16 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 	protected EList<Data> data;
 
 	/**
+	 * The cached value of the '{@link #getConnections() <em>Connections</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConnections()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Connection> connections;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -193,6 +205,18 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 			data = new EObjectResolvingEList<Data>(Data.class, this, SCPackage.COMPONENT__DATA);
 		}
 		return data;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Connection> getConnections() {
+		if (connections == null) {
+			connections = new EObjectResolvingEList<Connection>(Connection.class, this, SCPackage.COMPONENT__CONNECTIONS);
+		}
+		return connections;
 	}
 
 	/**
@@ -390,6 +414,8 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				return basicGetAsset();
 			case SCPackage.COMPONENT__DATA:
 				return getData();
+			case SCPackage.COMPONENT__CONNECTIONS:
+				return getConnections();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -423,6 +449,10 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				getData().clear();
 				getData().addAll((Collection<? extends Data>)newValue);
 				return;
+			case SCPackage.COMPONENT__CONNECTIONS:
+				getConnections().clear();
+				getConnections().addAll((Collection<? extends Connection>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -453,6 +483,9 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 			case SCPackage.COMPONENT__DATA:
 				getData().clear();
 				return;
+			case SCPackage.COMPONENT__CONNECTIONS:
+				getConnections().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -477,6 +510,8 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				return asset != null;
 			case SCPackage.COMPONENT__DATA:
 				return data != null && !data.isEmpty();
+			case SCPackage.COMPONENT__CONNECTIONS:
+				return connections != null && !connections.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

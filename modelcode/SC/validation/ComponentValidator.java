@@ -6,6 +6,7 @@ package SC.validation;
 
 import SC.Asset;
 import SC.Component;
+import SC.Connection;
 import SC.Data;
 
 import org.eclipse.emf.common.util.EList;
@@ -25,4 +26,10 @@ public interface ComponentValidator {
 	boolean validateAncestor(Component value);
 	boolean validateAsset(Asset value);
 	boolean validateData(EList<Data> value);
+
+	boolean validateConnections(EList<Connection> value);
+
+	boolean validateConnections(Connection value);
+
+	boolean validateConnection(Connection value);
 }

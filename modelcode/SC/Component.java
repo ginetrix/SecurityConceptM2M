@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Component#getAncestor <em>Ancestor</em>}</li>
  *   <li>{@link SC.Component#getAsset <em>Asset</em>}</li>
  *   <li>{@link SC.Component#getData <em>Data</em>}</li>
+ *   <li>{@link SC.Component#getConnections <em>Connections</em>}</li>
  * </ul>
  * </p>
  *
@@ -95,6 +96,22 @@ public interface Component extends EObject {
 	 * @generated
 	 */
 	EList<Data> getData();
+
+	/**
+	 * Returns the value of the '<em><b>Connections</b></em>' reference list.
+	 * The list contents are of type {@link SC.Connection}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Connections</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Connections</em>' reference list.
+	 * @see SC.SCPackage#getComponent_Connections()
+	 * @model
+	 * @generated
+	 */
+	EList<Connection> getConnections();
 
 	/**
 	 * Returns the value of the '<em><b>Subcomponents</b></em>' reference list.

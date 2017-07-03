@@ -65,11 +65,13 @@
       Subcomponents="//@components.3 //@components.4"
       Ancestor="//@components.0"
       asset="//@assets.1"
-      data="//@data.1"/>
+      data="//@data.1"
+      connections="//@connection.0"/>
   <components
       name="C1.2"
       componentID="3"
-      Ancestor="//@components.0"/>
+      Ancestor="//@components.0"
+      connections="//@connection.1"/>
   <components
       name="C1.1.1"
       componentID="4"
@@ -82,11 +84,13 @@
   <components
       name="C2"
       componentID="6"
-      Subcomponents="//@components.6"/>
+      Subcomponents="//@components.6"
+      connections="//@connection.1"/>
   <components
       name="C2.1"
       componentID="7"
-      Ancestor="//@components.5"/>
+      Ancestor="//@components.5"
+      connections="//@connection.0"/>
   <data name="Data 1"
       dataID="1"
       asset="//@assets.3"/>
