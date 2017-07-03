@@ -77,6 +77,7 @@ public interface Data extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Asset</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link SC.Asset#getData <em>Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Asset</em>' reference isn't clear,
@@ -86,8 +87,8 @@ public interface Data extends EObject {
 	 * @return the value of the '<em>Asset</em>' reference.
 	 * @see #setAsset(Asset)
 	 * @see SC.SCPackage#getData_Asset()
-	 * @model keys="assetID"
-	 *        extendedMetaData="name='SecurityGoal'"
+	 * @see SC.Asset#getData
+	 * @model opposite="data"
 	 * @generated
 	 */
 	Asset getAsset();

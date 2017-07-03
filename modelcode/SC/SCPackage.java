@@ -442,13 +442,22 @@ public interface SCPackage extends EPackage {
 	int ASSET__COMPONENT = 3;
 
 	/**
+	 * The feature id for the '<em><b>Data</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSET__DATA = 4;
+
+	/**
 	 * The number of structural features of the '<em>Asset</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSET_FEATURE_COUNT = 4;
+	int ASSET_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Asset</em>' class.
@@ -1055,6 +1064,17 @@ public interface SCPackage extends EPackage {
 	EReference getAsset_Component();
 
 	/**
+	 * Returns the meta object for the reference '{@link SC.Asset#getData <em>Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Data</em>'.
+	 * @see SC.Asset#getData()
+	 * @see #getAsset()
+	 * @generated
+	 */
+	EReference getAsset_Data();
+
+	/**
 	 * Returns the meta object for class '{@link SC.SecurityConcept <em>Security Concept</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1570,6 +1590,14 @@ public interface SCPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ASSET__COMPONENT = eINSTANCE.getAsset_Component();
+
+		/**
+		 * The meta object literal for the '<em><b>Data</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSET__DATA = eINSTANCE.getAsset_Data();
 
 		/**
 		 * The meta object literal for the '{@link SC.impl.SecurityConceptImpl <em>Security Concept</em>}' class.

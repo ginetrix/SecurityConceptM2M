@@ -50,7 +50,7 @@ class Transformation {
 		// print(myComp.asset.securitygoals)
 		val factory = SCFactory.eINSTANCE
 		val sg = factory.createSecurityGoal()
-		sg.name = "Supergoal" 
+		sg.name = "Supergoalaaa" 
 		sg.securityGoalClass = SecurityGoalClassType.INTEGRITY
 		sg.asset = securityConcept.assets.get(0)
 		print(sg.asset)

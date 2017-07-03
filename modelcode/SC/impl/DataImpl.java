@@ -8,6 +8,7 @@ import SC.SCPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -172,11 +173,63 @@ public class DataImpl extends MinimalEObjectImpl.Container implements Data {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAsset(Asset newAsset) {
+	public NotificationChain basicSetAsset(Asset newAsset, NotificationChain msgs) {
 		Asset oldAsset = asset;
 		asset = newAsset;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.DATA__ASSET, oldAsset, asset));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SCPackage.DATA__ASSET, oldAsset, newAsset);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAsset(Asset newAsset) {
+		if (newAsset != asset) {
+			NotificationChain msgs = null;
+			if (asset != null)
+				msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__DATA, Asset.class, msgs);
+			if (newAsset != null)
+				msgs = ((InternalEObject)newAsset).eInverseAdd(this, SCPackage.ASSET__DATA, Asset.class, msgs);
+			msgs = basicSetAsset(newAsset, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.DATA__ASSET, newAsset, newAsset));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case SCPackage.DATA__ASSET:
+				if (asset != null)
+					msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__DATA, Asset.class, msgs);
+				return basicSetAsset((Asset)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case SCPackage.DATA__ASSET:
+				return basicSetAsset(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

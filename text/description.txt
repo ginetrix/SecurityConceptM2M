@@ -44,6 +44,7 @@ Package SC <http://www.example.org/securityconcept>
     Attribute assetID : EInt
     Reference securitygoals : SecurityGoal<<0..*>>
     Reference component : Component
+    Reference data : Data
 
   Class SecurityConcept
     Attribute name : EString

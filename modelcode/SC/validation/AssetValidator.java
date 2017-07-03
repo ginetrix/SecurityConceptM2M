@@ -5,6 +5,7 @@
 package SC.validation;
 
 import SC.Component;
+import SC.Data;
 import SC.SecurityGoal;
 
 import org.eclipse.emf.common.util.EList;
@@ -22,4 +23,6 @@ public interface AssetValidator {
 	boolean validateAssetID(int value);
 	boolean validateSecuritygoals(EList<SecurityGoal> value);
 	boolean validateComponent(Component value);
+
+	boolean validateData(Data value);
 }

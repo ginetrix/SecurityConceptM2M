@@ -462,6 +462,15 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getAsset_Data() {
+		return (EReference)assetEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSecurityConcept() {
 		return securityConceptEClass;
 	}
@@ -711,6 +720,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		createEAttribute(assetEClass, ASSET__ASSET_ID);
 		createEReference(assetEClass, ASSET__SECURITYGOALS);
 		createEReference(assetEClass, ASSET__COMPONENT);
+		createEReference(assetEClass, ASSET__DATA);
 
 		securityConceptEClass = createEClass(SECURITY_CONCEPT);
 		createEAttribute(securityConceptEClass, SECURITY_CONCEPT__NAME);
@@ -810,6 +820,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		initEReference(getAsset_Securitygoals(), this.getSecurityGoal(), this.getSecurityGoal_Asset(), "securitygoals", null, 0, -1, Asset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAsset_Component(), this.getComponent(), this.getComponent_Asset(), "component", null, 0, 1, Asset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		getAsset_Component().getEKeys().add(this.getComponent_ComponentID());
+		initEReference(getAsset_Data(), this.getData(), this.getData_Asset(), "data", null, 0, 1, Asset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(securityConceptEClass, SecurityConcept.class, "SecurityConcept", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSecurityConcept_Name(), ecorePackage.getEString(), "name", null, 0, 1, SecurityConcept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -831,8 +842,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		initEClass(dataEClass, Data.class, "Data", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getData_Name(), ecorePackage.getEString(), "name", null, 0, 1, Data.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getData_DataID(), ecorePackage.getEInt(), "dataID", null, 0, 1, Data.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getData_Asset(), this.getAsset(), null, "asset", null, 0, 1, Data.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		getData_Asset().getEKeys().add(this.getAsset_AssetID());
+		initEReference(getData_Asset(), this.getAsset(), this.getAsset_Data(), "asset", null, 0, 1, Data.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(securityGoalClassTypeEEnum, SecurityGoalClassType.class, "SecurityGoalClassType");
@@ -1007,12 +1017,6 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		   });	
 		addAnnotation
 		  (dataEClass, 
-		   source, 
-		   new String[] {
-			 "name", "SecurityGoal"
-		   });	
-		addAnnotation
-		  (getData_Asset(), 
 		   source, 
 		   new String[] {
 			 "name", "SecurityGoal"

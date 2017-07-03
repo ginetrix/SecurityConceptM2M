@@ -4,6 +4,7 @@ package SC.impl;
 
 import SC.Asset;
 import SC.Component;
+import SC.Data;
 import SC.SCPackage;
 import SC.SecurityGoal;
 
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.AssetImpl#getAssetID <em>Asset ID</em>}</li>
  *   <li>{@link SC.impl.AssetImpl#getSecuritygoals <em>Securitygoals</em>}</li>
  *   <li>{@link SC.impl.AssetImpl#getComponent <em>Component</em>}</li>
+ *   <li>{@link SC.impl.AssetImpl#getData <em>Data</em>}</li>
  * </ul>
  * </p>
  *
@@ -99,6 +101,16 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 	 * @ordered
 	 */
 	protected Component component;
+
+	/**
+	 * The cached value of the '{@link #getData() <em>Data</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getData()
+	 * @generated
+	 * @ordered
+	 */
+	protected Data data;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -238,6 +250,66 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Data getData() {
+		if (data != null && data.eIsProxy()) {
+			InternalEObject oldData = (InternalEObject)data;
+			data = (Data)eResolveProxy(oldData);
+			if (data != oldData) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SCPackage.ASSET__DATA, oldData, data));
+			}
+		}
+		return data;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Data basicGetData() {
+		return data;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetData(Data newData, NotificationChain msgs) {
+		Data oldData = data;
+		data = newData;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SCPackage.ASSET__DATA, oldData, newData);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setData(Data newData) {
+		if (newData != data) {
+			NotificationChain msgs = null;
+			if (data != null)
+				msgs = ((InternalEObject)data).eInverseRemove(this, SCPackage.DATA__ASSET, Data.class, msgs);
+			if (newData != null)
+				msgs = ((InternalEObject)newData).eInverseAdd(this, SCPackage.DATA__ASSET, Data.class, msgs);
+			msgs = basicSetData(newData, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.ASSET__DATA, newData, newData));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -248,6 +320,10 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 				if (component != null)
 					msgs = ((InternalEObject)component).eInverseRemove(this, SCPackage.COMPONENT__ASSET, Component.class, msgs);
 				return basicSetComponent((Component)otherEnd, msgs);
+			case SCPackage.ASSET__DATA:
+				if (data != null)
+					msgs = ((InternalEObject)data).eInverseRemove(this, SCPackage.DATA__ASSET, Data.class, msgs);
+				return basicSetData((Data)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -264,6 +340,8 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 				return ((InternalEList<?>)getSecuritygoals()).basicRemove(otherEnd, msgs);
 			case SCPackage.ASSET__COMPONENT:
 				return basicSetComponent(null, msgs);
+			case SCPackage.ASSET__DATA:
+				return basicSetData(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -285,6 +363,9 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 			case SCPackage.ASSET__COMPONENT:
 				if (resolve) return getComponent();
 				return basicGetComponent();
+			case SCPackage.ASSET__DATA:
+				if (resolve) return getData();
+				return basicGetData();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -311,6 +392,9 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 			case SCPackage.ASSET__COMPONENT:
 				setComponent((Component)newValue);
 				return;
+			case SCPackage.ASSET__DATA:
+				setData((Data)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -335,6 +419,9 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 			case SCPackage.ASSET__COMPONENT:
 				setComponent((Component)null);
 				return;
+			case SCPackage.ASSET__DATA:
+				setData((Data)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -355,6 +442,8 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 				return securitygoals != null && !securitygoals.isEmpty();
 			case SCPackage.ASSET__COMPONENT:
 				return component != null;
+			case SCPackage.ASSET__DATA:
+				return data != null;
 		}
 		return super.eIsSet(featureID);
 	}

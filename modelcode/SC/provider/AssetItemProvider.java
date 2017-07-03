@@ -64,6 +64,7 @@ public class AssetItemProvider
 			addAssetIDPropertyDescriptor(object);
 			addSecuritygoalsPropertyDescriptor(object);
 			addComponentPropertyDescriptor(object);
+			addDataPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -148,6 +149,28 @@ public class AssetItemProvider
 				 getString("_UI_Asset_component_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Asset_component_feature", "_UI_Asset_type"),
 				 SCPackage.Literals.ASSET__COMPONENT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Data feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Asset_data_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Asset_data_feature", "_UI_Asset_type"),
+				 SCPackage.Literals.ASSET__DATA,
 				 true,
 				 false,
 				 true,

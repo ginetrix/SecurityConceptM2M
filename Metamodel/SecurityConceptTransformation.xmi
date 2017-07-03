@@ -5,5 +5,5 @@
   <SC:Component name="C2"/>
   <SC:Asset securitygoals="/4 /5" component="/0"/>
   <SC:SecurityGoal damagePotential="medium" asset="/3"/>
-  <SC:SecurityGoal securityGoalClass="Integrity" name="Supergoal" asset="/3"/>
+  <SC:SecurityGoal securityGoalClass="Integrity" name="Supergoalaaa" asset="/3"/>
 </xmi:XMI>
