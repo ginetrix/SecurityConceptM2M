@@ -151,12 +151,27 @@ class Transformation {
 	}
 
 	def addSgCtoA(Component child, Component anc) {
+		
 	}
 
 	def fixConnection(Component child, Component anc) {
+		for (Connection con : child.connections){
+			if (con.source.equals(child)){
+				con.source = anc
+			}else if (con.target.equals(child)){
+				con.target = anc
+			}
+		}
 	}
 
 	def checkConnections(List<SecurityGoal> securityGoals, Component comp) {
+		for (Connection con : comp.connections){
+			if (!componentsOfInterest.contains(con.source) || !componentsOfInterest.contains(con.target)){
+				comp.connections.remove(con)
+			}else{
+				securityGoals.addAll(con.data.asset.securitygoals)
+			}
+		}
 	}
 
 	def Component findComponentByID(SecurityConcept securityConcept, int id) {
