@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:SC="http://www.example.org/securityconcept">
+  <SC:Component name="COMP 1" componentID="1">
+    <Subcomponents href="MetaModel/minitest.xmi#//@components.0"/>
+    <asset href="MetaModel/minitest.xmi#//@assets.0"/>
+  </SC:Component>
+  <SC:Asset name="COMP 1" assetID="1" securitygoals="/2"/>
+  <SC:SecurityGoal securityGoalClass="Integrity" damagePotential="high" securityGoalID="1" name="COMP 1" asset="/1"/>
+</xmi:XMI>

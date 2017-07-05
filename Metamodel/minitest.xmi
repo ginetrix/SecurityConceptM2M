@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ASCII"?>
+<SC:SecurityConcept
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:SC="http://www.example.org/securityconcept"
+    xsi:schemaLocation="http://www.example.org/securityconcept SecurityConcept.ecore">
+  <securityGoals
+      securityGoalClass="Integrity"
+      damagePotential="high"
+      securityGoalID="1"
+      name="COMP 1"
+      asset="//@assets.0"/>
+  <securityGoals
+      securityGoalClass="Availability"
+      damagePotential="medium"
+      securityGoalID="2"
+      name="COMP 2"
+      asset="//@assets.1"/>
+  <assets name="COMP 1"
+      assetID="1"
+      securitygoals="//@securityGoals.0"
+      component="//@components.0"/>
+  <assets name="COMP 2"
+      assetID="2"
+      securitygoals="//@securityGoals.1"
+      component="//@components.1"/>
+  <components
+      name="COMP 1"
+      componentID="1"
+      Subcomponents="//@components.1"
+      asset="//@assets.0"/>
+  <components
+      name="COMP 2"
+      componentID="2"
+      Ancestor="//@components.0"
+      asset="//@assets.1"/>
+</SC:SecurityConcept>

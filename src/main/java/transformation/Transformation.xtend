@@ -33,7 +33,8 @@ class Transformation {
 	SecurityConcept oldSecurityConcept
 
 	def static void main(String[] args) {
-		new Transformation().generate("MetaModel/SecurityConcept_MT_example.xmi")
+		new Transformation().generate("MetaModel/minitest.xmi")
+//		new Transformation().generate("MetaModel/SecurityConcept_MT_example.xmi")
 	}
 
 	def generate(String file) {
@@ -54,7 +55,7 @@ class Transformation {
 	def dispatch generateCode(SecurityConcept securityConcept) {
 		oldSecurityConcept = securityConcept
 		// Select the IDs of components that should be aggregated
-		val int[] componentIDs = #[1, 4, 6]
+		val int[] componentIDs = #[1]
 		componentIDs.stream.filter(id|findComponentByID(securityConcept, id) !== null).forEach [ id |
 			componentsOfInterest.add(findComponentByID(securityConcept, id))
 		]
@@ -93,6 +94,7 @@ class Transformation {
 		findChildren(component, component)
 		checkConnections(securityGoals, component)
 	// Add the respective security goals to the new security concept
+	newSecurityConcept.securityGoals.addAll(securityGoals)
 	}
 
 	def dispatch generateCode(EObject object) {
@@ -136,36 +138,50 @@ class Transformation {
 			// Transfer the security goals that address the ancestor directly
 			if (asset.component != null) {
 				if (asset.component.componentID == anc.componentID) {
-					for (sg : asset.securitygoals){
+					for (sg : asset.securitygoals) {
 						// There must be an asset defined for the child component
+						sg.component = child
 						sg.asset = child.asset
+						child.asset.securitygoals.add(sg)
 					}
-				}else if (child.assets.contains(asset)){
-					for (sg : asset.securitygoals){
-						if (sg.securityGoalClass.equals(SecurityGoalClassType.CONFIDENTIALITY)){
-							sg.asset = 	
-						}
+				} else if (child.assets.contains(asset)) {
+					for (sg : asset.securitygoals) {
+						sg.component = child
+						child.asset.securitygoals.add(sg)
 					}
 				}
-				
 			}
-
 		}
 	}
 
 	def addSgCtoA(Component child, Component anc) {
-		
+		for (asset : child.assets) {
+			for (sg : asset.securitygoals) {
+				if (!anc.assets.contains(asset)) {
+					copyAsset(asset, anc)
+				} else if (!sg.securityGoalClass.equals(SecurityGoalClassType.INTEGRITY)) {
+					sg.component = anc
+					anc.asset.securitygoals.add(sg)
+				}
+			}
+		}
+	}
+
+	def copyAsset(Asset asset, Component anc) {
+		val newAsset = asset
+		newAsset.component = anc
 	}
 
 	def ArrayList<Asset> getAssets(Component component) {
 		var assetList = new ArrayList<Asset>
-		assetList.add(component.asset)
+		if (component.asset != null) {
+			assetList.add(component.asset)
+		}
 		for (connection : component.connections) {
 			assetList.add(connection.data.asset)
 		}
 		return assetList
 	}
-
 
 	def fixConnection(Component child, Component anc) {
 		for (Connection con : child.connections) {
@@ -196,10 +212,13 @@ class Transformation {
 		val resourceSet = new ResourceSetImpl
 		Resource$Factory.Registry.INSTANCE.extensionToFactoryMap.put(SCPackage.eNS_URI, SCPackage.eINSTANCE)
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
-		val resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"))
+//		val resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"))
+		val resource = resourceSet.createResource(URI.createURI("MetaModel/transform.xmi"))
+		
 		val comp = newSecurityConcept.components
 		val asset = newSecurityConcept.assets
 		val sg = newSecurityConcept.securityGoals
+		print(newSecurityConcept.securityGoals.toString)
 		resource.contents.addAll(comp)
 		resource.contents.addAll(asset)
 		resource.contents.addAll(sg)
