@@ -131,44 +131,57 @@ class Transformation {
 	}
 
 	def addSgAtoC(Component anc, Component child) {
-		val assets = getAssets(anc)	
+		val assets = getAssets(anc)
 		for (Asset asset : assets) {
 			// Transfer the security goals that address the ancestor directly
-			if (asset.component.componentID == anc.componentID) {
+			if (asset.component != null) {
+				if (asset.component.componentID == anc.componentID) {
+					for (sg : asset.securitygoals){
+						// There must be an asset defined for the child component
+						sg.asset = child.asset
+					}
+				}else if (child.assets.contains(asset)){
+					for (sg : asset.securitygoals){
+						if (sg.securityGoalClass.equals(SecurityGoalClassType.CONFIDENTIALITY)){
+							sg.asset = 	
+						}
+					}
+				}
 				
 			}
 
 		}
-	}
-	
-	def ArrayList<Asset> getAssets(Component component){
-		var assetList = new ArrayList<Asset>
-		assetList.add(component.asset)
-		for (connection : component.connections){
-			assetList.add(connection.data.asset)
-		}
-		return assetList
 	}
 
 	def addSgCtoA(Component child, Component anc) {
 		
 	}
 
+	def ArrayList<Asset> getAssets(Component component) {
+		var assetList = new ArrayList<Asset>
+		assetList.add(component.asset)
+		for (connection : component.connections) {
+			assetList.add(connection.data.asset)
+		}
+		return assetList
+	}
+
+
 	def fixConnection(Component child, Component anc) {
-		for (Connection con : child.connections){
-			if (con.source.equals(child)){
+		for (Connection con : child.connections) {
+			if (con.source.equals(child)) {
 				con.source = anc
-			}else if (con.target.equals(child)){
+			} else if (con.target.equals(child)) {
 				con.target = anc
 			}
 		}
 	}
 
 	def checkConnections(List<SecurityGoal> securityGoals, Component comp) {
-		for (Connection con : comp.connections){
-			if (!componentsOfInterest.contains(con.source) || !componentsOfInterest.contains(con.target)){
+		for (Connection con : comp.connections) {
+			if (!componentsOfInterest.contains(con.source) || !componentsOfInterest.contains(con.target)) {
 				comp.connections.remove(con)
-			}else{
+			} else {
 				securityGoals.addAll(con.data.asset.securitygoals)
 			}
 		}

@@ -27,6 +27,8 @@
         <details key="name" value="SecurityGoal"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
+        eType="#//Component" eOpposite="#//Component/securitygoals"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Threat">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -82,6 +84,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="data" upperBound="-1" eType="#//Data"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connections" upperBound="-1"
         eType="#//Connection"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="securitygoals" upperBound="-1"
+        eType="#//SecurityGoal" eOpposite="#//SecurityGoal/component"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Function">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

@@ -13,13 +13,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link SC.Threat#getDescription <em>Description</em>}</li>
  *   <li>{@link SC.Threat#getThreatID <em>Threat ID</em>}</li>
  *   <li>{@link SC.Threat#getAttackPotential <em>Attack Potential</em>}</li>
  *   <li>{@link SC.Threat#getSecuritygoal <em>Securitygoal</em>}</li>
  * </ul>
- * </p>
  *
  * @see SC.SCPackage#getThreat()
  * @model extendedMetaData="name='SecurityGoal'"

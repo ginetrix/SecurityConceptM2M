@@ -255,6 +255,15 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getSecurityGoal_Component() {
+		return (EReference)securityGoalEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getThreat() {
 		return threatEClass;
 	}
@@ -383,6 +392,15 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 */
 	public EReference getComponent_Connections() {
 		return (EReference)componentEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComponent_Securitygoals() {
+		return (EReference)componentEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -701,6 +719,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		createEAttribute(securityGoalEClass, SECURITY_GOAL__NAME);
 		createEReference(securityGoalEClass, SECURITY_GOAL__ASSET);
 		createEReference(securityGoalEClass, SECURITY_GOAL__THREAT);
+		createEReference(securityGoalEClass, SECURITY_GOAL__COMPONENT);
 
 		threatEClass = createEClass(THREAT);
 		createEAttribute(threatEClass, THREAT__DESCRIPTION);
@@ -722,6 +741,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		createEReference(componentEClass, COMPONENT__ASSET);
 		createEReference(componentEClass, COMPONENT__DATA);
 		createEReference(componentEClass, COMPONENT__CONNECTIONS);
+		createEReference(componentEClass, COMPONENT__SECURITYGOALS);
 
 		functionEClass = createEClass(FUNCTION);
 
@@ -799,6 +819,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		initEAttribute(getSecurityGoal_Name(), ecorePackage.getEString(), "name", null, 0, 1, SecurityGoal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSecurityGoal_Asset(), this.getAsset(), this.getAsset_Securitygoals(), "asset", null, 1, 1, SecurityGoal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSecurityGoal_Threat(), this.getThreat(), this.getThreat_Securitygoal(), "threat", null, 0, -1, SecurityGoal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSecurityGoal_Component(), this.getComponent(), this.getComponent_Securitygoals(), "component", null, 1, 1, SecurityGoal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(threatEClass, Threat.class, "Threat", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getThreat_Description(), ecorePackage.getEString(), "description", null, 0, 1, Threat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -822,6 +843,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		getComponent_Asset().getEKeys().add(this.getAsset_AssetID());
 		initEReference(getComponent_Data(), this.getData(), null, "data", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Connections(), this.getConnection(), null, "connections", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComponent_Securitygoals(), this.getSecurityGoal(), this.getSecurityGoal_Component(), "securitygoals", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(functionEClass, Function.class, "Function", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

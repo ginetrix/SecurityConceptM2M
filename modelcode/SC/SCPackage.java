@@ -140,13 +140,22 @@ public interface SCPackage extends EPackage {
 	int SECURITY_GOAL__THREAT = 7;
 
 	/**
+	 * The feature id for the '<em><b>Component</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SECURITY_GOAL__COMPONENT = 8;
+
+	/**
 	 * The number of structural features of the '<em>Security Goal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_GOAL_FEATURE_COUNT = 8;
+	int SECURITY_GOAL_FEATURE_COUNT = 9;
 
 	/**
 	 * The number of operations of the '<em>Security Goal</em>' class.
@@ -359,13 +368,22 @@ public interface SCPackage extends EPackage {
 	int COMPONENT__CONNECTIONS = 6;
 
 	/**
+	 * The feature id for the '<em><b>Securitygoals</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__SECURITYGOALS = 7;
+
+	/**
 	 * The number of structural features of the '<em>Component</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_FEATURE_COUNT = 7;
+	int COMPONENT_FEATURE_COUNT = 8;
 
 	/**
 	 * The number of operations of the '<em>Component</em>' class.
@@ -825,6 +843,17 @@ public interface SCPackage extends EPackage {
 	EReference getSecurityGoal_Threat();
 
 	/**
+	 * Returns the meta object for the reference '{@link SC.SecurityGoal#getComponent <em>Component</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Component</em>'.
+	 * @see SC.SecurityGoal#getComponent()
+	 * @see #getSecurityGoal()
+	 * @generated
+	 */
+	EReference getSecurityGoal_Component();
+
+	/**
 	 * Returns the meta object for class '{@link SC.Threat <em>Threat</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -985,6 +1014,17 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getComponent_Connections();
+
+	/**
+	 * Returns the meta object for the reference list '{@link SC.Component#getSecuritygoals <em>Securitygoals</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Securitygoals</em>'.
+	 * @see SC.Component#getSecuritygoals()
+	 * @see #getComponent()
+	 * @generated
+	 */
+	EReference getComponent_Securitygoals();
 
 	/**
 	 * Returns the meta object for the reference list '{@link SC.Component#getSubcomponents <em>Subcomponents</em>}'.
@@ -1418,6 +1458,14 @@ public interface SCPackage extends EPackage {
 		EReference SECURITY_GOAL__THREAT = eINSTANCE.getSecurityGoal_Threat();
 
 		/**
+		 * The meta object literal for the '<em><b>Component</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SECURITY_GOAL__COMPONENT = eINSTANCE.getSecurityGoal_Component();
+
+		/**
 		 * The meta object literal for the '{@link SC.impl.ThreatImpl <em>Threat</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1542,6 +1590,14 @@ public interface SCPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COMPONENT__CONNECTIONS = eINSTANCE.getComponent_Connections();
+
+		/**
+		 * The meta object literal for the '<em><b>Securitygoals</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPONENT__SECURITYGOALS = eINSTANCE.getComponent_Securitygoals();
 
 		/**
 		 * The meta object literal for the '<em><b>Subcomponents</b></em>' reference list feature.

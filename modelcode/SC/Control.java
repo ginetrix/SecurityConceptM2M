@@ -13,13 +13,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link SC.Control#getControlID <em>Control ID</em>}</li>
  *   <li>{@link SC.Control#getName <em>Name</em>}</li>
  *   <li>{@link SC.Control#getDependsOn <em>Depends On</em>}</li>
  *   <li>{@link SC.Control#getMitigates <em>Mitigates</em>}</li>
  * </ul>
- * </p>
  *
  * @see SC.SCPackage#getControl()
  * @model extendedMetaData="name='SecurityGoal'"

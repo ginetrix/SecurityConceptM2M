@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link SC.Connection#getName <em>Name</em>}</li>
  *   <li>{@link SC.Connection#getConnectionID <em>Connection ID</em>}</li>
@@ -18,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Connection#getTarget <em>Target</em>}</li>
  *   <li>{@link SC.Connection#getData <em>Data</em>}</li>
  * </ul>
- * </p>
  *
  * @see SC.SCPackage#getConnection()
  * @model extendedMetaData="name='SecurityGoal'"

@@ -29,13 +29,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link SC.impl.ThreatImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getThreatID <em>Threat ID</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getAttackPotential <em>Attack Potential</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getSecuritygoal <em>Securitygoal</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

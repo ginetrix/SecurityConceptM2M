@@ -69,6 +69,7 @@ public class ComponentItemProvider
 			addAncestorPropertyDescriptor(object);
 			addAssetPropertyDescriptor(object);
 			addConnectionsPropertyDescriptor(object);
+			addSecuritygoalsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -197,6 +198,28 @@ public class ComponentItemProvider
 				 getString("_UI_Component_connections_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Component_connections_feature", "_UI_Component_type"),
 				 SCPackage.Literals.COMPONENT__CONNECTIONS,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Securitygoals feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSecuritygoalsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Component_securitygoals_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Component_securitygoals_feature", "_UI_Component_type"),
+				 SCPackage.Literals.COMPONENT__SECURITYGOALS,
 				 true,
 				 false,
 				 true,

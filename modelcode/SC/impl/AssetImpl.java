@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link SC.impl.AssetImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.AssetImpl#getAssetID <em>Asset ID</em>}</li>
@@ -37,7 +38,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.AssetImpl#getComponent <em>Component</em>}</li>
  *   <li>{@link SC.impl.AssetImpl#getData <em>Data</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

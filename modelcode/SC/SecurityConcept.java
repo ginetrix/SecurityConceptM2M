@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link SC.SecurityConcept#getName <em>Name</em>}</li>
  *   <li>{@link SC.SecurityConcept#getSecurityGoals <em>Security Goals</em>}</li>
@@ -23,7 +24,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.SecurityConcept#getData <em>Data</em>}</li>
  *   <li>{@link SC.SecurityConcept#getConnection <em>Connection</em>}</li>
  * </ul>
- * </p>
  *
  * @see SC.SCPackage#getSecurityConcept()
  * @model extendedMetaData="name='SecurityGoal'"

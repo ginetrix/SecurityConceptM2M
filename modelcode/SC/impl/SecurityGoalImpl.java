@@ -3,6 +3,7 @@
 package SC.impl;
 
 import SC.Asset;
+import SC.Component;
 import SC.Damages;
 import SC.SCPackage;
 import SC.SecurityGoal;
@@ -32,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link SC.impl.SecurityGoalImpl#getSecurityGoalClass <em>Security Goal Class</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getDamagePotential <em>Damage Potential</em>}</li>
@@ -41,8 +43,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.SecurityGoalImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getAsset <em>Asset</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getThreat <em>Threat</em>}</li>
+ *   <li>{@link SC.impl.SecurityGoalImpl#getComponent <em>Component</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -176,6 +178,16 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 	 * @ordered
 	 */
 	protected EList<Threat> threat;
+
+	/**
+	 * The cached value of the '{@link #getComponent() <em>Component</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getComponent()
+	 * @generated
+	 * @ordered
+	 */
+	protected Component component;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -390,6 +402,66 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Component getComponent() {
+		if (component != null && component.eIsProxy()) {
+			InternalEObject oldComponent = (InternalEObject)component;
+			component = (Component)eResolveProxy(oldComponent);
+			if (component != oldComponent) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SCPackage.SECURITY_GOAL__COMPONENT, oldComponent, component));
+			}
+		}
+		return component;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Component basicGetComponent() {
+		return component;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetComponent(Component newComponent, NotificationChain msgs) {
+		Component oldComponent = component;
+		component = newComponent;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SCPackage.SECURITY_GOAL__COMPONENT, oldComponent, newComponent);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setComponent(Component newComponent) {
+		if (newComponent != component) {
+			NotificationChain msgs = null;
+			if (component != null)
+				msgs = ((InternalEObject)component).eInverseRemove(this, SCPackage.COMPONENT__SECURITYGOALS, Component.class, msgs);
+			if (newComponent != null)
+				msgs = ((InternalEObject)newComponent).eInverseAdd(this, SCPackage.COMPONENT__SECURITYGOALS, Component.class, msgs);
+			msgs = basicSetComponent(newComponent, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.SECURITY_GOAL__COMPONENT, newComponent, newComponent));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -400,6 +472,10 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 				return basicSetAsset((Asset)otherEnd, msgs);
 			case SCPackage.SECURITY_GOAL__THREAT:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getThreat()).basicAdd(otherEnd, msgs);
+			case SCPackage.SECURITY_GOAL__COMPONENT:
+				if (component != null)
+					msgs = ((InternalEObject)component).eInverseRemove(this, SCPackage.COMPONENT__SECURITYGOALS, Component.class, msgs);
+				return basicSetComponent((Component)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -416,6 +492,8 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 				return basicSetAsset(null, msgs);
 			case SCPackage.SECURITY_GOAL__THREAT:
 				return ((InternalEList<?>)getThreat()).basicRemove(otherEnd, msgs);
+			case SCPackage.SECURITY_GOAL__COMPONENT:
+				return basicSetComponent(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -445,6 +523,9 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 				return basicGetAsset();
 			case SCPackage.SECURITY_GOAL__THREAT:
 				return getThreat();
+			case SCPackage.SECURITY_GOAL__COMPONENT:
+				if (resolve) return getComponent();
+				return basicGetComponent();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -484,6 +565,9 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 				getThreat().clear();
 				getThreat().addAll((Collection<? extends Threat>)newValue);
 				return;
+			case SCPackage.SECURITY_GOAL__COMPONENT:
+				setComponent((Component)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -520,6 +604,9 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 			case SCPackage.SECURITY_GOAL__THREAT:
 				getThreat().clear();
 				return;
+			case SCPackage.SECURITY_GOAL__COMPONENT:
+				setComponent((Component)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -548,6 +635,8 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 				return asset != null;
 			case SCPackage.SECURITY_GOAL__THREAT:
 				return threat != null && !threat.isEmpty();
+			case SCPackage.SECURITY_GOAL__COMPONENT:
+				return component != null;
 		}
 		return super.eIsSet(featureID);
 	}

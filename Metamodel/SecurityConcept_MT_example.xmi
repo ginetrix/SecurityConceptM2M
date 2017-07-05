@@ -9,18 +9,21 @@
       securityGoalClass="Integrity"
       securityGoalID="1"
       name="SG_C1"
-      asset="//@assets.0"/>
+      asset="//@assets.0"
+      component="//@components.0"/>
   <securityGoals
       damagePotential="medium"
       securityGoalID="2"
       name="SG_D2"
-      asset="//@assets.1"/>
+      asset="//@assets.1"
+      component="//@components.1"/>
   <securityGoals
       securityGoalClass="Availability"
       damagePotential="high"
       securityGoalID="3"
       name="SG_C1.1.1"
-      asset="//@assets.2"/>
+      asset="//@assets.2"
+      component="//@components.3"/>
   <securityGoals
       damagePotential="high"
       description=""
@@ -58,7 +61,8 @@
       name="C1"
       componentID="1"
       Subcomponents="//@components.1 //@components.2"
-      asset="//@assets.0"/>
+      asset="//@assets.0"
+      securitygoals="//@securityGoals.0"/>
   <components
       name="C1.1"
       componentID="2"
@@ -66,7 +70,8 @@
       Ancestor="//@components.0"
       asset="//@assets.1"
       data="//@data.1"
-      connections="//@connection.0"/>
+      connections="//@connection.0"
+      securitygoals="//@securityGoals.1"/>
   <components
       name="C1.2"
       componentID="3"
@@ -76,7 +81,8 @@
       name="C1.1.1"
       componentID="4"
       Ancestor="//@components.1"
-      asset="//@assets.2"/>
+      asset="//@assets.2"
+      securitygoals="//@securityGoals.2"/>
   <components
       name="C1.1.2"
       componentID="5"

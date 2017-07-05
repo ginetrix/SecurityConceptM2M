@@ -68,6 +68,7 @@ public class SecurityGoalItemProvider
 			addNamePropertyDescriptor(object);
 			addAssetPropertyDescriptor(object);
 			addThreatPropertyDescriptor(object);
+			addComponentPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -240,6 +241,28 @@ public class SecurityGoalItemProvider
 				 getString("_UI_SecurityGoal_threat_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_SecurityGoal_threat_feature", "_UI_SecurityGoal_type"),
 				 SCPackage.Literals.SECURITY_GOAL__THREAT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Component feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addComponentPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SecurityGoal_component_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SecurityGoal_component_feature", "_UI_SecurityGoal_type"),
+				 SCPackage.Literals.SECURITY_GOAL__COMPONENT,
 				 true,
 				 false,
 				 true,
