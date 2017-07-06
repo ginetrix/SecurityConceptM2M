@@ -7,7 +7,6 @@ import SC.SecurityGoal
 
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.common.util.URI
-import org.eclipse.emf.ecore.resource.Resource$Factory
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
 import org.eclipse.emf.ecore.EObject
 import java.io.IOException
@@ -20,6 +19,7 @@ import java.util.ArrayList
 import SC.Connection
 import SC.Asset
 import org.eclipse.emf.ecore.resource.Resource
+import SC.Threat
 
 class Transformation {
 
@@ -31,6 +31,12 @@ class Transformation {
 	SCFactory factory
 	SecurityConcept newSecurityConcept
 	SecurityConcept oldSecurityConcept
+	// Resulting lists of security concept elements
+	List<Component> transformedComponents
+	List<Asset> transformedAssets
+	List<SecurityGoal> transformedSecurityGoals
+	List<Threat> transformedThreats
+	
 
 	def static void main(String[] args) {
 		new Transformation().generate("MetaModel/minitest.xmi")
@@ -66,35 +72,35 @@ class Transformation {
 	}
 
 	def generateSG(Component component) {
-		securityGoals = new ArrayList<SecurityGoal>
+		transformedSecurityGoals = new ArrayList<SecurityGoal>
 		ancestorStack = new Stack<Component>
 		childStack = new Stack<Component>
 		if (!visitedNodes.contains(component)) {
 			visitedNodes.add(component)
-			// Add the new component and its asset to the new security concept
-			newSecurityConcept.components.add(component)
+			// Add the new component and its asset to the transformed lists
+			transformedComponents.add(component)
 			if (component.asset === null) {
 				val asset = factory.createAsset
 				asset.name = "Asset_".concat(component.name)
 				asset.component = component
 				asset.assetID = oldSecurityConcept.assets.last.assetID + 1
-				newSecurityConcept.assets.add(asset)
+				transformedAssets.add(asset)
 			} else {
-				newSecurityConcept.assets.add(component.asset)
+				transformedAssets.add(component.asset)
 			}
 			for (SecurityGoal securityGoal : component.asset.securitygoals) {
-				securityGoals.add(securityGoal)
+				transformedSecurityGoals.add(securityGoal)
 			}
-			// Check connections
+			// Check connections and add their security goals
 			for (Connection con : component.connections) {
-				securityGoals.addAll(con.data.asset.securitygoals)
+				transformedSecurityGoals.addAll(con.data.asset.securitygoals)
 			}
 		}
 		findAncestors(component, component)
 		findChildren(component, component)
 		checkConnections(securityGoals, component)
-	// Add the respective security goals to the new security concept
-	newSecurityConcept.securityGoals.addAll(securityGoals)
+		// Add the respective security goals to the new security concept
+		
 	}
 
 	def dispatch generateCode(EObject object) {
@@ -139,15 +145,19 @@ class Transformation {
 			if (asset.component != null) {
 				if (asset.component.componentID == anc.componentID) {
 					for (sg : asset.securitygoals) {
-						// There must be an asset defined for the child component
-						sg.component = child
-						sg.asset = child.asset
-						child.asset.securitygoals.add(sg)
+						// There must already be an asset defined for the child component
+						var newSG = sg
+						newSG.component = child
+						newSG.asset = child.asset
+//						child.asset.securitygoals.add(sg)
+						transformedSecurityGoals.add(newSG)
 					}
 				} else if (child.assets.contains(asset)) {
 					for (sg : asset.securitygoals) {
-						sg.component = child
-						child.asset.securitygoals.add(sg)
+						var newSG = sg
+						newSG.component = child
+//						child.asset.securitygoals.add(sg)
+						transformedSecurityGoals.add(newSG)
 					}
 				}
 			}
@@ -158,13 +168,27 @@ class Transformation {
 		for (asset : child.assets) {
 			for (sg : asset.securitygoals) {
 				if (!anc.assets.contains(asset)) {
-					copyAsset(asset, anc)
+					// Check whether the sub-component is an asset
+					if (asset.component.equals(child)) {
+						var newSG = sg
+						newSG.asset = anc.asset 
+						newSG.component = anc
+					} else {
+						// If not, copy the data assets that do not exist in the abstraction layer above
+						copyAsset(asset, anc)
+					}
 				} else if (!sg.securityGoalClass.equals(SecurityGoalClassType.INTEGRITY)) {
-					sg.component = anc
-					anc.asset.securitygoals.add(sg)
+					var newSG = sg
+					newSG.component = anc
+//					anc.asset.securitygoals.add(sg)
+					transformedSecurityGoals.add(newSG)
 				}
 			}
 		}
+	}
+	
+	def SecurityGoal createSecurityGoal(){
+		return factory.createSecurityGoal
 	}
 
 	def copyAsset(Asset asset, Component anc) {
@@ -214,7 +238,7 @@ class Transformation {
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
 //		val resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"))
 		val resource = resourceSet.createResource(URI.createURI("MetaModel/transform.xmi"))
-		
+
 		val comp = newSecurityConcept.components
 		val asset = newSecurityConcept.assets
 		val sg = newSecurityConcept.securityGoals
