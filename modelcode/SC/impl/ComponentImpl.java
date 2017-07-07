@@ -573,4 +573,9 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 		return result.toString();
 	}
 
+	public Object setSubcomponents(Object null1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 } //ComponentImpl

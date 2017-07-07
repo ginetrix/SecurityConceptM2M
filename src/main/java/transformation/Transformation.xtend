@@ -48,7 +48,11 @@ class Transformation {
 		componentsOfInterest = new ArrayList<Component>()
 		visitedNodes = new ArrayList<Component>
 		factory = SCFactory.eINSTANCE
+		oldSecurityConcept = factory.createSecurityConcept
 		newSecurityConcept = factory.createSecurityConcept
+		transformedComponents = new ArrayList<Component>
+		transformedAssets = new ArrayList<Asset>
+		transformedSecurityGoals = new ArrayList<SecurityGoal>
 		val resourceSet = new ResourceSetImpl
 		Resource$Factory.Registry.INSTANCE.extensionToFactoryMap.put(SCPackage.eNS_URI, SCPackage.eINSTANCE)
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
@@ -61,14 +65,19 @@ class Transformation {
 	def dispatch generateCode(SecurityConcept securityConcept) {
 		oldSecurityConcept = securityConcept
 		// Select the IDs of components that should be aggregated
-		val int[] componentIDs = #[1]
+		val int[] componentIDs = #[1,2]
 		componentIDs.stream.filter(id|findComponentByID(securityConcept, id) !== null).forEach [ id |
 			componentsOfInterest.add(findComponentByID(securityConcept, id))
 		]
 		for (Component comp : componentsOfInterest) {
 			generateSG(comp)
 		}
-		writeToSecrutiyConcept(newSecurityConcept, securityGoals)
+		// Add the resulting elements and security attributes to the new security concept
+		newSecurityConcept.components.addAll(transformedComponents)	
+		newSecurityConcept.securityGoals.addAll(transformedSecurityGoals)
+		newSecurityConcept.assets.addAll(transformedAssets)				
+//		newSecurityConcept.threats.addAll(transformedThreats)
+		writeToSecrutiyConcept(newSecurityConcept)
 	}
 
 	def generateSG(Component component) {
@@ -77,16 +86,24 @@ class Transformation {
 		childStack = new Stack<Component>
 		if (!visitedNodes.contains(component)) {
 			visitedNodes.add(component)
-			// Add the new component and its asset to the transformed lists
-			transformedComponents.add(component)
 			if (component.asset === null) {
-				val asset = factory.createAsset
+				var asset = factory.createAsset
 				asset.name = "Asset_".concat(component.name)
 				asset.component = component
 				asset.assetID = oldSecurityConcept.assets.last.assetID + 1
+				// Add the new component and its asset to the transformed lists
+				component.asset = asset
+				// Remove the ancestor/child references
+				removeReferences(component)
+				transformedComponents.add(component)
 				transformedAssets.add(asset)
 			} else {
-				transformedAssets.add(component.asset)
+				// Remove the ancestor/child references
+				removeReferences(component)
+				transformedComponents.add(component)				
+				var asset = factory.createAsset
+				asset = component.asset
+				transformedAssets.add(asset)
 			}
 			for (SecurityGoal securityGoal : component.asset.securitygoals) {
 				transformedSecurityGoals.add(securityGoal)
@@ -98,28 +115,27 @@ class Transformation {
 		}
 		findAncestors(component, component)
 		findChildren(component, component)
-		checkConnections(securityGoals, component)
-		// Add the respective security goals to the new security concept
-		
+		checkConnections(securityGoals, component)		
 	}
 
 	def dispatch generateCode(EObject object) {
-		print("bla")
 	}
 
 	def findAncestors(Component component, Component child) {
 		if (component.ancestor !== null) {
+			// Check whether the ancestor must be processed
 			if (componentsOfInterest.contains(component.ancestor)) {
 				ancestorStack.add(component.ancestor)
 				// Pass the current component as the child element
 				findAncestors(component.ancestor, component)
 			}
-			addSgAtoC(component.ancestor, component)
 			findAncestors(component.ancestor, component)
+			addSgAtoC(component.ancestor, component)
 		}
 		for (Component comp : ancestorStack) {
 			generateSG(component)
 			addSgAtoC(comp, component)
+			ancestorStack.pop
 		}
 	}
 
@@ -131,69 +147,87 @@ class Transformation {
 					findChildren(subcomp, component)
 					fixConnection(component, subcomp)
 				}
-				addSgCtoA(subcomp, component)
 				fixConnection(component, subcomp)
 				findChildren(subcomp, component)
+				addSgCtoA(subcomp, component)
 			}
+		}
+		for (comp : childStack){
+			addSgCtoA(comp, component)
+			childStack.pop
 		}
 	}
 
+	// Security goals ancestor to child
 	def addSgAtoC(Component anc, Component child) {
 		val assets = getAssets(anc)
 		for (Asset asset : assets) {
 			// Transfer the security goals that address the ancestor directly
 			if (asset.component != null) {
-				if (asset.component.componentID == anc.componentID) {
+				if (asset.component.componentID.equals(anc.componentID)) {
 					for (sg : asset.securitygoals) {
 						// There must already be an asset defined for the child component
-						var newSG = sg
-						newSG.component = child
-						newSG.asset = child.asset
-//						child.asset.securitygoals.add(sg)
-						transformedSecurityGoals.add(newSG)
+
 					}
 				} else if (child.assets.contains(asset)) {
 					for (sg : asset.securitygoals) {
-						var newSG = sg
-						newSG.component = child
-//						child.asset.securitygoals.add(sg)
-						transformedSecurityGoals.add(newSG)
 					}
-				}
-			}
-		}
-	}
-
-	def addSgCtoA(Component child, Component anc) {
-		for (asset : child.assets) {
-			for (sg : asset.securitygoals) {
-				if (!anc.assets.contains(asset)) {
-					// Check whether the sub-component is an asset
-					if (asset.component.equals(child)) {
-						var newSG = sg
-						newSG.asset = anc.asset 
-						newSG.component = anc
-					} else {
-						// If not, copy the data assets that do not exist in the abstraction layer above
-						copyAsset(asset, anc)
-					}
-				} else if (!sg.securityGoalClass.equals(SecurityGoalClassType.INTEGRITY)) {
-					var newSG = sg
-					newSG.component = anc
-//					anc.asset.securitygoals.add(sg)
-					transformedSecurityGoals.add(newSG)
 				}
 			}
 		}
 	}
 	
+	// Security goal child to ancestor
+	def addSgCtoA(Component child, Component anc) {
+
+		for (asset : child.assets) {
+			for (sg : asset.securitygoals) {
+				if (!anc.assets.contains(asset)) {
+					// Check whether the sub-component is an asset
+					if (asset.component.equals(child)) {
+
+					} else {
+						// If not, copy the data assets that do not exist in the abstraction layer above
+
+					}
+				} else if (!sg.securityGoalClass.equals(SecurityGoalClassType.INTEGRITY)) {
+
+				}
+			}
+		}
+	}
+	
+	def Asset findAssetByComponentID(Component component){
+		
+	}
+	
+	def removeReferences(Component component){
+		component.ancestor = null
+		component.subcomponents = null
+	}
+	
 	def SecurityGoal createSecurityGoal(){
 		return factory.createSecurityGoal
 	}
+	
+	def Component createComponent(){
+		return factory.createComponent
+	}
+	
+	def Asset createAsset(){
+		return factory.createAsset
+	}
 
-	def copyAsset(Asset asset, Component anc) {
-		val newAsset = asset
-		newAsset.component = anc
+	def Component copyComponent(Component component){
+		var copy = createComponent
+		copy = component
+		return copy
+	}
+	
+	def Asset copyAsset(Asset asset){
+		var copy = createAsset
+		copy = asset
+		return copy
 	}
 
 	def ArrayList<Asset> getAssets(Component component) {
@@ -228,24 +262,27 @@ class Transformation {
 	}
 
 	def Component findComponentByID(SecurityConcept securityConcept, int id) {
-		val component = securityConcept.components.findFirst[componentID.equals(id)]
-		return component
+		return securityConcept.components.findFirst[componentID.equals(id)] 
 	}
 
-	def writeToSecrutiyConcept(SecurityConcept newSecurityConcept, List<SecurityGoal> securityGoals) {
+	def writeToSecrutiyConcept(SecurityConcept newSecurityConcept) {
 		val resourceSet = new ResourceSetImpl
 		Resource$Factory.Registry.INSTANCE.extensionToFactoryMap.put(SCPackage.eNS_URI, SCPackage.eINSTANCE)
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
 //		val resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"))
 		val resource = resourceSet.createResource(URI.createURI("MetaModel/transform.xmi"))
 
-		val comp = newSecurityConcept.components
-		val asset = newSecurityConcept.assets
+		val assets = newSecurityConcept.assets
 		val sg = newSecurityConcept.securityGoals
-		print(newSecurityConcept.securityGoals.toString)
-		resource.contents.addAll(comp)
-		resource.contents.addAll(asset)
+		val comp = newSecurityConcept.components
+		val threats = newSecurityConcept.threats
+		
+		resource.contents.addAll(assets)
 		resource.contents.addAll(sg)
+		resource.contents.addAll(comp)
+		resource.contents.addAll(threats)
+		print (assets.size + " " + sg.size + " " + comp.size + " ")
+		print ("DONE") 
 		try {
 			resource.save(Collections.EMPTY_MAP)
 		} catch (IOException exception) {

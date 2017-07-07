@@ -208,4 +208,6 @@ public interface Component extends EObject {
 	 */
 	void setAsset(Asset value);
 
+	public abstract Object setSubcomponents(Object null1);
+
 } // Component
