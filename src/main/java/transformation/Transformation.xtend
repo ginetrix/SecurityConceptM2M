@@ -3,6 +3,7 @@ package transformation
 import SC.SecurityConcept
 import SC.SCPackage
 import SC.Component
+import SC.Data
 import SC.SecurityGoal
 
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
@@ -36,7 +37,6 @@ class Transformation {
 	List<Asset> transformedAssets
 	List<SecurityGoal> transformedSecurityGoals
 	List<Threat> transformedThreats
-	
 
 	def static void main(String[] args) {
 		new Transformation().generate("MetaModel/minitest.xmi")
@@ -65,7 +65,7 @@ class Transformation {
 	def dispatch generateCode(SecurityConcept securityConcept) {
 		oldSecurityConcept = securityConcept
 		// Select the IDs of components that should be aggregated
-		val int[] componentIDs = #[1,2]
+		val int[] componentIDs = #[1, 2]
 		componentIDs.stream.filter(id|findComponentByID(securityConcept, id) !== null).forEach [ id |
 			componentsOfInterest.add(findComponentByID(securityConcept, id))
 		]
@@ -73,9 +73,9 @@ class Transformation {
 			generateSG(comp)
 		}
 		// Add the resulting elements and security attributes to the new security concept
-		newSecurityConcept.components.addAll(transformedComponents)	
+		newSecurityConcept.components.addAll(transformedComponents)
 		newSecurityConcept.securityGoals.addAll(transformedSecurityGoals)
-		newSecurityConcept.assets.addAll(transformedAssets)				
+		newSecurityConcept.assets.addAll(transformedAssets)
 //		newSecurityConcept.threats.addAll(transformedThreats)
 		writeToSecrutiyConcept(newSecurityConcept)
 	}
@@ -100,7 +100,7 @@ class Transformation {
 			} else {
 				// Remove the ancestor/child references
 				removeReferences(component)
-				transformedComponents.add(component)				
+				transformedComponents.add(component)
 				var asset = factory.createAsset
 				asset = component.asset
 				transformedAssets.add(asset)
@@ -115,7 +115,7 @@ class Transformation {
 		}
 		findAncestors(component, component)
 		findChildren(component, component)
-		checkConnections(securityGoals, component)		
+		checkConnections(securityGoals, component)
 	}
 
 	def dispatch generateCode(EObject object) {
@@ -152,13 +152,13 @@ class Transformation {
 				addSgCtoA(subcomp, component)
 			}
 		}
-		for (comp : childStack){
-			addSgCtoA(comp, component)
-			childStack.pop
-		}
+//		for (comp : childStack){
+//			addSgCtoA(comp, component)
+//			childStack.pop
+//		}
 	}
 
-	// Security goals ancestor to child
+// Security goals ancestor to child
 	def addSgAtoC(Component anc, Component child) {
 		val assets = getAssets(anc)
 		for (Asset asset : assets) {
@@ -167,7 +167,6 @@ class Transformation {
 				if (asset.component.componentID.equals(anc.componentID)) {
 					for (sg : asset.securitygoals) {
 						// There must already be an asset defined for the child component
-
 					}
 				} else if (child.assets.contains(asset)) {
 					for (sg : asset.securitygoals) {
@@ -176,57 +175,147 @@ class Transformation {
 			}
 		}
 	}
-	
-	// Security goal child to ancestor
+
+// Security goal child to ancestor
 	def addSgCtoA(Component child, Component anc) {
-
-		for (asset : child.assets) {
-			for (sg : asset.securitygoals) {
-				if (!anc.assets.contains(asset)) {
-					// Check whether the sub-component is an asset
-					if (asset.component.equals(child)) {
-
+		var tmpAsset = createAsset
+		var tmpSG = createSecurityGoal
+		// Check whether the sub-component is an asset
+		if (child.asset != null) {
+			for (sg : child.asset.securitygoals) {
+				// Check whether the ancestor is an asset itself already
+				if (anc.asset != null) {
+					// Create the security goal and assign the new values
+					tmpSG = copySecurityGoal(sg)
+					tmpSG.name = anc.name
+					tmpSG.component = anc
+					tmpSG.asset = anc.asset
+					// Add the security goal to the old security concept
+					oldSecurityConcept.securityGoals.add(tmpSG)
+				} else {
+					// Create the corresponding asset if not
+					tmpAsset = createAsset
+					tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
+					tmpAsset.component = anc
+					tmpAsset.name = anc.name
+					// Create the new security goal for the new asset
+					tmpSG = copySecurityGoal(sg)
+					tmpSG.component = anc
+					tmpSG.asset = tmpAsset
+					tmpSG.name = anc.name
+					// Add the goal to the list of security goals of the asset
+					tmpAsset.securitygoals.add(tmpSG)
+					// Add the security goal and the asset to the old security concept
+					oldSecurityConcept.assets.add(tmpAsset)
+					oldSecurityConcept.securityGoals.add(tmpSG)
+				}
+			}
+		}
+		// Check the data and add the corresponding security goals accordingly
+		for (data : child.data) {
+			for (sg : data.asset?.securitygoals) {
+				if (anc.data.contains(data)) {
+					var ancData = findData(anc, data)
+					if (!ancData.asset.equals(null)) {
+						// Add the security goals to the asset
+						tmpSG = copySecurityGoal(sg)
+						tmpSG.component = anc
+						tmpSG.asset = ancData.asset
+						tmpSG.name = data.name
+						oldSecurityConcept.securityGoals.add(tmpSG)
 					} else {
-						// If not, copy the data assets that do not exist in the abstraction layer above
+						// Create the corresponding asset
+						tmpAsset = createAsset
+						tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
+						tmpAsset.data = data
+						tmpAsset.name = data.name
+						// Create the new security goal for the new asset
+						tmpSG = copySecurityGoal(sg)
+						tmpSG.component = anc
+						tmpSG.asset = ancData.asset
+						tmpSG.name = data.name
+						// Add the goal to the list of security goals of the asset
+						tmpAsset.securitygoals.add(tmpSG)
+						// Add the security goal and the asset to the old security concept
+						oldSecurityConcept.assets.add(tmpAsset)
+						oldSecurityConcept.securityGoals.add(tmpSG)
 
 					}
-				} else if (!sg.securityGoalClass.equals(SecurityGoalClassType.INTEGRITY)) {
-
+				} else {
+					if (!anc.data.contains(data)) {
+						// Create the data and add the security goals of the child element
+						var newData = copyData(data)
+						// Create the corresponding asset
+						tmpAsset = createAsset
+						tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
+						tmpAsset.data = newData
+						tmpAsset.name = newData.name
+						// Create the new security goal for the new asset
+						tmpSG = copySecurityGoal(sg)
+						tmpSG.component = anc
+						tmpSG.asset = newData.asset
+						tmpSG.name = newData.name
+						oldSecurityConcept.data.add(newData)
+						oldSecurityConcept.assets.add(tmpAsset)
+						oldSecurityConcept.securityGoals.add(tmpSG)
+					}
 				}
 			}
 		}
 	}
-	
-	def Asset findAssetByComponentID(Component component){
-		
+
+	// Check whether a component has a specific asset
+	def Data findData(
+		Component component,
+		Data data
+	) {
+		var foundData = component.data.findFirst(dt|dt?.equals(data))
+		return foundData
 	}
-	
-	def removeReferences(Component component){
+
+	def removeReferences(Component component) {
 		component.ancestor = null
 		component.subcomponents = null
 	}
-	
-	def SecurityGoal createSecurityGoal(){
+
+	def SecurityGoal createSecurityGoal() {
 		return factory.createSecurityGoal
 	}
-	
-	def Component createComponent(){
+
+	def Component createComponent() {
 		return factory.createComponent
 	}
-	
-	def Asset createAsset(){
+
+	def Asset createAsset() {
 		return factory.createAsset
 	}
 
-	def Component copyComponent(Component component){
+	def Data createData() {
+		return factory.createData
+	}
+
+	def Component copyComponent(Component component) {
 		var copy = createComponent
-		copy = component
 		return copy
 	}
-	
-	def Asset copyAsset(Asset asset){
+
+	def Data copyData(Data data) {
+		var copy = createData
+		copy.name = data.name
+		return copy
+	}
+
+	def Asset copyAsset(Asset asset) {
 		var copy = createAsset
-		copy = asset
+		return copy
+	}
+
+	def SecurityGoal copySecurityGoal(SecurityGoal securityGoal) {
+		var copy = createSecurityGoal
+		copy.securityGoalClass = securityGoal.securityGoalClass
+		copy.damagePotential = securityGoal.damagePotential
+		// TODO: Adjust security goal dependencies
+		copy.description = securityGoal.description
 		return copy
 	}
 
@@ -262,7 +351,23 @@ class Transformation {
 	}
 
 	def Component findComponentByID(SecurityConcept securityConcept, int id) {
-		return securityConcept.components.findFirst[componentID.equals(id)] 
+		return securityConcept.components.findFirst[componentID.equals(id)]
+	}
+
+	def Asset findAssetByID(SecurityConcept securityConcept, int id) {
+		return securityConcept.assets.findFirst[assetID.equals(id)]
+	}
+
+	def SecurityGoal findSecurityGoalByID(SecurityConcept securityConcept, int id) {
+		return securityConcept.securityGoals.findFirst[securityGoalID.equals(id)]
+	}
+
+	def Connection findConnectionByID(SecurityConcept securityConcept, int id) {
+		return securityConcept.connection.findFirst[connectionID.equals(id)]
+	}
+
+	def Threat findThreatByID(SecurityConcept securityConcept, int id) {
+		return securityConcept.threats.findFirst[threatID.equals(id)]
 	}
 
 	def writeToSecrutiyConcept(SecurityConcept newSecurityConcept) {
@@ -276,13 +381,17 @@ class Transformation {
 		val sg = newSecurityConcept.securityGoals
 		val comp = newSecurityConcept.components
 		val threats = newSecurityConcept.threats
-		
+
 		resource.contents.addAll(assets)
 		resource.contents.addAll(sg)
 		resource.contents.addAll(comp)
 		resource.contents.addAll(threats)
-		print (assets.size + " " + sg.size + " " + comp.size + " ")
-		print ("DONE") 
+		println("ASSET SIZE: " + assets.size)
+		println("SG SIZE: " + sg.size)
+		println("COMP SIZE: " + comp.size)
+		println("THREAT SIZE: " + threats.size)
+		println("############################")
+		print("DONE!!!")
 		try {
 			resource.save(Collections.EMPTY_MAP)
 		} catch (IOException exception) {

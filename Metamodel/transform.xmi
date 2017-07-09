@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:SC="http://www.example.org/securityconcept">
-  <SC:Asset name="COMP 1" assetID="1" component="/3">
-    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.0"/>
+  <SC:Asset name="COMP 1" assetID="1" component="/2">
+    <securitygoals href="MetaModel/transform.xmi#/1"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.4"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.5"/>
   </SC:Asset>
-  <SC:Asset name="COMP 2" assetID="2" securitygoals="/2" component="/4"/>
-  <SC:SecurityGoal securityGoalClass="Availability" damagePotential="medium" securityGoalID="2" name="COMP 2" asset="/1"/>
-  <SC:Component name="COMP 1" componentID="1" asset="/0"/>
-  <SC:Component name="COMP 2" componentID="2" asset="/1"/>
+  <SC:SecurityGoal securityGoalClass="Integrity" damagePotential="high" securityGoalID="1" name="COMP 1" asset="/0"/>
+  <SC:Component name="COMP 1" componentID="1" asset="/0">
+    <Subcomponents href="MetaModel/minitest.xmi#//@components.0"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.4"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.5"/>
+  </SC:Component>
 </xmi:XMI>
