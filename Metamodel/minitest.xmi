@@ -20,6 +20,7 @@
   <securityGoals
       securityGoalClass="Integrity"
       damagePotential="medium"
+      name="COMP 4"
       asset="//@assets.2"/>
   <assets name="COMP 1"
       assetID="1"

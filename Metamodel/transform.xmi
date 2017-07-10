@@ -1,14 +1,93 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:SC="http://www.example.org/securityconcept">
-  <SC:Asset name="COMP 1" assetID="1" component="/2">
-    <securitygoals href="MetaModel/transform.xmi#/1"/>
+  <SC:Asset name="COMP 2" assetID="2" component="/2">
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.1"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.3"/>
     <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.4"/>
-    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.5"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.18"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.19"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.20"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.21"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.22"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.23"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.24"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.25"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.26"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.27"/>
   </SC:Asset>
-  <SC:SecurityGoal securityGoalClass="Integrity" damagePotential="high" securityGoalID="1" name="COMP 1" asset="/0"/>
-  <SC:Component name="COMP 1" componentID="1" asset="/0">
-    <Subcomponents href="MetaModel/minitest.xmi#//@components.0"/>
-    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.4"/>
+  <SC:Asset name="Asset_COMP 3" assetID="5" component="/3">
     <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.5"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.6"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.7"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.8"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.13"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.14"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.15"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.16"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.17"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.28"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.29"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.30"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.31"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.32"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.33"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.34"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.35"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.36"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.37"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.38"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.39"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.40"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.41"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.42"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.43"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.44"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.45"/>
+  </SC:Asset>
+  <SC:Component name="COMP 2" componentID="2" Subcomponents="/3" asset="/0">
+    <Ancestor href="MetaModel/minitest.xmi#//@components.0"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.3"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.4"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.18"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.19"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.20"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.21"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.22"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.23"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.24"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.25"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.26"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.27"/>
+  </SC:Component>
+  <SC:Component name="COMP 3" componentID="3" Ancestor="/2" asset="/1">
+    <Subcomponents href="MetaModel/minitest.xmi#//@components.1"/>
+    <data href="MetaModel/minitest.xmi#//@data.0"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.5"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.6"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.7"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.8"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.13"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.14"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.15"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.16"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.17"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.28"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.29"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.30"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.31"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.32"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.33"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.34"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.35"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.36"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.37"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.38"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.39"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.40"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.41"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.42"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.43"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.44"/>
+    <securitygoals href="MetaModel/minitest.xmi#//@securityGoals.45"/>
   </SC:Component>
 </xmi:XMI>

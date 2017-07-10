@@ -65,13 +65,17 @@ class Transformation {
 	def dispatch generateCode(SecurityConcept securityConcept) {
 		oldSecurityConcept = securityConcept
 		// Select the IDs of components that should be aggregated
-		val int[] componentIDs = #[1, 2]
+		val int[] componentIDs = #[2, 3]
 		componentIDs.stream.filter(id|findComponentByID(securityConcept, id) !== null).forEach [ id |
 			componentsOfInterest.add(findComponentByID(securityConcept, id))
 		]
 		for (Component comp : componentsOfInterest) {
 			generateSG(comp)
 		}
+
+		oldSecurityConcept.components.findFirst[comp|comp.componentID.equals(3)].securitygoals.forEach [ sg |
+			println(sg.toString)
+		]
 		// Add the resulting elements and security attributes to the new security concept
 		newSecurityConcept.components.addAll(transformedComponents)
 		newSecurityConcept.securityGoals.addAll(transformedSecurityGoals)
@@ -94,12 +98,12 @@ class Transformation {
 				// Add the new component and its asset to the transformed lists
 				component.asset = asset
 				// Remove the ancestor/child references
-				removeReferences(component)
+//				removeReferences(component)
 				transformedComponents.add(component)
 				transformedAssets.add(asset)
 			} else {
 				// Remove the ancestor/child references
-				removeReferences(component)
+//				removeReferences(component)
 				transformedComponents.add(component)
 				var asset = factory.createAsset
 				asset = component.asset
@@ -125,17 +129,19 @@ class Transformation {
 		if (component.ancestor !== null) {
 			// Check whether the ancestor must be processed
 			if (componentsOfInterest.contains(component.ancestor)) {
-				ancestorStack.add(component.ancestor)
-				// Pass the current component as the child element
-				findAncestors(component.ancestor, component)
+				// Check whether the component has already been processed
+				if (!visitedNodes.contains(component.ancestor)) {
+					ancestorStack.add(component.ancestor)
+				}
 			}
 			findAncestors(component.ancestor, component)
 			addSgAtoC(component.ancestor, component)
 		}
-		for (Component comp : ancestorStack) {
-			generateSG(component)
+		while (!ancestorStack.empty()) {
+			print(ancestorStack.size)
+			var comp = ancestorStack.pop
+			generateSG(comp)
 			addSgAtoC(comp, component)
-			ancestorStack.pop
 		}
 	}
 
@@ -143,33 +149,88 @@ class Transformation {
 		if (component.subcomponents !== null) {
 			for (subcomp : component.subcomponents) {
 				if (componentsOfInterest.contains(subcomp)) {
-					childStack.add(subcomp)
-					findChildren(subcomp, component)
-					fixConnection(component, subcomp)
+					// Check whether the component has already been processed
+					if (!visitedNodes.contains(subcomp)) {
+						childStack.add(subcomp)
+
+					}
 				}
 				fixConnection(component, subcomp)
 				findChildren(subcomp, component)
 				addSgCtoA(subcomp, component)
 			}
 		}
-//		for (comp : childStack){
-//			addSgCtoA(comp, component)
-//			childStack.pop
-//		}
+		while (!childStack.empty()) {
+			print(childStack.size)
+			var comp = childStack.pop
+			generateSG(comp)
+			addSgCtoA(comp, component)
+		}
 	}
 
 // Security goals ancestor to child
 	def addSgAtoC(Component anc, Component child) {
-		val assets = getAssets(anc)
-		for (Asset asset : assets) {
-			// Transfer the security goals that address the ancestor directly
-			if (asset.component != null) {
-				if (asset.component.componentID.equals(anc.componentID)) {
-					for (sg : asset.securitygoals) {
-						// There must already be an asset defined for the child component
-					}
-				} else if (child.assets.contains(asset)) {
-					for (sg : asset.securitygoals) {
+		var tmpAsset = createAsset
+		var tmpSG = createSecurityGoal
+		// Check wheter the ancestor is an asset 
+		if (anc.asset != null) {
+			for (sg : anc.asset.securitygoals) {
+				// Check whether the child is an asset already
+				if (child.asset != null) {
+					// Create the security goal and assign the new values
+					tmpSG = copySecurityGoal(sg)
+					tmpSG.name = child.name
+					tmpSG.component = child
+					tmpSG.asset = child.asset
+					// Add the security goal to the old security concept
+					oldSecurityConcept.securityGoals.add(tmpSG)
+				} else {
+					// Create the corresponding asset if not
+					tmpAsset = createAsset
+					tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
+					tmpAsset.component = child
+					tmpAsset.name = child.name
+					// Create the new security goal for the new asset
+					tmpSG = copySecurityGoal(sg)
+					tmpSG.component = child
+					tmpSG.asset = tmpAsset
+					tmpSG.name = child.name
+					// Add the goal to the list of security goals of the asset
+					tmpAsset.securitygoals.add(tmpSG)
+					// Add the security goal and the asset to the old security concept
+					oldSecurityConcept.assets.add(tmpAsset)
+					oldSecurityConcept.securityGoals.add(tmpSG)
+				}
+			}
+		}
+		// Iterate through all the data of the ancestor and check if it exists in the layer below
+		for (data : anc.data) {
+			for (sg : data.asset?.securitygoals) {
+				if (child.data.contains(data)) {
+					var childData = findData(child, data)
+					if (childData.asset != null) {
+						// Add the security goals to the asset
+						tmpSG = copySecurityGoal(sg)
+						tmpSG.component = child
+						tmpSG.asset = childData.asset
+						tmpSG.name = childData.name
+						oldSecurityConcept.securityGoals.add(tmpSG)
+					} else {
+						// Create the corresponding asset
+						tmpAsset = createAsset
+						tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
+						tmpAsset.data = childData
+						tmpAsset.name = childData.name
+						// Create the new security goal for the new asset
+						tmpSG = copySecurityGoal(sg)
+						tmpSG.component = child
+						tmpSG.asset = childData.asset
+						tmpSG.name = childData.name
+						// Add the goal to the list of security goals of the asset
+						tmpAsset.securitygoals.add(tmpSG)
+						// Add the security goal and the asset to the old security concept
+						oldSecurityConcept.assets.add(tmpAsset)
+						oldSecurityConcept.securityGoals.add(tmpSG)
 					}
 				}
 			}
@@ -216,30 +277,29 @@ class Transformation {
 			for (sg : data.asset?.securitygoals) {
 				if (anc.data.contains(data)) {
 					var ancData = findData(anc, data)
-					if (!ancData.asset.equals(null)) {
+					if (ancData.asset != null) {
 						// Add the security goals to the asset
 						tmpSG = copySecurityGoal(sg)
 						tmpSG.component = anc
 						tmpSG.asset = ancData.asset
-						tmpSG.name = data.name
+						tmpSG.name = ancData.name
 						oldSecurityConcept.securityGoals.add(tmpSG)
 					} else {
 						// Create the corresponding asset
 						tmpAsset = createAsset
 						tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
-						tmpAsset.data = data
-						tmpAsset.name = data.name
+						tmpAsset.data = ancData
+						tmpAsset.name = ancData.name
 						// Create the new security goal for the new asset
 						tmpSG = copySecurityGoal(sg)
 						tmpSG.component = anc
 						tmpSG.asset = ancData.asset
-						tmpSG.name = data.name
+						tmpSG.name = ancData.name
 						// Add the goal to the list of security goals of the asset
 						tmpAsset.securitygoals.add(tmpSG)
 						// Add the security goal and the asset to the old security concept
 						oldSecurityConcept.assets.add(tmpAsset)
 						oldSecurityConcept.securityGoals.add(tmpSG)
-
 					}
 				} else {
 					if (!anc.data.contains(data)) {
@@ -316,18 +376,9 @@ class Transformation {
 		copy.damagePotential = securityGoal.damagePotential
 		// TODO: Adjust security goal dependencies
 		copy.description = securityGoal.description
+		copy.securityGoalID = oldSecurityConcept.securityGoals.last.securityGoalID + 1
+		copy.description = securityGoal.description
 		return copy
-	}
-
-	def ArrayList<Asset> getAssets(Component component) {
-		var assetList = new ArrayList<Asset>
-		if (component.asset != null) {
-			assetList.add(component.asset)
-		}
-		for (connection : component.connections) {
-			assetList.add(connection.data.asset)
-		}
-		return assetList
 	}
 
 	def fixConnection(Component child, Component anc) {
@@ -347,6 +398,13 @@ class Transformation {
 			} else {
 				securityGoals.addAll(con.data.asset.securitygoals)
 			}
+		}
+	}
+
+	def filterDuplicateSecurityGoals(Component component) {
+		var tmpList = new Set<SecurityGoal>
+		for (sg : component.securitygoals) {
+			if
 		}
 	}
 
