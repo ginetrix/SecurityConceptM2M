@@ -14,7 +14,6 @@ import java.io.IOException
 import java.util.Collections
 import java.util.List
 import java.util.Stack
-import SC.SecurityGoalClassType
 import SC.SCFactory
 import java.util.ArrayList
 import SC.Connection
@@ -61,21 +60,28 @@ class Transformation {
 			generateCode(content)
 		}
 	}
+	
+	// TODO: if connection array is empty check the sources/targets and add the corresponding connections to the components
 
 	def dispatch generateCode(SecurityConcept securityConcept) {
 		oldSecurityConcept = securityConcept
 		// Select the IDs of components that should be aggregated
-		val int[] componentIDs = #[2, 3]
+		val int[] componentIDs = #[2,3]
 		componentIDs.stream.filter(id|findComponentByID(securityConcept, id) !== null).forEach [ id |
 			componentsOfInterest.add(findComponentByID(securityConcept, id))
 		]
+		
+		oldSecurityConcept.securityGoals.forEach[sg|println(sg.toString)]
+		oldSecurityConcept.connection.forEach[con|println(con.source.toString + con.target.toString)]
+
 		for (Component comp : componentsOfInterest) {
 			generateSG(comp)
 		}
-
-		oldSecurityConcept.components.findFirst[comp|comp.componentID.equals(3)].securitygoals.forEach [ sg |
-			println(sg.toString)
-		]
+		
+		oldSecurityConcept.connection.forEach[con|println(con.source.toString + con.target.toString)]
+		
+//		oldSecurityConcept.assets.findFirst[a|a.component.componentID.equals(2)].securitygoals.forEach[sg|println(sg.toString)]
+	
 		// Add the resulting elements and security attributes to the new security concept
 		newSecurityConcept.components.addAll(transformedComponents)
 		newSecurityConcept.securityGoals.addAll(transformedSecurityGoals)
@@ -97,20 +103,10 @@ class Transformation {
 				asset.assetID = oldSecurityConcept.assets.last.assetID + 1
 				// Add the new component and its asset to the transformed lists
 				component.asset = asset
-				// Remove the ancestor/child references
-//				removeReferences(component)
-				transformedComponents.add(component)
-				transformedAssets.add(asset)
 			} else {
-				// Remove the ancestor/child references
-//				removeReferences(component)
 				transformedComponents.add(component)
 				var asset = factory.createAsset
 				asset = component.asset
-				transformedAssets.add(asset)
-			}
-			for (SecurityGoal securityGoal : component.asset.securitygoals) {
-				transformedSecurityGoals.add(securityGoal)
 			}
 			// Check connections and add their security goals
 			for (Connection con : component.connections) {
@@ -119,7 +115,7 @@ class Transformation {
 		}
 		findAncestors(component, component)
 		findChildren(component, component)
-		checkConnections(securityGoals, component)
+//		checkConnections(securityGoals, component)
 	}
 
 	def dispatch generateCode(EObject object) {
@@ -138,7 +134,6 @@ class Transformation {
 			addSgAtoC(component.ancestor, component)
 		}
 		while (!ancestorStack.empty()) {
-			print(ancestorStack.size)
 			var comp = ancestorStack.pop
 			generateSG(comp)
 			addSgAtoC(comp, component)
@@ -152,7 +147,6 @@ class Transformation {
 					// Check whether the component has already been processed
 					if (!visitedNodes.contains(subcomp)) {
 						childStack.add(subcomp)
-
 					}
 				}
 				fixConnection(component, subcomp)
@@ -161,7 +155,6 @@ class Transformation {
 			}
 		}
 		while (!childStack.empty()) {
-			print(childStack.size)
 			var comp = childStack.pop
 			generateSG(comp)
 			addSgCtoA(comp, component)
@@ -172,7 +165,7 @@ class Transformation {
 	def addSgAtoC(Component anc, Component child) {
 		var tmpAsset = createAsset
 		var tmpSG = createSecurityGoal
-		// Check wheter the ancestor is an asset 
+		// Check whether the ancestor is an asset 
 		if (anc.asset != null) {
 			for (sg : anc.asset.securitygoals) {
 				// Check whether the child is an asset already
@@ -282,7 +275,7 @@ class Transformation {
 						tmpSG = copySecurityGoal(sg)
 						tmpSG.component = anc
 						tmpSG.asset = ancData.asset
-						tmpSG.name = ancData.name
+						tmpSG.name = ancData.name						
 						oldSecurityConcept.securityGoals.add(tmpSG)
 					} else {
 						// Create the corresponding asset
@@ -316,7 +309,7 @@ class Transformation {
 						tmpSG.asset = newData.asset
 						tmpSG.name = newData.name
 						oldSecurityConcept.data.add(newData)
-						oldSecurityConcept.assets.add(tmpAsset)
+						oldSecurityConcept.assets.add(tmpAsset)						
 						oldSecurityConcept.securityGoals.add(tmpSG)
 					}
 				}
@@ -353,6 +346,10 @@ class Transformation {
 	def Data createData() {
 		return factory.createData
 	}
+	
+	def Connection createConnection(){
+		return factory.createConnection
+	}
 
 	def Component copyComponent(Component component) {
 		var copy = createComponent
@@ -380,14 +377,28 @@ class Transformation {
 		copy.description = securityGoal.description
 		return copy
 	}
+	
+	def Connection copyConnection(Connection connection){
+		var copy = createConnection
+		copy.connectionID = oldSecurityConcept.connection.last.connectionID + 1
+		copy.name = connection.name
+		copy.data = connection.data
+		return copy
+	}
 
-	def fixConnection(Component child, Component anc) {
+	def fixConnection(Component anc, Component child) {
+		var tmpCon = createConnection
 		for (Connection con : child.connections) {
+			tmpCon = copyConnection(con)
 			if (con.source.equals(child)) {
-				con.source = anc
+				tmpCon.source = anc
+				tmpCon.target = con.target
 			} else if (con.target.equals(child)) {
-				con.target = anc
+				tmpCon.source = con.source
+				tmpCon.target = anc
 			}
+			// Add the connection to the old security concept
+			oldSecurityConcept.connection.add(tmpCon)
 		}
 	}
 
@@ -402,9 +413,8 @@ class Transformation {
 	}
 
 	def filterDuplicateSecurityGoals(Component component) {
-		var tmpList = new Set<SecurityGoal>
+//		var tmpList = new HashSet<SecurityGoal>
 		for (sg : component.securitygoals) {
-			if
 		}
 	}
 

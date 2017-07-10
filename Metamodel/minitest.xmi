@@ -37,6 +37,9 @@
   <assets name="DATA 1"
       assetID="4"
       data="//@data.0"/>
+  <assets name="DATA 2"
+      assetID="5"
+      data="//@data.1"/>
   <components
       name="COMP 1"
       componentID="1"
@@ -47,7 +50,8 @@
       componentID="2"
       Subcomponents="//@components.2"
       Ancestor="//@components.0"
-      asset="//@assets.1"/>
+      asset="//@assets.1"
+      connections="//@connection.0"/>
   <components
       name="COMP 3"
       componentID="3"
@@ -59,8 +63,18 @@
       componentID="4"
       Ancestor="//@components.2"
       asset="//@assets.2"
-      data="//@data.0"/>
+      data="//@data.0"
+      connections="//@connection.0"/>
   <data name="DATA 1"
       dataID="1"
       asset="//@assets.3"/>
+  <data name="DATA 2"
+      dataID="2"
+      asset="//@assets.4"/>
+  <connection
+      name="CON D2"
+      connectionID="1"
+      source="//@components.3"
+      target="//@components.1"
+      data="//@data.1"/>
 </SC:SecurityConcept>
