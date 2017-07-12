@@ -16,7 +16,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="securityGoalID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="asset" lowerBound="1" eType="#//Asset"
-        eOpposite="#//Asset/securitygoals">
+        eOpposite="#//Asset/securityGoals">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="SecurityGoal"/>
       </eAnnotations>
@@ -27,8 +27,7 @@
         <details key="name" value="SecurityGoal"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
-        eType="#//Component" eOpposite="#//Component/securitygoals"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="#//Component"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Threat">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -41,6 +40,8 @@
         defaultValueLiteral="low"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="securitygoal" lowerBound="1"
         upperBound="-1" eType="#//SecurityGoal" eOpposite="#//SecurityGoal/threat"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="asset" eType="#//Asset"
+        eOpposite="#//Asset/threats"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Control">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -84,8 +85,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="data" upperBound="-1" eType="#//Data"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connections" upperBound="-1"
         eType="#//Connection"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="securitygoals" upperBound="-1"
-        eType="#//SecurityGoal" eOpposite="#//SecurityGoal/component"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Function">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -106,11 +105,13 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="assetID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="securitygoals" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="securityGoals" upperBound="-1"
         eType="#//SecurityGoal" eOpposite="#//SecurityGoal/asset"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="#//Component"
         eOpposite="#//Component/asset" eKeys="#//Component/componentID"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="data" eType="#//Data" eOpposite="#//Data/asset"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="threats" upperBound="-1"
+        eType="#//Threat" eOpposite="#//Threat/asset"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Damages">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -161,7 +162,7 @@
         <details key="name" value="SecurityGoal"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connections" upperBound="-1"
         eType="#//Connection" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Connection">

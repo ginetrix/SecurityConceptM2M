@@ -38,49 +38,46 @@
       asset="//@assets.4"/>
   <assets name="Asset_C1"
       assetID="1"
-      securitygoals="//@securityGoals.0"
+      securityGoals="//@securityGoals.0"
       component="//@components.0"/>
   <assets name="Asset_D2"
       assetID="2"
-      securitygoals="//@securityGoals.1"
+      securityGoals="//@securityGoals.1"
       data="//@data.1"/>
   <assets name="Asset_C1.1.1"
       assetID="3"
-      securitygoals="//@securityGoals.2"
+      securityGoals="//@securityGoals.2"
       component="//@components.3"/>
   <assets name="Asset_D1"
       assetID="4"
-      securitygoals="//@securityGoals.3"
+      securityGoals="//@securityGoals.3"
       data="//@data.0"/>
   <assets name="Asset_D3"
       assetID="5"
-      securitygoals="//@securityGoals.4"
+      securityGoals="//@securityGoals.4"
       data="//@data.2"/>
   <components
       name="C1"
       componentID="1"
       Subcomponents="//@components.1 //@components.2"
-      asset="//@assets.0"
-      securitygoals="//@securityGoals.0"/>
+      asset="//@assets.0"/>
   <components
       name="C1.1"
       componentID="2"
       Subcomponents="//@components.3 //@components.4"
       Ancestor="//@components.0"
       data="//@data.1"
-      connections="//@connection.0"
-      securitygoals="//@securityGoals.1"/>
+      connections="//@connections.0"/>
   <components
       name="C1.2"
       componentID="3"
       Ancestor="//@components.0"
-      connections="//@connection.1"/>
+      connections="//@connections.1"/>
   <components
       name="C1.1.1"
       componentID="4"
       Ancestor="//@components.1"
-      asset="//@assets.2"
-      securitygoals="//@securityGoals.2"/>
+      asset="//@assets.2"/>
   <components
       name="C1.1.2"
       componentID="5"
@@ -89,12 +86,12 @@
       name="C2"
       componentID="6"
       Subcomponents="//@components.6"
-      connections="//@connection.1"/>
+      connections="//@connections.1"/>
   <components
       name="C2.1"
       componentID="7"
       Ancestor="//@components.5"
-      connections="//@connection.0"/>
+      connections="//@connections.0"/>
   <data name="Data 1"
       dataID="1"
       asset="//@assets.3"/>
@@ -104,13 +101,13 @@
   <data name="Data 3"
       dataID="3"
       asset="//@assets.4"/>
-  <connection
+  <connections
       name="Con_C2.1_C1.1"
       connectionID="1"
       source="//@components.6"
       target="//@components.1"
       data="//@data.0"/>
-  <connection
+  <connections
       name="Con_C2_C1.2"
       connectionID="2"
       source="//@components.5"

@@ -16,12 +16,14 @@ Package SC <http://www.example.org/securityconcept>
     Attribute name : EString
     Reference asset : Asset<<1..1>>
     Reference threat : Threat<<0..*>>
+    Reference component : Component
 
   Class Threat
     Attribute description : EString
     Attribute threatID : EInt
     Attribute attackPotential : Damages
     Reference securitygoal : SecurityGoal<<1..*>>
+    Reference asset : Asset
 
   Class Control
     Attribute controlID : EInt
@@ -43,9 +45,10 @@ Package SC <http://www.example.org/securityconcept>
   Class Asset
     Attribute name : EString
     Attribute assetID : EInt
-    Reference securitygoals : SecurityGoal<<0..*>>
+    Reference securityGoals : SecurityGoal<<0..*>>
     Reference component : Component
     Reference data : Data
+    Reference threats : Threat<<0..*>>
 
   Class SecurityConcept
     Attribute name : EString
@@ -55,7 +58,7 @@ Package SC <http://www.example.org/securityconcept>
     Reference assets : Asset<<0..*>>
     Reference components : Component<<0..*>>
     Reference data : Data<<0..*>>
-    Reference connection : Connection<<0..*>>
+    Reference connections : Connection<<0..*>>
 
   Class Connection
     Attribute name : EString

@@ -5,6 +5,7 @@
 package SC.validation;
 
 import SC.Asset;
+import SC.Component;
 import SC.Damages;
 import SC.SecurityGoal;
 import SC.SecurityGoalClassType;
@@ -29,4 +30,6 @@ public interface SecurityGoalValidator {
 	boolean validateName(String value);
 	boolean validateAsset(Asset value);
 	boolean validateThreat(EList<Threat> value);
+
+	boolean validateComponent(Component value);
 }

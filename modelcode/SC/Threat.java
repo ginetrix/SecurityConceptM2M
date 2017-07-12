@@ -13,13 +13,14 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link SC.Threat#getDescription <em>Description</em>}</li>
  *   <li>{@link SC.Threat#getThreatID <em>Threat ID</em>}</li>
  *   <li>{@link SC.Threat#getAttackPotential <em>Attack Potential</em>}</li>
  *   <li>{@link SC.Threat#getSecuritygoal <em>Securitygoal</em>}</li>
+ *   <li>{@link SC.Threat#getAsset <em>Asset</em>}</li>
  * </ul>
+ * </p>
  *
  * @see SC.SCPackage#getThreat()
  * @model extendedMetaData="name='SecurityGoal'"
@@ -125,5 +126,33 @@ public interface Threat extends EObject {
 	 * @generated
 	 */
 	EList<SecurityGoal> getSecuritygoal();
+
+	/**
+	 * Returns the value of the '<em><b>Asset</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link SC.Asset#getThreats <em>Threats</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Asset</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Asset</em>' reference.
+	 * @see #setAsset(Asset)
+	 * @see SC.SCPackage#getThreat_Asset()
+	 * @see SC.Asset#getThreats
+	 * @model opposite="threats"
+	 * @generated
+	 */
+	Asset getAsset();
+
+	/**
+	 * Sets the value of the '{@link SC.Threat#getAsset <em>Asset</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Asset</em>' reference.
+	 * @see #getAsset()
+	 * @generated
+	 */
+	void setAsset(Asset value);
 
 } // Threat

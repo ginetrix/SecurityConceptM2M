@@ -64,6 +64,7 @@ public class ThreatItemProvider
 			addThreatIDPropertyDescriptor(object);
 			addAttackPotentialPropertyDescriptor(object);
 			addSecuritygoalPropertyDescriptor(object);
+			addAssetPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -148,6 +149,28 @@ public class ThreatItemProvider
 				 getString("_UI_Threat_securitygoal_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Threat_securitygoal_feature", "_UI_Threat_type"),
 				 SCPackage.Literals.THREAT__SECURITYGOAL,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Asset feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAssetPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Threat_asset_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Threat_asset_feature", "_UI_Threat_type"),
+				 SCPackage.Literals.THREAT__ASSET,
 				 true,
 				 false,
 				 true,

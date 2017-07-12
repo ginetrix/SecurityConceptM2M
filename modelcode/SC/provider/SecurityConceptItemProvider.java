@@ -108,7 +108,7 @@ public class SecurityConceptItemProvider
 			childrenFeatures.add(SCPackage.Literals.SECURITY_CONCEPT__ASSETS);
 			childrenFeatures.add(SCPackage.Literals.SECURITY_CONCEPT__COMPONENTS);
 			childrenFeatures.add(SCPackage.Literals.SECURITY_CONCEPT__DATA);
-			childrenFeatures.add(SCPackage.Literals.SECURITY_CONCEPT__CONNECTION);
+			childrenFeatures.add(SCPackage.Literals.SECURITY_CONCEPT__CONNECTIONS);
 		}
 		return childrenFeatures;
 	}
@@ -173,7 +173,7 @@ public class SecurityConceptItemProvider
 			case SCPackage.SECURITY_CONCEPT__ASSETS:
 			case SCPackage.SECURITY_CONCEPT__COMPONENTS:
 			case SCPackage.SECURITY_CONCEPT__DATA:
-			case SCPackage.SECURITY_CONCEPT__CONNECTION:
+			case SCPackage.SECURITY_CONCEPT__CONNECTIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -223,7 +223,7 @@ public class SecurityConceptItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(SCPackage.Literals.SECURITY_CONCEPT__CONNECTION,
+				(SCPackage.Literals.SECURITY_CONCEPT__CONNECTIONS,
 				 SCFactory.eINSTANCE.createConnection()));
 	}
 

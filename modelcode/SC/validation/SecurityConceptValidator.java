@@ -30,5 +30,7 @@ public interface SecurityConceptValidator {
 	boolean validateAssets(EList<Asset> value);
 	boolean validateComponents(EList<Component> value);
 	boolean validateData(EList<Data> value);
+	boolean validateConnections(EList<Connection> value);
+
 	boolean validateConnection(EList<Connection> value);
 }

@@ -213,13 +213,22 @@ public interface SCPackage extends EPackage {
 	int THREAT__SECURITYGOAL = 3;
 
 	/**
+	 * The feature id for the '<em><b>Asset</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THREAT__ASSET = 4;
+
+	/**
 	 * The number of structural features of the '<em>Threat</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THREAT_FEATURE_COUNT = 4;
+	int THREAT_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Threat</em>' class.
@@ -368,22 +377,13 @@ public interface SCPackage extends EPackage {
 	int COMPONENT__CONNECTIONS = 6;
 
 	/**
-	 * The feature id for the '<em><b>Securitygoals</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPONENT__SECURITYGOALS = 7;
-
-	/**
 	 * The number of structural features of the '<em>Component</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_FEATURE_COUNT = 8;
+	int COMPONENT_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Component</em>' class.
@@ -451,13 +451,13 @@ public interface SCPackage extends EPackage {
 	int ASSET__ASSET_ID = 1;
 
 	/**
-	 * The feature id for the '<em><b>Securitygoals</b></em>' reference list.
+	 * The feature id for the '<em><b>Security Goals</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSET__SECURITYGOALS = 2;
+	int ASSET__SECURITY_GOALS = 2;
 
 	/**
 	 * The feature id for the '<em><b>Component</b></em>' reference.
@@ -478,13 +478,22 @@ public interface SCPackage extends EPackage {
 	int ASSET__DATA = 4;
 
 	/**
+	 * The feature id for the '<em><b>Threats</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSET__THREATS = 5;
+
+	/**
 	 * The number of structural features of the '<em>Asset</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSET_FEATURE_COUNT = 5;
+	int ASSET_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Asset</em>' class.
@@ -569,13 +578,13 @@ public interface SCPackage extends EPackage {
 	int SECURITY_CONCEPT__DATA = 6;
 
 	/**
-	 * The feature id for the '<em><b>Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Connections</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_CONCEPT__CONNECTION = 7;
+	int SECURITY_CONCEPT__CONNECTIONS = 7;
 
 	/**
 	 * The number of structural features of the '<em>Security Concept</em>' class.
@@ -908,6 +917,17 @@ public interface SCPackage extends EPackage {
 	EReference getThreat_Securitygoal();
 
 	/**
+	 * Returns the meta object for the reference '{@link SC.Threat#getAsset <em>Asset</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Asset</em>'.
+	 * @see SC.Threat#getAsset()
+	 * @see #getThreat()
+	 * @generated
+	 */
+	EReference getThreat_Asset();
+
+	/**
 	 * Returns the meta object for class '{@link SC.Control <em>Control</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1016,17 +1036,6 @@ public interface SCPackage extends EPackage {
 	EReference getComponent_Connections();
 
 	/**
-	 * Returns the meta object for the reference list '{@link SC.Component#getSecuritygoals <em>Securitygoals</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Securitygoals</em>'.
-	 * @see SC.Component#getSecuritygoals()
-	 * @see #getComponent()
-	 * @generated
-	 */
-	EReference getComponent_Securitygoals();
-
-	/**
 	 * Returns the meta object for the reference list '{@link SC.Component#getSubcomponents <em>Subcomponents</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1102,15 +1111,15 @@ public interface SCPackage extends EPackage {
 	EAttribute getAsset_AssetID();
 
 	/**
-	 * Returns the meta object for the reference list '{@link SC.Asset#getSecuritygoals <em>Securitygoals</em>}'.
+	 * Returns the meta object for the reference list '{@link SC.Asset#getSecurityGoals <em>Security Goals</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Securitygoals</em>'.
-	 * @see SC.Asset#getSecuritygoals()
+	 * @return the meta object for the reference list '<em>Security Goals</em>'.
+	 * @see SC.Asset#getSecurityGoals()
 	 * @see #getAsset()
 	 * @generated
 	 */
-	EReference getAsset_Securitygoals();
+	EReference getAsset_SecurityGoals();
 
 	/**
 	 * Returns the meta object for the reference '{@link SC.Asset#getComponent <em>Component</em>}'.
@@ -1133,6 +1142,17 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAsset_Data();
+
+	/**
+	 * Returns the meta object for the reference list '{@link SC.Asset#getThreats <em>Threats</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Threats</em>'.
+	 * @see SC.Asset#getThreats()
+	 * @see #getAsset()
+	 * @generated
+	 */
+	EReference getAsset_Threats();
 
 	/**
 	 * Returns the meta object for class '{@link SC.SecurityConcept <em>Security Concept</em>}'.
@@ -1222,15 +1242,15 @@ public interface SCPackage extends EPackage {
 	EReference getSecurityConcept_Data();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link SC.SecurityConcept#getConnection <em>Connection</em>}'.
+	 * Returns the meta object for the containment reference list '{@link SC.SecurityConcept#getConnections <em>Connections</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Connection</em>'.
-	 * @see SC.SecurityConcept#getConnection()
+	 * @return the meta object for the containment reference list '<em>Connections</em>'.
+	 * @see SC.SecurityConcept#getConnections()
 	 * @see #getSecurityConcept()
 	 * @generated
 	 */
-	EReference getSecurityConcept_Connection();
+	EReference getSecurityConcept_Connections();
 
 	/**
 	 * Returns the meta object for class '{@link SC.Connection <em>Connection</em>}'.
@@ -1508,6 +1528,14 @@ public interface SCPackage extends EPackage {
 		EReference THREAT__SECURITYGOAL = eINSTANCE.getThreat_Securitygoal();
 
 		/**
+		 * The meta object literal for the '<em><b>Asset</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference THREAT__ASSET = eINSTANCE.getThreat_Asset();
+
+		/**
 		 * The meta object literal for the '{@link SC.impl.ControlImpl <em>Control</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1592,14 +1620,6 @@ public interface SCPackage extends EPackage {
 		EReference COMPONENT__CONNECTIONS = eINSTANCE.getComponent_Connections();
 
 		/**
-		 * The meta object literal for the '<em><b>Securitygoals</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference COMPONENT__SECURITYGOALS = eINSTANCE.getComponent_Securitygoals();
-
-		/**
 		 * The meta object literal for the '<em><b>Subcomponents</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1660,12 +1680,12 @@ public interface SCPackage extends EPackage {
 		EAttribute ASSET__ASSET_ID = eINSTANCE.getAsset_AssetID();
 
 		/**
-		 * The meta object literal for the '<em><b>Securitygoals</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Security Goals</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ASSET__SECURITYGOALS = eINSTANCE.getAsset_Securitygoals();
+		EReference ASSET__SECURITY_GOALS = eINSTANCE.getAsset_SecurityGoals();
 
 		/**
 		 * The meta object literal for the '<em><b>Component</b></em>' reference feature.
@@ -1682,6 +1702,14 @@ public interface SCPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ASSET__DATA = eINSTANCE.getAsset_Data();
+
+		/**
+		 * The meta object literal for the '<em><b>Threats</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSET__THREATS = eINSTANCE.getAsset_Threats();
 
 		/**
 		 * The meta object literal for the '{@link SC.impl.SecurityConceptImpl <em>Security Concept</em>}' class.
@@ -1750,12 +1778,12 @@ public interface SCPackage extends EPackage {
 		EReference SECURITY_CONCEPT__DATA = eINSTANCE.getSecurityConcept_Data();
 
 		/**
-		 * The meta object literal for the '<em><b>Connection</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Connections</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SECURITY_CONCEPT__CONNECTION = eINSTANCE.getSecurityConcept_Connection();
+		EReference SECURITY_CONCEPT__CONNECTIONS = eINSTANCE.getSecurityConcept_Connections();
 
 		/**
 		 * The meta object literal for the '{@link SC.impl.ConnectionImpl <em>Connection</em>}' class.

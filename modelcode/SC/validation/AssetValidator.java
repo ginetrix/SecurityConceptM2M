@@ -8,6 +8,7 @@ import SC.Component;
 import SC.Data;
 import SC.SecurityGoal;
 
+import SC.Threat;
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -21,8 +22,12 @@ public interface AssetValidator {
 
 	boolean validateName(String value);
 	boolean validateAssetID(int value);
+	boolean validateSecurityGoals(EList<SecurityGoal> value);
+
 	boolean validateSecuritygoals(EList<SecurityGoal> value);
 	boolean validateComponent(Component value);
 
 	boolean validateData(Data value);
+
+	boolean validateThreats(EList<Threat> value);
 }

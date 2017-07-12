@@ -62,9 +62,10 @@ public class AssetItemProvider
 
 			addNamePropertyDescriptor(object);
 			addAssetIDPropertyDescriptor(object);
-			addSecuritygoalsPropertyDescriptor(object);
+			addSecurityGoalsPropertyDescriptor(object);
 			addComponentPropertyDescriptor(object);
 			addDataPropertyDescriptor(object);
+			addThreatsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -114,19 +115,19 @@ public class AssetItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Securitygoals feature.
+	 * This adds a property descriptor for the Security Goals feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addSecuritygoalsPropertyDescriptor(Object object) {
+	protected void addSecurityGoalsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Asset_securitygoals_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Asset_securitygoals_feature", "_UI_Asset_type"),
-				 SCPackage.Literals.ASSET__SECURITYGOALS,
+				 getString("_UI_Asset_securityGoals_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Asset_securityGoals_feature", "_UI_Asset_type"),
+				 SCPackage.Literals.ASSET__SECURITY_GOALS,
 				 true,
 				 false,
 				 true,
@@ -171,6 +172,28 @@ public class AssetItemProvider
 				 getString("_UI_Asset_data_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Asset_data_feature", "_UI_Asset_type"),
 				 SCPackage.Literals.ASSET__DATA,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Threats feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addThreatsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Asset_threats_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Asset_threats_feature", "_UI_Asset_type"),
+				 SCPackage.Literals.ASSET__THREATS,
 				 true,
 				 false,
 				 true,

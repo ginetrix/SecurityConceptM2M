@@ -2,6 +2,7 @@
  */
 package SC.impl;
 
+import SC.Asset;
 import SC.Damages;
 import SC.SCPackage;
 import SC.SecurityGoal;
@@ -29,13 +30,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link SC.impl.ThreatImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getThreatID <em>Threat ID</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getAttackPotential <em>Attack Potential</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getSecuritygoal <em>Securitygoal</em>}</li>
+ *   <li>{@link SC.impl.ThreatImpl#getAsset <em>Asset</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -109,6 +111,16 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	 * @ordered
 	 */
 	protected EList<SecurityGoal> securitygoal;
+
+	/**
+	 * The cached value of the '{@link #getAsset() <em>Asset</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAsset()
+	 * @generated
+	 * @ordered
+	 */
+	protected Asset asset;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -209,12 +221,76 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Asset getAsset() {
+		if (asset != null && asset.eIsProxy()) {
+			InternalEObject oldAsset = (InternalEObject)asset;
+			asset = (Asset)eResolveProxy(oldAsset);
+			if (asset != oldAsset) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SCPackage.THREAT__ASSET, oldAsset, asset));
+			}
+		}
+		return asset;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Asset basicGetAsset() {
+		return asset;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAsset(Asset newAsset, NotificationChain msgs) {
+		Asset oldAsset = asset;
+		asset = newAsset;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SCPackage.THREAT__ASSET, oldAsset, newAsset);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAsset(Asset newAsset) {
+		if (newAsset != asset) {
+			NotificationChain msgs = null;
+			if (asset != null)
+				msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__THREATS, Asset.class, msgs);
+			if (newAsset != null)
+				msgs = ((InternalEObject)newAsset).eInverseAdd(this, SCPackage.ASSET__THREATS, Asset.class, msgs);
+			msgs = basicSetAsset(newAsset, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.THREAT__ASSET, newAsset, newAsset));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case SCPackage.THREAT__SECURITYGOAL:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSecuritygoal()).basicAdd(otherEnd, msgs);
+			case SCPackage.THREAT__ASSET:
+				if (asset != null)
+					msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__THREATS, Asset.class, msgs);
+				return basicSetAsset((Asset)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -229,6 +305,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 		switch (featureID) {
 			case SCPackage.THREAT__SECURITYGOAL:
 				return ((InternalEList<?>)getSecuritygoal()).basicRemove(otherEnd, msgs);
+			case SCPackage.THREAT__ASSET:
+				return basicSetAsset(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -249,6 +327,9 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 				return getAttackPotential();
 			case SCPackage.THREAT__SECURITYGOAL:
 				return getSecuritygoal();
+			case SCPackage.THREAT__ASSET:
+				if (resolve) return getAsset();
+				return basicGetAsset();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -275,6 +356,9 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 				getSecuritygoal().clear();
 				getSecuritygoal().addAll((Collection<? extends SecurityGoal>)newValue);
 				return;
+			case SCPackage.THREAT__ASSET:
+				setAsset((Asset)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -299,6 +383,9 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 			case SCPackage.THREAT__SECURITYGOAL:
 				getSecuritygoal().clear();
 				return;
+			case SCPackage.THREAT__ASSET:
+				setAsset((Asset)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -319,6 +406,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 				return attackPotential != ATTACK_POTENTIAL_EDEFAULT;
 			case SCPackage.THREAT__SECURITYGOAL:
 				return securitygoal != null && !securitygoal.isEmpty();
+			case SCPackage.THREAT__ASSET:
+				return asset != null;
 		}
 		return super.eIsSet(featureID);
 	}

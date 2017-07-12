@@ -26,13 +26,13 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link SC.impl.ControlImpl#getControlID <em>Control ID</em>}</li>
  *   <li>{@link SC.impl.ControlImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.ControlImpl#getDependsOn <em>Depends On</em>}</li>
  *   <li>{@link SC.impl.ControlImpl#getMitigates <em>Mitigates</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

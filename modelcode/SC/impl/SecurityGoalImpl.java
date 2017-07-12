@@ -33,7 +33,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link SC.impl.SecurityGoalImpl#getSecurityGoalClass <em>Security Goal Class</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getDamagePotential <em>Damage Potential</em>}</li>
@@ -45,6 +44,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.SecurityGoalImpl#getThreat <em>Threat</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getComponent <em>Component</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -375,9 +375,9 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 		if (newAsset != asset) {
 			NotificationChain msgs = null;
 			if (asset != null)
-				msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__SECURITYGOALS, Asset.class, msgs);
+				msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__SECURITY_GOALS, Asset.class, msgs);
 			if (newAsset != null)
-				msgs = ((InternalEObject)newAsset).eInverseAdd(this, SCPackage.ASSET__SECURITYGOALS, Asset.class, msgs);
+				msgs = ((InternalEObject)newAsset).eInverseAdd(this, SCPackage.ASSET__SECURITY_GOALS, Asset.class, msgs);
 			msgs = basicSetAsset(newAsset, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -428,33 +428,11 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetComponent(Component newComponent, NotificationChain msgs) {
+	public void setComponent(Component newComponent) {
 		Component oldComponent = component;
 		component = newComponent;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SCPackage.SECURITY_GOAL__COMPONENT, oldComponent, newComponent);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setComponent(Component newComponent) {
-		if (newComponent != component) {
-			NotificationChain msgs = null;
-			if (component != null)
-				msgs = ((InternalEObject)component).eInverseRemove(this, SCPackage.COMPONENT__SECURITYGOALS, Component.class, msgs);
-			if (newComponent != null)
-				msgs = ((InternalEObject)newComponent).eInverseAdd(this, SCPackage.COMPONENT__SECURITYGOALS, Component.class, msgs);
-			msgs = basicSetComponent(newComponent, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.SECURITY_GOAL__COMPONENT, newComponent, newComponent));
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.SECURITY_GOAL__COMPONENT, oldComponent, component));
 	}
 
 	/**
@@ -468,14 +446,10 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 		switch (featureID) {
 			case SCPackage.SECURITY_GOAL__ASSET:
 				if (asset != null)
-					msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__SECURITYGOALS, Asset.class, msgs);
+					msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__SECURITY_GOALS, Asset.class, msgs);
 				return basicSetAsset((Asset)otherEnd, msgs);
 			case SCPackage.SECURITY_GOAL__THREAT:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getThreat()).basicAdd(otherEnd, msgs);
-			case SCPackage.SECURITY_GOAL__COMPONENT:
-				if (component != null)
-					msgs = ((InternalEObject)component).eInverseRemove(this, SCPackage.COMPONENT__SECURITYGOALS, Component.class, msgs);
-				return basicSetComponent((Component)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -492,8 +466,6 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 				return basicSetAsset(null, msgs);
 			case SCPackage.SECURITY_GOAL__THREAT:
 				return ((InternalEList<?>)getThreat()).basicRemove(otherEnd, msgs);
-			case SCPackage.SECURITY_GOAL__COMPONENT:
-				return basicSetComponent(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

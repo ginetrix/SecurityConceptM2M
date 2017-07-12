@@ -77,12 +77,12 @@ class Transformation {
 			generateSG(comp)
 		}
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.securitygoals.forEach [ sg |
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.securityGoals.forEach [ sg |
 			println(sg.toString)
 		]
 
 		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].data.forEach [d|
-			println(d.asset.securitygoals)
+			println(d.asset.securityGoals)
 		]
 
 //		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].connections.forEach [con|
@@ -93,7 +93,7 @@ class Transformation {
 //		oldSecurityConcept.securityGoals.forEach[sg|println(sg)]
 		println("#########")
 
-		oldSecurityConcept.connection.forEach[con|println("CONNECTION: " + con.source + con.target)]
+		oldSecurityConcept.connections.forEach[con|println("CONNECTION: " + con.source + con.target)]
 
 //		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].connections.forEach[con|println(con.data)]
 		// Add the resulting elements and security attributes to the new security concept
@@ -121,7 +121,7 @@ class Transformation {
 			}
 			// Check connections and add their security goals
 			for (Connection con : component.connections) {
-				transformedSecurityGoals.addAll(con.data.asset.securitygoals)
+				transformedSecurityGoals.addAll(con.data.asset.securityGoals)
 			}
 		}
 		findAncestors(component, component)
@@ -134,9 +134,9 @@ class Transformation {
 		var SecurityGoal tmpSG
 		var Asset tmpAsset
 		var Data tmpData
-		var list = oldSecurityConcept.connection.filter[con|(con.target == component || con.source == component)]
+		var list = oldSecurityConcept.connections.filter[con|(con.target == component || con.source == component)]
 		for (con : list) {
-			for (sg : con.data.asset.securitygoals) {
+			for (sg : con.data.asset.securityGoals) {
 				tmpSG = createSecurityGoal
 				tmpSG = copySecurityGoal(tmpSG, sg)
 				tmpSG.component = component
@@ -209,7 +209,7 @@ class Transformation {
 		var SecurityGoal tmpSG
 		// Check whether the ancestor is an asset 
 		if (anc.asset != null) {
-			for (sg : anc.asset.securitygoals) {
+			for (sg : anc.asset.securityGoals) {
 				// Only add if the security goal is not addressing data
 				if (!sg.securityGoalClass.equals(SecurityGoalClassType.CONFIDENTIALITY)) {
 					// Check whether the child is an asset already
@@ -242,7 +242,7 @@ class Transformation {
 		}
 		// Iterate through all the data of the ancestor and check if it exists in the layer below
 		for (data : anc.data) {
-			for (sg : data.asset?.securitygoals) {
+			for (sg : data.asset?.securityGoals) {
 				if (child.data.contains(data)) {
 					var childData = findData(child, data)
 					if (childData.asset != null) {
@@ -264,7 +264,7 @@ class Transformation {
 						tmpSG.asset = childData.asset
 						tmpSG.name = childData.name
 						// Add the goal to the list of security goals of the asset
-						tmpAsset.securitygoals.add(tmpSG)
+						tmpAsset.securityGoals.add(tmpSG)
 						// Add the security goal and the asset to the old security concept
 						oldSecurityConcept.assets.add(tmpAsset)
 						oldSecurityConcept.securityGoals.add(tmpSG)
@@ -280,7 +280,7 @@ class Transformation {
 		var SecurityGoal tmpSG
 		// Check the data and add the corresponding security goals accordingly
 		for (data : child.data) {
-			for (sg : data?.asset?.securitygoals) {
+			for (sg : data?.asset?.securityGoals) {
 				if (anc.data.contains(data)) {
 					var ancData = findData(anc, data)
 					if (ancData.asset != null) {
@@ -304,7 +304,7 @@ class Transformation {
 						tmpSG.asset = ancData.asset
 						tmpSG.name = ancData.name
 						// Add the goal to the list of security goals of the asset
-						tmpAsset.securitygoals.add(tmpSG)
+						tmpAsset.securityGoals.add(tmpSG)
 						// Add the security goal and the asset to the old security concept
 						oldSecurityConcept.assets.add(tmpAsset)
 						oldSecurityConcept.securityGoals.add(tmpSG)
@@ -404,7 +404,7 @@ class Transformation {
 
 	def Connection copyConnection(Connection connection) {
 		var copy = createConnection
-		copy.connectionID = oldSecurityConcept.connection.last.connectionID + 1
+		copy.connectionID = oldSecurityConcept.connections.last.connectionID + 1
 		copy.name = connection.name
 		copy.data = connection.data
 		return copy
@@ -427,14 +427,14 @@ class Transformation {
 			if (!componentsOfInterest.contains(con.source) || !componentsOfInterest.contains(con.target)) {
 				comp.connections.remove(con)
 			} else {
-				securityGoals.addAll(con.data.asset.securitygoals)
+				securityGoals.addAll(con.data.asset.securityGoals)
 			}
 		}
 	}
 
 	// See if the security goal was already added to the asset
 	def Boolean securityGoalExists(Asset asset, SecurityGoal sg) {
-		var foundSG = asset.securitygoals.findFirst [ secgoal |
+		var foundSG = asset.securityGoals.findFirst [ secgoal |
 			secgoal.damagePotential.equals(sg.damagePotential) &&
 				secgoal.securityGoalClass.equals(sg.securityGoalClass) &&
 				secgoal.dependsOnSecurityGoal.equals(sg.dependsOnSecurityGoal)
@@ -455,7 +455,7 @@ class Transformation {
 	}
 
 	def Connection findConnectionByID(SecurityConcept securityConcept, int id) {
-		return securityConcept.connection.findFirst[connectionID.equals(id)]
+		return securityConcept.connections.findFirst[connectionID.equals(id)]
 	}
 
 	def Threat findThreatByID(SecurityConcept securityConcept, int id) {

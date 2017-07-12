@@ -34,7 +34,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link SC.impl.SecurityConceptImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.SecurityConceptImpl#getSecurityGoals <em>Security Goals</em>}</li>
@@ -43,8 +42,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.SecurityConceptImpl#getAssets <em>Assets</em>}</li>
  *   <li>{@link SC.impl.SecurityConceptImpl#getComponents <em>Components</em>}</li>
  *   <li>{@link SC.impl.SecurityConceptImpl#getData <em>Data</em>}</li>
- *   <li>{@link SC.impl.SecurityConceptImpl#getConnection <em>Connection</em>}</li>
+ *   <li>{@link SC.impl.SecurityConceptImpl#getConnections <em>Connections</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -130,14 +130,14 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 	protected EList<Data> data;
 
 	/**
-	 * The cached value of the '{@link #getConnection() <em>Connection</em>}' containment reference list.
+	 * The cached value of the '{@link #getConnections() <em>Connections</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getConnection()
+	 * @see #getConnections()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Connection> connection;
+	protected EList<Connection> connections;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -256,11 +256,11 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Connection> getConnection() {
-		if (connection == null) {
-			connection = new EObjectContainmentEList<Connection>(Connection.class, this, SCPackage.SECURITY_CONCEPT__CONNECTION);
+	public EList<Connection> getConnections() {
+		if (connections == null) {
+			connections = new EObjectContainmentEList<Connection>(Connection.class, this, SCPackage.SECURITY_CONCEPT__CONNECTIONS);
 		}
-		return connection;
+		return connections;
 	}
 
 	/**
@@ -283,8 +283,8 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 				return ((InternalEList<?>)getComponents()).basicRemove(otherEnd, msgs);
 			case SCPackage.SECURITY_CONCEPT__DATA:
 				return ((InternalEList<?>)getData()).basicRemove(otherEnd, msgs);
-			case SCPackage.SECURITY_CONCEPT__CONNECTION:
-				return ((InternalEList<?>)getConnection()).basicRemove(otherEnd, msgs);
+			case SCPackage.SECURITY_CONCEPT__CONNECTIONS:
+				return ((InternalEList<?>)getConnections()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -311,8 +311,8 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 				return getComponents();
 			case SCPackage.SECURITY_CONCEPT__DATA:
 				return getData();
-			case SCPackage.SECURITY_CONCEPT__CONNECTION:
-				return getConnection();
+			case SCPackage.SECURITY_CONCEPT__CONNECTIONS:
+				return getConnections();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -353,9 +353,9 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 				getData().clear();
 				getData().addAll((Collection<? extends Data>)newValue);
 				return;
-			case SCPackage.SECURITY_CONCEPT__CONNECTION:
-				getConnection().clear();
-				getConnection().addAll((Collection<? extends Connection>)newValue);
+			case SCPackage.SECURITY_CONCEPT__CONNECTIONS:
+				getConnections().clear();
+				getConnections().addAll((Collection<? extends Connection>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -390,8 +390,8 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 			case SCPackage.SECURITY_CONCEPT__DATA:
 				getData().clear();
 				return;
-			case SCPackage.SECURITY_CONCEPT__CONNECTION:
-				getConnection().clear();
+			case SCPackage.SECURITY_CONCEPT__CONNECTIONS:
+				getConnections().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -419,8 +419,8 @@ public class SecurityConceptImpl extends MinimalEObjectImpl.Container implements
 				return components != null && !components.isEmpty();
 			case SCPackage.SECURITY_CONCEPT__DATA:
 				return data != null && !data.isEmpty();
-			case SCPackage.SECURITY_CONCEPT__CONNECTION:
-				return connection != null && !connection.isEmpty();
+			case SCPackage.SECURITY_CONCEPT__CONNECTIONS:
+				return connections != null && !connections.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

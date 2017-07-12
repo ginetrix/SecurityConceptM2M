@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link SC.impl.ComponentImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.ComponentImpl#getComponentID <em>Component ID</em>}</li>
@@ -40,8 +39,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.ComponentImpl#getAsset <em>Asset</em>}</li>
  *   <li>{@link SC.impl.ComponentImpl#getData <em>Data</em>}</li>
  *   <li>{@link SC.impl.ComponentImpl#getConnections <em>Connections</em>}</li>
- *   <li>{@link SC.impl.ComponentImpl#getSecuritygoals <em>Securitygoals</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -137,16 +136,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 	protected EList<Connection> connections;
 
 	/**
-	 * The cached value of the '{@link #getSecuritygoals() <em>Securitygoals</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSecuritygoals()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<SecurityGoal> securitygoals;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -229,18 +218,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 			connections = new EObjectResolvingEList<Connection>(Connection.class, this, SCPackage.COMPONENT__CONNECTIONS);
 		}
 		return connections;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<SecurityGoal> getSecuritygoals() {
-		if (securitygoals == null) {
-			securitygoals = new EObjectWithInverseResolvingEList<SecurityGoal>(SecurityGoal.class, this, SCPackage.COMPONENT__SECURITYGOALS, SCPackage.SECURITY_GOAL__COMPONENT);
-		}
-		return securitygoals;
 	}
 
 	/**
@@ -394,8 +371,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				if (asset != null)
 					msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__COMPONENT, Asset.class, msgs);
 				return basicSetAsset((Asset)otherEnd, msgs);
-			case SCPackage.COMPONENT__SECURITYGOALS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSecuritygoals()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -414,8 +389,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				return basicSetAncestor(null, msgs);
 			case SCPackage.COMPONENT__ASSET:
 				return basicSetAsset(null, msgs);
-			case SCPackage.COMPONENT__SECURITYGOALS:
-				return ((InternalEList<?>)getSecuritygoals()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -444,8 +417,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				return getData();
 			case SCPackage.COMPONENT__CONNECTIONS:
 				return getConnections();
-			case SCPackage.COMPONENT__SECURITYGOALS:
-				return getSecuritygoals();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -483,10 +454,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				getConnections().clear();
 				getConnections().addAll((Collection<? extends Connection>)newValue);
 				return;
-			case SCPackage.COMPONENT__SECURITYGOALS:
-				getSecuritygoals().clear();
-				getSecuritygoals().addAll((Collection<? extends SecurityGoal>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -520,9 +487,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 			case SCPackage.COMPONENT__CONNECTIONS:
 				getConnections().clear();
 				return;
-			case SCPackage.COMPONENT__SECURITYGOALS:
-				getSecuritygoals().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -549,8 +513,6 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				return data != null && !data.isEmpty();
 			case SCPackage.COMPONENT__CONNECTIONS:
 				return connections != null && !connections.isEmpty();
-			case SCPackage.COMPONENT__SECURITYGOALS:
-				return securitygoals != null && !securitygoals.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

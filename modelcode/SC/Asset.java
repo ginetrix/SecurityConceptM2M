@@ -13,14 +13,15 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link SC.Asset#getName <em>Name</em>}</li>
  *   <li>{@link SC.Asset#getAssetID <em>Asset ID</em>}</li>
- *   <li>{@link SC.Asset#getSecuritygoals <em>Securitygoals</em>}</li>
+ *   <li>{@link SC.Asset#getSecurityGoals <em>Security Goals</em>}</li>
  *   <li>{@link SC.Asset#getComponent <em>Component</em>}</li>
  *   <li>{@link SC.Asset#getData <em>Data</em>}</li>
+ *   <li>{@link SC.Asset#getThreats <em>Threats</em>}</li>
  * </ul>
+ * </p>
  *
  * @see SC.SCPackage#getAsset()
  * @model extendedMetaData="name='SecurityGoal'"
@@ -80,22 +81,22 @@ public interface Asset extends EObject {
 	void setAssetID(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Securitygoals</b></em>' reference list.
+	 * Returns the value of the '<em><b>Security Goals</b></em>' reference list.
 	 * The list contents are of type {@link SC.SecurityGoal}.
 	 * It is bidirectional and its opposite is '{@link SC.SecurityGoal#getAsset <em>Asset</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Securitygoals</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Security Goals</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Securitygoals</em>' reference list.
-	 * @see SC.SCPackage#getAsset_Securitygoals()
+	 * @return the value of the '<em>Security Goals</em>' reference list.
+	 * @see SC.SCPackage#getAsset_SecurityGoals()
 	 * @see SC.SecurityGoal#getAsset
 	 * @model opposite="asset"
 	 * @generated
 	 */
-	EList<SecurityGoal> getSecuritygoals();
+	EList<SecurityGoal> getSecurityGoals();
 
 	/**
 	 * Returns the value of the '<em><b>Component</b></em>' reference.
@@ -152,5 +153,23 @@ public interface Asset extends EObject {
 	 * @generated
 	 */
 	void setData(Data value);
+
+	/**
+	 * Returns the value of the '<em><b>Threats</b></em>' reference list.
+	 * The list contents are of type {@link SC.Threat}.
+	 * It is bidirectional and its opposite is '{@link SC.Threat#getAsset <em>Asset</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Threats</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Threats</em>' reference list.
+	 * @see SC.SCPackage#getAsset_Threats()
+	 * @see SC.Threat#getAsset
+	 * @model opposite="asset"
+	 * @generated
+	 */
+	EList<Threat> getThreats();
 
 } // Asset

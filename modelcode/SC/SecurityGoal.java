@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link SC.SecurityGoal#getSecurityGoalClass <em>Security Goal Class</em>}</li>
  *   <li>{@link SC.SecurityGoal#getDamagePotential <em>Damage Potential</em>}</li>
@@ -25,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.SecurityGoal#getThreat <em>Threat</em>}</li>
  *   <li>{@link SC.SecurityGoal#getComponent <em>Component</em>}</li>
  * </ul>
+ * </p>
  *
  * @see SC.SCPackage#getSecurityGoal()
  * @model
@@ -187,7 +187,7 @@ public interface SecurityGoal extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Asset</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link SC.Asset#getSecuritygoals <em>Securitygoals</em>}'.
+	 * It is bidirectional and its opposite is '{@link SC.Asset#getSecurityGoals <em>Security Goals</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Asset</em>' reference isn't clear,
@@ -197,8 +197,8 @@ public interface SecurityGoal extends EObject {
 	 * @return the value of the '<em>Asset</em>' reference.
 	 * @see #setAsset(Asset)
 	 * @see SC.SCPackage#getSecurityGoal_Asset()
-	 * @see SC.Asset#getSecuritygoals
-	 * @model opposite="securitygoals" required="true"
+	 * @see SC.Asset#getSecurityGoals
+	 * @model opposite="securityGoals" required="true"
 	 *        extendedMetaData="name='SecurityGoal'"
 	 * @generated
 	 */
@@ -235,7 +235,6 @@ public interface SecurityGoal extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Component</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link SC.Component#getSecuritygoals <em>Securitygoals</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Component</em>' reference isn't clear,
@@ -245,8 +244,7 @@ public interface SecurityGoal extends EObject {
 	 * @return the value of the '<em>Component</em>' reference.
 	 * @see #setComponent(Component)
 	 * @see SC.SCPackage#getSecurityGoal_Component()
-	 * @see SC.Component#getSecuritygoals
-	 * @model opposite="securitygoals" required="true"
+	 * @model
 	 * @generated
 	 */
 	Component getComponent();
