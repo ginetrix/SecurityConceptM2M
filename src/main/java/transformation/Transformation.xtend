@@ -66,7 +66,7 @@ class Transformation {
 	def dispatch generateCode(SecurityConcept securityConcept) {
 		oldSecurityConcept = securityConcept
 		// Select the IDs of components that should be aggregated
-		val int[] componentIDs = #[1, 2]
+		val int[] componentIDs = #[1,6]
 		componentIDs.stream.filter(id|findComponentByID(securityConcept, id) !== null).forEach [ id |
 			componentsOfInterest.add(findComponentByID(securityConcept, id))
 		]
@@ -77,16 +77,23 @@ class Transformation {
 		for (Component comp : componentsOfInterest) {
 			generateSG(comp)
 		}
-
+		
 		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.securitygoals.forEach [ sg |
 			println(sg.toString)
 		]
 		
 		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].data.forEach[d|println(d.asset.securitygoals)]
+		
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].connections.forEach[con|println(con.data.asset.securitygoals)]
+		
 //		oldSecurityConcept.connection.forEach[con|println(con.source.toString + con.target.toString)]
 //		oldSecurityConcept.securityGoals.forEach[sg|println(sg)]
 		println("#########")
-
+		
+		oldSecurityConcept.connection.forEach[con|println("CONNECTION: " + con)]
+		
+//		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].connections.forEach[con|println(con.data)]
+	
 		// Add the resulting elements and security attributes to the new security concept
 		newSecurityConcept.components.addAll(transformedComponents)
 		newSecurityConcept.securityGoals.addAll(transformedSecurityGoals)
@@ -118,6 +125,19 @@ class Transformation {
 		findAncestors(component, component)
 		findChildren(component, component)
 //		checkConnections(securityGoals, component)
+		addSecurityGoalsFromConnections(component)
+	}
+	
+	def addSecurityGoalsFromConnections(Component component) {
+		var list = oldSecurityConcept.connection.filter[con | (con.target == component || con.source == component)]
+		for (con : list){
+			for (sg : con.data.asset.securitygoals){
+				var tmpSG = createSecurityGoal
+				tmpSG = copySecurityGoal(tmpSG, sg)
+				tmpSG.component = component
+				oldSecurityConcept.securityGoals.add(tmpSG)
+			}
+		}
 	}
 
 	def dispatch generateCode(EObject object) {
@@ -384,6 +404,7 @@ class Transformation {
 				tmpCon.target = anc
 			}
 			// Add the connection to the old security concept
+			println("CON" + tmpCon.source + tmpCon.target + tmpCon.data)
 			oldSecurityConcept.connection.add(tmpCon)
 		}
 	}

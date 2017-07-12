@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"/>
+<SC:SecurityGoal xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:SC="http://www.example.org/securityconcept" damagePotential="medium" description="" securityGoalID="5" name="SG_D3">
+  <asset href="MetaModel/SecurityConcept_MT_example.xmi#//@assets.4"/>
+</SC:SecurityGoal>
