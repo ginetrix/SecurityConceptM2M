@@ -20,6 +20,7 @@ import SC.Connection
 import SC.Asset
 import org.eclipse.emf.ecore.resource.Resource
 import SC.Threat
+import SC.SecurityGoalClassType
 
 class Transformation {
 
@@ -38,8 +39,8 @@ class Transformation {
 	List<Threat> transformedThreats
 
 	def static void main(String[] args) {
-		new Transformation().generate("MetaModel/minitest.xmi")
-//		new Transformation().generate("MetaModel/SecurityConcept_MT_example.xmi")
+//		new Transformation().generate("MetaModel/minitest.xmi")
+		new Transformation().generate("MetaModel/SecurityConcept_MT_example.xmi")
 	}
 
 	def generate(String file) {
@@ -69,6 +70,7 @@ class Transformation {
 		componentIDs.stream.filter(id|findComponentByID(securityConcept, id) !== null).forEach [ id |
 			componentsOfInterest.add(findComponentByID(securityConcept, id))
 		]
+		
 
 //		oldSecurityConcept.securityGoals.forEach[sg|println(sg.toString)]
 //		oldSecurityConcept.connection.forEach[con|println(con.source.toString + con.target.toString)]
@@ -76,11 +78,15 @@ class Transformation {
 			generateSG(comp)
 		}
 
-//		oldSecurityConcept.connection.forEach[con|println(con.source.toString + con.target.toString)]
-		oldSecurityConcept.assets.findFirst[a|a.component.componentID.equals(2)].securitygoals.forEach [ sg |
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.securitygoals.forEach [ sg |
 			println(sg.toString)
 		]
-//		oldSecurityConcept.securityGoals.forEach[sg|println(sg.toString)]
+		
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].data.forEach[d|println(d.asset.securitygoals)]
+//		oldSecurityConcept.connection.forEach[con|println(con.source.toString + con.target.toString)]
+//		oldSecurityConcept.securityGoals.forEach[sg|println(sg)]
+		println("#########")
+
 		// Add the resulting elements and security attributes to the new security concept
 		newSecurityConcept.components.addAll(transformedComponents)
 		newSecurityConcept.securityGoals.addAll(transformedSecurityGoals)
@@ -102,10 +108,7 @@ class Transformation {
 				asset.assetID = oldSecurityConcept.assets.last.assetID + 1
 				// Add the new component and its asset to the transformed lists
 				component.asset = asset
-			} else {
-				transformedComponents.add(component)
-				var asset = factory.createAsset
-				asset = component.asset
+				oldSecurityConcept.assets.add(asset)
 			}
 			// Check connections and add their security goals
 			for (Connection con : component.connections) {
@@ -136,7 +139,7 @@ class Transformation {
 		while (!ancestorStack.empty()) {
 			var comp = ancestorStack.pop
 			generateSG(comp)
-			addSgAtoC(comp, component)
+			addSgAtoC(component, comp)
 		}
 	}
 
@@ -157,43 +160,45 @@ class Transformation {
 		while (!childStack.empty()) {
 			var comp = childStack.pop
 			generateSG(comp)
-			addSgCtoA(comp, component)
+			addSgCtoA(component, comp)
 		}
 	}
 
 // Security goals ancestor to child
 	def addSgAtoC(Component anc, Component child) {
-		var tmpAsset = createAsset
-		var tmpSG = createSecurityGoal
+		var Asset tmpAsset
+		var SecurityGoal tmpSG
 		// Check whether the ancestor is an asset 
 		if (anc.asset != null) {
 			for (sg : anc.asset.securitygoals) {
-				// Check whether the child is an asset already
-				if (child.asset != null) {
+				// Only add if the security goal is not addressing data
+				if (!sg.securityGoalClass.equals(SecurityGoalClassType.CONFIDENTIALITY)) {
+					// Check whether the child is an asset already
+					if (child.asset == null) {
+						tmpAsset = createAsset
+						tmpAsset.name = "Asset_".concat(child.name)
+						tmpAsset.component = child
+						tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
+						// Add the new component and its asset to the transformed lists
+						child.asset = tmpAsset
+						oldSecurityConcept.assets.add(tmpAsset)
+						tmpAsset = createAsset						
+					}
 					// Create the security goal and assign the new values
-					tmpSG = copySecurityGoal(sg)
-					tmpSG.name = child.name
-					tmpSG.component = child
-					tmpSG.asset = child.asset
-					// Add the security goal to the old security concept
-					if(!securityGoalExists(child.asset, tmpSG)) oldSecurityConcept.securityGoals.add(tmpSG)
-				} else {
-					// Create the corresponding asset if not
-					tmpAsset = createAsset
-					tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
-					tmpAsset.component = child
-					tmpAsset.name = child.name
-					// Create the new security goal for the new asset
-					tmpSG = copySecurityGoal(sg)
-					tmpSG.component = child
-					tmpSG.asset = tmpAsset
-					tmpSG.name = child.name
-					// Add the goal to the list of security goals of the asset
-					tmpAsset.securitygoals.add(tmpSG)
-					// Add the security goal and the asset to the old security concept
-					oldSecurityConcept.assets.add(tmpAsset)
-					oldSecurityConcept.securityGoals.add(tmpSG)
+					tmpSG = createSecurityGoal
+					tmpSG = copySecurityGoal(tmpSG, sg)
+					if (!securityGoalExists(child.asset, tmpSG)) {
+						tmpSG.name = child.name
+						tmpSG.component = child
+						tmpSG.asset = child.asset
+						// Add the security goal to the old security concept
+						oldSecurityConcept.securityGoals.add(tmpSG)
+						// Clear references
+						tmpSG = createSecurityGoal
+					}
+
 				}
+
 			}
 		}
 		// Iterate through all the data of the ancestor and check if it exists in the layer below
@@ -203,7 +208,7 @@ class Transformation {
 					var childData = findData(child, data)
 					if (childData.asset != null) {
 						// Add the security goals to the asset
-						tmpSG = copySecurityGoal(sg)
+						tmpSG = copySecurityGoal(tmpSG, sg)
 						tmpSG.component = child
 						tmpSG.asset = childData.asset
 						tmpSG.name = childData.name
@@ -215,7 +220,7 @@ class Transformation {
 						tmpAsset.data = childData
 						tmpAsset.name = childData.name
 						// Create the new security goal for the new asset
-						tmpSG = copySecurityGoal(sg)
+						tmpSG = copySecurityGoal(tmpSG, sg)
 						tmpSG.component = child
 						tmpSG.asset = childData.asset
 						tmpSG.name = childData.name
@@ -232,47 +237,17 @@ class Transformation {
 
 // Security goal child to ancestor
 	def addSgCtoA(Component child, Component anc) {
-		var tmpAsset = createAsset
-		var tmpSG = createSecurityGoal
-		// Check whether the sub-component is an asset
-		if (child.asset != null) {
-			for (sg : child.asset.securitygoals) {
-				// Check whether the ancestor is an asset itself already
-				if (anc.asset != null) {
-					// Create the security goal and assign the new values
-					tmpSG = copySecurityGoal(sg)
-					tmpSG.name = anc.name
-					tmpSG.component = anc
-					tmpSG.asset = anc.asset
-					// Add the security goal to the old security concept
-					if(!securityGoalExists(anc.asset, tmpSG)) oldSecurityConcept.securityGoals.add(tmpSG)
-				} else {
-					// Create the corresponding asset if not
-					tmpAsset = createAsset
-					tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
-					tmpAsset.component = anc
-					tmpAsset.name = anc.name
-					// Create the new security goal for the new asset
-					tmpSG = copySecurityGoal(sg)
-					tmpSG.component = anc
-					tmpSG.asset = tmpAsset
-					tmpSG.name = anc.name
-					// Add the goal to the list of security goals of the asset
-					tmpAsset.securitygoals.add(tmpSG)
-					// Add the security goal and the asset to the old security concept
-					oldSecurityConcept.assets.add(tmpAsset)
-					oldSecurityConcept.securityGoals.add(tmpSG)
-				}
-			}
-		}
+		var Asset tmpAsset
+		var SecurityGoal tmpSG
 		// Check the data and add the corresponding security goals accordingly
 		for (data : child.data) {
-			for (sg : data.asset?.securitygoals) {
+			for (sg : data?.asset?.securitygoals) {
 				if (anc.data.contains(data)) {
 					var ancData = findData(anc, data)
 					if (ancData.asset != null) {
 						// Add the security goals to the asset
-						tmpSG = copySecurityGoal(sg)
+						tmpSG = createSecurityGoal
+						tmpSG = copySecurityGoal(tmpSG, sg)
 						tmpSG.component = anc
 						tmpSG.asset = ancData.asset
 						tmpSG.name = ancData.name
@@ -284,7 +259,8 @@ class Transformation {
 						tmpAsset.data = ancData
 						tmpAsset.name = ancData.name
 						// Create the new security goal for the new asset
-						tmpSG = copySecurityGoal(sg)
+						tmpSG = createSecurityGoal
+						tmpSG = copySecurityGoal(tmpSG, sg)
 						tmpSG.component = anc
 						tmpSG.asset = ancData.asset
 						tmpSG.name = ancData.name
@@ -296,25 +272,36 @@ class Transformation {
 					}
 				} else {
 					if (!anc.data.contains(data)) {
-						// Create the data and add the security goals of the child element
-						var newData = copyData(data)
-						// Create the corresponding asset
-						tmpAsset = createAsset
-						tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
-						tmpAsset.data = newData
-						tmpAsset.name = newData.name
-						// Create the new security goal for the new asset
-						tmpSG = copySecurityGoal(sg)
-						tmpSG.component = anc
-						tmpSG.asset = newData.asset
-						tmpSG.name = newData.name
-						oldSecurityConcept.data.add(newData)
-						oldSecurityConcept.assets.add(tmpAsset)
-						oldSecurityConcept.securityGoals.add(tmpSG)
+						if (sg.asset.data != null) {
+							println("SG" + sg.asset)
+							// Create the data and add the security goals of the child element
+							var newData = copyData(data)
+							newData.asset = anc.asset
+							anc.data.add(newData)
+							tmpAsset = createAsset
+							tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
+							tmpAsset.data = newData
+							tmpAsset.name = newData.name
+							// Create the new security goal for the new asset
+							tmpSG = createSecurityGoal
+							tmpSG = copySecurityGoal(tmpSG, sg)
+							tmpSG.component = anc
+							tmpSG.asset = tmpAsset
+							tmpSG.name = newData.name.concat("_".concat(anc.name))
+							oldSecurityConcept.assets.add(tmpAsset)
+							oldSecurityConcept.data.add(newData)
+							oldSecurityConcept.securityGoals.add(tmpSG)
+						}
 					}
 				}
 			}
 		}
+
+	}
+
+	def dataExists(Component anc, Data data) {
+		var foundData = anc.data.findFirst[dt|dt.name.equals(data.name)]
+		return true
 	}
 
 	// Check whether a component has a specific asset
@@ -367,15 +354,14 @@ class Transformation {
 		return copy
 	}
 
-	def SecurityGoal copySecurityGoal(SecurityGoal securityGoal) {
-		var copy = createSecurityGoal
-		copy.securityGoalClass = securityGoal.securityGoalClass
-		copy.damagePotential = securityGoal.damagePotential
+	def SecurityGoal copySecurityGoal(SecurityGoal tmpSG, SecurityGoal securityGoal) {
+		tmpSG.securityGoalClass = securityGoal.securityGoalClass
+		tmpSG.damagePotential = securityGoal.damagePotential
 		// TODO: Adjust security goal dependencies
-		copy.description = securityGoal.description
-		copy.securityGoalID = oldSecurityConcept.securityGoals.last.securityGoalID + 1
-		copy.description = securityGoal.description
-		return copy
+		tmpSG.description = securityGoal.description
+		tmpSG.securityGoalID = oldSecurityConcept.securityGoals.last.securityGoalID + 1
+		tmpSG.description = securityGoal.description
+		return tmpSG
 	}
 
 	def Connection copyConnection(Connection connection) {
@@ -419,7 +405,8 @@ class Transformation {
 				secgoal.securityGoalClass.equals(sg.securityGoalClass) &&
 				secgoal.dependsOnSecurityGoal.equals(sg.dependsOnSecurityGoal)
 		]
-		return foundSG == null
+
+		return foundSG != null
 	}
 
 	def Component findComponentByID(SecurityConcept securityConcept, int id) {

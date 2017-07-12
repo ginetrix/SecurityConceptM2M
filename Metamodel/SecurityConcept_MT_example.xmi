@@ -43,7 +43,6 @@
   <assets name="Asset_D2"
       assetID="2"
       securitygoals="//@securityGoals.1"
-      component="//@components.1"
       data="//@data.1"/>
   <assets name="Asset_C1.1.1"
       assetID="3"
@@ -68,7 +67,6 @@
       componentID="2"
       Subcomponents="//@components.3 //@components.4"
       Ancestor="//@components.0"
-      asset="//@assets.1"
       data="//@data.1"
       connections="//@connection.0"
       securitygoals="//@securityGoals.1"/>
