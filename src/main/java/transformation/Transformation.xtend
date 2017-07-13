@@ -21,9 +21,6 @@ import SC.Asset
 import org.eclipse.emf.ecore.resource.Resource
 import SC.Threat
 import SC.SecurityGoalClassType
-import SC.Damages
-import java.util.HashSet
-import java.util.Set
 
 class Transformation {
 
@@ -75,7 +72,7 @@ class Transformation {
 		for (Component comp : componentsOfInterest) {
 			generateSG(comp)
 		}
-		
+
 		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].asset.securityGoals.forEach [ sg |
 			println("SEC GOAL: " + sg.toString)
 		]
@@ -97,7 +94,7 @@ class Transformation {
 		].forEach[threat|println("OTHER THREAT: " + threat)]
 		println("#########")
 
-		var List<SecurityGoal> sgl = getFullSecurityGoalList(findComponentByID(securityConcept, 1))
+		var List<SecurityGoal> sgl = getFullSecurityGoalList(oldSecurityConcept, findComponentByID(securityConcept, 1))
 		println("SG BEFORE AGGREGATION: " + sgl.size)
 
 		var List<SecurityGoal> finalSecurityGoals = securityGoalAggregation(sgl)
@@ -105,7 +102,7 @@ class Transformation {
 		println("SG AFTER AGGREGATION: " + finalSecurityGoals.size)
 		println("#########")
 
-		var List<Threat> tl = getFullThreatList(findComponentByID(securityConcept, 1))
+		var List<Threat> tl = getFullThreatList(oldSecurityConcept, findComponentByID(securityConcept, 1))
 
 		println("THREATS BEFORE AGGREGATION: " + tl.size)
 
@@ -125,6 +122,10 @@ class Transformation {
 //		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].connections.forEach[con|println(con.data)]
 		// Add the resulting elements and security attributes to the new security concept
 		newSecurityConcept = buildSecurityConcept()
+		
+		println("#########")
+		println("VALIDATION: ")
+		securityOracleValidation(oldSecurityConcept, newSecurityConcept, componentsOfInterest)
 		writeToSecrutiyConcept(newSecurityConcept)
 	}
 
@@ -164,7 +165,7 @@ class Transformation {
 		}
 		findAncestors(component, component)
 		findChildren(component, component)
-//		checkConnections(securityGoals, component)
+		checkConnections(oldSecurityConcept.connections)
 		addSecurityGoalsFromConnections(component)
 	}
 
@@ -529,13 +530,9 @@ class Transformation {
 		}
 	}
 
-	def checkConnections(List<SecurityGoal> securityGoals, Component comp) {
-		for (Connection con : comp.connections) {
-			if (!componentsOfInterest.contains(con.source) || !componentsOfInterest.contains(con.target)) {
-				comp.connections.remove(con)
-			} else {
-				securityGoals.addAll(con.data.asset.securityGoals)
-			}
+	def checkConnections(List<Connection> connections) {
+		for (con : connections) {
+			con.name = con.source.name.concat("_").concat(con.target.name).concat(" ").concat(con.data.name)
 		}
 	}
 
@@ -663,23 +660,23 @@ class Transformation {
 		return foundSG != null
 	}
 
-	def List<Threat> getFullThreatList(Component component) {
+	def List<Threat> getFullThreatList(SecurityConcept securityConcept, Component component) {
 		var List<Threat> fullList = new ArrayList<Threat>
 		// Add the direct threats to the security goals
-		var List<SecurityGoal> securityGoalList = oldSecurityConcept.components.findFirst [ c |
+		var List<SecurityGoal> securityGoalList = securityConcept.components.findFirst [ c |
 			c.componentID.equals(component.componentID)
 		].asset.securityGoals
 		for (sg : securityGoalList) {
 			fullList.addAll(sg.threats)
 		}
 		// Add the threats addressing the data 
-		var List<Data> dataList = oldSecurityConcept.components.
-			findFirst[c|c.componentID.equals(component.componentID)].data
+		var List<Data> dataList = securityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].
+			data
 		for (data : dataList) {
 			fullList.addAll(data.asset.threats)
 		}
 		// Add the remaining threats addressing the component
-		var List<Threat> allThreats = oldSecurityConcept.components.findFirst [ c |
+		var List<Threat> allThreats = securityConcept.components.findFirst [ c |
 			c.componentID.equals(component.componentID)
 		].asset.threats
 		for (threat : allThreats) {
@@ -690,18 +687,38 @@ class Transformation {
 		return fullList
 	}
 
-	def List<SecurityGoal> getFullSecurityGoalList(Component component) {
+	def List<SecurityGoal> getFullSecurityGoalList(SecurityConcept securityConcept, Component component) {
 		var List<SecurityGoal> fullList = new ArrayList<SecurityGoal>
+		println(component.componentID)
 		// Add the direct security goals
 		fullList.addAll(
-			oldSecurityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].asset.securityGoals)
+			securityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].asset?.securityGoals)
 		// Add the security goals addressing the data
-		var List<Data> dataList = oldSecurityConcept.components.
-			findFirst[c|c.componentID.equals(component.componentID)].data
+		var List<Data> dataList = securityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].
+			data
 		for (data : dataList) {
 			fullList.addAll(data.asset?.securityGoals)
 		}
 		return fullList
+	}
+
+	def Boolean securityOracleValidation(SecurityConcept oldSecurityConcept, SecurityConcept newSecurityConcept,
+		List<Component> components) {
+		for (comp : components) {
+			var oldComp = findComponentByID(oldSecurityConcept, comp.componentID)
+			var newComp = findComponentByID(newSecurityConcept, comp.componentID)
+			var oldSGList = getFullSecurityGoalList(oldSecurityConcept, comp)
+			var newSGList = getFullSecurityGoalList(newSecurityConcept, comp)
+			var oldThreatList = getFullThreatList(oldSecurityConcept, comp)
+			var newThreatList = getFullThreatList(newSecurityConcept, comp)
+			// var oldControlList
+			// varnewControlList
+			if (newSGList.size < oldSGList.size || newThreatList.size < oldThreatList.size) {
+				return false
+			} else {
+				return true
+			}
+		}
 	}
 
 	def writeToSecrutiyConcept(SecurityConcept newSecurityConcept) {

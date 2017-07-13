@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Asset#getComponent <em>Component</em>}</li>
  *   <li>{@link SC.Asset#getData <em>Data</em>}</li>
  *   <li>{@link SC.Asset#getThreats <em>Threats</em>}</li>
+ *   <li>{@link SC.Asset#getControls <em>Controls</em>}</li>
  * </ul>
  * </p>
  *
@@ -171,5 +172,23 @@ public interface Asset extends EObject {
 	 * @generated
 	 */
 	EList<Threat> getThreats();
+
+	/**
+	 * Returns the value of the '<em><b>Controls</b></em>' reference list.
+	 * The list contents are of type {@link SC.Control}.
+	 * It is bidirectional and its opposite is '{@link SC.Control#getAsset <em>Asset</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Controls</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Controls</em>' reference list.
+	 * @see SC.SCPackage#getAsset_Controls()
+	 * @see SC.Control#getAsset
+	 * @model opposite="asset"
+	 * @generated
+	 */
+	EList<Control> getControls();
 
 } // Asset

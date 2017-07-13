@@ -2,6 +2,7 @@
  */
 package SC.impl;
 
+import SC.Asset;
 import SC.Control;
 import SC.SCPackage;
 import SC.SecurityGoal;
@@ -11,14 +12,18 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,7 +35,8 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link SC.impl.ControlImpl#getControlID <em>Control ID</em>}</li>
  *   <li>{@link SC.impl.ControlImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.ControlImpl#getDependsOn <em>Depends On</em>}</li>
- *   <li>{@link SC.impl.ControlImpl#getMitigates <em>Mitigates</em>}</li>
+ *   <li>{@link SC.impl.ControlImpl#getAsset <em>Asset</em>}</li>
+ *   <li>{@link SC.impl.ControlImpl#getThreats <em>Threats</em>}</li>
  * </ul>
  * </p>
  *
@@ -88,14 +94,24 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 	protected EList<SecurityGoal> dependsOn;
 
 	/**
-	 * The cached value of the '{@link #getMitigates() <em>Mitigates</em>}' reference list.
+	 * The cached value of the '{@link #getAsset() <em>Asset</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getMitigates()
+	 * @see #getAsset()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Threat> mitigates;
+	protected EList<Asset> asset;
+
+	/**
+	 * The cached value of the '{@link #getThreats() <em>Threats</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getThreats()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Threat> threats;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -175,11 +191,56 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Threat> getMitigates() {
-		if (mitigates == null) {
-			mitigates = new EObjectResolvingEList<Threat>(Threat.class, this, SCPackage.CONTROL__MITIGATES);
+	public EList<Asset> getAsset() {
+		if (asset == null) {
+			asset = new EObjectWithInverseResolvingEList.ManyInverse<Asset>(Asset.class, this, SCPackage.CONTROL__ASSET, SCPackage.ASSET__CONTROLS);
 		}
-		return mitigates;
+		return asset;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Threat> getThreats() {
+		if (threats == null) {
+			threats = new EObjectWithInverseResolvingEList.ManyInverse<Threat>(Threat.class, this, SCPackage.CONTROL__THREATS, SCPackage.THREAT__CONTROLS);
+		}
+		return threats;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case SCPackage.CONTROL__ASSET:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAsset()).basicAdd(otherEnd, msgs);
+			case SCPackage.CONTROL__THREATS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getThreats()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case SCPackage.CONTROL__ASSET:
+				return ((InternalEList<?>)getAsset()).basicRemove(otherEnd, msgs);
+			case SCPackage.CONTROL__THREATS:
+				return ((InternalEList<?>)getThreats()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -196,8 +257,10 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 				return getName();
 			case SCPackage.CONTROL__DEPENDS_ON:
 				return getDependsOn();
-			case SCPackage.CONTROL__MITIGATES:
-				return getMitigates();
+			case SCPackage.CONTROL__ASSET:
+				return getAsset();
+			case SCPackage.CONTROL__THREATS:
+				return getThreats();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -221,9 +284,13 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 				getDependsOn().clear();
 				getDependsOn().addAll((Collection<? extends SecurityGoal>)newValue);
 				return;
-			case SCPackage.CONTROL__MITIGATES:
-				getMitigates().clear();
-				getMitigates().addAll((Collection<? extends Threat>)newValue);
+			case SCPackage.CONTROL__ASSET:
+				getAsset().clear();
+				getAsset().addAll((Collection<? extends Asset>)newValue);
+				return;
+			case SCPackage.CONTROL__THREATS:
+				getThreats().clear();
+				getThreats().addAll((Collection<? extends Threat>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -246,8 +313,11 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 			case SCPackage.CONTROL__DEPENDS_ON:
 				getDependsOn().clear();
 				return;
-			case SCPackage.CONTROL__MITIGATES:
-				getMitigates().clear();
+			case SCPackage.CONTROL__ASSET:
+				getAsset().clear();
+				return;
+			case SCPackage.CONTROL__THREATS:
+				getThreats().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -267,8 +337,10 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case SCPackage.CONTROL__DEPENDS_ON:
 				return dependsOn != null && !dependsOn.isEmpty();
-			case SCPackage.CONTROL__MITIGATES:
-				return mitigates != null && !mitigates.isEmpty();
+			case SCPackage.CONTROL__ASSET:
+				return asset != null && !asset.isEmpty();
+			case SCPackage.CONTROL__THREATS:
+				return threats != null && !threats.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -3,6 +3,7 @@
 package SC.impl;
 
 import SC.Asset;
+import SC.Control;
 import SC.Damages;
 import SC.SCPackage;
 import SC.SecurityGoal;
@@ -38,6 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.ThreatImpl#getAttackPotential <em>Attack Potential</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getSecurityGoals <em>Security Goals</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getAsset <em>Asset</em>}</li>
+ *   <li>{@link SC.impl.ThreatImpl#getControls <em>Controls</em>}</li>
  * </ul>
  * </p>
  *
@@ -143,6 +145,16 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	 * @ordered
 	 */
 	protected Asset asset;
+
+	/**
+	 * The cached value of the '{@link #getControls() <em>Controls</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getControls()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Control> controls;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -324,6 +336,18 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Control> getControls() {
+		if (controls == null) {
+			controls = new EObjectWithInverseResolvingEList.ManyInverse<Control>(Control.class, this, SCPackage.THREAT__CONTROLS, SCPackage.CONTROL__THREATS);
+		}
+		return controls;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -334,6 +358,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 				if (asset != null)
 					msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__THREATS, Asset.class, msgs);
 				return basicSetAsset((Asset)otherEnd, msgs);
+			case SCPackage.THREAT__CONTROLS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getControls()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -350,6 +376,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 				return ((InternalEList<?>)getSecurityGoals()).basicRemove(otherEnd, msgs);
 			case SCPackage.THREAT__ASSET:
 				return basicSetAsset(null, msgs);
+			case SCPackage.THREAT__CONTROLS:
+				return ((InternalEList<?>)getControls()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -375,6 +403,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 			case SCPackage.THREAT__ASSET:
 				if (resolve) return getAsset();
 				return basicGetAsset();
+			case SCPackage.THREAT__CONTROLS:
+				return getControls();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -407,6 +437,10 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 			case SCPackage.THREAT__ASSET:
 				setAsset((Asset)newValue);
 				return;
+			case SCPackage.THREAT__CONTROLS:
+				getControls().clear();
+				getControls().addAll((Collection<? extends Control>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -437,6 +471,9 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 			case SCPackage.THREAT__ASSET:
 				setAsset((Asset)null);
 				return;
+			case SCPackage.THREAT__CONTROLS:
+				getControls().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -461,6 +498,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 				return securityGoals != null && !securityGoals.isEmpty();
 			case SCPackage.THREAT__ASSET:
 				return asset != null;
+			case SCPackage.THREAT__CONTROLS:
+				return controls != null && !controls.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

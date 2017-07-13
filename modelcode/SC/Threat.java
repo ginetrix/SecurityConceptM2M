@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Threat#getAttackPotential <em>Attack Potential</em>}</li>
  *   <li>{@link SC.Threat#getSecurityGoals <em>Security Goals</em>}</li>
  *   <li>{@link SC.Threat#getAsset <em>Asset</em>}</li>
+ *   <li>{@link SC.Threat#getControls <em>Controls</em>}</li>
  * </ul>
  * </p>
  *
@@ -185,5 +186,23 @@ public interface Threat extends EObject {
 	 * @generated
 	 */
 	void setAsset(Asset value);
+
+	/**
+	 * Returns the value of the '<em><b>Controls</b></em>' reference list.
+	 * The list contents are of type {@link SC.Control}.
+	 * It is bidirectional and its opposite is '{@link SC.Control#getThreats <em>Threats</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Controls</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Controls</em>' reference list.
+	 * @see SC.SCPackage#getThreat_Controls()
+	 * @see SC.Control#getThreats
+	 * @model opposite="threats"
+	 * @generated
+	 */
+	EList<Control> getControls();
 
 } // Threat

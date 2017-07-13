@@ -44,6 +44,8 @@
         eType="#//SecurityGoal" eOpposite="#//SecurityGoal/threats"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="asset" eType="#//Asset"
         eOpposite="#//Asset/threats"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="controls" upperBound="-1"
+        eType="#//Control" eOpposite="#//Control/threats"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Control">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -57,12 +59,10 @@
         <details key="name" value="SecurityGoal"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="mitigates" lowerBound="1"
-        upperBound="-1" eType="#//Threat">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="name" value="SecurityGoal"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="asset" lowerBound="1" upperBound="-1"
+        eType="#//Asset" eOpposite="#//Asset/controls"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="threats" upperBound="-1"
+        eType="#//Threat" eOpposite="#//Threat/controls"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Component">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -114,6 +114,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="data" eType="#//Data" eOpposite="#//Data/asset"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="threats" upperBound="-1"
         eType="#//Threat" eOpposite="#//Threat/asset"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="controls" upperBound="-1"
+        eType="#//Control" eOpposite="#//Control/asset"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Damages">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

@@ -67,6 +67,7 @@ public class ThreatItemProvider
 			addAttackPotentialPropertyDescriptor(object);
 			addSecurityGoalsPropertyDescriptor(object);
 			addAssetPropertyDescriptor(object);
+			addControlsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -195,6 +196,28 @@ public class ThreatItemProvider
 				 getString("_UI_Threat_asset_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Threat_asset_feature", "_UI_Threat_type"),
 				 SCPackage.Literals.THREAT__ASSET,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Controls feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addControlsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Threat_controls_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Threat_controls_feature", "_UI_Threat_type"),
+				 SCPackage.Literals.THREAT__CONTROLS,
 				 true,
 				 false,
 				 true,

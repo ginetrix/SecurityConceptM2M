@@ -42,10 +42,10 @@
   <SC:Data name="Data 3">
     <asset href="MetaModel/SecurityConcept_MT_example.xmi#//@assets.11"/>
   </SC:Data>
-  <SC:Connection name="Con_C2.1_C1.1" connectionID="1" source="/10" target="/8">
+  <SC:Connection name="C2_C1 Data 1" connectionID="1" source="/10" target="/8">
     <data href="MetaModel/SecurityConcept_MT_example.xmi#//@data.0"/>
   </SC:Connection>
-  <SC:Connection name="Con_C2_C1.2" connectionID="2" source="/10" target="/8">
+  <SC:Connection name="C2_C1 Data 3" connectionID="2" source="/10" target="/8">
     <data href="MetaModel/SecurityConcept_MT_example.xmi#//@data.2"/>
   </SC:Connection>
 </xmi:XMI>

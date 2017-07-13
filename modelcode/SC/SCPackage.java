@@ -231,13 +231,22 @@ public interface SCPackage extends EPackage {
 	int THREAT__ASSET = 5;
 
 	/**
+	 * The feature id for the '<em><b>Controls</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THREAT__CONTROLS = 6;
+
+	/**
 	 * The number of structural features of the '<em>Threat</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THREAT_FEATURE_COUNT = 6;
+	int THREAT_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Threat</em>' class.
@@ -286,13 +295,22 @@ public interface SCPackage extends EPackage {
 	int CONTROL__DEPENDS_ON = 2;
 
 	/**
-	 * The feature id for the '<em><b>Mitigates</b></em>' reference list.
+	 * The feature id for the '<em><b>Asset</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTROL__MITIGATES = 3;
+	int CONTROL__ASSET = 3;
+
+	/**
+	 * The feature id for the '<em><b>Threats</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTROL__THREATS = 4;
 
 	/**
 	 * The number of structural features of the '<em>Control</em>' class.
@@ -301,7 +319,7 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONTROL_FEATURE_COUNT = 4;
+	int CONTROL_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Control</em>' class.
@@ -496,13 +514,22 @@ public interface SCPackage extends EPackage {
 	int ASSET__THREATS = 5;
 
 	/**
+	 * The feature id for the '<em><b>Controls</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSET__CONTROLS = 6;
+
+	/**
 	 * The number of structural features of the '<em>Asset</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSET_FEATURE_COUNT = 6;
+	int ASSET_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Asset</em>' class.
@@ -959,6 +986,17 @@ public interface SCPackage extends EPackage {
 	EReference getThreat_Asset();
 
 	/**
+	 * Returns the meta object for the reference list '{@link SC.Threat#getControls <em>Controls</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Controls</em>'.
+	 * @see SC.Threat#getControls()
+	 * @see #getThreat()
+	 * @generated
+	 */
+	EReference getThreat_Controls();
+
+	/**
 	 * Returns the meta object for class '{@link SC.Control <em>Control</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1002,15 +1040,26 @@ public interface SCPackage extends EPackage {
 	EReference getControl_DependsOn();
 
 	/**
-	 * Returns the meta object for the reference list '{@link SC.Control#getMitigates <em>Mitigates</em>}'.
+	 * Returns the meta object for the reference list '{@link SC.Control#getAsset <em>Asset</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Mitigates</em>'.
-	 * @see SC.Control#getMitigates()
+	 * @return the meta object for the reference list '<em>Asset</em>'.
+	 * @see SC.Control#getAsset()
 	 * @see #getControl()
 	 * @generated
 	 */
-	EReference getControl_Mitigates();
+	EReference getControl_Asset();
+
+	/**
+	 * Returns the meta object for the reference list '{@link SC.Control#getThreats <em>Threats</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Threats</em>'.
+	 * @see SC.Control#getThreats()
+	 * @see #getControl()
+	 * @generated
+	 */
+	EReference getControl_Threats();
 
 	/**
 	 * Returns the meta object for class '{@link SC.Component <em>Component</em>}'.
@@ -1184,6 +1233,17 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAsset_Threats();
+
+	/**
+	 * Returns the meta object for the reference list '{@link SC.Asset#getControls <em>Controls</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Controls</em>'.
+	 * @see SC.Asset#getControls()
+	 * @see #getAsset()
+	 * @generated
+	 */
+	EReference getAsset_Controls();
 
 	/**
 	 * Returns the meta object for class '{@link SC.SecurityConcept <em>Security Concept</em>}'.
@@ -1585,6 +1645,14 @@ public interface SCPackage extends EPackage {
 		EReference THREAT__ASSET = eINSTANCE.getThreat_Asset();
 
 		/**
+		 * The meta object literal for the '<em><b>Controls</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference THREAT__CONTROLS = eINSTANCE.getThreat_Controls();
+
+		/**
 		 * The meta object literal for the '{@link SC.impl.ControlImpl <em>Control</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1619,12 +1687,20 @@ public interface SCPackage extends EPackage {
 		EReference CONTROL__DEPENDS_ON = eINSTANCE.getControl_DependsOn();
 
 		/**
-		 * The meta object literal for the '<em><b>Mitigates</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Asset</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONTROL__MITIGATES = eINSTANCE.getControl_Mitigates();
+		EReference CONTROL__ASSET = eINSTANCE.getControl_Asset();
+
+		/**
+		 * The meta object literal for the '<em><b>Threats</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONTROL__THREATS = eINSTANCE.getControl_Threats();
 
 		/**
 		 * The meta object literal for the '{@link SC.impl.ComponentImpl <em>Component</em>}' class.
@@ -1759,6 +1835,14 @@ public interface SCPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ASSET__THREATS = eINSTANCE.getAsset_Threats();
+
+		/**
+		 * The meta object literal for the '<em><b>Controls</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSET__CONTROLS = eINSTANCE.getAsset_Controls();
 
 		/**
 		 * The meta object literal for the '{@link SC.impl.SecurityConceptImpl <em>Security Concept</em>}' class.

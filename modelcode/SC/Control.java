@@ -17,7 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Control#getControlID <em>Control ID</em>}</li>
  *   <li>{@link SC.Control#getName <em>Name</em>}</li>
  *   <li>{@link SC.Control#getDependsOn <em>Depends On</em>}</li>
- *   <li>{@link SC.Control#getMitigates <em>Mitigates</em>}</li>
+ *   <li>{@link SC.Control#getAsset <em>Asset</em>}</li>
+ *   <li>{@link SC.Control#getThreats <em>Threats</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,20 +97,39 @@ public interface Control extends EObject {
 	EList<SecurityGoal> getDependsOn();
 
 	/**
-	 * Returns the value of the '<em><b>Mitigates</b></em>' reference list.
-	 * The list contents are of type {@link SC.Threat}.
+	 * Returns the value of the '<em><b>Asset</b></em>' reference list.
+	 * The list contents are of type {@link SC.Asset}.
+	 * It is bidirectional and its opposite is '{@link SC.Asset#getControls <em>Controls</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Mitigates</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Asset</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Mitigates</em>' reference list.
-	 * @see SC.SCPackage#getControl_Mitigates()
-	 * @model required="true"
-	 *        extendedMetaData="name='SecurityGoal'"
+	 * @return the value of the '<em>Asset</em>' reference list.
+	 * @see SC.SCPackage#getControl_Asset()
+	 * @see SC.Asset#getControls
+	 * @model opposite="controls" required="true"
 	 * @generated
 	 */
-	EList<Threat> getMitigates();
+	EList<Asset> getAsset();
+
+	/**
+	 * Returns the value of the '<em><b>Threats</b></em>' reference list.
+	 * The list contents are of type {@link SC.Threat}.
+	 * It is bidirectional and its opposite is '{@link SC.Threat#getControls <em>Controls</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Threats</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Threats</em>' reference list.
+	 * @see SC.SCPackage#getControl_Threats()
+	 * @see SC.Threat#getControls
+	 * @model opposite="controls"
+	 * @generated
+	 */
+	EList<Threat> getThreats();
 
 } // Control
