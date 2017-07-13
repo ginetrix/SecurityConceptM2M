@@ -77,19 +77,19 @@ class Transformation {
 			generateSG(comp)
 		}
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].asset.securityGoals.forEach [ sg |
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.securityGoals.forEach [ sg |
 			println("SEC GOAL: " + sg.toString)
 		]
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].asset.securityGoals.forEach [ sg |
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.securityGoals.forEach [ sg |
 			sg.threats.forEach[t|println("SEC GOAL THREAT: " + t)]
 		]
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].data.forEach [ d |
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].data.forEach [ d |
 			println("DATA " + d.asset.securityGoals)
 		]
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].data.forEach [ d |
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].data.forEach [ d |
 			println("DATA THREAT "+ d.asset.threats + " " + d.asset)
 		]
 	
@@ -552,6 +552,50 @@ class Transformation {
 
 	def Threat findThreatByID(SecurityConcept securityConcept, int id) {
 		return securityConcept.threats.findFirst[threatID.equals(id)]
+	}
+	
+	def List<SecurityGoal> securityGoalAggregation(List<SecurityGoal> securityGoalList){
+		var List<SecurityGoal> finalSecurityGoals = new ArrayList<SecurityGoal>
+		return finalSecurityGoals
+	}
+	
+	def List<Threat> threatAggregation(List<Threat> threatList){
+		var List<Threat> finalThreats = new ArrayList<Threat>
+		return finalThreats
+	}
+	
+	def List<Threat> getFullThreatList(Component component){
+		var List<Threat> fullList = new ArrayList<Threat>
+		// Add the direct threats to the security goals
+		var List<SecurityGoal> securityGoalList = oldSecurityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].asset.securityGoals
+		for (sg : securityGoalList){
+			fullList.addAll(sg.threats)
+		}
+		// Add the threats addressing the data 
+		var List<Data> dataList = oldSecurityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].data
+		for (data : dataList){
+			fullList.addAll(data.asset.threats)
+		}
+		// Add the remaining threats addressing the component
+		var List<Threat> allThreats = oldSecurityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].asset.threats
+		for (threat : allThreats){
+			if (threat.securityGoals.empty == true){
+				fullList.add(threat)
+			}
+		}
+		return fullList
+	}
+	
+	def List<SecurityGoal> getFullSecurityGoalList(Component component){
+		var List<SecurityGoal> fullList = new ArrayList<SecurityGoal>
+		// Add the direct security goals
+		fullList.addAll(oldSecurityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].asset.securityGoals)
+		// Add the security goals addressing the data
+		var List<Data> dataList = oldSecurityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].data
+		for (data : dataList){
+			fullList.addAll(data.asset?.securityGoals)
+		}
+		return fullList
 	}
 
 	def writeToSecrutiyConcept(SecurityConcept newSecurityConcept) {
