@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="ASCII"?>
-<SC:SecurityGoal xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:SC="http://www.example.org/securityconcept" damagePotential="medium" description="" securityGoalID="5" name="SG_D3">
-  <asset href="MetaModel/SecurityConcept_MT_example.xmi#//@assets.4"/>
-  <threats href="MetaModel/SecurityConcept_MT_example.xmi#//@threats.5"/>
-  <threats href="MetaModel/SecurityConcept_MT_example.xmi#//@threats.6"/>
-</SC:SecurityGoal>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:SC="http://www.example.org/securityconcept">
+  <SC:Asset name="Asset_C1" assetID="1" securityGoals="/3" component="/8" threats="/11 /12"/>
+  <SC:Asset name="Asset_C1.1.1" assetID="3" securityGoals="/4 /5 /6 /7" component="/9" threats="/13"/>
+  <SC:Asset name="Asset_C2" assetID="12" component="/10"/>
+  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="1" name="SG_C1" asset="/0" threats="/11" component="/8"/>
+  <SC:SecurityGoal securityGoalClass="Availability" damagePotential="high" securityGoalID="3" name="SG_C1.1.1" asset="/1" threats="/13" component="/9"/>
+  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="7" name="C1.1.1" asset="/1" component="/9">
+    <threats href="MetaModel/SecurityConcept_MT_example.xmi#//@threats.6"/>
+  </SC:SecurityGoal>
+  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="12" name="C1.1.1" asset="/1" component="/9">
+    <threats href="MetaModel/SecurityConcept_MT_example.xmi#//@threats.14"/>
+  </SC:SecurityGoal>
+  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="13" name="C1.1.1" asset="/1" component="/9">
+    <threats href="MetaModel/SecurityConcept_MT_example.xmi#//@threats.15"/>
+  </SC:SecurityGoal>
+  <SC:Component name="C1" componentID="1" asset="/0">
+    <subcomponents href="MetaModel/SecurityConcept_MT_example.xmi#//@components.0"/>
+    <subcomponents href="MetaModel/SecurityConcept_MT_example.xmi#//@components.1"/>
+  </SC:Component>
+  <SC:Component name="C1.1.1" componentID="4" asset="/1">
+    <ancestor href="MetaModel/SecurityConcept_MT_example.xmi#//@components.0"/>
+  </SC:Component>
+  <SC:Component name="C2" componentID="6" asset="/2">
+    <subcomponents href="MetaModel/SecurityConcept_MT_example.xmi#//@components.3"/>
+  </SC:Component>
+  <SC:Threat description="T_SG_C1" threatID="3" securityGoals="/3" asset="/0"/>
+  <SC:Threat threatClass="DenialOfService" threatID="11" asset="/0"/>
+  <SC:Threat threatClass="DenialOfService" description="T_SG_C1.1.1" threatID="1" securityGoals="/4" asset="/1"/>
+</xmi:XMI>

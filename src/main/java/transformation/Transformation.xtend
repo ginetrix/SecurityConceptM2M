@@ -52,10 +52,6 @@ class Transformation {
 		visitedNodes = new ArrayList<Component>
 		factory = SCFactory.eINSTANCE
 		oldSecurityConcept = factory.createSecurityConcept
-		newSecurityConcept = factory.createSecurityConcept
-		transformedComponents = new ArrayList<Component>
-		transformedAssets = new ArrayList<Asset>
-		transformedSecurityGoals = new ArrayList<SecurityGoal>
 		val resourceSet = new ResourceSetImpl
 		Resource$Factory.Registry.INSTANCE.extensionToFactoryMap.put(SCPackage.eNS_URI, SCPackage.eINSTANCE)
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
@@ -79,7 +75,7 @@ class Transformation {
 		for (Component comp : componentsOfInterest) {
 			generateSG(comp)
 		}
-
+		
 		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].asset.securityGoals.forEach [ sg |
 			println("SEC GOAL: " + sg.toString)
 		]
@@ -100,13 +96,12 @@ class Transformation {
 			t.securityGoals.empty == true
 		].forEach[threat|println("OTHER THREAT: " + threat)]
 		println("#########")
-		
+
 		var List<SecurityGoal> sgl = getFullSecurityGoalList(findComponentByID(securityConcept, 1))
 		println("SG BEFORE AGGREGATION: " + sgl.size)
 
 		var List<SecurityGoal> finalSecurityGoals = securityGoalAggregation(sgl)
 
-		println(finalSecurityGoals)
 		println("SG AFTER AGGREGATION: " + finalSecurityGoals.size)
 		println("#########")
 
@@ -125,15 +120,25 @@ class Transformation {
 //		oldSecurityConcept.securityGoals.forEach[sg|println(sg)]
 		println("#########")
 
-		oldSecurityConcept.connections.forEach[con|println("CONNECTION: " + con.source + con.target)]
+		oldSecurityConcept.connections.forEach[con|println("CONNECTION: " + con.source + con.target + con.data)]
 
 //		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].connections.forEach[con|println(con.data)]
 		// Add the resulting elements and security attributes to the new security concept
-		newSecurityConcept.components.addAll(transformedComponents)
-		newSecurityConcept.securityGoals.addAll(transformedSecurityGoals)
-		newSecurityConcept.assets.addAll(transformedAssets)
-//		newSecurityConcept.threats.addAll(transformedThreats)
+		newSecurityConcept = buildSecurityConcept()
 		writeToSecrutiyConcept(newSecurityConcept)
+	}
+
+	def SecurityConcept buildSecurityConcept() {
+		newSecurityConcept = factory.createSecurityConcept
+		newSecurityConcept.components.addAll(componentsOfInterest)
+		newSecurityConcept.connections.addAll(oldSecurityConcept.connections)
+		for (comp : componentsOfInterest) {
+			newSecurityConcept.assets.add(comp.asset)
+			newSecurityConcept.data.addAll(comp.data)
+			newSecurityConcept.securityGoals.addAll(comp.asset.securityGoals)
+			newSecurityConcept.threats.addAll(comp.asset.threats)
+		}
+		return newSecurityConcept
 	}
 
 	def generateSG(Component component) {
@@ -345,6 +350,7 @@ class Transformation {
 					if (!threatExists(anc.asset, threat)) {
 						tmpThreat = createThreat
 						tmpThreat = copyThreat(tmpThreat, threat)
+						tmpThreat.description = anc.name
 						tmpThreat.asset = anc.asset
 						tmpThreat.asset.component = anc.asset.component
 						oldSecurityConcept.threats.add(tmpThreat)
@@ -514,9 +520,11 @@ class Transformation {
 			if (con.source.equals(child)) {
 				con.source = anc
 				con.target = con.target
+				con.data = con.data
 			} else if (con.target.equals(child)) {
 				con.source = con.source
 				con.target = anc
+				con.data = con.data
 			}
 		}
 	}
@@ -650,8 +658,7 @@ class Transformation {
 	def Boolean securityGoalInList(List<SecurityGoal> securityGoals, SecurityGoal sg) {
 		var foundSG = securityGoals.findFirst [ secgoal |
 			secgoal.damagePotential.equals(sg.damagePotential) &&
-			secgoal.securityGoalClass.equals(sg.securityGoalClass) &&
-			secgoal.asset.name.equals(sg.asset.name)
+				secgoal.securityGoalClass.equals(sg.securityGoalClass) && secgoal.asset.name.equals(sg.asset.name)
 		]
 		return foundSG != null
 	}
@@ -701,22 +708,22 @@ class Transformation {
 		val resourceSet = new ResourceSetImpl
 		Resource$Factory.Registry.INSTANCE.extensionToFactoryMap.put(SCPackage.eNS_URI, SCPackage.eINSTANCE)
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
-//		val resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"))
-		val resource = resourceSet.createResource(URI.createURI("MetaModel/transform.xmi"))
-
+		val resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"))
+//		val resource = resourceSet.createResource(URI.createURI("MetaModel/transform.xmi"))
 		val assets = newSecurityConcept.assets
 		val sg = newSecurityConcept.securityGoals
 		val comp = newSecurityConcept.components
 		val threats = newSecurityConcept.threats
+		val data = newSecurityConcept.data
+		val connections = newSecurityConcept.connections
 
 		resource.contents.addAll(assets)
 		resource.contents.addAll(sg)
 		resource.contents.addAll(comp)
 		resource.contents.addAll(threats)
-		println("ASSET SIZE: " + assets.size)
-		println("SG SIZE: " + sg.size)
-		println("COMP SIZE: " + comp.size)
-		println("THREAT SIZE: " + threats.size)
+		resource.contents.addAll(data)
+		resource.contents.addAll(connections)
+
 		println("############################")
 		print("DONE!!!")
 		try {
