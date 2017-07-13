@@ -21,6 +21,7 @@ import SC.Asset
 import org.eclipse.emf.ecore.resource.Resource
 import SC.Threat
 import SC.SecurityGoalClassType
+import SC.Damages
 
 class Transformation {
 
@@ -579,7 +580,14 @@ class Transformation {
 	}
 	
 	def List<SecurityGoal> chooseMaxPotential(List<SecurityGoal> secGoalList){
-		
+		 var potential = secGoalList.get(0)?.damagePotential.value
+		 var List<SecurityGoal> maxPotentials = new ArrayList<SecurityGoal>
+		 for (sg : secGoalList){
+		 	if (potential < sg.damagePotential.value){
+		 		potential = sg.damagePotential.value
+		 	}
+		 }
+		 return null
 	}
 	
 	def List<Threat> threatAggregation(List<Threat> threatList){
