@@ -93,7 +93,20 @@ class Transformation {
 			println("DATA THREAT "+ d.asset.threats + " " + d.asset)
 		]
 	
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].asset.threats.filter[t | t.securityGoals.empty==true].forEach[threat | println("OTHER THREAT: " + threat)]
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.threats.filter[t | t.securityGoals.empty==true].forEach[threat | println("OTHER THREAT: " + threat)]
+		
+		var List<SecurityGoal> sgl = getFullSecurityGoalList(findComponentByID(securityConcept, 6)) 
+		println(sgl.size)
+		
+		var List<SecurityGoal> finalSecurityGoals = securityGoalAggregation(sgl) 
+		
+		var List<Threat> tl = getFullThreatList(findComponentByID(securityConcept, 6))
+		println(tl.size)
+		
+		var List<Threat> finalThreats = threatAggregation(tl)
+		
+		
+			
 
 //		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].connections.forEach [con|
 //			println(con.data.asset.securitygoals)
@@ -556,6 +569,7 @@ class Transformation {
 	
 	def List<SecurityGoal> securityGoalAggregation(List<SecurityGoal> securityGoalList){
 		var List<SecurityGoal> finalSecurityGoals = new ArrayList<SecurityGoal>
+		
 		return finalSecurityGoals
 	}
 	
