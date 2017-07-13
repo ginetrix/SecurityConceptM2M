@@ -131,13 +131,13 @@ public interface SCPackage extends EPackage {
 	int SECURITY_GOAL__ASSET = 6;
 
 	/**
-	 * The feature id for the '<em><b>Threat</b></em>' reference list.
+	 * The feature id for the '<em><b>Threats</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_GOAL__THREAT = 7;
+	int SECURITY_GOAL__THREATS = 7;
 
 	/**
 	 * The feature id for the '<em><b>Component</b></em>' reference.
@@ -213,13 +213,13 @@ public interface SCPackage extends EPackage {
 	int THREAT__ATTACK_POTENTIAL = 3;
 
 	/**
-	 * The feature id for the '<em><b>Securitygoal</b></em>' reference list.
+	 * The feature id for the '<em><b>Security Goals</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THREAT__SECURITYGOAL = 4;
+	int THREAT__SECURITY_GOALS = 4;
 
 	/**
 	 * The feature id for the '<em><b>Asset</b></em>' reference.
@@ -861,15 +861,15 @@ public interface SCPackage extends EPackage {
 	EReference getSecurityGoal_Asset();
 
 	/**
-	 * Returns the meta object for the reference list '{@link SC.SecurityGoal#getThreat <em>Threat</em>}'.
+	 * Returns the meta object for the reference list '{@link SC.SecurityGoal#getThreats <em>Threats</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Threat</em>'.
-	 * @see SC.SecurityGoal#getThreat()
+	 * @return the meta object for the reference list '<em>Threats</em>'.
+	 * @see SC.SecurityGoal#getThreats()
 	 * @see #getSecurityGoal()
 	 * @generated
 	 */
-	EReference getSecurityGoal_Threat();
+	EReference getSecurityGoal_Threats();
 
 	/**
 	 * Returns the meta object for the reference '{@link SC.SecurityGoal#getComponent <em>Component</em>}'.
@@ -937,15 +937,15 @@ public interface SCPackage extends EPackage {
 	EAttribute getThreat_AttackPotential();
 
 	/**
-	 * Returns the meta object for the reference list '{@link SC.Threat#getSecuritygoal <em>Securitygoal</em>}'.
+	 * Returns the meta object for the reference list '{@link SC.Threat#getSecurityGoals <em>Security Goals</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Securitygoal</em>'.
-	 * @see SC.Threat#getSecuritygoal()
+	 * @return the meta object for the reference list '<em>Security Goals</em>'.
+	 * @see SC.Threat#getSecurityGoals()
 	 * @see #getThreat()
 	 * @generated
 	 */
-	EReference getThreat_Securitygoal();
+	EReference getThreat_SecurityGoals();
 
 	/**
 	 * Returns the meta object for the reference '{@link SC.Threat#getAsset <em>Asset</em>}'.
@@ -1511,12 +1511,12 @@ public interface SCPackage extends EPackage {
 		EReference SECURITY_GOAL__ASSET = eINSTANCE.getSecurityGoal_Asset();
 
 		/**
-		 * The meta object literal for the '<em><b>Threat</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Threats</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SECURITY_GOAL__THREAT = eINSTANCE.getSecurityGoal_Threat();
+		EReference SECURITY_GOAL__THREATS = eINSTANCE.getSecurityGoal_Threats();
 
 		/**
 		 * The meta object literal for the '<em><b>Component</b></em>' reference feature.
@@ -1569,12 +1569,12 @@ public interface SCPackage extends EPackage {
 		EAttribute THREAT__ATTACK_POTENTIAL = eINSTANCE.getThreat_AttackPotential();
 
 		/**
-		 * The meta object literal for the '<em><b>Securitygoal</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Security Goals</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference THREAT__SECURITYGOAL = eINSTANCE.getThreat_Securitygoal();
+		EReference THREAT__SECURITY_GOALS = eINSTANCE.getThreat_SecurityGoals();
 
 		/**
 		 * The meta object literal for the '<em><b>Asset</b></em>' reference feature.

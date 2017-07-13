@@ -21,8 +21,8 @@
         <details key="name" value="SecurityGoal"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="threat" upperBound="-1"
-        eType="#//Threat" eOpposite="#//Threat/securitygoal">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="threats" upperBound="-1"
+        eType="#//Threat" eOpposite="#//Threat/securityGoals">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="SecurityGoal"/>
       </eAnnotations>
@@ -40,8 +40,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="threatID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="attackPotential" eType="#//Damages"
         defaultValueLiteral="low"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="securitygoal" lowerBound="1"
-        upperBound="-1" eType="#//SecurityGoal" eOpposite="#//SecurityGoal/threat"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="securityGoals" upperBound="-1"
+        eType="#//SecurityGoal" eOpposite="#//SecurityGoal/threats"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="asset" eType="#//Asset"
         eOpposite="#//Asset/threats"/>
   </eClassifiers>

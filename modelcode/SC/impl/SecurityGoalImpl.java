@@ -42,7 +42,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.SecurityGoalImpl#getSecurityGoalID <em>Security Goal ID</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getAsset <em>Asset</em>}</li>
- *   <li>{@link SC.impl.SecurityGoalImpl#getThreat <em>Threat</em>}</li>
+ *   <li>{@link SC.impl.SecurityGoalImpl#getThreats <em>Threats</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getComponent <em>Component</em>}</li>
  * </ul>
  *
@@ -170,14 +170,14 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 	protected Asset asset;
 
 	/**
-	 * The cached value of the '{@link #getThreat() <em>Threat</em>}' reference list.
+	 * The cached value of the '{@link #getThreats() <em>Threats</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getThreat()
+	 * @see #getThreats()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Threat> threat;
+	protected EList<Threat> threats;
 
 	/**
 	 * The cached value of the '{@link #getComponent() <em>Component</em>}' reference.
@@ -390,11 +390,11 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Threat> getThreat() {
-		if (threat == null) {
-			threat = new EObjectWithInverseResolvingEList.ManyInverse<Threat>(Threat.class, this, SCPackage.SECURITY_GOAL__THREAT, SCPackage.THREAT__SECURITYGOAL);
+	public EList<Threat> getThreats() {
+		if (threats == null) {
+			threats = new EObjectWithInverseResolvingEList.ManyInverse<Threat>(Threat.class, this, SCPackage.SECURITY_GOAL__THREATS, SCPackage.THREAT__SECURITY_GOALS);
 		}
-		return threat;
+		return threats;
 	}
 
 	/**
@@ -448,8 +448,8 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 				if (asset != null)
 					msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__SECURITY_GOALS, Asset.class, msgs);
 				return basicSetAsset((Asset)otherEnd, msgs);
-			case SCPackage.SECURITY_GOAL__THREAT:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getThreat()).basicAdd(otherEnd, msgs);
+			case SCPackage.SECURITY_GOAL__THREATS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getThreats()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -464,8 +464,8 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 		switch (featureID) {
 			case SCPackage.SECURITY_GOAL__ASSET:
 				return basicSetAsset(null, msgs);
-			case SCPackage.SECURITY_GOAL__THREAT:
-				return ((InternalEList<?>)getThreat()).basicRemove(otherEnd, msgs);
+			case SCPackage.SECURITY_GOAL__THREATS:
+				return ((InternalEList<?>)getThreats()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -493,8 +493,8 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 			case SCPackage.SECURITY_GOAL__ASSET:
 				if (resolve) return getAsset();
 				return basicGetAsset();
-			case SCPackage.SECURITY_GOAL__THREAT:
-				return getThreat();
+			case SCPackage.SECURITY_GOAL__THREATS:
+				return getThreats();
 			case SCPackage.SECURITY_GOAL__COMPONENT:
 				if (resolve) return getComponent();
 				return basicGetComponent();
@@ -533,9 +533,9 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 			case SCPackage.SECURITY_GOAL__ASSET:
 				setAsset((Asset)newValue);
 				return;
-			case SCPackage.SECURITY_GOAL__THREAT:
-				getThreat().clear();
-				getThreat().addAll((Collection<? extends Threat>)newValue);
+			case SCPackage.SECURITY_GOAL__THREATS:
+				getThreats().clear();
+				getThreats().addAll((Collection<? extends Threat>)newValue);
 				return;
 			case SCPackage.SECURITY_GOAL__COMPONENT:
 				setComponent((Component)newValue);
@@ -573,8 +573,8 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 			case SCPackage.SECURITY_GOAL__ASSET:
 				setAsset((Asset)null);
 				return;
-			case SCPackage.SECURITY_GOAL__THREAT:
-				getThreat().clear();
+			case SCPackage.SECURITY_GOAL__THREATS:
+				getThreats().clear();
 				return;
 			case SCPackage.SECURITY_GOAL__COMPONENT:
 				setComponent((Component)null);
@@ -605,8 +605,8 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case SCPackage.SECURITY_GOAL__ASSET:
 				return asset != null;
-			case SCPackage.SECURITY_GOAL__THREAT:
-				return threat != null && !threat.isEmpty();
+			case SCPackage.SECURITY_GOAL__THREATS:
+				return threats != null && !threats.isEmpty();
 			case SCPackage.SECURITY_GOAL__COMPONENT:
 				return component != null;
 		}

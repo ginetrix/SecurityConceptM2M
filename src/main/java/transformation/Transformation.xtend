@@ -66,7 +66,7 @@ class Transformation {
 	def dispatch generateCode(SecurityConcept securityConcept) {
 		oldSecurityConcept = securityConcept
 		// Select the IDs of components that should be aggregated
-		val int[] componentIDs = #[1]
+		val int[] componentIDs = #[1, 4, 6]
 		componentIDs.stream.filter(id|findComponentByID(securityConcept, id) !== null).forEach [ id |
 			componentsOfInterest.add(findComponentByID(securityConcept, id))
 		]
@@ -77,20 +77,30 @@ class Transformation {
 			generateSG(comp)
 		}
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.securityGoals.forEach [ sg |
-			println(sg.toString)
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].asset.securityGoals.forEach [ sg |
+			println("SEC GOAL: " + sg.toString)
 		]
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].data.forEach [d|
-			println(d.asset.securityGoals)
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].asset.securityGoals.forEach [ sg |
+			sg.threats.forEach[t|println("SEC GOAL THREAT: " + t)]
 		]
+
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].data.forEach [ d |
+			println("DATA " + d.asset.securityGoals)
+		]
+
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].data.forEach [ d |
+			println("DATA THREAT "+ d.asset.threats + " " + d.asset)
+		]
+	
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].asset.threats.filter[t | t.securityGoals.empty==true].forEach[threat | println("OTHER THREAT: " + threat)]
 
 //		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].connections.forEach [con|
 //			println(con.data.asset.securitygoals)
 //		]
-
 //		oldSecurityConcept.connection.forEach[con|println(con.source.toString + con.target.toString)]
 //		oldSecurityConcept.securityGoals.forEach[sg|println(sg)]
+
 		println("#########")
 
 		oldSecurityConcept.connections.forEach[con|println("CONNECTION: " + con.source + con.target)]
@@ -106,6 +116,7 @@ class Transformation {
 
 	def generateSG(Component component) {
 		transformedSecurityGoals = new ArrayList<SecurityGoal>
+		transformedThreats = new ArrayList<Threat>
 		ancestorStack = new Stack<Component>
 		childStack = new Stack<Component>
 		if (!visitedNodes.contains(component)) {
@@ -134,6 +145,7 @@ class Transformation {
 		var SecurityGoal tmpSG
 		var Asset tmpAsset
 		var Data tmpData
+		var Threat tmpThreat
 		var list = oldSecurityConcept.connections.filter[con|(con.target == component || con.source == component)]
 		for (con : list) {
 			for (sg : con.data.asset.securityGoals) {
@@ -147,14 +159,21 @@ class Transformation {
 				tmpAsset.data = tmpData
 				tmpAsset.name = tmpData.name
 				tmpData.asset = tmpAsset
-				if (!oldSecurityConcept.assets.contains(tmpAsset)) oldSecurityConcept.assets.add(tmpAsset)
+				if(!oldSecurityConcept.assets.contains(tmpAsset)) oldSecurityConcept.assets.add(tmpAsset)
 				// Create the new security goal for the new asset
 				tmpSG = createSecurityGoal
 				tmpSG = copySecurityGoal(tmpSG, sg)
 				tmpSG.component = component
 				tmpSG.asset = tmpAsset
 				tmpSG.name = tmpData.name.concat("_".concat(component.name))
-				if (!securityGoalExists(component.asset, tmpSG)) oldSecurityConcept.securityGoals.add(tmpSG)
+				if(!securityGoalExists(component.asset, tmpSG)) oldSecurityConcept.securityGoals.add(tmpSG)
+				// Get and adjust the threats
+				for (threat : sg.threats) {
+					tmpThreat = createThreat
+					tmpThreat = copyThreat(tmpThreat, threat)
+					tmpThreat.asset = tmpAsset
+					oldSecurityConcept.threats.add(tmpThreat)
+				}
 			}
 		}
 	}
@@ -207,6 +226,7 @@ class Transformation {
 	def addSgAtoC(Component anc, Component child) {
 		var Asset tmpAsset
 		var SecurityGoal tmpSG
+		var Threat tmpThreat
 		// Check whether the ancestor is an asset 
 		if (anc.asset != null) {
 			for (sg : anc.asset.securityGoals) {
@@ -230,6 +250,14 @@ class Transformation {
 						tmpSG.name = child.name
 						tmpSG.component = child
 						tmpSG.asset = child.asset
+						for (threat : sg.threats) {
+							tmpThreat = createThreat
+							tmpThreat = copyThreat(tmpThreat, threat)
+							tmpThreat.asset = tmpAsset
+							tmpThreat.description = child.name
+							oldSecurityConcept.threats.add(tmpThreat)
+							tmpSG.threats.add(tmpThreat)
+						}
 						// Add the security goal to the old security concept
 						oldSecurityConcept.securityGoals.add(tmpSG)
 						// Clear references
@@ -278,6 +306,30 @@ class Transformation {
 	def addSgCtoA(Component child, Component anc) {
 		var Asset tmpAsset
 		var SecurityGoal tmpSG
+		var Threat tmpThreat
+		// Add threats that address the subcomponent directly and create the corresponding threats
+		if (child.asset == null) {
+			tmpAsset = createAsset
+			tmpAsset.name = "Asset_".concat(child.name)
+			tmpAsset.component = child
+			tmpAsset.assetID = oldSecurityConcept.assets.last.assetID + 1
+			// Add the new component and its asset to the transformed lists
+			child.asset = tmpAsset
+			oldSecurityConcept.assets.add(tmpAsset)
+		}		
+		if (child != anc) {
+			for (sg : child?.asset?.securityGoals) {
+				for (threat : child.asset.threats) {
+					if (!threatExists(anc.asset, threat)) {
+						tmpThreat = createThreat
+						tmpThreat = copyThreat(tmpThreat, threat)
+						tmpThreat.asset = anc.asset
+						tmpThreat.asset.component = anc.asset.component
+						oldSecurityConcept.threats.add(tmpThreat)
+					}
+				}
+			}
+		}
 		// Check the data and add the corresponding security goals accordingly
 		for (data : child.data) {
 			for (sg : data?.asset?.securityGoals) {
@@ -308,6 +360,13 @@ class Transformation {
 						// Add the security goal and the asset to the old security concept
 						oldSecurityConcept.assets.add(tmpAsset)
 						oldSecurityConcept.securityGoals.add(tmpSG)
+						// Add the corresponding threats to the ancestor
+						for (threat : sg.threats) {
+							tmpThreat = createThreat
+							tmpThreat = copyThreat(tmpThreat, threat)
+							tmpThreat.asset = tmpAsset
+							oldSecurityConcept.threats.add(tmpThreat)
+						}
 					}
 				} else {
 					if (!anc.data.contains(data)) {
@@ -329,6 +388,13 @@ class Transformation {
 							oldSecurityConcept.assets.add(tmpAsset)
 							oldSecurityConcept.data.add(newData)
 							oldSecurityConcept.securityGoals.add(tmpSG)
+							// Add the corresponding threats to the ancestor
+							for (threat : sg.threats) {
+								tmpThreat = createThreat
+								tmpThreat = copyThreat(tmpThreat, threat)
+								tmpThreat.asset = tmpAsset
+								oldSecurityConcept.threats.add(tmpThreat)
+							}
 						}
 					}
 				}
@@ -366,6 +432,10 @@ class Transformation {
 
 	def Asset createAsset() {
 		return factory.createAsset
+	}
+
+	def Threat createThreat() {
+		return factory.createThreat
 	}
 
 	def Data createData() {
@@ -410,6 +480,13 @@ class Transformation {
 		return copy
 	}
 
+	def Threat copyThreat(Threat tmpThreat, Threat threat) {
+		tmpThreat.threatClass = threat.threatClass
+		tmpThreat.attackPotential = threat.attackPotential
+		tmpThreat.threatID = oldSecurityConcept.threats.last.threatID + 1
+		return tmpThreat
+	}
+
 	def fixConnection(Component anc, Component child) {
 		for (Connection con : child.connections) {
 			if (con.source.equals(child)) {
@@ -432,14 +509,29 @@ class Transformation {
 		}
 	}
 
-	// See if the security goal was already added to the asset
 	def Boolean securityGoalExists(Asset asset, SecurityGoal sg) {
+		return getSecurityGoal(asset, sg) != null
+	}
+
+	def Boolean threatExists(Asset asset, Threat threat) {
+		return getThreat(asset, threat) != null
+	}
+
+	def SecurityGoal getSecurityGoal(Asset asset, SecurityGoal sg) {
 		var foundSG = asset.securityGoals.findFirst [ secgoal |
 			secgoal.damagePotential.equals(sg.damagePotential) &&
 				secgoal.securityGoalClass.equals(sg.securityGoalClass) &&
 				secgoal.dependsOnSecurityGoal.equals(sg.dependsOnSecurityGoal)
 		]
-		return foundSG != null
+
+		return foundSG
+	}
+
+	def Threat getThreat(Asset asset, Threat t) {
+		var foundThreat = asset.threats.findFirst [ threat |
+			threat.attackPotential.equals(t.attackPotential) && threat.threatClass.equals(t.threatClass)
+		]
+		return foundThreat
 	}
 
 	def Component findComponentByID(SecurityConcept securityConcept, int id) {

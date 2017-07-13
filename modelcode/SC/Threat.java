@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Threat#getDescription <em>Description</em>}</li>
  *   <li>{@link SC.Threat#getThreatID <em>Threat ID</em>}</li>
  *   <li>{@link SC.Threat#getAttackPotential <em>Attack Potential</em>}</li>
- *   <li>{@link SC.Threat#getSecuritygoal <em>Securitygoal</em>}</li>
+ *   <li>{@link SC.Threat#getSecurityGoals <em>Security Goals</em>}</li>
  *   <li>{@link SC.Threat#getAsset <em>Asset</em>}</li>
  * </ul>
  *
@@ -141,22 +141,22 @@ public interface Threat extends EObject {
 	void setAttackPotential(Damages value);
 
 	/**
-	 * Returns the value of the '<em><b>Securitygoal</b></em>' reference list.
+	 * Returns the value of the '<em><b>Security Goals</b></em>' reference list.
 	 * The list contents are of type {@link SC.SecurityGoal}.
-	 * It is bidirectional and its opposite is '{@link SC.SecurityGoal#getThreat <em>Threat</em>}'.
+	 * It is bidirectional and its opposite is '{@link SC.SecurityGoal#getThreats <em>Threats</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Securitygoal</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Security Goals</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Securitygoal</em>' reference list.
-	 * @see SC.SCPackage#getThreat_Securitygoal()
-	 * @see SC.SecurityGoal#getThreat
-	 * @model opposite="threat" required="true"
+	 * @return the value of the '<em>Security Goals</em>' reference list.
+	 * @see SC.SCPackage#getThreat_SecurityGoals()
+	 * @see SC.SecurityGoal#getThreats
+	 * @model opposite="threats"
 	 * @generated
 	 */
-	EList<SecurityGoal> getSecuritygoal();
+	EList<SecurityGoal> getSecurityGoals();
 
 	/**
 	 * Returns the value of the '<em><b>Asset</b></em>' reference.

@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.ThreatImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getThreatID <em>Threat ID</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getAttackPotential <em>Attack Potential</em>}</li>
- *   <li>{@link SC.impl.ThreatImpl#getSecuritygoal <em>Securitygoal</em>}</li>
+ *   <li>{@link SC.impl.ThreatImpl#getSecurityGoals <em>Security Goals</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getAsset <em>Asset</em>}</li>
  * </ul>
  *
@@ -125,14 +125,14 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	protected Damages attackPotential = ATTACK_POTENTIAL_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getSecuritygoal() <em>Securitygoal</em>}' reference list.
+	 * The cached value of the '{@link #getSecurityGoals() <em>Security Goals</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSecuritygoal()
+	 * @see #getSecurityGoals()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<SecurityGoal> securitygoal;
+	protected EList<SecurityGoal> securityGoals;
 
 	/**
 	 * The cached value of the '{@link #getAsset() <em>Asset</em>}' reference.
@@ -252,11 +252,11 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<SecurityGoal> getSecuritygoal() {
-		if (securitygoal == null) {
-			securitygoal = new EObjectWithInverseResolvingEList.ManyInverse<SecurityGoal>(SecurityGoal.class, this, SCPackage.THREAT__SECURITYGOAL, SCPackage.SECURITY_GOAL__THREAT);
+	public EList<SecurityGoal> getSecurityGoals() {
+		if (securityGoals == null) {
+			securityGoals = new EObjectWithInverseResolvingEList.ManyInverse<SecurityGoal>(SecurityGoal.class, this, SCPackage.THREAT__SECURITY_GOALS, SCPackage.SECURITY_GOAL__THREATS);
 		}
-		return securitygoal;
+		return securityGoals;
 	}
 
 	/**
@@ -328,8 +328,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case SCPackage.THREAT__SECURITYGOAL:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSecuritygoal()).basicAdd(otherEnd, msgs);
+			case SCPackage.THREAT__SECURITY_GOALS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSecurityGoals()).basicAdd(otherEnd, msgs);
 			case SCPackage.THREAT__ASSET:
 				if (asset != null)
 					msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__THREATS, Asset.class, msgs);
@@ -346,8 +346,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case SCPackage.THREAT__SECURITYGOAL:
-				return ((InternalEList<?>)getSecuritygoal()).basicRemove(otherEnd, msgs);
+			case SCPackage.THREAT__SECURITY_GOALS:
+				return ((InternalEList<?>)getSecurityGoals()).basicRemove(otherEnd, msgs);
 			case SCPackage.THREAT__ASSET:
 				return basicSetAsset(null, msgs);
 		}
@@ -370,8 +370,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 				return getThreatID();
 			case SCPackage.THREAT__ATTACK_POTENTIAL:
 				return getAttackPotential();
-			case SCPackage.THREAT__SECURITYGOAL:
-				return getSecuritygoal();
+			case SCPackage.THREAT__SECURITY_GOALS:
+				return getSecurityGoals();
 			case SCPackage.THREAT__ASSET:
 				if (resolve) return getAsset();
 				return basicGetAsset();
@@ -400,9 +400,9 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 			case SCPackage.THREAT__ATTACK_POTENTIAL:
 				setAttackPotential((Damages)newValue);
 				return;
-			case SCPackage.THREAT__SECURITYGOAL:
-				getSecuritygoal().clear();
-				getSecuritygoal().addAll((Collection<? extends SecurityGoal>)newValue);
+			case SCPackage.THREAT__SECURITY_GOALS:
+				getSecurityGoals().clear();
+				getSecurityGoals().addAll((Collection<? extends SecurityGoal>)newValue);
 				return;
 			case SCPackage.THREAT__ASSET:
 				setAsset((Asset)newValue);
@@ -431,8 +431,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 			case SCPackage.THREAT__ATTACK_POTENTIAL:
 				setAttackPotential(ATTACK_POTENTIAL_EDEFAULT);
 				return;
-			case SCPackage.THREAT__SECURITYGOAL:
-				getSecuritygoal().clear();
+			case SCPackage.THREAT__SECURITY_GOALS:
+				getSecurityGoals().clear();
 				return;
 			case SCPackage.THREAT__ASSET:
 				setAsset((Asset)null);
@@ -457,8 +457,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 				return threatID != THREAT_ID_EDEFAULT;
 			case SCPackage.THREAT__ATTACK_POTENTIAL:
 				return attackPotential != ATTACK_POTENTIAL_EDEFAULT;
-			case SCPackage.THREAT__SECURITYGOAL:
-				return securitygoal != null && !securitygoal.isEmpty();
+			case SCPackage.THREAT__SECURITY_GOALS:
+				return securityGoals != null && !securityGoals.isEmpty();
 			case SCPackage.THREAT__ASSET:
 				return asset != null;
 		}

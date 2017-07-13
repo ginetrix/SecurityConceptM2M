@@ -254,7 +254,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSecurityGoal_Threat() {
+	public EReference getSecurityGoal_Threats() {
 		return (EReference)securityGoalEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -317,7 +317,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getThreat_Securitygoal() {
+	public EReference getThreat_SecurityGoals() {
 		return (EReference)threatEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -753,7 +753,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		createEAttribute(securityGoalEClass, SECURITY_GOAL__SECURITY_GOAL_ID);
 		createEAttribute(securityGoalEClass, SECURITY_GOAL__NAME);
 		createEReference(securityGoalEClass, SECURITY_GOAL__ASSET);
-		createEReference(securityGoalEClass, SECURITY_GOAL__THREAT);
+		createEReference(securityGoalEClass, SECURITY_GOAL__THREATS);
 		createEReference(securityGoalEClass, SECURITY_GOAL__COMPONENT);
 
 		threatEClass = createEClass(THREAT);
@@ -761,7 +761,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		createEAttribute(threatEClass, THREAT__DESCRIPTION);
 		createEAttribute(threatEClass, THREAT__THREAT_ID);
 		createEAttribute(threatEClass, THREAT__ATTACK_POTENTIAL);
-		createEReference(threatEClass, THREAT__SECURITYGOAL);
+		createEReference(threatEClass, THREAT__SECURITY_GOALS);
 		createEReference(threatEClass, THREAT__ASSET);
 
 		controlEClass = createEClass(CONTROL);
@@ -856,7 +856,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		initEAttribute(getSecurityGoal_SecurityGoalID(), ecorePackage.getEInt(), "securityGoalID", null, 0, 1, SecurityGoal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSecurityGoal_Name(), ecorePackage.getEString(), "name", null, 0, 1, SecurityGoal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSecurityGoal_Asset(), this.getAsset(), this.getAsset_SecurityGoals(), "asset", null, 1, 1, SecurityGoal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSecurityGoal_Threat(), this.getThreat(), this.getThreat_Securitygoal(), "threat", null, 0, -1, SecurityGoal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSecurityGoal_Threats(), this.getThreat(), this.getThreat_SecurityGoals(), "threats", null, 0, -1, SecurityGoal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSecurityGoal_Component(), this.getComponent(), null, "component", null, 0, 1, SecurityGoal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(threatEClass, Threat.class, "Threat", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -864,7 +864,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		initEAttribute(getThreat_Description(), ecorePackage.getEString(), "description", null, 0, 1, Threat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThreat_ThreatID(), ecorePackage.getEInt(), "threatID", null, 0, 1, Threat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThreat_AttackPotential(), this.getDamages(), "attackPotential", "low", 0, 1, Threat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getThreat_Securitygoal(), this.getSecurityGoal(), this.getSecurityGoal_Threat(), "securitygoal", null, 1, -1, Threat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getThreat_SecurityGoals(), this.getSecurityGoal(), this.getSecurityGoal_Threats(), "securityGoals", null, 0, -1, Threat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getThreat_Asset(), this.getAsset(), this.getAsset_Threats(), "asset", null, 0, 1, Threat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(controlEClass, Control.class, "Control", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -965,7 +965,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 			 "name", "SecurityGoal"
 		   });	
 		addAnnotation
-		  (getSecurityGoal_Threat(), 
+		  (getSecurityGoal_Threats(), 
 		   source, 
 		   new String[] {
 			 "name", "SecurityGoal"
