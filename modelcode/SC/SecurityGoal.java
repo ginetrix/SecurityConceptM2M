@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link SC.SecurityGoal#getSecurityGoalClass <em>Security Goal Class</em>}</li>
  *   <li>{@link SC.SecurityGoal#getDamagePotential <em>Damage Potential</em>}</li>
@@ -24,7 +25,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.SecurityGoal#getThreat <em>Threat</em>}</li>
  *   <li>{@link SC.SecurityGoal#getComponent <em>Component</em>}</li>
  * </ul>
- * </p>
  *
  * @see SC.SCPackage#getSecurityGoal()
  * @model

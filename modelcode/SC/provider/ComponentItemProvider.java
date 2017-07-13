@@ -128,8 +128,8 @@ public class ComponentItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Component_Subcomponents_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Component_Subcomponents_feature", "_UI_Component_type"),
+				 getString("_UI_Component_subcomponents_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Component_subcomponents_feature", "_UI_Component_type"),
 				 SCPackage.Literals.COMPONENT__SUBCOMPONENTS,
 				 true,
 				 false,
@@ -150,8 +150,8 @@ public class ComponentItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Component_Ancestor_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Component_Ancestor_feature", "_UI_Component_type"),
+				 getString("_UI_Component_ancestor_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Component_ancestor_feature", "_UI_Component_type"),
 				 SCPackage.Literals.COMPONENT__ANCESTOR,
 				 true,
 				 false,

@@ -83,6 +83,8 @@ public class SCFactoryImpl extends EFactoryImpl implements SCFactory {
 				return createSecurityGoalClassTypeFromString(eDataType, initialValue);
 			case SCPackage.DAMAGES:
 				return createDamagesFromString(eDataType, initialValue);
+			case SCPackage.THREAT_CLASS:
+				return createThreatClassFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -100,6 +102,8 @@ public class SCFactoryImpl extends EFactoryImpl implements SCFactory {
 				return convertSecurityGoalClassTypeToString(eDataType, instanceValue);
 			case SCPackage.DAMAGES:
 				return convertDamagesToString(eDataType, instanceValue);
+			case SCPackage.THREAT_CLASS:
+				return convertThreatClassToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -232,6 +236,26 @@ public class SCFactoryImpl extends EFactoryImpl implements SCFactory {
 	 * @generated
 	 */
 	public String convertDamagesToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ThreatClass createThreatClassFromString(EDataType eDataType, String initialValue) {
+		ThreatClass result = ThreatClass.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertThreatClassToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

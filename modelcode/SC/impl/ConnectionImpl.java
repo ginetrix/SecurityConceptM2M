@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link SC.impl.ConnectionImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.ConnectionImpl#getConnectionID <em>Connection ID</em>}</li>
@@ -27,7 +28,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link SC.impl.ConnectionImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link SC.impl.ConnectionImpl#getData <em>Data</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

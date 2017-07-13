@@ -8,6 +8,7 @@ import SC.SCPackage;
 import SC.SecurityGoal;
 import SC.Threat;
 
+import SC.ThreatClass;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -30,18 +31,39 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
+ *   <li>{@link SC.impl.ThreatImpl#getThreatClass <em>Threat Class</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getThreatID <em>Threat ID</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getAttackPotential <em>Attack Potential</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getSecuritygoal <em>Securitygoal</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getAsset <em>Asset</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
+	/**
+	 * The default value of the '{@link #getThreatClass() <em>Threat Class</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getThreatClass()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ThreatClass THREAT_CLASS_EDEFAULT = ThreatClass.SPOOFING;
+
+	/**
+	 * The cached value of the '{@link #getThreatClass() <em>Threat Class</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getThreatClass()
+	 * @generated
+	 * @ordered
+	 */
+	protected ThreatClass threatClass = THREAT_CLASS_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -139,6 +161,27 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	@Override
 	protected EClass eStaticClass() {
 		return SCPackage.Literals.THREAT;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ThreatClass getThreatClass() {
+		return threatClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setThreatClass(ThreatClass newThreatClass) {
+		ThreatClass oldThreatClass = threatClass;
+		threatClass = newThreatClass == null ? THREAT_CLASS_EDEFAULT : newThreatClass;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.THREAT__THREAT_CLASS, oldThreatClass, threatClass));
 	}
 
 	/**
@@ -319,6 +362,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case SCPackage.THREAT__THREAT_CLASS:
+				return getThreatClass();
 			case SCPackage.THREAT__DESCRIPTION:
 				return getDescription();
 			case SCPackage.THREAT__THREAT_ID:
@@ -343,6 +388,9 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case SCPackage.THREAT__THREAT_CLASS:
+				setThreatClass((ThreatClass)newValue);
+				return;
 			case SCPackage.THREAT__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
@@ -371,6 +419,9 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case SCPackage.THREAT__THREAT_CLASS:
+				setThreatClass(THREAT_CLASS_EDEFAULT);
+				return;
 			case SCPackage.THREAT__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
@@ -398,6 +449,8 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case SCPackage.THREAT__THREAT_CLASS:
+				return threatClass != THREAT_CLASS_EDEFAULT;
 			case SCPackage.THREAT__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case SCPackage.THREAT__THREAT_ID:
@@ -422,7 +475,9 @@ public class ThreatImpl extends MinimalEObjectImpl.Container implements Threat {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (description: ");
+		result.append(" (threatClass: ");
+		result.append(threatClass);
+		result.append(", description: ");
 		result.append(description);
 		result.append(", threatID: ");
 		result.append(threatID);

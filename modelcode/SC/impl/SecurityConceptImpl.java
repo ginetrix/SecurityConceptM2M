@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link SC.impl.SecurityConceptImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.SecurityConceptImpl#getSecurityGoals <em>Security Goals</em>}</li>
@@ -44,7 +45,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.SecurityConceptImpl#getData <em>Data</em>}</li>
  *   <li>{@link SC.impl.SecurityConceptImpl#getConnections <em>Connections</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

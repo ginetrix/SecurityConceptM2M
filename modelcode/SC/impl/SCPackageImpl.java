@@ -16,6 +16,7 @@ import SC.SecurityGoal;
 import SC.SecurityGoalClassType;
 import SC.Threat;
 
+import SC.ThreatClass;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -107,6 +108,13 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * @generated
 	 */
 	private EEnum damagesEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum threatClassEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -273,7 +281,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getThreat_Description() {
+	public EAttribute getThreat_ThreatClass() {
 		return (EAttribute)threatEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -282,7 +290,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getThreat_ThreatID() {
+	public EAttribute getThreat_Description() {
 		return (EAttribute)threatEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -291,7 +299,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getThreat_AttackPotential() {
+	public EAttribute getThreat_ThreatID() {
 		return (EAttribute)threatEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -300,8 +308,17 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getThreat_AttackPotential() {
+		return (EAttribute)threatEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getThreat_Securitygoal() {
-		return (EReference)threatEClass.getEStructuralFeatures().get(3);
+		return (EReference)threatEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -310,7 +327,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * @generated
 	 */
 	public EReference getThreat_Asset() {
-		return (EReference)threatEClass.getEStructuralFeatures().get(4);
+		return (EReference)threatEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -696,6 +713,15 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getThreatClass() {
+		return threatClassEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SCFactory getSCFactory() {
 		return (SCFactory)getEFactoryInstance();
 	}
@@ -731,6 +757,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		createEReference(securityGoalEClass, SECURITY_GOAL__COMPONENT);
 
 		threatEClass = createEClass(THREAT);
+		createEAttribute(threatEClass, THREAT__THREAT_CLASS);
 		createEAttribute(threatEClass, THREAT__DESCRIPTION);
 		createEAttribute(threatEClass, THREAT__THREAT_ID);
 		createEAttribute(threatEClass, THREAT__ATTACK_POTENTIAL);
@@ -787,6 +814,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		// Create enums
 		securityGoalClassTypeEEnum = createEEnum(SECURITY_GOAL_CLASS_TYPE);
 		damagesEEnum = createEEnum(DAMAGES);
+		threatClassEEnum = createEEnum(THREAT_CLASS);
 	}
 
 	/**
@@ -832,6 +860,7 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		initEReference(getSecurityGoal_Component(), this.getComponent(), null, "component", null, 0, 1, SecurityGoal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(threatEClass, Threat.class, "Threat", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getThreat_ThreatClass(), this.getThreatClass(), "threatClass", "Spoofing", 0, 1, Threat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThreat_Description(), ecorePackage.getEString(), "description", null, 0, 1, Threat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThreat_ThreatID(), ecorePackage.getEInt(), "threatID", null, 0, 1, Threat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getThreat_AttackPotential(), this.getDamages(), "attackPotential", "low", 0, 1, Threat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -848,8 +877,8 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComponent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComponent_ComponentID(), ecorePackage.getEInt(), "componentID", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComponent_Subcomponents(), this.getComponent(), this.getComponent_Ancestor(), "Subcomponents", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComponent_Ancestor(), this.getComponent(), this.getComponent_Subcomponents(), "Ancestor", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComponent_Subcomponents(), this.getComponent(), this.getComponent_Ancestor(), "subcomponents", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComponent_Ancestor(), this.getComponent(), this.getComponent_Subcomponents(), "ancestor", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Asset(), this.getAsset(), this.getAsset_Component(), "asset", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		getComponent_Asset().getEKeys().add(this.getAsset_AssetID());
 		initEReference(getComponent_Data(), this.getData(), null, "data", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -898,6 +927,14 @@ public class SCPackageImpl extends EPackageImpl implements SCPackage {
 		addEEnumLiteral(damagesEEnum, Damages.LOW);
 		addEEnumLiteral(damagesEEnum, Damages.MEDIUM);
 		addEEnumLiteral(damagesEEnum, Damages.HIGH);
+
+		initEEnum(threatClassEEnum, ThreatClass.class, "ThreatClass");
+		addEEnumLiteral(threatClassEEnum, ThreatClass.SPOOFING);
+		addEEnumLiteral(threatClassEEnum, ThreatClass.TAMPERING);
+		addEEnumLiteral(threatClassEEnum, ThreatClass.REPUDIATION);
+		addEEnumLiteral(threatClassEEnum, ThreatClass.INFORMATION_DISCLOSURE);
+		addEEnumLiteral(threatClassEEnum, ThreatClass.DENIAL_OF_SERVICE);
+		addEEnumLiteral(threatClassEEnum, ThreatClass.ELEVATION_OF_PRIVILEGE);
 
 		// Create resource
 		createResource(eNS_URI);

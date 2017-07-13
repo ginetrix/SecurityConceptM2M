@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link SC.Component#getName <em>Name</em>}</li>
  *   <li>{@link SC.Component#getComponentID <em>Component ID</em>}</li>
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Component#getData <em>Data</em>}</li>
  *   <li>{@link SC.Component#getConnections <em>Connections</em>}</li>
  * </ul>
- * </p>
  *
  * @see SC.SCPackage#getComponent()
  * @model extendedMetaData="name='SecurityGoal'"
@@ -126,7 +126,7 @@ public interface Component extends EObject {
 	 * @return the value of the '<em>Subcomponents</em>' reference list.
 	 * @see SC.SCPackage#getComponent_Subcomponents()
 	 * @see SC.Component#getAncestor
-	 * @model opposite="Ancestor"
+	 * @model opposite="ancestor"
 	 *        extendedMetaData="name='SecurityGoal'"
 	 * @generated
 	 */
@@ -145,7 +145,7 @@ public interface Component extends EObject {
 	 * @see #setAncestor(Component)
 	 * @see SC.SCPackage#getComponent_Ancestor()
 	 * @see SC.Component#getSubcomponents
-	 * @model opposite="Subcomponents"
+	 * @model opposite="subcomponents"
 	 * @generated
 	 */
 	Component getAncestor();

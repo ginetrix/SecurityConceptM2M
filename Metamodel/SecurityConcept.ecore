@@ -33,6 +33,8 @@
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
       <details key="name" value="SecurityGoal"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="threatClass" eType="#//ThreatClass"
+        defaultValueLiteral="Spoofing"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="threatID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -68,14 +70,14 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="componentID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Subcomponents" upperBound="-1"
-        eType="#//Component" eOpposite="#//Component/Ancestor">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponents" upperBound="-1"
+        eType="#//Component" eOpposite="#//Component/ancestor">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="SecurityGoal"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Ancestor" eType="#//Component"
-        eOpposite="#//Component/Subcomponents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ancestor" eType="#//Component"
+        eOpposite="#//Component/subcomponents"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="asset" eType="#//Asset"
         eOpposite="#//Asset/component" eKeys="#//Asset/assetID">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -193,5 +195,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="asset" eType="#//Asset"
         eOpposite="#//Asset/data"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ThreatClass">
+    <eLiterals name="Spoofing" literal="Spoofing"/>
+    <eLiterals name="Tampering" value="1" literal="Tampering"/>
+    <eLiterals name="Repudiation" value="2" literal="Repudiation"/>
+    <eLiterals name="InformationDisclosure" value="3"/>
+    <eLiterals name="DenialOfService" value="4" literal="DenialOfService"/>
+    <eLiterals name="ElevationOfPrivilege" value="5" literal="ElevationOfPrivilege"/>
   </eClassifiers>
 </ecore:EPackage>

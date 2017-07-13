@@ -6,6 +6,7 @@ package SC.provider;
 import SC.SCPackage;
 import SC.Threat;
 
+import SC.ThreatClass;
 import java.util.Collection;
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class ThreatItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addThreatClassPropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
 			addThreatIDPropertyDescriptor(object);
 			addAttackPotentialPropertyDescriptor(object);
@@ -67,6 +69,28 @@ public class ThreatItemProvider
 			addAssetPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Threat Class feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addThreatClassPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Threat_threatClass_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Threat_threatClass_feature", "_UI_Threat_type"),
+				 SCPackage.Literals.THREAT__THREAT_CLASS,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -198,7 +222,8 @@ public class ThreatItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Threat)object).getDescription();
+		ThreatClass labelValue = ((Threat)object).getThreatClass();
+		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Threat_type") :
 			getString("_UI_Threat_type") + " " + label;
@@ -217,6 +242,7 @@ public class ThreatItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Threat.class)) {
+			case SCPackage.THREAT__THREAT_CLASS:
 			case SCPackage.THREAT__DESCRIPTION:
 			case SCPackage.THREAT__THREAT_ID:
 			case SCPackage.THREAT__ATTACK_POTENTIAL:

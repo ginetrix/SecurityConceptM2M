@@ -177,13 +177,22 @@ public interface SCPackage extends EPackage {
 	int THREAT = 1;
 
 	/**
+	 * The feature id for the '<em><b>Threat Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THREAT__THREAT_CLASS = 0;
+
+	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int THREAT__DESCRIPTION = 0;
+	int THREAT__DESCRIPTION = 1;
 
 	/**
 	 * The feature id for the '<em><b>Threat ID</b></em>' attribute.
@@ -192,7 +201,7 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int THREAT__THREAT_ID = 1;
+	int THREAT__THREAT_ID = 2;
 
 	/**
 	 * The feature id for the '<em><b>Attack Potential</b></em>' attribute.
@@ -201,7 +210,7 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int THREAT__ATTACK_POTENTIAL = 2;
+	int THREAT__ATTACK_POTENTIAL = 3;
 
 	/**
 	 * The feature id for the '<em><b>Securitygoal</b></em>' reference list.
@@ -210,7 +219,7 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int THREAT__SECURITYGOAL = 3;
+	int THREAT__SECURITYGOAL = 4;
 
 	/**
 	 * The feature id for the '<em><b>Asset</b></em>' reference.
@@ -219,7 +228,7 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int THREAT__ASSET = 4;
+	int THREAT__ASSET = 5;
 
 	/**
 	 * The number of structural features of the '<em>Threat</em>' class.
@@ -228,7 +237,7 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int THREAT_FEATURE_COUNT = 5;
+	int THREAT_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Threat</em>' class.
@@ -754,6 +763,17 @@ public interface SCPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link SC.ThreatClass <em>Threat Class</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see SC.ThreatClass
+	 * @see SC.impl.SCPackageImpl#getThreatClass()
+	 * @generated
+	 */
+	int THREAT_CLASS = 11;
+
+
+	/**
 	 * Returns the meta object for class '{@link SC.SecurityGoal <em>Security Goal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -871,6 +891,17 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getThreat();
+
+	/**
+	 * Returns the meta object for the attribute '{@link SC.Threat#getThreatClass <em>Threat Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Threat Class</em>'.
+	 * @see SC.Threat#getThreatClass()
+	 * @see #getThreat()
+	 * @generated
+	 */
+	EAttribute getThreat_ThreatClass();
 
 	/**
 	 * Returns the meta object for the attribute '{@link SC.Threat#getDescription <em>Description</em>}'.
@@ -1381,6 +1412,16 @@ public interface SCPackage extends EPackage {
 	EEnum getDamages();
 
 	/**
+	 * Returns the meta object for enum '{@link SC.ThreatClass <em>Threat Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Threat Class</em>'.
+	 * @see SC.ThreatClass
+	 * @generated
+	 */
+	EEnum getThreatClass();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1494,6 +1535,14 @@ public interface SCPackage extends EPackage {
 		 * @generated
 		 */
 		EClass THREAT = eINSTANCE.getThreat();
+
+		/**
+		 * The meta object literal for the '<em><b>Threat Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THREAT__THREAT_CLASS = eINSTANCE.getThreat_ThreatClass();
 
 		/**
 		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
@@ -1888,6 +1937,16 @@ public interface SCPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum DAMAGES = eINSTANCE.getDamages();
+
+		/**
+		 * The meta object literal for the '{@link SC.ThreatClass <em>Threat Class</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see SC.ThreatClass
+		 * @see SC.impl.SCPackageImpl#getThreatClass()
+		 * @generated
+		 */
+		EEnum THREAT_CLASS = eINSTANCE.getThreatClass();
 
 	}
 

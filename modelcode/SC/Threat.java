@@ -13,20 +13,51 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
+ *   <li>{@link SC.Threat#getThreatClass <em>Threat Class</em>}</li>
  *   <li>{@link SC.Threat#getDescription <em>Description</em>}</li>
  *   <li>{@link SC.Threat#getThreatID <em>Threat ID</em>}</li>
  *   <li>{@link SC.Threat#getAttackPotential <em>Attack Potential</em>}</li>
  *   <li>{@link SC.Threat#getSecuritygoal <em>Securitygoal</em>}</li>
  *   <li>{@link SC.Threat#getAsset <em>Asset</em>}</li>
  * </ul>
- * </p>
  *
  * @see SC.SCPackage#getThreat()
  * @model extendedMetaData="name='SecurityGoal'"
  * @generated
  */
 public interface Threat extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Threat Class</b></em>' attribute.
+	 * The default value is <code>"Spoofing"</code>.
+	 * The literals are from the enumeration {@link SC.ThreatClass}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Threat Class</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Threat Class</em>' attribute.
+	 * @see SC.ThreatClass
+	 * @see #setThreatClass(ThreatClass)
+	 * @see SC.SCPackage#getThreat_ThreatClass()
+	 * @model default="Spoofing"
+	 * @generated
+	 */
+	ThreatClass getThreatClass();
+
+	/**
+	 * Sets the value of the '{@link SC.Threat#getThreatClass <em>Threat Class</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Threat Class</em>' attribute.
+	 * @see SC.ThreatClass
+	 * @see #getThreatClass()
+	 * @generated
+	 */
+	void setThreatClass(ThreatClass value);
+
 	/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
