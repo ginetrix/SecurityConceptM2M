@@ -77,23 +77,23 @@ class Transformation {
 			generateSG(comp)
 		}
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.securityGoals.forEach [ sg |
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].asset.securityGoals.forEach [ sg |
 			println("SEC GOAL: " + sg.toString)
 		]
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.securityGoals.forEach [ sg |
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].asset.securityGoals.forEach [ sg |
 			sg.threats.forEach[t|println("SEC GOAL THREAT: " + t)]
 		]
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].data.forEach [ d |
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].data.forEach [ d |
 			println("DATA " + d.asset.securityGoals)
 		]
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].data.forEach [ d |
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].data.forEach [ d |
 			println("DATA THREAT "+ d.asset.threats + " " + d.asset)
 		]
 	
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.threats.filter[t | t.securityGoals.empty==true].forEach[threat | println("OTHER THREAT: " + threat)]
+		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].asset.threats.filter[t | t.securityGoals.empty==true].forEach[threat | println("OTHER THREAT: " + threat)]
 		
 		var List<SecurityGoal> sgl = getFullSecurityGoalList(findComponentByID(securityConcept, 6)) 
 		println(sgl.size)
@@ -569,8 +569,17 @@ class Transformation {
 	
 	def List<SecurityGoal> securityGoalAggregation(List<SecurityGoal> securityGoalList){
 		var List<SecurityGoal> finalSecurityGoals = new ArrayList<SecurityGoal>
-		
+		var List<SecurityGoal> tmpList
+		for (sg : securityGoalList){ 
+			tmpList = new ArrayList<SecurityGoal>
+			tmpList.addAll(securityGoalList.filter[secgoal|secgoal.asset?.equals(sg.asset) && secgoal.securityGoalClass.equals(sg.securityGoalClass)])
+			finalSecurityGoals.addAll(chooseMaxPotential(tmpList))
+		}
 		return finalSecurityGoals
+	}
+	
+	def List<SecurityGoal> chooseMaxPotential(List<SecurityGoal> secGoalList){
+		
 	}
 	
 	def List<Threat> threatAggregation(List<Threat> threatList){
