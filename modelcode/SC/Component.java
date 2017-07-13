@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link SC.Component#getName <em>Name</em>}</li>
  *   <li>{@link SC.Component#getComponentID <em>Component ID</em>}</li>
@@ -23,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Component#getData <em>Data</em>}</li>
  *   <li>{@link SC.Component#getConnections <em>Connections</em>}</li>
  * </ul>
+ * </p>
  *
  * @see SC.SCPackage#getComponent()
  * @model extendedMetaData="name='SecurityGoal'"

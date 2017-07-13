@@ -61,7 +61,8 @@
       threatID="4"
       securityGoals="//@securityGoals.3"
       asset="//@assets.3"/>
-  <threats description="T2_SG_D1"
+  <threats threatClass="InformationDisclosure"
+      description="T2_SG_D1"
       threatID="5"
       attackPotential="medium"
       securityGoals="//@securityGoals.3"

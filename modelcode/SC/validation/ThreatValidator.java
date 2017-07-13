@@ -8,6 +8,7 @@ import SC.Asset;
 import SC.Damages;
 import SC.SecurityGoal;
 
+import SC.ThreatClass;
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -19,9 +20,13 @@ import org.eclipse.emf.common.util.EList;
 public interface ThreatValidator {
 	boolean validate();
 
+	boolean validateThreatClass(ThreatClass value);
+
 	boolean validateDescription(String value);
 	boolean validateThreatID(int value);
 	boolean validateAttackPotential(Damages value);
+	boolean validateSecurityGoals(EList<SecurityGoal> value);
+
 	boolean validateSecuritygoal(EList<SecurityGoal> value);
 
 	boolean validateAsset(Asset value);

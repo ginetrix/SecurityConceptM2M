@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link SC.impl.ComponentImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.ComponentImpl#getComponentID <em>Component ID</em>}</li>
@@ -39,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.ComponentImpl#getData <em>Data</em>}</li>
  *   <li>{@link SC.impl.ComponentImpl#getConnections <em>Connections</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

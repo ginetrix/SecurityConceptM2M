@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link SC.Asset#getName <em>Name</em>}</li>
  *   <li>{@link SC.Asset#getAssetID <em>Asset ID</em>}</li>
@@ -22,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Asset#getData <em>Data</em>}</li>
  *   <li>{@link SC.Asset#getThreats <em>Threats</em>}</li>
  * </ul>
+ * </p>
  *
  * @see SC.SCPackage#getAsset()
  * @model extendedMetaData="name='SecurityGoal'"

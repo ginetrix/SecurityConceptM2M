@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link SC.impl.ThreatImpl#getThreatClass <em>Threat Class</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getDescription <em>Description</em>}</li>
@@ -40,6 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.ThreatImpl#getSecurityGoals <em>Security Goals</em>}</li>
  *   <li>{@link SC.impl.ThreatImpl#getAsset <em>Asset</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

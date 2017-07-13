@@ -15,14 +15,15 @@ Package SC <http://www.example.org/securityconcept>
     Attribute securityGoalID : EInt
     Attribute name : EString
     Reference asset : Asset<<1..1>>
-    Reference threat : Threat<<0..*>>
+    Reference threats : Threat<<0..*>>
     Reference component : Component
 
   Class Threat
+    Attribute threatClass : ThreatClass
     Attribute description : EString
     Attribute threatID : EInt
     Attribute attackPotential : Damages
-    Reference securitygoal : SecurityGoal<<1..*>>
+    Reference securityGoals : SecurityGoal<<0..*>>
     Reference asset : Asset
 
   Class Control
@@ -34,8 +35,8 @@ Package SC <http://www.example.org/securityconcept>
   Class Component
     Attribute name : EString
     Attribute componentID : EInt
-    Reference Subcomponents : Component<<0..*>>
-    Reference Ancestor : Component
+    Reference subcomponents : Component<<0..*>>
+    Reference ancestor : Component
     Reference asset : Asset
     Reference data : Data<<0..*>>
     Reference connections : Connection<<0..*>>
@@ -81,3 +82,11 @@ Package SC <http://www.example.org/securityconcept>
     Literal low = 0
     Literal medium = 1
     Literal high = 2
+
+  Enum ThreatClass
+    Literal Spoofing = 0
+    Literal Tampering = 1
+    Literal Repudiation = 2
+    Literal InformationDisclosure = 3
+    Literal DenialOfService = 4
+    Literal ElevationOfPrivilege = 5

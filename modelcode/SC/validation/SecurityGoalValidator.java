@@ -29,6 +29,8 @@ public interface SecurityGoalValidator {
 	boolean validateSecurityGoalID(int value);
 	boolean validateName(String value);
 	boolean validateAsset(Asset value);
+	boolean validateThreats(EList<Threat> value);
+
 	boolean validateThreat(EList<Threat> value);
 
 	boolean validateComponent(Component value);

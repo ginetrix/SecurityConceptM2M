@@ -11,12 +11,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link SC.Data#getName <em>Name</em>}</li>
  *   <li>{@link SC.Data#getDataID <em>Data ID</em>}</li>
  *   <li>{@link SC.Data#getAsset <em>Asset</em>}</li>
  * </ul>
+ * </p>
  *
  * @see SC.SCPackage#getData()
  * @model extendedMetaData="name='SecurityGoal'"
