@@ -58,17 +58,7 @@ class Transformation {
 	def dispatch generateCode(SecurityConcept securityConcept) {
 		var Copier copier = new Copier
 		initialConcept = copier.copy(securityConcept) as SecurityConcept
-		
-		for (comp : securityConcept.components){
-			println(comp.asset)
-//			var tmpC = copier.copy(comp) as Component
-//			var tmpA = copier.copy(comp.asset) as Asset
-//			tmpC.asset = tmpA 
-//			initialConcept.components.add(tmpC)
-//			initialConcept.assets.add(tmpA)
-		}
-		
-		
+		copier.copyReferences
 		oldSecurityConcept = securityConcept
 		// Select the IDs of components that should be aggregated
 		val int[] componentIDs = #[1, 4, 6]
@@ -133,13 +123,14 @@ class Transformation {
 		newSecurityConcept = buildSecurityConcept(componentIDs)
 		println("#########")
 		println("VALIDATION: ")
-		
-//		var valid = securityOracleValidation(initialConcept, newSecurityConcept, componentsOfInterest)
+
+		var valid = securityOracleValidation(initialConcept, newSecurityConcept, componentsOfInterest)
+		println(valid)
 		writeToSecrutiyConcept(newSecurityConcept)
 	}
 
 	def SecurityConcept buildSecurityConcept(int[] componentIDs) {
-		var SecurityConcept newSecurityConcept = createSecurityConcept 
+		var SecurityConcept newSecurityConcept = createSecurityConcept
 		newSecurityConcept.components.addAll(componentsOfInterest)
 		newSecurityConcept.connections.addAll(oldSecurityConcept.connections)
 		for (comp : componentsOfInterest) {
@@ -702,11 +693,14 @@ class Transformation {
 	def List<SecurityGoal> getFullSecurityGoalList(SecurityConcept securityConcept, Component component) {
 		var List<SecurityGoal> fullList = new ArrayList<SecurityGoal>
 		// Add the direct security goals
-		fullList.addAll(
-			securityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].asset?.securityGoals)
+		if (component.asset != null) {
+			fullList.addAll(securityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].asset?.
+				securityGoals)
+		}
 		// Add the security goals addressing the data
-		var List<Data> dataList = securityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].
-			data
+		var List<Data> dataList = securityConcept.components.findFirst [ c |
+			c.componentID.equals(component.componentID)
+		].data
 		for (data : dataList) {
 			fullList.addAll(data.asset?.securityGoals)
 		}
@@ -716,19 +710,28 @@ class Transformation {
 	def Boolean securityOracleValidation(SecurityConcept oldSecurityConcept, SecurityConcept newSecurityConcept,
 		List<Component> components) {
 		for (comp : components) {
-			var oldComp = findComponentByID(oldSecurityConcept, comp.componentID)
-			var newComp = findComponentByID(newSecurityConcept, comp.componentID)
 			var oldSGList = getFullSecurityGoalList(oldSecurityConcept, comp)
 			var newSGList = getFullSecurityGoalList(newSecurityConcept, comp)
 			var oldThreatList = getFullThreatList(oldSecurityConcept, comp)
 			var newThreatList = getFullThreatList(newSecurityConcept, comp)
-			// var oldControlList
+			// varoldControlList
 			// varnewControlList
-			if (newSGList.size < oldSGList.size || newThreatList.size < oldThreatList.size) {
-				return false
-			} else {
-				return true
+			var Boolean valid = true
+			// Check whether all old security goals are in the new concept
+			for (sg : oldSGList) {
+				if (!securityGoalInList(newSGList, sg)) {
+					valid = false
+					return valid
+				}
 			}
+			// Check whether all the old threats are in the new concept
+			for (threat : oldThreatList) {
+				if (!threatInList(newThreatList, threat)) {
+					valid = false
+					return valid
+				}
+			}
+			return valid
 		}
 	}
 
@@ -737,7 +740,7 @@ class Transformation {
 		Resource$Factory.Registry.INSTANCE.extensionToFactoryMap.put(SCPackage.eNS_URI, SCPackage.eINSTANCE)
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
 		val resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"))
-//		val resource = resourceSet.createResource(URI.createURI("MetaModel/transform.xmi"))
+//				val resource = resourceSet.createResource(URI.createURI("MetaModel/transform.xmi"))
 		val assets = newSecurityConcept.assets
 		val sg = newSecurityConcept.securityGoals
 		val comp = newSecurityConcept.components
