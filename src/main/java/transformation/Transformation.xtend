@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier
+
 import java.io.IOException
 import java.util.Collections
 import java.util.List
@@ -26,17 +28,12 @@ class Transformation {
 
 	List<Component> visitedNodes
 	List<Component> componentsOfInterest
-	List<SecurityGoal> securityGoals
 	Stack<Component> ancestorStack
 	Stack<Component> childStack
 	SCFactory factory
 	SecurityConcept newSecurityConcept
 	SecurityConcept oldSecurityConcept
-	// Resulting lists of security concept elements
-	List<Component> transformedComponents
-	List<Asset> transformedAssets
-	List<SecurityGoal> transformedSecurityGoals
-	List<Threat> transformedThreats
+	SecurityConcept initialConcept
 
 	def static void main(String[] args) {
 //		new Transformation().generate("MetaModel/minitest.xmi")
@@ -58,8 +55,20 @@ class Transformation {
 		}
 	}
 
-	// TODO: if connection array is empty check the sources/targets and add the corresponding connections to the components
 	def dispatch generateCode(SecurityConcept securityConcept) {
+		var Copier copier = new Copier
+		initialConcept = copier.copy(securityConcept) as SecurityConcept
+		
+		for (comp : securityConcept.components){
+			println(comp.asset)
+//			var tmpC = copier.copy(comp) as Component
+//			var tmpA = copier.copy(comp.asset) as Asset
+//			tmpC.asset = tmpA 
+//			initialConcept.components.add(tmpC)
+//			initialConcept.assets.add(tmpA)
+		}
+		
+		
 		oldSecurityConcept = securityConcept
 		// Select the IDs of components that should be aggregated
 		val int[] componentIDs = #[1, 4, 6]
@@ -121,16 +130,16 @@ class Transformation {
 
 //		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].connections.forEach[con|println(con.data)]
 		// Add the resulting elements and security attributes to the new security concept
-		newSecurityConcept = buildSecurityConcept()
-		
+		newSecurityConcept = buildSecurityConcept(componentIDs)
 		println("#########")
 		println("VALIDATION: ")
-		securityOracleValidation(oldSecurityConcept, newSecurityConcept, componentsOfInterest)
+		
+//		var valid = securityOracleValidation(initialConcept, newSecurityConcept, componentsOfInterest)
 		writeToSecrutiyConcept(newSecurityConcept)
 	}
 
-	def SecurityConcept buildSecurityConcept() {
-		newSecurityConcept = factory.createSecurityConcept
+	def SecurityConcept buildSecurityConcept(int[] componentIDs) {
+		var SecurityConcept newSecurityConcept = createSecurityConcept 
 		newSecurityConcept.components.addAll(componentsOfInterest)
 		newSecurityConcept.connections.addAll(oldSecurityConcept.connections)
 		for (comp : componentsOfInterest) {
@@ -139,12 +148,11 @@ class Transformation {
 			newSecurityConcept.securityGoals.addAll(comp.asset.securityGoals)
 			newSecurityConcept.threats.addAll(comp.asset.threats)
 		}
+
 		return newSecurityConcept
 	}
 
 	def generateSG(Component component) {
-		transformedSecurityGoals = new ArrayList<SecurityGoal>
-		transformedThreats = new ArrayList<Threat>
 		ancestorStack = new Stack<Component>
 		childStack = new Stack<Component>
 		if (!visitedNodes.contains(component)) {
@@ -157,10 +165,6 @@ class Transformation {
 				// Add the new component and its asset to the transformed lists
 				component.asset = asset
 				oldSecurityConcept.assets.add(asset)
-			}
-			// Check connections and add their security goals
-			for (Connection con : component.connections) {
-				transformedSecurityGoals.addAll(con.data.asset.securityGoals)
 			}
 		}
 		findAncestors(component, component)
@@ -475,9 +479,8 @@ class Transformation {
 		return factory.createConnection
 	}
 
-	def Component copyComponent(Component component) {
-		var copy = createComponent
-		return copy
+	def SecurityConcept createSecurityConcept() {
+		return factory.createSecurityConcept
 	}
 
 	def Data copyData(Data data) {
@@ -489,6 +492,15 @@ class Transformation {
 	def Asset copyAsset(Asset asset) {
 		var copy = createAsset
 		return copy
+	}
+
+	def SecurityConcept copySecurityConcept(SecurityConcept newSecurityConcept, SecurityConcept securityConcept) {
+		newSecurityConcept.components.addAll(securityConcept.components)
+		newSecurityConcept.assets.addAll(securityConcept.assets)
+		newSecurityConcept.securityGoals.addAll(securityConcept.securityGoals)
+		newSecurityConcept.connections.addAll(securityConcept.connections)
+		newSecurityConcept.threats.addAll(securityConcept.threats)
+		return newSecurityConcept
 	}
 
 	def SecurityGoal copySecurityGoal(SecurityGoal tmpSG, SecurityGoal securityGoal) {
@@ -689,7 +701,6 @@ class Transformation {
 
 	def List<SecurityGoal> getFullSecurityGoalList(SecurityConcept securityConcept, Component component) {
 		var List<SecurityGoal> fullList = new ArrayList<SecurityGoal>
-		println(component.componentID)
 		// Add the direct security goals
 		fullList.addAll(
 			securityConcept.components.findFirst[c|c.componentID.equals(component.componentID)].asset?.securityGoals)
