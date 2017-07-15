@@ -63,10 +63,11 @@ public class AssetItemProvider
 			addNamePropertyDescriptor(object);
 			addAssetIDPropertyDescriptor(object);
 			addSecurityGoalsPropertyDescriptor(object);
-			addComponentsPropertyDescriptor(object);
+			addComponentPropertyDescriptor(object);
 			addDataPropertyDescriptor(object);
 			addThreatsPropertyDescriptor(object);
 			addControlsPropertyDescriptor(object);
+			addAggregatedComponentsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -138,19 +139,19 @@ public class AssetItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Components feature.
+	 * This adds a property descriptor for the Component feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addComponentsPropertyDescriptor(Object object) {
+	protected void addComponentPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Asset_components_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Asset_components_feature", "_UI_Asset_type"),
-				 SCPackage.Literals.ASSET__COMPONENTS,
+				 getString("_UI_Asset_component_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Asset_component_feature", "_UI_Asset_type"),
+				 SCPackage.Literals.ASSET__COMPONENT,
 				 true,
 				 false,
 				 true,
@@ -226,6 +227,28 @@ public class AssetItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Aggregated Components feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAggregatedComponentsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Asset_aggregatedComponents_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Asset_aggregatedComponents_feature", "_UI_Asset_type"),
+				 SCPackage.Literals.ASSET__AGGREGATED_COMPONENTS,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Asset.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -265,6 +288,7 @@ public class AssetItemProvider
 		switch (notification.getFeatureID(Asset.class)) {
 			case SCPackage.ASSET__NAME:
 			case SCPackage.ASSET__ASSET_ID:
+			case SCPackage.ASSET__AGGREGATED_COMPONENTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

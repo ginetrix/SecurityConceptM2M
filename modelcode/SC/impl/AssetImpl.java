@@ -36,10 +36,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.AssetImpl#getName <em>Name</em>}</li>
  *   <li>{@link SC.impl.AssetImpl#getAssetID <em>Asset ID</em>}</li>
  *   <li>{@link SC.impl.AssetImpl#getSecurityGoals <em>Security Goals</em>}</li>
- *   <li>{@link SC.impl.AssetImpl#getComponents <em>Components</em>}</li>
+ *   <li>{@link SC.impl.AssetImpl#getComponent <em>Component</em>}</li>
  *   <li>{@link SC.impl.AssetImpl#getData <em>Data</em>}</li>
  *   <li>{@link SC.impl.AssetImpl#getThreats <em>Threats</em>}</li>
  *   <li>{@link SC.impl.AssetImpl#getControls <em>Controls</em>}</li>
+ *   <li>{@link SC.impl.AssetImpl#getAggregatedComponents <em>Aggregated Components</em>}</li>
  * </ul>
  * </p>
  *
@@ -97,14 +98,14 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 	protected EList<SecurityGoal> securityGoals;
 
 	/**
-	 * The cached value of the '{@link #getComponents() <em>Components</em>}' reference list.
+	 * The cached value of the '{@link #getComponent() <em>Component</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getComponents()
+	 * @see #getComponent()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Component> components;
+	protected Component component;
 
 	/**
 	 * The cached value of the '{@link #getData() <em>Data</em>}' reference.
@@ -135,6 +136,26 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 	 * @ordered
 	 */
 	protected EList<Control> controls;
+
+	/**
+	 * The default value of the '{@link #getAggregatedComponents() <em>Aggregated Components</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAggregatedComponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String AGGREGATED_COMPONENTS_EDEFAULT = " ";
+
+	/**
+	 * The cached value of the '{@link #getAggregatedComponents() <em>Aggregated Components</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAggregatedComponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected String aggregatedComponents = AGGREGATED_COMPONENTS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -214,11 +235,59 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Component> getComponents() {
-		if (components == null) {
-			components = new EObjectWithInverseResolvingEList<Component>(Component.class, this, SCPackage.ASSET__COMPONENTS, SCPackage.COMPONENT__ASSET);
+	public Component getComponent() {
+		if (component != null && component.eIsProxy()) {
+			InternalEObject oldComponent = (InternalEObject)component;
+			component = (Component)eResolveProxy(oldComponent);
+			if (component != oldComponent) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SCPackage.ASSET__COMPONENT, oldComponent, component));
+			}
 		}
-		return components;
+		return component;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Component basicGetComponent() {
+		return component;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetComponent(Component newComponent, NotificationChain msgs) {
+		Component oldComponent = component;
+		component = newComponent;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SCPackage.ASSET__COMPONENT, oldComponent, newComponent);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setComponent(Component newComponent) {
+		if (newComponent != component) {
+			NotificationChain msgs = null;
+			if (component != null)
+				msgs = ((InternalEObject)component).eInverseRemove(this, SCPackage.COMPONENT__ASSET, Component.class, msgs);
+			if (newComponent != null)
+				msgs = ((InternalEObject)newComponent).eInverseAdd(this, SCPackage.COMPONENT__ASSET, Component.class, msgs);
+			msgs = basicSetComponent(newComponent, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.ASSET__COMPONENT, newComponent, newComponent));
 	}
 
 	/**
@@ -310,14 +379,37 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getAggregatedComponents() {
+		return aggregatedComponents;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAggregatedComponents(String newAggregatedComponents) {
+		String oldAggregatedComponents = aggregatedComponents;
+		aggregatedComponents = newAggregatedComponents;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.ASSET__AGGREGATED_COMPONENTS, oldAggregatedComponents, aggregatedComponents));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case SCPackage.ASSET__SECURITY_GOALS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSecurityGoals()).basicAdd(otherEnd, msgs);
-			case SCPackage.ASSET__COMPONENTS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getComponents()).basicAdd(otherEnd, msgs);
+			case SCPackage.ASSET__COMPONENT:
+				if (component != null)
+					msgs = ((InternalEObject)component).eInverseRemove(this, SCPackage.COMPONENT__ASSET, Component.class, msgs);
+				return basicSetComponent((Component)otherEnd, msgs);
 			case SCPackage.ASSET__DATA:
 				if (data != null)
 					msgs = ((InternalEObject)data).eInverseRemove(this, SCPackage.DATA__ASSET, Data.class, msgs);
@@ -340,8 +432,8 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 		switch (featureID) {
 			case SCPackage.ASSET__SECURITY_GOALS:
 				return ((InternalEList<?>)getSecurityGoals()).basicRemove(otherEnd, msgs);
-			case SCPackage.ASSET__COMPONENTS:
-				return ((InternalEList<?>)getComponents()).basicRemove(otherEnd, msgs);
+			case SCPackage.ASSET__COMPONENT:
+				return basicSetComponent(null, msgs);
 			case SCPackage.ASSET__DATA:
 				return basicSetData(null, msgs);
 			case SCPackage.ASSET__THREATS:
@@ -366,8 +458,9 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 				return getAssetID();
 			case SCPackage.ASSET__SECURITY_GOALS:
 				return getSecurityGoals();
-			case SCPackage.ASSET__COMPONENTS:
-				return getComponents();
+			case SCPackage.ASSET__COMPONENT:
+				if (resolve) return getComponent();
+				return basicGetComponent();
 			case SCPackage.ASSET__DATA:
 				if (resolve) return getData();
 				return basicGetData();
@@ -375,6 +468,8 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 				return getThreats();
 			case SCPackage.ASSET__CONTROLS:
 				return getControls();
+			case SCPackage.ASSET__AGGREGATED_COMPONENTS:
+				return getAggregatedComponents();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -398,9 +493,8 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 				getSecurityGoals().clear();
 				getSecurityGoals().addAll((Collection<? extends SecurityGoal>)newValue);
 				return;
-			case SCPackage.ASSET__COMPONENTS:
-				getComponents().clear();
-				getComponents().addAll((Collection<? extends Component>)newValue);
+			case SCPackage.ASSET__COMPONENT:
+				setComponent((Component)newValue);
 				return;
 			case SCPackage.ASSET__DATA:
 				setData((Data)newValue);
@@ -412,6 +506,9 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 			case SCPackage.ASSET__CONTROLS:
 				getControls().clear();
 				getControls().addAll((Collection<? extends Control>)newValue);
+				return;
+			case SCPackage.ASSET__AGGREGATED_COMPONENTS:
+				setAggregatedComponents((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -434,8 +531,8 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 			case SCPackage.ASSET__SECURITY_GOALS:
 				getSecurityGoals().clear();
 				return;
-			case SCPackage.ASSET__COMPONENTS:
-				getComponents().clear();
+			case SCPackage.ASSET__COMPONENT:
+				setComponent((Component)null);
 				return;
 			case SCPackage.ASSET__DATA:
 				setData((Data)null);
@@ -445,6 +542,9 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 				return;
 			case SCPackage.ASSET__CONTROLS:
 				getControls().clear();
+				return;
+			case SCPackage.ASSET__AGGREGATED_COMPONENTS:
+				setAggregatedComponents(AGGREGATED_COMPONENTS_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -464,14 +564,16 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 				return assetID != ASSET_ID_EDEFAULT;
 			case SCPackage.ASSET__SECURITY_GOALS:
 				return securityGoals != null && !securityGoals.isEmpty();
-			case SCPackage.ASSET__COMPONENTS:
-				return components != null && !components.isEmpty();
+			case SCPackage.ASSET__COMPONENT:
+				return component != null;
 			case SCPackage.ASSET__DATA:
 				return data != null;
 			case SCPackage.ASSET__THREATS:
 				return threats != null && !threats.isEmpty();
 			case SCPackage.ASSET__CONTROLS:
 				return controls != null && !controls.isEmpty();
+			case SCPackage.ASSET__AGGREGATED_COMPONENTS:
+				return AGGREGATED_COMPONENTS_EDEFAULT == null ? aggregatedComponents != null : !AGGREGATED_COMPONENTS_EDEFAULT.equals(aggregatedComponents);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -490,6 +592,8 @@ public class AssetImpl extends MinimalEObjectImpl.Container implements Asset {
 		result.append(name);
 		result.append(", assetID: ");
 		result.append(assetID);
+		result.append(", aggregatedComponents: ");
+		result.append(aggregatedComponents);
 		result.append(')');
 		return result.toString();
 	}

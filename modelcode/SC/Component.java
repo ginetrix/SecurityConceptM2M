@@ -162,7 +162,7 @@ public interface Component extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Asset</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link SC.Asset#getComponents <em>Components</em>}'.
+	 * It is bidirectional and its opposite is '{@link SC.Asset#getComponent <em>Component</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Asset</em>' reference list isn't clear,
@@ -172,8 +172,8 @@ public interface Component extends EObject {
 	 * @return the value of the '<em>Asset</em>' reference.
 	 * @see #setAsset(Asset)
 	 * @see SC.SCPackage#getComponent_Asset()
-	 * @see SC.Asset#getComponents
-	 * @model opposite="components" keys="assetID"
+	 * @see SC.Asset#getComponent
+	 * @model opposite="component" keys="assetID"
 	 *        extendedMetaData="name='SecurityGoal'"
 	 * @generated
 	 */

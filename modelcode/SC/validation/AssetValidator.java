@@ -25,6 +25,8 @@ public interface AssetValidator {
 	boolean validateAssetID(int value);
 	boolean validateSecurityGoals(EList<SecurityGoal> value);
 
+	boolean validateComponents(Component value);
+
 	boolean validateComponents(EList<Component> value);
 
 	boolean validateComponent(EList<Component> value);
@@ -37,4 +39,6 @@ public interface AssetValidator {
 	boolean validateThreats(EList<Threat> value);
 
 	boolean validateControls(EList<Control> value);
+
+	boolean validateAggregatedComponents(String value);
 }

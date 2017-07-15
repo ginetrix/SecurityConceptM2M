@@ -54,6 +54,7 @@
       asset="//@assets.1"/>
   <threats description="T_SG_C1"
       threatID="3"
+      attackPotential="medium"
       securityGoals="//@securityGoals.0"
       asset="//@assets.0"/>
   <threats threatClass="InformationDisclosure"
@@ -82,7 +83,7 @@
   <assets name="Asset_C1"
       assetID="1"
       securityGoals="//@securityGoals.0"
-      components="//@components.0"
+      component="//@components.0"
       threats="//@threats.2"/>
   <assets name="Asset_D2"
       assetID="2"
@@ -92,7 +93,7 @@
   <assets name="Asset_C1.1.1"
       assetID="3"
       securityGoals="//@securityGoals.2"
-      components="//@components.3"
+      component="//@components.3"
       threats="//@threats.0"/>
   <assets name="Asset_D1"
       assetID="4"

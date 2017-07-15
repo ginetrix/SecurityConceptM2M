@@ -10,7 +10,7 @@ Package SC <http://www.example.org/securityconcept>
   Class SecurityGoal
     Attribute securityGoalClass : SecurityGoalClassType
     Attribute damagePotential : Damages
-    Reference dependsOnSecurityGoal : SecurityGoal<<0..*>>
+    Reference dependsOnSecurityGoals : SecurityGoal<<0..*>>
     Attribute description : EString
     Attribute securityGoalID : EInt
     Attribute name : EString
@@ -49,10 +49,11 @@ Package SC <http://www.example.org/securityconcept>
     Attribute name : EString
     Attribute assetID : EInt
     Reference securityGoals : SecurityGoal<<0..*>>
-    Reference components : Component<<0..*>>
+    Reference component : Component
     Reference data : Data
     Reference threats : Threat<<0..*>>
     Reference controls : Control<<0..*>>
+    Attribute aggregatedComponents : EString
 
   Class SecurityConcept
     Attribute name : EString

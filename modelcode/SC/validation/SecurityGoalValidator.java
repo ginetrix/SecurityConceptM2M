@@ -24,6 +24,8 @@ public interface SecurityGoalValidator {
 
 	boolean validateSecurityGoalClass(SecurityGoalClassType value);
 	boolean validateDamagePotential(Damages value);
+	boolean validateDependsOnSecurityGoals(EList<SecurityGoal> value);
+
 	boolean validateDependsOnSecurityGoal(EList<SecurityGoal> value);
 	boolean validateDescription(String value);
 	boolean validateSecurityGoalID(int value);

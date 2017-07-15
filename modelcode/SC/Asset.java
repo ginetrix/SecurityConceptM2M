@@ -17,10 +17,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Asset#getName <em>Name</em>}</li>
  *   <li>{@link SC.Asset#getAssetID <em>Asset ID</em>}</li>
  *   <li>{@link SC.Asset#getSecurityGoals <em>Security Goals</em>}</li>
- *   <li>{@link SC.Asset#getComponents <em>Components</em>}</li>
+ *   <li>{@link SC.Asset#getComponent <em>Component</em>}</li>
  *   <li>{@link SC.Asset#getData <em>Data</em>}</li>
  *   <li>{@link SC.Asset#getThreats <em>Threats</em>}</li>
  *   <li>{@link SC.Asset#getControls <em>Controls</em>}</li>
+ *   <li>{@link SC.Asset#getAggregatedComponents <em>Aggregated Components</em>}</li>
  * </ul>
  * </p>
  *
@@ -100,22 +101,32 @@ public interface Asset extends EObject {
 	EList<SecurityGoal> getSecurityGoals();
 
 	/**
-	 * Returns the value of the '<em><b>Components</b></em>' reference list.
-	 * The list contents are of type {@link SC.Component}.
+	 * Returns the value of the '<em><b>Component</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link SC.Component#getAsset <em>Asset</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Components</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Component</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Components</em>' reference list.
-	 * @see SC.SCPackage#getAsset_Components()
+	 * @return the value of the '<em>Component</em>' reference.
+	 * @see #setComponent(Component)
+	 * @see SC.SCPackage#getAsset_Component()
 	 * @see SC.Component#getAsset
 	 * @model opposite="asset" keys="componentID"
 	 * @generated
 	 */
-	EList<Component> getComponents();
+	Component getComponent();
+
+	/**
+	 * Sets the value of the '{@link SC.Asset#getComponent <em>Component</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Component</em>' reference.
+	 * @see #getComponent()
+	 * @generated
+	 */
+	void setComponent(Component value);
 
 	/**
 	 * Returns the value of the '<em><b>Data</b></em>' reference.
@@ -180,5 +191,32 @@ public interface Asset extends EObject {
 	 * @generated
 	 */
 	EList<Control> getControls();
+
+	/**
+	 * Returns the value of the '<em><b>Aggregated Components</b></em>' attribute.
+	 * The default value is <code>" "</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Aggregated Components</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Aggregated Components</em>' attribute.
+	 * @see #setAggregatedComponents(String)
+	 * @see SC.SCPackage#getAsset_AggregatedComponents()
+	 * @model default=" "
+	 * @generated
+	 */
+	String getAggregatedComponents();
+
+	/**
+	 * Sets the value of the '{@link SC.Asset#getAggregatedComponents <em>Aggregated Components</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Aggregated Components</em>' attribute.
+	 * @see #getAggregatedComponents()
+	 * @generated
+	 */
+	void setAggregatedComponents(String value);
 
 } // Asset

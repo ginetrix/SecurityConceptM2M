@@ -62,7 +62,7 @@ public class SecurityGoalItemProvider
 
 			addSecurityGoalClassPropertyDescriptor(object);
 			addDamagePotentialPropertyDescriptor(object);
-			addDependsOnSecurityGoalPropertyDescriptor(object);
+			addDependsOnSecurityGoalsPropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
 			addSecurityGoalIDPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
@@ -118,19 +118,19 @@ public class SecurityGoalItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Depends On Security Goal feature.
+	 * This adds a property descriptor for the Depends On Security Goals feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDependsOnSecurityGoalPropertyDescriptor(Object object) {
+	protected void addDependsOnSecurityGoalsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_SecurityGoal_dependsOnSecurityGoal_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SecurityGoal_dependsOnSecurityGoal_feature", "_UI_SecurityGoal_type"),
-				 SCPackage.Literals.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOAL,
+				 getString("_UI_SecurityGoal_dependsOnSecurityGoals_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SecurityGoal_dependsOnSecurityGoals_feature", "_UI_SecurityGoal_type"),
+				 SCPackage.Literals.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOALS,
 				 true,
 				 false,
 				 true,

@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link SC.impl.SecurityGoalImpl#getSecurityGoalClass <em>Security Goal Class</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getDamagePotential <em>Damage Potential</em>}</li>
- *   <li>{@link SC.impl.SecurityGoalImpl#getDependsOnSecurityGoal <em>Depends On Security Goal</em>}</li>
+ *   <li>{@link SC.impl.SecurityGoalImpl#getDependsOnSecurityGoals <em>Depends On Security Goals</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getSecurityGoalID <em>Security Goal ID</em>}</li>
  *   <li>{@link SC.impl.SecurityGoalImpl#getName <em>Name</em>}</li>
@@ -90,14 +90,14 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 	protected Damages damagePotential = DAMAGE_POTENTIAL_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getDependsOnSecurityGoal() <em>Depends On Security Goal</em>}' reference list.
+	 * The cached value of the '{@link #getDependsOnSecurityGoals() <em>Depends On Security Goals</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDependsOnSecurityGoal()
+	 * @see #getDependsOnSecurityGoals()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<SecurityGoal> dependsOnSecurityGoal;
+	protected EList<SecurityGoal> dependsOnSecurityGoals;
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
@@ -255,11 +255,11 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<SecurityGoal> getDependsOnSecurityGoal() {
-		if (dependsOnSecurityGoal == null) {
-			dependsOnSecurityGoal = new EObjectResolvingEList<SecurityGoal>(SecurityGoal.class, this, SCPackage.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOAL);
+	public EList<SecurityGoal> getDependsOnSecurityGoals() {
+		if (dependsOnSecurityGoals == null) {
+			dependsOnSecurityGoals = new EObjectResolvingEList<SecurityGoal>(SecurityGoal.class, this, SCPackage.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOALS);
 		}
-		return dependsOnSecurityGoal;
+		return dependsOnSecurityGoals;
 	}
 
 	/**
@@ -482,8 +482,8 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 				return getSecurityGoalClass();
 			case SCPackage.SECURITY_GOAL__DAMAGE_POTENTIAL:
 				return getDamagePotential();
-			case SCPackage.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOAL:
-				return getDependsOnSecurityGoal();
+			case SCPackage.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOALS:
+				return getDependsOnSecurityGoals();
 			case SCPackage.SECURITY_GOAL__DESCRIPTION:
 				return getDescription();
 			case SCPackage.SECURITY_GOAL__SECURITY_GOAL_ID:
@@ -517,9 +517,9 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 			case SCPackage.SECURITY_GOAL__DAMAGE_POTENTIAL:
 				setDamagePotential((Damages)newValue);
 				return;
-			case SCPackage.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOAL:
-				getDependsOnSecurityGoal().clear();
-				getDependsOnSecurityGoal().addAll((Collection<? extends SecurityGoal>)newValue);
+			case SCPackage.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOALS:
+				getDependsOnSecurityGoals().clear();
+				getDependsOnSecurityGoals().addAll((Collection<? extends SecurityGoal>)newValue);
 				return;
 			case SCPackage.SECURITY_GOAL__DESCRIPTION:
 				setDescription((String)newValue);
@@ -558,8 +558,8 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 			case SCPackage.SECURITY_GOAL__DAMAGE_POTENTIAL:
 				setDamagePotential(DAMAGE_POTENTIAL_EDEFAULT);
 				return;
-			case SCPackage.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOAL:
-				getDependsOnSecurityGoal().clear();
+			case SCPackage.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOALS:
+				getDependsOnSecurityGoals().clear();
 				return;
 			case SCPackage.SECURITY_GOAL__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
@@ -595,8 +595,8 @@ public class SecurityGoalImpl extends MinimalEObjectImpl.Container implements Se
 				return securityGoalClass != SECURITY_GOAL_CLASS_EDEFAULT;
 			case SCPackage.SECURITY_GOAL__DAMAGE_POTENTIAL:
 				return damagePotential != DAMAGE_POTENTIAL_EDEFAULT;
-			case SCPackage.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOAL:
-				return dependsOnSecurityGoal != null && !dependsOnSecurityGoal.isEmpty();
+			case SCPackage.SECURITY_GOAL__DEPENDS_ON_SECURITY_GOALS:
+				return dependsOnSecurityGoals != null && !dependsOnSecurityGoals.isEmpty();
 			case SCPackage.SECURITY_GOAL__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case SCPackage.SECURITY_GOAL__SECURITY_GOAL_ID:

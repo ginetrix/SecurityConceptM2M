@@ -86,13 +86,13 @@ public interface SCPackage extends EPackage {
 	int SECURITY_GOAL__DAMAGE_POTENTIAL = 1;
 
 	/**
-	 * The feature id for the '<em><b>Depends On Security Goal</b></em>' reference list.
+	 * The feature id for the '<em><b>Depends On Security Goals</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SECURITY_GOAL__DEPENDS_ON_SECURITY_GOAL = 2;
+	int SECURITY_GOAL__DEPENDS_ON_SECURITY_GOALS = 2;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -487,13 +487,13 @@ public interface SCPackage extends EPackage {
 	int ASSET__SECURITY_GOALS = 2;
 
 	/**
-	 * The feature id for the '<em><b>Components</b></em>' reference list.
+	 * The feature id for the '<em><b>Component</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSET__COMPONENTS = 3;
+	int ASSET__COMPONENT = 3;
 
 	/**
 	 * The feature id for the '<em><b>Data</b></em>' reference.
@@ -523,13 +523,22 @@ public interface SCPackage extends EPackage {
 	int ASSET__CONTROLS = 6;
 
 	/**
+	 * The feature id for the '<em><b>Aggregated Components</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSET__AGGREGATED_COMPONENTS = 7;
+
+	/**
 	 * The number of structural features of the '<em>Asset</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSET_FEATURE_COUNT = 7;
+	int ASSET_FEATURE_COUNT = 8;
 
 	/**
 	 * The number of operations of the '<em>Asset</em>' class.
@@ -833,15 +842,15 @@ public interface SCPackage extends EPackage {
 	EAttribute getSecurityGoal_DamagePotential();
 
 	/**
-	 * Returns the meta object for the reference list '{@link SC.SecurityGoal#getDependsOnSecurityGoal <em>Depends On Security Goal</em>}'.
+	 * Returns the meta object for the reference list '{@link SC.SecurityGoal#getDependsOnSecurityGoals <em>Depends On Security Goals</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Depends On Security Goal</em>'.
-	 * @see SC.SecurityGoal#getDependsOnSecurityGoal()
+	 * @return the meta object for the reference list '<em>Depends On Security Goals</em>'.
+	 * @see SC.SecurityGoal#getDependsOnSecurityGoals()
 	 * @see #getSecurityGoal()
 	 * @generated
 	 */
-	EReference getSecurityGoal_DependsOnSecurityGoal();
+	EReference getSecurityGoal_DependsOnSecurityGoals();
 
 	/**
 	 * Returns the meta object for the attribute '{@link SC.SecurityGoal#getDescription <em>Description</em>}'.
@@ -1202,15 +1211,15 @@ public interface SCPackage extends EPackage {
 	EReference getAsset_SecurityGoals();
 
 	/**
-	 * Returns the meta object for the reference list '{@link SC.Asset#getComponents <em>Components</em>}'.
+	 * Returns the meta object for the reference '{@link SC.Asset#getComponent <em>Component</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Components</em>'.
-	 * @see SC.Asset#getComponents()
+	 * @return the meta object for the reference '<em>Component</em>'.
+	 * @see SC.Asset#getComponent()
 	 * @see #getAsset()
 	 * @generated
 	 */
-	EReference getAsset_Components();
+	EReference getAsset_Component();
 
 	/**
 	 * Returns the meta object for the reference '{@link SC.Asset#getData <em>Data</em>}'.
@@ -1244,6 +1253,17 @@ public interface SCPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAsset_Controls();
+
+	/**
+	 * Returns the meta object for the attribute '{@link SC.Asset#getAggregatedComponents <em>Aggregated Components</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Aggregated Components</em>'.
+	 * @see SC.Asset#getAggregatedComponents()
+	 * @see #getAsset()
+	 * @generated
+	 */
+	EAttribute getAsset_AggregatedComponents();
 
 	/**
 	 * Returns the meta object for class '{@link SC.SecurityConcept <em>Security Concept</em>}'.
@@ -1531,12 +1551,12 @@ public interface SCPackage extends EPackage {
 		EAttribute SECURITY_GOAL__DAMAGE_POTENTIAL = eINSTANCE.getSecurityGoal_DamagePotential();
 
 		/**
-		 * The meta object literal for the '<em><b>Depends On Security Goal</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Depends On Security Goals</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SECURITY_GOAL__DEPENDS_ON_SECURITY_GOAL = eINSTANCE.getSecurityGoal_DependsOnSecurityGoal();
+		EReference SECURITY_GOAL__DEPENDS_ON_SECURITY_GOALS = eINSTANCE.getSecurityGoal_DependsOnSecurityGoals();
 
 		/**
 		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
@@ -1813,12 +1833,12 @@ public interface SCPackage extends EPackage {
 		EReference ASSET__SECURITY_GOALS = eINSTANCE.getAsset_SecurityGoals();
 
 		/**
-		 * The meta object literal for the '<em><b>Components</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Component</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ASSET__COMPONENTS = eINSTANCE.getAsset_Components();
+		EReference ASSET__COMPONENT = eINSTANCE.getAsset_Component();
 
 		/**
 		 * The meta object literal for the '<em><b>Data</b></em>' reference feature.
@@ -1843,6 +1863,14 @@ public interface SCPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ASSET__CONTROLS = eINSTANCE.getAsset_Controls();
+
+		/**
+		 * The meta object literal for the '<em><b>Aggregated Components</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ASSET__AGGREGATED_COMPONENTS = eINSTANCE.getAsset_AggregatedComponents();
 
 		/**
 		 * The meta object literal for the '{@link SC.impl.SecurityConceptImpl <em>Security Concept</em>}' class.

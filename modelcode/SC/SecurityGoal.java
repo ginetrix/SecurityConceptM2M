@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link SC.SecurityGoal#getSecurityGoalClass <em>Security Goal Class</em>}</li>
  *   <li>{@link SC.SecurityGoal#getDamagePotential <em>Damage Potential</em>}</li>
- *   <li>{@link SC.SecurityGoal#getDependsOnSecurityGoal <em>Depends On Security Goal</em>}</li>
+ *   <li>{@link SC.SecurityGoal#getDependsOnSecurityGoals <em>Depends On Security Goals</em>}</li>
  *   <li>{@link SC.SecurityGoal#getDescription <em>Description</em>}</li>
  *   <li>{@link SC.SecurityGoal#getSecurityGoalID <em>Security Goal ID</em>}</li>
  *   <li>{@link SC.SecurityGoal#getName <em>Name</em>}</li>
@@ -91,21 +91,21 @@ public interface SecurityGoal extends EObject {
 	void setDamagePotential(Damages value);
 
 	/**
-	 * Returns the value of the '<em><b>Depends On Security Goal</b></em>' reference list.
+	 * Returns the value of the '<em><b>Depends On Security Goals</b></em>' reference list.
 	 * The list contents are of type {@link SC.SecurityGoal}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Depends On Security Goal</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Depends On Security Goals</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Depends On Security Goal</em>' reference list.
-	 * @see SC.SCPackage#getSecurityGoal_DependsOnSecurityGoal()
+	 * @return the value of the '<em>Depends On Security Goals</em>' reference list.
+	 * @see SC.SCPackage#getSecurityGoal_DependsOnSecurityGoals()
 	 * @model keys="securityGoalID"
 	 *        extendedMetaData="name='SecurityGoal'"
 	 * @generated
 	 */
-	EList<SecurityGoal> getDependsOnSecurityGoal();
+	EList<SecurityGoal> getDependsOnSecurityGoals();
 
 	/**
 	 * Returns the value of the '<em><b>Description</b></em>' attribute.

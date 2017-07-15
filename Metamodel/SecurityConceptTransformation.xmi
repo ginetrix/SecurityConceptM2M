@@ -1,63 +1,69 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:SC="http://www.example.org/securityconcept">
-  <SC:Asset name="Asset_C1" assetID="1" securityGoals="/3" threats="/11 /12">
-    <components href="MetaModel/SecurityConceptTransformation.xmi#/8"/>
-    <components href="MetaModel/SecurityConcept_MT_example.xmi#//@components.6"/>
-    <components href="MetaModel/SecurityConcept_MT_example.xmi#//@components.7"/>
-    <components href="MetaModel/SecurityConcept_MT_example.xmi#//@components.8"/>
-    <components href="MetaModel/SecurityConcept_MT_example.xmi#//@components.9"/>
-  </SC:Asset>
-  <SC:Asset name="Asset_C1.1.1" assetID="3" securityGoals="/4 /5 /6 /7" components="/9" threats="/13"/>
-  <SC:Asset name="Asset_C2" assetID="12">
-    <components href="MetaModel/SecurityConceptTransformation.xmi#/10"/>
-    <components href="MetaModel/SecurityConcept_MT_example.xmi#//@components.10"/>
-  </SC:Asset>
-  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="1" name="SG_C1" asset="/0" threats="/11" component="/8"/>
-  <SC:SecurityGoal securityGoalClass="Availability" damagePotential="high" securityGoalID="3" name="SG_C1.1.1" asset="/1" threats="/13" component="/9"/>
-  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="7" name="C1.1.1" asset="/1" component="/9">
-    <threats href="MetaModel/SecurityConcept_MT_example.xmi#//@threats.6"/>
-  </SC:SecurityGoal>
-  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="12" name="C1.1.1" asset="/1" component="/9">
-    <threats href="MetaModel/SecurityConcept_MT_example.xmi#//@threats.14"/>
-  </SC:SecurityGoal>
-  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="13" name="C1.1.1" asset="/1" component="/9">
-    <threats href="MetaModel/SecurityConcept_MT_example.xmi#//@threats.15"/>
-  </SC:SecurityGoal>
-  <SC:Component name="C1" componentID="1" asset="/0" data="/14 /15 /16">
-    <subcomponents href="MetaModel/SecurityConcept_MT_example.xmi#//@components.0"/>
-    <subcomponents href="MetaModel/SecurityConcept_MT_example.xmi#//@components.1"/>
-  </SC:Component>
-  <SC:Component name="C1.1.1" componentID="4" asset="/1">
-    <ancestor href="MetaModel/SecurityConcept_MT_example.xmi#//@components.0"/>
-  </SC:Component>
-  <SC:Component name="C2" componentID="6" asset="/2" data="/17 /18 /19" connections="/21">
-    <subcomponents href="MetaModel/SecurityConcept_MT_example.xmi#//@components.3"/>
-  </SC:Component>
-  <SC:Threat description="T_SG_C1" threatID="3" securityGoals="/3" asset="/0"/>
+  <SC:Asset name="Asset_C1" assetID="1" securityGoals="/15" component="/30" threats="/39 /47"/>
+  <SC:Asset name="Asset_D2" assetID="2" securityGoals="/16" data="/61" threats="/38"/>
+  <SC:Asset name="Asset_C1.1.1" assetID="3" securityGoals="/17 /21 /26 /27" component="/33" threats="/37"/>
+  <SC:Asset name="Asset_D1" assetID="4" securityGoals="/18" data="/60" threats="/40 /41"/>
+  <SC:Asset name="Asset_D3" assetID="5" securityGoals="/19" data="/62" threats="/42 /43"/>
+  <SC:Asset name="Asset_C1.1" assetID="6" securityGoals="/20 /25" component="/31" threats="/46"/>
+  <SC:Asset name="Asset_C1.1.2" assetID="7" component="/34"/>
+  <SC:Asset name="Data 2" assetID="8" securityGoals="/22" data="/63" threats="/48"/>
+  <SC:Asset name="Asset_C1.2" assetID="9" component="/32"/>
+  <SC:Asset name="Data 1" assetID="10" securityGoals="/23" threats="/49 /50"/>
+  <SC:Asset name="Data 3" assetID="11" securityGoals="/24" threats="/51 /52"/>
+  <SC:Asset name="Asset_C2" assetID="12" component="/35"/>
+  <SC:Asset name="Asset_C2.1" assetID="13" component="/36"/>
+  <SC:Asset name="Data 1" assetID="14" securityGoals="/28" threats="/56 /57"/>
+  <SC:Asset name="Data 3" assetID="15" securityGoals="/29" threats="/58 /59"/>
+  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="1" name="SG_C1" asset="/0" threats="/39" component="/30"/>
+  <SC:SecurityGoal damagePotential="medium" securityGoalID="2" name="SG_D2" asset="/1" threats="/38" component="/31"/>
+  <SC:SecurityGoal securityGoalClass="Availability" damagePotential="high" securityGoalID="3" name="SG_C1.1.1" asset="/2" threats="/37" component="/33"/>
+  <SC:SecurityGoal damagePotential="high" description="" securityGoalID="4" name="SG_D1" asset="/3" threats="/40 /41"/>
+  <SC:SecurityGoal damagePotential="medium" description="" securityGoalID="5" name="SG_D3" asset="/4" threats="/42 /43"/>
+  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="6" name="C1.1" asset="/5" threats="/44" component="/31"/>
+  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="7" name="C1.1.1" asset="/2" threats="/45" component="/33"/>
+  <SC:SecurityGoal damagePotential="medium" securityGoalID="8" name="Data 2_C1" asset="/7" component="/30"/>
+  <SC:SecurityGoal damagePotential="high" description="" securityGoalID="9" name="Data 1_C1" asset="/9" component="/30"/>
+  <SC:SecurityGoal damagePotential="medium" description="" securityGoalID="10" name="Data 3_C1" asset="/10" component="/30"/>
+  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="11" name="C1.1" asset="/5" threats="/53" component="/31"/>
+  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="12" name="C1.1.1" asset="/2" threats="/54" component="/33"/>
+  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="13" name="C1.1.1" asset="/2" threats="/55" component="/33"/>
+  <SC:SecurityGoal damagePotential="high" description="" securityGoalID="14" name="Data 1_C2" asset="/13" component="/35"/>
+  <SC:SecurityGoal damagePotential="medium" description="" securityGoalID="15" name="Data 3_C2" asset="/14" component="/35"/>
+  <SC:Component name="C1" componentID="1" subcomponents="/31 /32" asset="/0" data="/63"/>
+  <SC:Component name="C1.1" componentID="2" subcomponents="/33 /34" ancestor="/30" asset="/5" data="/61" connections="/64"/>
+  <SC:Component name="C1.2" componentID="3" ancestor="/30" asset="/8" connections="/65"/>
+  <SC:Component name="C1.1.1" componentID="4" ancestor="/31" asset="/2"/>
+  <SC:Component name="C1.1.2" componentID="5" ancestor="/31" asset="/6"/>
+  <SC:Component name="C2" componentID="6" subcomponents="/36" asset="/11" connections="/65"/>
+  <SC:Component name="C2.1" componentID="7" ancestor="/35" asset="/12" connections="/64"/>
+  <SC:Threat threatClass="DenialOfService" description="T_SG_C1.1.1" threatID="1" securityGoals="/17" asset="/2"/>
+  <SC:Threat threatClass="Tampering" description="T_SG_D2" threatID="2" attackPotential="high" securityGoals="/16" asset="/1"/>
+  <SC:Threat description="T_SG_C1" threatID="3" securityGoals="/15" asset="/0"/>
+  <SC:Threat threatClass="InformationDisclosure" description="T1_SG_D1" threatID="4" securityGoals="/18" asset="/3"/>
+  <SC:Threat threatClass="InformationDisclosure" description="T2_SG_D1" threatID="5" attackPotential="medium" securityGoals="/18" asset="/3"/>
+  <SC:Threat threatClass="InformationDisclosure" description="T1_SG_D3" threatID="6" attackPotential="medium" securityGoals="/19" asset="/4"/>
+  <SC:Threat threatClass="ElevationOfPrivilege" description="T2_SG_D3" threatID="7" attackPotential="high" securityGoals="/19" asset="/4"/>
+  <SC:Threat description="C1.1" threatID="8" securityGoals="/20"/>
+  <SC:Threat description="C1.1.1" threatID="9" securityGoals="/21"/>
+  <SC:Threat threatClass="DenialOfService" description="C1.1" threatID="10" asset="/5"/>
   <SC:Threat threatClass="DenialOfService" description="C1" threatID="11" asset="/0"/>
-  <SC:Threat threatClass="DenialOfService" description="T_SG_C1.1.1" threatID="1" securityGoals="/4" asset="/1"/>
-  <SC:Data name="Data 2">
-    <asset href="MetaModel/SecurityConcept_MT_example.xmi#//@assets.5"/>
-  </SC:Data>
-  <SC:Data name="Data 1">
-    <asset href="MetaModel/SecurityConcept_MT_example.xmi#//@assets.7"/>
-  </SC:Data>
-  <SC:Data name="Data 3">
-    <asset href="MetaModel/SecurityConcept_MT_example.xmi#//@assets.8"/>
-  </SC:Data>
-  <SC:Data name="Data 2">
-    <asset href="MetaModel/SecurityConcept_MT_example.xmi#//@assets.10"/>
-  </SC:Data>
-  <SC:Data name="Data 1">
-    <asset href="MetaModel/SecurityConcept_MT_example.xmi#//@assets.11"/>
-  </SC:Data>
-  <SC:Data name="Data 3">
-    <asset href="MetaModel/SecurityConcept_MT_example.xmi#//@assets.12"/>
-  </SC:Data>
-  <SC:Connection name="C2_C1 Data 1" connectionID="1" source="/10" target="/8">
-    <data href="MetaModel/SecurityConcept_MT_example.xmi#//@data.0"/>
-  </SC:Connection>
-  <SC:Connection name="C2_C1 Data 3" connectionID="2" source="/10" target="/8">
-    <data href="MetaModel/SecurityConcept_MT_example.xmi#//@data.2"/>
-  </SC:Connection>
+  <SC:Threat threatClass="Tampering" threatID="12" attackPotential="high" asset="/7"/>
+  <SC:Threat threatClass="InformationDisclosure" threatID="13" asset="/9"/>
+  <SC:Threat threatClass="InformationDisclosure" threatID="14" attackPotential="medium" asset="/9"/>
+  <SC:Threat threatClass="InformationDisclosure" threatID="15" attackPotential="medium" asset="/10"/>
+  <SC:Threat threatClass="ElevationOfPrivilege" threatID="16" attackPotential="high" asset="/10"/>
+  <SC:Threat description="C1.1" threatID="17" securityGoals="/25"/>
+  <SC:Threat description="C1.1.1" threatID="18" securityGoals="/26"/>
+  <SC:Threat description="C1.1.1" threatID="19" securityGoals="/27"/>
+  <SC:Threat threatClass="InformationDisclosure" threatID="20" asset="/13"/>
+  <SC:Threat threatClass="InformationDisclosure" threatID="21" attackPotential="medium" asset="/13"/>
+  <SC:Threat threatClass="InformationDisclosure" threatID="22" attackPotential="medium" asset="/14"/>
+  <SC:Threat threatClass="ElevationOfPrivilege" threatID="23" attackPotential="high" asset="/14"/>
+  <SC:Data name="Data 1" dataID="1" asset="/3"/>
+  <SC:Data name="Data 2" dataID="2" asset="/1"/>
+  <SC:Data name="Data 3" dataID="3" asset="/4"/>
+  <SC:Data name="Data 2" asset="/7"/>
+  <SC:Connection name="C2_C1 Data 1" connectionID="1" source="/35" target="/30" data="/60"/>
+  <SC:Connection name="C2_C1 Data 3" connectionID="2" source="/35" target="/30" data="/62"/>
 </xmi:XMI>

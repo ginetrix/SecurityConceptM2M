@@ -340,9 +340,9 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 		if (newAsset != asset) {
 			NotificationChain msgs = null;
 			if (asset != null)
-				msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__COMPONENTS, Asset.class, msgs);
+				msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__COMPONENT, Asset.class, msgs);
 			if (newAsset != null)
-				msgs = ((InternalEObject)newAsset).eInverseAdd(this, SCPackage.ASSET__COMPONENTS, Asset.class, msgs);
+				msgs = ((InternalEObject)newAsset).eInverseAdd(this, SCPackage.ASSET__COMPONENT, Asset.class, msgs);
 			msgs = basicSetAsset(newAsset, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -367,7 +367,7 @@ public class ComponentImpl extends MinimalEObjectImpl.Container implements Compo
 				return basicSetAncestor((Component)otherEnd, msgs);
 			case SCPackage.COMPONENT__ASSET:
 				if (asset != null)
-					msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__COMPONENTS, Asset.class, msgs);
+					msgs = ((InternalEObject)asset).eInverseRemove(this, SCPackage.ASSET__COMPONENT, Asset.class, msgs);
 				return basicSetAsset((Asset)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
