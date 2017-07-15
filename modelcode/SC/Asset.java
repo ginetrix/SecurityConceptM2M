@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Asset#getName <em>Name</em>}</li>
  *   <li>{@link SC.Asset#getAssetID <em>Asset ID</em>}</li>
  *   <li>{@link SC.Asset#getSecurityGoals <em>Security Goals</em>}</li>
- *   <li>{@link SC.Asset#getComponent <em>Component</em>}</li>
+ *   <li>{@link SC.Asset#getComponents <em>Components</em>}</li>
  *   <li>{@link SC.Asset#getData <em>Data</em>}</li>
  *   <li>{@link SC.Asset#getThreats <em>Threats</em>}</li>
  *   <li>{@link SC.Asset#getControls <em>Controls</em>}</li>
@@ -100,32 +100,22 @@ public interface Asset extends EObject {
 	EList<SecurityGoal> getSecurityGoals();
 
 	/**
-	 * Returns the value of the '<em><b>Component</b></em>' reference.
+	 * Returns the value of the '<em><b>Components</b></em>' reference list.
+	 * The list contents are of type {@link SC.Component}.
 	 * It is bidirectional and its opposite is '{@link SC.Component#getAsset <em>Asset</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Component</em>' reference isn't clear,
+	 * If the meaning of the '<em>Components</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Component</em>' reference.
-	 * @see #setComponent(Component)
-	 * @see SC.SCPackage#getAsset_Component()
+	 * @return the value of the '<em>Components</em>' reference list.
+	 * @see SC.SCPackage#getAsset_Components()
 	 * @see SC.Component#getAsset
 	 * @model opposite="asset" keys="componentID"
 	 * @generated
 	 */
-	Component getComponent();
-
-	/**
-	 * Sets the value of the '{@link SC.Asset#getComponent <em>Component</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Component</em>' reference.
-	 * @see #getComponent()
-	 * @generated
-	 */
-	void setComponent(Component value);
+	EList<Component> getComponents();
 
 	/**
 	 * Returns the value of the '<em><b>Data</b></em>' reference.

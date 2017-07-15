@@ -487,13 +487,13 @@ public interface SCPackage extends EPackage {
 	int ASSET__SECURITY_GOALS = 2;
 
 	/**
-	 * The feature id for the '<em><b>Component</b></em>' reference.
+	 * The feature id for the '<em><b>Components</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSET__COMPONENT = 3;
+	int ASSET__COMPONENTS = 3;
 
 	/**
 	 * The feature id for the '<em><b>Data</b></em>' reference.
@@ -1202,15 +1202,15 @@ public interface SCPackage extends EPackage {
 	EReference getAsset_SecurityGoals();
 
 	/**
-	 * Returns the meta object for the reference '{@link SC.Asset#getComponent <em>Component</em>}'.
+	 * Returns the meta object for the reference list '{@link SC.Asset#getComponents <em>Components</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Component</em>'.
-	 * @see SC.Asset#getComponent()
+	 * @return the meta object for the reference list '<em>Components</em>'.
+	 * @see SC.Asset#getComponents()
 	 * @see #getAsset()
 	 * @generated
 	 */
-	EReference getAsset_Component();
+	EReference getAsset_Components();
 
 	/**
 	 * Returns the meta object for the reference '{@link SC.Asset#getData <em>Data</em>}'.
@@ -1813,12 +1813,12 @@ public interface SCPackage extends EPackage {
 		EReference ASSET__SECURITY_GOALS = eINSTANCE.getAsset_SecurityGoals();
 
 		/**
-		 * The meta object literal for the '<em><b>Component</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Components</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ASSET__COMPONENT = eINSTANCE.getAsset_Component();
+		EReference ASSET__COMPONENTS = eINSTANCE.getAsset_Components();
 
 		/**
 		 * The meta object literal for the '<em><b>Data</b></em>' reference feature.

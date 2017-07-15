@@ -63,7 +63,7 @@ public class AssetItemProvider
 			addNamePropertyDescriptor(object);
 			addAssetIDPropertyDescriptor(object);
 			addSecurityGoalsPropertyDescriptor(object);
-			addComponentPropertyDescriptor(object);
+			addComponentsPropertyDescriptor(object);
 			addDataPropertyDescriptor(object);
 			addThreatsPropertyDescriptor(object);
 			addControlsPropertyDescriptor(object);
@@ -138,19 +138,19 @@ public class AssetItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Component feature.
+	 * This adds a property descriptor for the Components feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addComponentPropertyDescriptor(Object object) {
+	protected void addComponentsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Asset_component_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Asset_component_feature", "_UI_Asset_type"),
-				 SCPackage.Literals.ASSET__COMPONENT,
+				 getString("_UI_Asset_components_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Asset_components_feature", "_UI_Asset_type"),
+				 SCPackage.Literals.ASSET__COMPONENTS,
 				 true,
 				 false,
 				 true,
