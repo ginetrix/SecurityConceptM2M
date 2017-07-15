@@ -4963,7 +4963,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_9jmioFUmEeeYZdTiBGEIIg" sourceNode="_7h6J8FUhEeeYZdTiBGEIIg" targetNode="_7h90UFUhEeeYZdTiBGEIIg" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_9jnwwFUmEeeYZdTiBGEIIg" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_9jnwwVUmEeeYZdTiBGEIIg" showIcon="false"/>
@@ -5999,7 +5999,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_oELhwFUoEeelXPHn_Tz2-g" sourceNode="_oDPtoFUoEeelXPHn_Tz2-g" targetNode="_oDTYAFUoEeelXPHn_Tz2-g" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_oEMI0FUoEeelXPHn_Tz2-g" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_oEMI0VUoEeelXPHn_Tz2-g" showIcon="false"/>
@@ -7045,7 +7045,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hShgw1zIEeeVwdJj_Zr9Og" sourceNode="_hRwEsFzIEeeVwdJj_Zr9Og" targetNode="_hRyg8FzIEeeVwdJj_Zr9Og" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hSiH0FzIEeeVwdJj_Zr9Og" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_hSiH0VzIEeeVwdJj_Zr9Og" showIcon="false"/>
@@ -8079,7 +8079,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_Xy-yQ1zKEeeVwdJj_Zr9Og" sourceNode="_Xyx98lzKEeeVwdJj_Zr9Og" targetNode="_XyzMElzKEeeVwdJj_Zr9Og" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_Xy-yRFzKEeeVwdJj_Zr9Og" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_Xy-yRVzKEeeVwdJj_Zr9Og" showIcon="false"/>
@@ -9161,7 +9161,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_AZH6f1zLEeeVwdJj_Zr9Og" sourceNode="_AY-JcFzLEeeVwdJj_Zr9Og" targetNode="_AY-wglzLEeeVwdJj_Zr9Og" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_AZIhgFzLEeeVwdJj_Zr9Og" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_AZIhgVzLEeeVwdJj_Zr9Og" showIcon="false"/>
@@ -10284,7 +10284,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_3DEFAF0BEeemq-juOvKq4A" sourceNode="_3CakwF0BEeemq-juOvKq4A" targetNode="_3CdBAF0BEeemq-juOvKq4A" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_3DEsEF0BEeemq-juOvKq4A" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_3DEsEV0BEeemq-juOvKq4A" showIcon="false"/>
@@ -11431,7 +11431,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_r7Xz4F_rEeeB8aX4_Ke5Pg" sourceNode="_r6H2sF_rEeeB8aX4_Ke5Pg" targetNode="_r6K6AF_rEeeB8aX4_Ke5Pg" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_r7Ya8F_rEeeB8aX4_Ke5Pg" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_r7Ya8V_rEeeB8aX4_Ke5Pg" showIcon="false"/>
@@ -12693,7 +12693,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_cXniSmJIEeeZw_SA1D_OEQ" sourceNode="_cW2tNGJIEeeZw_SA1D_OEQ" targetNode="_cW2tOmJIEeeZw_SA1D_OEQ" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_cXniS2JIEeeZw_SA1D_OEQ" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_cXniTGJIEeeZw_SA1D_OEQ" showIcon="false"/>
@@ -13950,7 +13950,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_4rb5IGTlEeeH47h0-4M1FA" sourceNode="_4p8EUGTlEeeH47h0-4M1FA" targetNode="_4qAVwGTlEeeH47h0-4M1FA" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_4rcgMGTlEeeH47h0-4M1FA" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_4rcgMWTlEeeH47h0-4M1FA" showIcon="false"/>
@@ -15040,7 +15040,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_C9S8gGWAEeegF89jEuWADA" sourceNode="_C8rRcGWAEeegF89jEuWADA" targetNode="_C8sfkmWAEeegF89jEuWADA" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_C9S8gWWAEeegF89jEuWADA" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_C9S8gmWAEeegF89jEuWADA" showIcon="false"/>
@@ -16208,7 +16208,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_anN-82dTEeebb518JnlRXA" sourceNode="_amniAGdTEeebb518JnlRXA" targetNode="_amrzcWdTEeebb518JnlRXA" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_anOmAGdTEeebb518JnlRXA" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_anOmAWdTEeebb518JnlRXA" showIcon="false"/>
@@ -17564,7 +17564,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_rdegc2gOEee5cK-y7LX0kA" sourceNode="_rc4DgGgOEee5cK-y7LX0kA" targetNode="_rc54sGgOEee5cK-y7LX0kA" beginLabel="[0..1] component" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_rdegdGgOEee5cK-y7LX0kA" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_rdegdWgOEee5cK-y7LX0kA" showIcon="false"/>
@@ -18891,7 +18891,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_brUi42lZEeebb518JnlRXA" sourceNode="_bqxwUGlZEeebb518JnlRXA" targetNode="_bqy-cGlZEeebb518JnlRXA" beginLabel="[0..*] components" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_brUi5GlZEeebb518JnlRXA" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_brUi5WlZEeebb518JnlRXA" showIcon="false"/>
@@ -20201,10 +20201,10 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_yRqEhGmDEeebb518JnlRXA" sourceNode="_yRUtUmmDEeebb518JnlRXA" targetNode="_yRV7cGmDEeebb518JnlRXA" beginLabel="[0..1] component" endLabel="[0..1] asset">
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_yRqEhGmDEeebb518JnlRXA" sourceNode="_yRUtUmmDEeebb518JnlRXA" targetNode="_yRV7cGmDEeebb518JnlRXA" beginLabel="[0..*] components" endLabel="[0..1] asset">
       <target xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
       <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Component/asset"/>
-      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/component"/>
+      <semanticElements xmi:type="ecore:EReference" href="SecurityConcept.ecore#//Asset/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_yRqEhWmDEeebb518JnlRXA" sourceArrow="InputArrow" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']/@style"/>
         <beginLabelStyle xmi:type="diagram:BeginLabelStyle" xmi:id="_yRqEhmmDEeebb518JnlRXA" showIcon="false"/>

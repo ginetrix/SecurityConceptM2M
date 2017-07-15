@@ -79,7 +79,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ancestor" eType="#//Component"
         eOpposite="#//Component/subcomponents"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="asset" eType="#//Asset"
-        eOpposite="#//Asset/component" eKeys="#//Asset/assetID">
+        eOpposite="#//Asset/components" eKeys="#//Asset/assetID">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="SecurityGoal"/>
       </eAnnotations>
@@ -109,8 +109,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="assetID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="securityGoals" upperBound="-1"
         eType="#//SecurityGoal" eOpposite="#//SecurityGoal/asset"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="#//Component"
-        eOpposite="#//Component/asset" eKeys="#//Component/componentID"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
+        eType="#//Component" eOpposite="#//Component/asset" eKeys="#//Component/componentID"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="data" eType="#//Data" eOpposite="#//Data/asset"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="threats" upperBound="-1"
         eType="#//Threat" eOpposite="#//Threat/asset"/>
