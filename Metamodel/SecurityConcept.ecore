@@ -6,7 +6,7 @@
         eType="#//SecurityGoalClassType" defaultValueLiteral="Confidentiality"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="damagePotential" eType="#//Damages"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dependsOnSecurityGoals"
-        upperBound="-1" eType="#//SecurityGoal" eKeys="#//SecurityGoal/securityGoalID">
+        upperBound="-1" eType="#//SecurityGoal">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="SecurityGoal"/>
       </eAnnotations>
@@ -28,6 +28,8 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="#//Component"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="controls" upperBound="-1"
+        eType="#//Control" eOpposite="#//Control/securitygoal"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Threat">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -53,16 +55,12 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="controlID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dependsOn" upperBound="-1"
-        eType="#//SecurityGoal" eKeys="#//SecurityGoal/securityGoalID">
-      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details key="name" value="SecurityGoal"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="asset" lowerBound="1" upperBound="-1"
         eType="#//Asset" eOpposite="#//Asset/controls"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="threats" upperBound="-1"
         eType="#//Threat" eOpposite="#//Threat/controls"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="securitygoal" lowerBound="1"
+        upperBound="-1" eType="#//SecurityGoal" eOpposite="#//SecurityGoal/controls"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Component">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
