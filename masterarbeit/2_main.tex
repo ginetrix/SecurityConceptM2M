@@ -20,7 +20,7 @@ With the invention of the Internet the (personal) computers got interconnected a
 
 Nowadays security is seen as a process. No combination of products are guaranteed to make a system secure since they are only as secure as the people configuring them \cite{vacca2012computer}. \label{sec:security}
 
-In general when talking about computer security three aspects are addressed, \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} \cite{Pfleeger:2006:SC:1177321}. Each of them will now be defined:
+When covering computer security three aspects are usually addressed, \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} \cite{Pfleeger:2006:SC:1177321}. Each of them will now be defined:
 
 \begin{itemize}
 \item[] \textbf{Confidentiality} Assets can only be accessed by authorized parties
@@ -28,7 +28,7 @@ In general when talking about computer security three aspects are addressed, \te
 \item[] \textbf{Availability} Assets are available to authorized parties when needed
 \end{itemize} 
 
-The challenge is seen in finding the right balance between the three \textit{Security Goals}. This situation is aggravated by the fact that the goals can overlap, be independent or even mutually exclusive. Charles P. Pfleeger \cite{Pfleeger:2006:SC:1177321} for example, addresses this problem by stating that a strong protection of confidentiality might restrict availability in a system.   
+Especially during the examples in following sections goals address these security classes. The overall security of an asset is protected if each and every goal is as well.
 
 Information systems consist of hardware, software and data and it is of high importance for the respective stakeholder to secure the object of interest. When speaking about securing systems or components we look at two different terminologies, \textit{Vulnerabilities} and \textit{Threats}. A \textit{vulnerability} is a system weakness, be it in implementation or design, that can be potentially exploited by an adversary. Without the intent of exploiting it the vulnerability has no further effect on the system.
 
@@ -43,8 +43,8 @@ As mentioned before a system weakness does not necessarily mean loss of data or 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{pictures/threats.png}
-\caption{Four acts that cause security harm}
+\includegraphics[width=0.75\textwidth]{pictures/threats.png}
+\caption{Four acts that cause security harm (extracted from \cite{Pfleeger:2006:SC:1177321})}
 \label{fig:threats}
 \end{figure}
 
@@ -52,11 +52,13 @@ Confidentiality, integrity and availability, or the C-I-A triad like it is also 
 
 To prevent the vulnerabilities from being exploited and the threats from potentially causing harm one can use \textit{Controls} or \textit{Countermeasures} to secure parts of a system. An example would be the use of encryption to prevent sensitive data from being eavesdropped on as mentioned in \ref{item:vuln}. 
 
+This brief introduction covered three security attributes as they are being defined in literature. The dependencies amongst \textit{goals}, \textit{threats} and \textit{countermeasures} define the overall security of an asset and will be addressed throughout this thesis. 
+
 To put everything into perspective the term \textit{Security Architecture} will be introduced.
 
 \subsubsection{Security Architecture}
 
-Gacek et al. discussed the definition of a \textit{Software System Architecture} (SSA) which will be used and adapted in the security context. According to the authors a \textit{Software System Architecture} is:
+Gacek et al. \cite{Gacek95onthe} discussed the definition of a \textit{Software System Architecture} (SSA) which will be used and adapted in the security context with the security context simply being the usage in the Computer Security field. According to the authors a \textit{Software System Architecture} is:
 
 \begin{itemize}
 \item A collection of software and system components, connections and constraints
@@ -68,8 +70,7 @@ Here, a \textit{Security Architecture} (SA) would be an adapted definition where
 
 The stakeholders themselves however, are very similar. Gacek et al. differentiate between five parties, the \textit{Customer}, the \textit{User}, the \textit{Architect and System Engineer}, the \textit{Developer} and the \textit{Maintainer}. 
 
-The International Standard ISO 27001 provides a model for establishing, impelementing, operating, monitoring, reviewing, maintaining and improving an organization's Information Security Management System \cite{iso27001}, i.e. a system that is responsible for establishing and maintaining organization's security needs and guidelines. When comparing these rather short definitions one can already see an overlap when looking at potential stakeholders. An overview on the SSA stakeholders follows:
-
+\begin{table}[H]
 \begin{tabular}{|c|c|}
 \hline
 Stakeholder & SSA Concern \\
@@ -84,23 +85,19 @@ Developer & \makecell{Sufficient detail for design \\ Reference for selecting/as
 \hline
 Maintainer & \makecell{Guidance on software modification \\ Guidance on architecture evolution \\ Maintain interoperability with existing systems} \\
 \hline
-\end{tabular}      
+\end{tabular}     
+\caption{Stakeholders in a SSA (adapted from \cite{Gacek95onthe})}
+\end{table} 
 \vspace{3mm}
 
-When looking into the International Standard, one can see that similar concerns can be also found in the adaptation of the \glqq Plan-Do-Check-Act\grqq \ model for the establishment of an ISMS process. In the case of ISMS similar aspects can be found in the four different phases as seen in Figure \ref{fig:isms_stakeholder}. 
+We will now discuss the stakeholders in a Security Architecture and their respective needs. 
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{pictures/isms_concerns.png}
-\caption{ISMS Stakeholder Concerns}
-\label{fig:isms_stakeholder}
-\end{figure}
-
-Security requirements and objectives have to be defined in the earlier phases so they can be planned, implemented and carried out by the respective security architects/developers/security engineers. Here, the term user is not as clear since a variety of employees can be seen as such, e.g. any employee that accepts the established security policies. Since systems, as mentioned in Section \ref{sec:security}, are just as secure as the people using them, many employees can be viewed as ISMS users. They would be interested in implementing and operating the processes and procedures which have been defined in the previous phase.
+Security requirements and goals have to be defined in the earlier phases by customers and users so they can be planned, implemented and carried out by the respective security architects/developers/security engineers. Here, the term user is not as clear since a variety of employees can be seen as such, e.g. any employee that accepts the established security policies. Since systems, as mentioned in Section \ref{sec:security}, are just as secure as the people using them, many employees can be viewed as users. They would be interested in implementing and operating the processes and procedures which have been defined in the previous phase.
 
 Established security policies have to be also monitored and maintained. Security is never guaranteed and is a complex process \cite{vacca2012computer} - systems have to be constantly updated and possibly upgraded. 
 
-A Security Architecture is therefore a union of security objectives by different stakeholders and, if properly implemented, guarantees the stakeholders' needs.
+A Security Architecture therefore combines the security goals of different stakeholders and, if properly implemented, guarantees the stakeholders' needs. Defined security requirements have to be considered, threats and risks have to be assessed and countermeasures have to be implemented and maintained.
+
 These needs have to be considered throughout the system processes and have to be registered in a comprehensible manner. Security requirements have been mentioned and, amongst others, will be described more thoroughly in the next section.
 
 %\subsection{Enterprise Security}
@@ -163,20 +160,24 @@ A \textit{Security Objective} is an abstract solution to the previously defined 
 
 Lastly, STs contain a TOE summary specification where it is stated how the TOE meets all the SFRs and how exactly those requirements are met on a technical level.
 
+In this thesis \textit{threats}, \textit{assets}, \textit{countermeasures} and the \textit{security goal classes} (categories of protection) will be used as proposed by Common Criteria. The used terminology is being introduced in the following subsection. 
+
 \subsubsection{Security Concept}
 \label{subsubsec:secconc}
 
 The term \textit{Security Concept}, as it is defined here, is based on the constructs introduced in the previous chapters, namely \textit{Security Architecture} and \textit{Security Target}. An overview follows. 
 
-\textit{Assets} are the to be secured objects of interest, i.e. TOE according to Common Criteria. \textit{Assets} can be either logical or physical and can be grouped to sets, if needed.
+According to Common Criteria \textit{assets} are objects that a stakeholder places value upon. \textit{Assets} can be either logical or physical and can be grouped to sets, if needed.
 
-A \textit{Security Goal} (SG) is the equivalent to the \textit{Security Objective}. A valid SG must address an \textit{Asset} and a \textit{Security Goal Class} that defines the actual purpose of the SG. In general the set of \textit{Security Goal Classes} consists of \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} but can also be expanded by further classes such as \textit{Authenticity}.
+A \textit{Security Goal} (SG) must address an \textit{Asset} and a \textit{Security Goal Class} that defines the actual purpose of the SG. In general the set of \textit{Security Goal Classes} consists of \textit{Confidentiality}, \textit{Integrity} and \textit{Availability} but can also be expanded by further classes such as \textit{Authenticity}. These are being called categories of protection by Common Criteria.
+
+Contrary to \textit{Security Objectives} SGs do not reference threats but are referenced by threats.
 
 \textit{Threats} serve the same purpose as proposed by Common Criteria. They are adverse actions performed by an entity against an \textit{Asset}. 
 
 This information is all brought together in \textit{Security Requirements} that are defined in natural language and show the interrelationships between elements. A \textit{Security Goal} has to be mentioned as well as an \textit{Asset} and a \textit{Threat} against which the object of interest should be protected.
 
-Lastly, \textit{Controls} are the technical measures that counter or minimize the \textit{Threats}.     
+Lastly, \textit{Controls} are the technical measures that counter or minimize the \textit{Threats}. They are equivalent to countermeasures as proposed by Common Criteria.     
 
 The Table \ref{table:secconc} depicts the relationships between all the security attributes:
 
@@ -226,8 +227,8 @@ A definition of a model is not enough. A \textit{metamodel} has to be clearly de
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{pictures/metamodel.png}
-\caption{Relationships between Model and Metamodel}
+\includegraphics[width=0.6\textwidth]{pictures/metamodel.png}
+\caption{Relationships between Model and Metamodel (UML)}
 \label{fig:metamodel}
 \end{figure}
 
@@ -242,7 +243,7 @@ These architecture levels can be found in the \textit{model transformation patte
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{pictures/metametamodel.png}
-\caption{Model transformation according to Jouault et al.}
+\caption{Model transformation (extracted from \cite{modeltrans})}
 \label{fig:metametamodel}
 \end{figure}
 
@@ -270,24 +271,11 @@ Prior to the actual rule set definition one final concept has to be introduced. 
 
 Information systems are often complex because of the number of interconnections and interdependencies between components and therefore it might be difficult to assess potential impacts and risks of a system \cite{branagan}.
 
-One logical goal would be to decrease the overall complexity to enable a better risk assessment. \textit{System abstraction} tries to achieve this by reducing the level of details \cite{branagan}. Thyssen et al. differentiate between two possibilities, \textit{Whole-part decomposition} which decomposes a system into smaller sub-systems and \textit{Distinct development perspectives} which focuses on certain parts of a system depending on the current development perspective. 
+One logical goal would be to decrease the overall complexity to enable a better risk assessment. \textit{System abstraction} tries to achieve this by reducing the level of details \cite{branagan}. Thyssen et al. presented a framework which allowed them to view models under different levels of abstraction \cite{thyssen2010system}. This abstraction is achieved by introducing granularity levels which are based on the different needs of the stakeholders. 
+
+Two different approaches were suggested where one is \textit{Whole-part decomposition} which applies the divide-and-conquer principle and decomposes the SUS into smaller blocks until atomic blocks are reached. The other possible method is viewing the system from \textit{Distinct development perspectives}. 
 
 In this thesis the focus will be on the \textit{Whole-part decomposition} even though an adaption of development perspectives is certainly possible. The main difficulty would be the definition of such perspectives in the security context because they would be highly dependent on the respective security analyst. The perspectives would not be unambiguous.
-  
-Therefore the change of the level of detail, i.e. the granularity level, will be achieved by uniting or decomposing components of a system of interest. By decomposing a larger system into smaller sub-systems one could focus on only specific security attributes and dismiss others.
-
-A user will select a certain granularity level, i.e. a certain set of components, as an input to the transformation function $T$ as mentioned in \ref{subsubsec:modeltrans}. Together with the defined rule set a valid model $M'$ will be generated which to be considered valid has to be conform to its metamodel $MM$.
-
-\section{Related Work}
-\label{sec:related_work}
-
-Several publications that provide an essential basis for this thesis will now be presented. A variety of different topics will be briefly covered such as abstraction layers/granularity layers, security attribute aggregation and propagation as well as model transformations and formal verification. 
-
-\subsection{Granularity layers}
-
-Thyssen et al. presented a framework which allowed them to view models under different levels of abstraction \cite{thyssen2010system}. This abstraction is achieved by introducing granularity levels which are based on the different needs of the stakeholders. 
-
-Two different approaches were suggested where one is \textit{Whole-part decomposition} which applies the divide-and-conquer principle and decomposes the SUS into smaller blocks until atomic blocks are reached. The other possible method is viewing the system from \textit{Distinct development perspectives}. The differences have already been briefly discussed in Section \ref{subsubsec:granularity} and therefore only whole-part decomposition will be presented in more detail. 
 
 Thyssen et al. propose a decomposition of systems into sub-systems to overcome the complexity. A sub-system is seen as a independent system by itself and the goal is to achieve \glqq seamless\grqq \ abstraction. This way the sub-systems could be viewed separately and, if needed, could be aggregated to the overall system.
 
@@ -298,6 +286,15 @@ The \textit{user perspective} describes, as the name suggests, the user's intere
 In this thesis however, the main focus is the combination of the security perspective and the \glqq seamless\grqq \ abstraction of systems. As previously mentioned security in information systems is seen as a complex process \cite{vacca2012computer} and the realization of security policies may have effects on different perspectives. Throughout the thesis system abstraction will be addressed from the perspective of a security architect that tries to incorporate all the stakeholders' security needs in a system. The goal is to propose a solution on how security properties of systems propagate through different levels of abstraction. Dependencies amongst them have to be taken into account and appropriate aggregation rules have to be defined. 
 
 Thyssen et al. have introduced the theoretical idea of \glqq seamless\grqq \ abstraction but have not addressed the the transformation steps that are needed to transform a system from one granularity level to another.  
+  
+Therefore the change of the level of detail, i.e. the granularity level, will be achieved by uniting or decomposing components of a system of interest. By decomposing a larger system into smaller sub-systems one could focus on only specific security attributes and dismiss others.
+
+A user will select a certain granularity level, i.e. a certain set of components, as an input to the transformation function $T$ as mentioned in \ref{subsubsec:modeltrans}. Together with the defined rule set a valid model $M'$ will be generated which to be considered valid has to be conform to its metamodel $MM$.
+
+\section{Related Work}
+\label{sec:related_work}
+
+Several publications that provide an essential basis for this thesis will now be presented. A variety of different topics will be briefly covered such as abstraction layers/granularity layers, security attribute aggregation and propagation as well as model transformations and formal verification. 
 
 \subsection{Security Attribute Aggregation}
 \label{subsec:aggregation}
@@ -344,11 +341,24 @@ Model verification through testing is the most common form of validation \cite{f
 The most important aspect is the result assessment. In our case the satisfaction highly depends on the respective user (e.g. security engineer) and we therefore have to define a criterion which reflects a successful model transformation of the initial security concept while being independent of the user. The approach will be an oracle based on model comparison and will be discussed in Section \ref{subsec:validation}.
  
 \section{Approach}
+\label{sec:approach}
+
 This section presents the approach addressing the previously mentioned goal of a model transformation based on the user-selected granularity level of a system of interest. Firstly, the security concept metamodel will be thoroughly described and each element of the metamodel will be put in the security context.
 
 The second part will deal with the actual transformation rules. Sets that are important for the model transformation will be defined and the transformation rules for each element of the model will follow. Aside from the solution possible edge cases will be presented and evaluated.
 
-\label{sec:approach}
+\subsection{Goal}
+
+So far the goal of this thesis has just been briefly discussed in the previous sections without explicitly mentioning the motivation. 
+
+Security assessment of information systems is a very complex and tedious task especially when covering large systems with many components, sub-components and interconnections. Security models such as security concepts exist to depict the interrelationships between components of interest but are usually created and maintained by humans and may be therefore prone to inconsistency and/or incompleteness.
+
+Furthermore, security attributes might be only defined on specific components of a certain granularity level without investigating any further how said attributes might influence other components in the system. 
+
+We therefore propose an approach that allows users to select certain components of a system as their custom granularity level. The selected components will then be processed and security attributes will be derived.
+ 
+Security attributes will be gathered from abstraction layers with higher and lower granularity to derive as much potentially new information in form of attributes as possible.
+
 \subsection{Security Concept}
 \label{subsec:sec_concept}
 The following metamodel is based on the security elements mentioned in Section \ref{subsubsec:secconc}. It shows the interconnections between elements and adds restrictions. This metamodel serves as a base enabling the creation of model instances capturing the relations between components/assets of a specific SUS. It also provides a security context and the option for the user to select a granularity level. 
