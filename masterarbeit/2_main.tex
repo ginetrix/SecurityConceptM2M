@@ -3,7 +3,7 @@
 
 \newpage
 \section{Background}
-
+\label{sec:background}
 Prior to addressing the actual approach and implementation some concepts and terms have to be introduced. Firstly, the term \textit{security concept}, as it is used throughout the thesis, is being described. A definition of \textit{granularity levels} and system abstraction follows. Lastly, a section covers \textit{model transformations} and \textit{aggregation rules} on security attributes.
 
 \subsection{Security}
@@ -1237,6 +1237,7 @@ Aggregation for controls is very similar to the previous aggregations. Whenever 
 This code snippet is self-explanatory. All controls mitigating the aggregated threat are being added to the resulting security concept.
 
 \section{Implementation}
+\label{sec:implementation}
 
 In this section the chosen technologies that has been used to implement the just mentioned transformation rules are being covered. 
 
@@ -1247,6 +1248,18 @@ The implementation can be viewed from two perspectives, the modeling perspective
 The \textit{Eclipse Modeling Framework} (EMF) was used to create the security concept metamodel. EMF allows users to create their own models and to generate Java code based on the modeled dependencies. Classes such as Threats, Controls and Security Goals were defined as well as datatypes such as $Damage$ or $SecurityGoalClass$. The modeling itself was done using \textit{EcoreTools} \footnote{EcoreTools, online:\url{http://www.eclipse.org/ecoretools/index.html} } that allows a user interact with the EMF using Eclipse, an Integrated Development Environment (IDE).
 
 The automatically generated code can be used to interact with the metamodel and its elements. \textit{Xtend} \footnote{Xtend, online: \url{http://www.eclipse.org/xtend/}} was chosen as the language for the implementation of the transformation rules. \textit{Xtend} is a Java dialect that is being compiled to Java code. It can therefore be seamlessly integrated into the EMF environment and can interact with the auto-generated code by the EMF framework.    
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{pictures/dynamic_instance}
+\caption{Dynamic Instance}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{pictures/ecore}
+\caption{Ecore Model}
+\end{figure}
 
 \subsection{Validity \& Verification}
 \label{subsec:validation}
@@ -1295,8 +1308,5 @@ One security concept with multiple hundred of nodes where every node is a node o
 
 \includegraphics[scale=1]{pictures/many_nodes}
 
-\section{Summary}
-
-\section{Outlook}
-
-\label{subsec:secgoal}
+\section{Conclusion}
+\label{sec:conclusion}
