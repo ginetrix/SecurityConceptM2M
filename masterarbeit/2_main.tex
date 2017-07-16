@@ -63,7 +63,7 @@ Gacek et al. \cite{Gacek95onthe} discussed the definition of a \textit{Software 
 \begin{itemize}
 \item A collection of software and system components, connections and constraints
 \item A collection of system stakeholders' need statements
-\item A rationale which demonstrates that the elements which define a system satisfy the the stakeholders' needs, if implemented correctly
+\item A rationale which demonstrates that the elements which define a system satisfy the stakeholders' needs, if implemented correctly
 \end{itemize}
 
 Here, a \textit{Security Architecture} (SA) would be an adapted definition where, if implemented correctly, the stakeholders' \textit{security} needs will be satisfied. Naturally, the connections as well as the respective components might differ from the Software System Architecture as they might have to be enhanced or altered to satisfy the security needs. 
@@ -285,7 +285,7 @@ The \textit{user perspective} describes, as the name suggests, the user's intere
 
 In this thesis however, the main focus is the combination of the security perspective and the \glqq seamless\grqq \ abstraction of systems. As previously mentioned security in information systems is seen as a complex process \cite{vacca2012computer} and the realization of security policies may have effects on different perspectives. Throughout the thesis system abstraction will be addressed from the perspective of a security architect that tries to incorporate all the stakeholders' security needs in a system. The goal is to propose a solution on how security properties of systems propagate through different levels of abstraction. Dependencies amongst them have to be taken into account and appropriate aggregation rules have to be defined. 
 
-Thyssen et al. have introduced the theoretical idea of \glqq seamless\grqq \ abstraction but have not addressed the the transformation steps that are needed to transform a system from one granularity level to another.  
+Thyssen et al. have introduced the theoretical idea of \glqq seamless\grqq \ abstraction but have not addressed the transformation steps that are needed to transform a system from one granularity level to another.  
   
 Therefore the change of the level of detail, i.e. the granularity level, will be achieved by uniting or decomposing components of a system of interest. By decomposing a larger system into smaller sub-systems one could focus on only specific security attributes and dismiss others.
 
@@ -348,57 +348,58 @@ This section presents the approach addressing the previously mentioned goal of a
 The second part will deal with the actual transformation rules. Sets that are important for the model transformation will be defined and the transformation rules for each element of the model will follow. Aside from the solution possible edge cases will be presented and evaluated.
 
 \subsection{Goal}
+\label{subsec:goal}
 
-So far the goal of this thesis has just been briefly discussed in the previous sections without explicitly mentioning the motivation. 
-
-Security assessment of information systems is a very complex and tedious task especially when covering large systems with many components, sub-components and interconnections. Security models such as security concepts exist to depict the interrelationships between components of interest but are usually created and maintained by humans and may be therefore prone to inconsistency and/or incompleteness.
+Security assessment of information systems is a very complex and tedious task especially when covering large systems with many components, sub-components and interconnections. Security models such as security concepts exist to depict the interrelationships between components of interest but are usually created and maintained by humans and may therefore be prone to inconsistency and/or incompleteness.
 
 Furthermore, security attributes might be only defined on specific components of a certain granularity level without investigating any further how said attributes might influence other components in the system. 
 
 We therefore propose an approach that allows users to select certain components of a system as their custom granularity level. The selected components will then be processed and security attributes will be derived.
  
-Security attributes will be gathered from abstraction layers with higher and lower granularity to derive as much potentially new information in form of attributes as possible.
+Security attributes will be gathered from abstraction layers with higher and lower granularities to derive as much potentially new information in form of attributes as possible. This \glqq information gathering\grqq \ will be described in detail in Section \ref{subsubsec:propagation}.
+
+The premise is that this derivation might result in a higher number of security attributes for the respective component and therefore might enable an enhanced and more thorough security assessment.
 
 \subsection{Security Concept}
 \label{subsec:sec_concept}
-The following metamodel is based on the security elements mentioned in Section \ref{subsubsec:secconc}. It shows the interconnections between elements and adds restrictions. This metamodel serves as a base enabling the creation of model instances capturing the relations between components/assets of a specific SUS. It also provides a security context and the option for the user to select a granularity level. 
+The following metamodel is based on the security elements mentioned in Section \ref{subsubsec:secconc}. It shows the interconnections between elements and adds restrictions. This metamodel serves as a base enabling the creation of security concept instances capturing the relations between components/assets of a specific SUS. 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.2\textwidth]{pictures/concept_metamodel.png}
-\caption{Security Concept Metamodel}
+\includegraphics[width=1.1\textwidth]{pictures/concept_metamodel.png}
+\caption{Security Concept Metamodel (UML)}
 \label{fig:concept_metamodel}
 \end{figure}
 
 In the figure above all the core elements \textit{Security Goal}, \textit{Asset}, \textit{Control} and \textit{Threat} are pictured. All of these elements are part of a \textit{SecurityConcept}, which in this model will be simply identified by a name. 
 
-SGs have a \textit{Security Goal Class} attribute which describes the purpose of each SG. The \textit{Damage Potential} attribute indicates at the importance of a goal, i.e. how important it is to secure a certain asset. The higher the damage potential the higher the impact if the security of an asset is breached. One key aspect of this metamodel is the dependency between SGs. A SG is dependent on another SG if both belong to the same asset and have the same security goal class. These dependencies, amongst others, have to be considered during potential transformation steps (Section \ref{subsec:secgoal}). 
+SGs have a \textit{Security Goal Class} attribute which describes the purpose of each SG. The \textit{Damage Potential} attribute indicates the importance of a goal, i.e. how important it is to secure a certain asset. The higher the damage potential the higher the impact if the SG of an asset is breached. One key aspect of this metamodel is the dependency between SGs. A SG is dependent on another SG if both belong to the same asset and have the same security goal class. These dependencies, amongst others, have to be considered during potential transformation steps (Section \ref{subsec:sec_goals_rules}). 
 
 Each SG belongs to exactly one asset whereas an asset itself can have unlimited SGs. In this thesis both physical and virtual components can be considered an asset. Both \textit{Data} and \textit{Component} can be assets according to the metamodel. 
 
-There will be two different types of data. For once \textit{processed data}, i.e. data that is being processed or kept in storage by a specific component. On top of that \textit{transmitted data} will be considered separately since the transmission channel itself can be seen as an asset. The resulting interconnections are shown in the following figure:
+Data can be modeled in two different ways. For once \textit{processed data}, i.e. data that is being processed or kept in storage by a specific component. On top of that \textit{transmitted data} will be considered separately since the transmission channel itself can be seen as an asset. The resulting interconnections are shown in the following figure:
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{pictures/two_data.png}
-\caption{Two different interpretations of data}
+\caption{Two different representations of data (UML)}
 \label{fig:data}
 \end{figure} 
 
-As already mentioned data can be viewed as being processed and transmitted. Therefore an element \textit{Connection} was added. A connection is the transmission channel between two components. It must have an associated data. The processed or stored data however can be directly associated with a component. In both cases data can be viewed as an asset. There is no possibility to assign a connection as an asset, the reason being that the transmission medium itself, i.e. the cable, wire, is rarely an object of interest but more so the data which is being transmitted.
+As mentioned data can be modeled in two different ways, either as being transmitted or processed/stored. Therefore an element \textit{Connection} was added. A connection is the transmission channel between two components. It must have an associated data. The processed or stored data however can be directly associated with a component. In both cases data can be viewed as an asset. There is no possibility to assign a connection as an asset, the reason being that the transmission medium itself, i.e. the cable, wire, is rarely an object of interest but more so the data which is being transmitted.
 
 Lastly the selection of \textit{Granularity Levels} by users should be enabled. Instead of having two different input models, one security concept model and one model depicting the system structure, one can reproduce the structural properties by adding a reference to the component element.      
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.45\textwidth]{pictures/component_structure.png}
-\caption{Structural information}
+\caption{Structural information (UML)}
 \label{fig:data}
 \end{figure} 
 
 Having this extra reference one can create infinitely deep structural dependencies within the model. Therefore the actual transformation will only require one model instead of two separate ones.
 
-\subsection{Metamodel elements and their security properties}
+\subsection{Security attributes of metamodel elements }
 To put the different elements of the metamodel into a security context one has to clearly define the Security Goal Classes for possible assets. Interpretations of the classes are not unambiguous and it is necessary to discuss how security attributes propagate through different abstraction layers and what kind of impact interrelated components on different layers have on each other. 
 
 \subsubsection{Components}
@@ -427,22 +428,11 @@ Virtual components cannot be directly accessed physically. Examples would be vir
 
 \subsubsection{Data}
 
-Similar to the component element the data element can be interpreted in different ways.
-The distinctions between the different data types are very minor but noteworthy nonetheless. We consider three types of data, data which is being stored by a component, data which is being processed by a component and data which is being transmitted between components. The common terminology is \textit{Data at Rest}, \textit{Data in Motion} and \textit{Data in Use} \cite{kanagasingham2008data}. The used terms might be new, the distinction between different states of data however can be found in publications going as far back as 1982, e.g. by Dorothy E. Denning \cite{robling1982cryptography}.
+The distinctions between the different data types are very minor but noteworthy nonetheless. We consider two types of data both of which can be created according to the just presented metamodel. Data which is being processed by a component and data which is being transmitted between components. The used terms might be new, the distinction between different states of data however can be found in publications going as far back as 1982, e.g. by Dorothy E. Denning \cite{robling1982cryptography}.
 
-\subsubsection*{Data at Rest}
+\subsubsection*{Processed Data}
 
-Data at Rest applies to devices that hold data \cite{kanagasingham2008data}. An example would be a database containing sensitive information. The database being the \textit{Virtual Component} and the stored data being the \textit{Data at Rest}. One could also define the server with the database as a \textit{Physical Component}.
-
-\begin{enumerate}
-\item \textbf{Confidentiality} - Ensured when the data is protected from unauthorized disclosure at rest
-\item \textbf{Integrity} - Ensured when the data is protected from unauthorized modification at rest
-\item \textbf{Availability} - Ensured when the data is available to authorized parties when needed, i.e. authorized parties can access and use the data when needed
-\end{enumerate}
-
-\subsubsection*{Data in Use}
-
-Data in Use applies to data that is being processed by a component, i.e. is being used by a service running on a component. An example would be data that is being processed by an API on a server. The API being the \textit{Virtual Component} and the server being the \textit{Physical Component}. The \textit{Data in Use} would be the processed information by the API backend.
+Processed data applies to data that is being processed by a component, i.e. is being used by a service running on a component. An example would be data that is being processed by an API on a server. The API being the \textit{Virtual Component} and the server being the \textit{Physical Component}. The \textit{Data in Use} would be the processed information by the API backend.
 
 \begin{enumerate}
 \item \textbf{Confidentiality} - Ensured when the data is protected from unauthorized disclosure during processing
@@ -450,7 +440,8 @@ Data in Use applies to data that is being processed by a component, i.e. is bein
 \item \textbf{Availability} - Ensured when the data is available to authorized parties when needed, i.e. the data is being processed by the service/the respective service is running when needed
 \end{enumerate}
 
-\subsubsection*{Data in Motion}
+
+\subsubsection*{Transmitted Data}
 
 Data in Motion applies to all data transmitted between components. We do not specify any protocols here to keep the definition as broad as possible.
 
@@ -462,13 +453,14 @@ Data in Motion applies to all data transmitted between components. We do not spe
 
 The different component/data types shown here should only show the different interpretations of the elements of the security concept metamodel. The interpretation of the element itself does not have an influence on the chosen metamodel element, i.e. the element for both physical and virtual components will still be \textit{Component}. The only difference can be found in data since transmitted data always belongs to a \textit{Connection}. For both processed and stored data however the metamodel element \textit{Data} will be used.
 
-\subsubsection{Interpretation of Interconnections between Elements}
+\subsubsection{Propagation of security attributes between different abstraction layers}
+\label{subsubsec:propagation}
 
-To describe model transformations in the security context one has to discuss how exactly the security attributes propagate through the respective abstraction layers. Here we will look into the dependencies between components and their security properties during transformations.
+The gathering of information has been briefly mentioned when addressing the overall goal in Section \ref{subsec:goal}. In this section the propagation of security attributes through the respective abstraction layers will be discussed. Here we will look into the dependencies between components and their security properties during transformations.
 
 \subsubsection*{Sub-component}
 \label{subsubsec:sub_comp}
-A sub-component \textit{SC} will be defined as a component that directly belongs to a component \textit{C} which is in an abstraction layer above, i.e. encapsulates one or more sub-components. According to the previously defined metamodel such a relationship between components is being defined by the \textit{subComponent} composition, i.e. a sub-component cannot exist without a component here. This also means that no new data types or structures are added when changing to higher granularity levels. Sub-components can only process data that has already been defined in the layers above. An example would be a database encapsulating a sub-component such as a secure key storage.   
+A sub-component \textit{SC} will be defined as a component that directly belongs to a component \textit{C} which is in an abstraction layer above, i.e. encapsulates one or more sub-components. According to the previously defined metamodel such a relationship between components is being defined by the \textit{subcomponents} composition, i.e. a sub-component cannot exist without a component here. This also means that sub-components cannot possess data that does not exist in the abstraction layer above. An example would be a database encapsulating a sub-component such as a secure key storage.   
 
 \subsubsection*{Security Goals}
 \label{subsubsec:sec_goal}
@@ -477,7 +469,7 @@ For security goals the interconnections between components and sub-components ha
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{pictures/securitygoal.png}
-\caption{Attributes of a Security Goal}
+\caption{Attributes of a Security Goal (UML)}
 \label{fig:security_goal}
 \end{figure} 
 
@@ -488,7 +480,7 @@ In case of a complete security concept definition interdependencies amongst comp
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.75]{pictures/rel_component.png}
-\caption{Relationships between Security Goals}
+\caption{Relationships between Security Goals (UML)}
 \label{fig:subcomponent}
 \end{figure} 
 
@@ -497,7 +489,7 @@ Figure \ref{fig:subcomponent} has shown the dependencies between components and 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{pictures/sg_dilemma_no_goal.png}
-\caption{Ambiguous propagation}
+\caption{Ambiguous propagation (UML)}
 \label{fig:subcomponent_dilemma}
 \end{figure} 
 
@@ -506,7 +498,7 @@ It is not obvious what kind of influence the sub-component has on its parental n
 \begin{theorem}
 A security goal $SG\_C1$ of a component $C1$ has a direct influence on another component $C2$ if and only if there is: 
 \begin{enumerate}
-\item a direct link between the two components, i.e. a hierarchical relationship between the two components AND
+\item component $C1$ is composed of $C2$, i.e. $C2$ cannot exist without $C1$ AND
 \item component $C2$ processes/holds the data type that is being addressed by $SG\_C1$
 \end{enumerate} 
 \end{theorem}
@@ -518,7 +510,7 @@ An exemplary model instance follows showing security attribute propagation with 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{pictures/sg_deduction.png}
-\caption{Ambiguous propagation}
+\caption{Ambiguous propagation (UML)}
 \label{fig:subcomponent_dilemma}
 \end{figure} 
 
@@ -577,7 +569,7 @@ For the propagation from abstraction layers depicting lower granularities ($C1$)
 \item[]\textbf{$T\_SG\_KD:$} Disclosure of key data
 \end{itemize}
 
-Now if the the confidentiality is being threatened by $T\_SG\_KD$ it is not clear how it will propagate to the layers below since $C1.1$ is not addressing key data in any observable way. 
+Now if the confidentiality is being threatened by $T\_SG\_KD$ it is not clear how it will propagate to the layers below since $C1.1$ is not addressing key data in any observable way. 
 
 Threats that threaten SGs with \textit{Integrity} as their security goal classes behave differently. Contrary to confidentiality, assumptions can be made when looking at propagation from higher abstraction layers to lower ones. When integrity of a component $C_n$ is being threatened the integrity of all respective sub-components $C_{n.1} ... C_{n.m}$ is being threatened as well. If the integrity of a sub-component $C_{n.i}$ is being threatened it will also propagate to its parental node $C_n$ since a node can only be as secure as its sub-nodes.
 
@@ -614,7 +606,7 @@ This section was only giving an overview on the conclusions for security attribu
 
 \subsection{Model Transformation}
 
-Let $SG_{CIA}(SUS)$ be the set of security goals for a SUS. A security goal SG is defined as $SG(cl, c, asset, dmg)$ where $cl$ is the security goal class ($C$ for confidentiality, $I$ for Integrity and $A$ for availability), $c$ being the component, $asset$ being the element of interest which the SG was defined for, i.e. the component itself or data which is being processed by it and $dmg$ is the damage potential in case of a security breach ($H$ = high, $M$ = medium and $L$ = low).
+Let $SG_{CIA}(SUS)$ be the set of security goals for a SUS. A security goal $sg$ is defined as $sg(cl, c, asset, dmg)$ where $cl$ is the security goal class ($C$ for confidentiality, $I$ for Integrity and $A$ for availability), $c$ being the component, $asset$ being the element of interest which the security goal was defined for, i.e. the component itself or data which is being processed by it and $dmg$ is the damage potential in case of a security breach ($H$ = high, $M$ = medium and $L$ = low).
 
 Similarly we define a threat set $T_{STRIDE}$ for a SUS where STRIDE is the threat modeling technique developed by Microsoft. According to \cite{torr} a component can be exposed to the following threats:
 
@@ -627,11 +619,11 @@ Similarly we define a threat set $T_{STRIDE}$ for a SUS where STRIDE is the thre
 \item[]\textbf{Elevation of privilege:} Performing of unauthorized actions
 \end{enumerate}
 
-Every threat has therefore a specific threat class that it can be assigned to. $T_{STRIDE}$ is the set of threats where $T(tc, sg, sev)$ is a threat, $tc$ being the threat class, $sg$ being the security goal which the threat violates and $sev$ being the severity of the threat if successfully exploited ($H$ = high, $M$ = medium and $L$ = low). 
+Every threat has therefore a specific threat class that it can be assigned to. $T_{STRIDE}$ is the set of threats where $t(tc, sg, attack)$ is a threat, $tc$ being the threat class, $sg$ being the security goal which the threat violates and $attack$ being the attack potential of the threat ($H$ = high, $M$ = medium and $L$ = low). The attack potential here is very abstract. A high attack potential may for example mean that the vulnerability is easily exploitable without a specific toolkit or knowledge.
 
 Controls are tightly coupled with security goals and threats. $C_{SUS}$ is the set of controls for a SUS that contains all the controls. A Control $C(T)$ has a set of threats $T$ it mitigates.
 
-Each asset can be viewed separately when looking at security goals and threats. For SGs we can define three separate sets, $SG_C(c)$, $SG_I(c)$ and $SG_A(c)$ where each one contains the respective SGs with either confidentiality, integrity or availability as the security goal class.
+Each asset can be viewed separately when looking at security goals and threats. For security goals we can define three separate sets, $SG_C(c)$, $SG_I(c)$ and $SG_A(c)$ where each one contains the respective security goals with either confidentiality, integrity or availability as the security goal class.
 
 \begin{theorem}
 $SG_{CIA}(c) = SG_C(c) \cup SG_I(c) \cup SG_A(c)$
@@ -640,8 +632,10 @@ $SG_{CIA}(c) = SG_C(c) \cup SG_I(c) \cup SG_A(c)$
 The respective sets covering one security goal class can be defined as follows:
 
 \begin{theorem}
-$SG_{sgc}(c) = SG(sgc, c, asset_j, dmg) \cup SG(sgc, c, asset_{j+1}, dmg)  \cup ... \cup SG(sgc, c, asset_m, dmg) $
+$SG_{sgc}(c) = sg(sgc, c, asset_i, dmg) \cup sg(sgc, c, asset_{i+1}, dmg)  \cup ... \cup sg(sgc, c, asset_n, dmg) $
 \end{theorem}
+
+This set could for example contain all security goals that address the availability of the assets of the component $c$.
 
 %
 %Furthermore we define that for every component $C$ the SG sets are the union of the SGs of its sub-components with the same security goal class. For the confidentiality we have to consider pairs of components and data, since confidentiality is only defined on data. Therefore when looking at a component $c_i$ and a data asset $asset_{d_{j}}$ we can say that the confidentiality of data $d_j$ for component $c_i$ is the union of the SGs of its sub-components also covering $d_j$. $sgc$ is either confidentiality ($C$), integrity ($I$) or availability ($A$).
@@ -658,10 +652,10 @@ $SG_{sgc}(c) = SG(sgc, c, asset_j, dmg) \cup SG(sgc, c, asset_{j+1}, dmg)  \cup 
 %$SG_{sgc}(c_i, asset_{c_{i}}) = SG_{sgc}(c_{i_{1}}, asset_{c_{i_{1}}}) \cup ... \cup SG_{sgc} (c_{i_{n}}, asset_{c_{i_{n}}}) $
 %\end{theorem}
 
-Threats can be defined accordingly. For a threat $T$ with the threat class $tc$ the following union set can be defined. 
+Threats can be defined accordingly. For a threat $t$ with the threat class $tc$ the following union set can be defined. 
 
 \begin{theorem} 
-$T_{tc}(c) = T(tc, sg_i, sev) \cup T(tc, sg_{i+1}, sev) \cup ... \cup T(tc, sg_n, sev) | sg_i \in SG_{CIA}(c)$
+$T_{tc}(c) = t(tc, sg_i, attack) \cup t(tc, sg_{i+1}, attack) \cup ... \cup t(tc, sg_n, attack) | sg_i \in SG_{CIA}(c)$
 \end{theorem}
 
 The set $T_{STRIDE}$ is therefore a union of all threat sets:
@@ -1218,7 +1212,7 @@ T_{STRIDE}(C_i) = \{&T(R, SG(I,C_i,C_i,"high"), "medium"),\\
 &T(I, SG(C,C_i,D_j, "medium"), "low")\}
 \end{align*}
 
-In this example the threat with the lower $attackPotential$ has been chosen. The reason herefore is the corresponding security goal. Even though the attack potential is higher, the $damagePotential$ in case of a security breach is lower. We therefore indirectly choose the threat based on the damage potential of the corresponding security goal.
+In this example the threat with the lower $attackPotential$ has been chosen. The reason for this is the corresponding security goal. Even though the attack potential is higher, the $damagePotential$ in case of a security breach is lower. We therefore indirectly choose the threat based on the damage potential of the corresponding security goal.
 
 \subsection{Transformation Rule Set for Controls}
 
