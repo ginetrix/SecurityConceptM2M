@@ -1236,20 +1236,18 @@ Aggregation for controls is very similar to the previous aggregations. Whenever 
 
 \begin{algorithm}[H] 
 \begin{algorithmic}
-\Function{securityGoalAggregation}{$L_{sg}$}
-\State final\_sgs $\gets$ empty
-\ForAll {sg in $L_{sg}$}
-\State tmp\_sg = $L_{sg}$.where(\_sg => \_sg.securityGoalClass == sg.securityGoalClass  \&\& \_sg.asset == sg.asset)
-\State tmp\_sg.first.damagePotential = tmp\_sg.where(damagePotential.max)
-\State tmp\_sg.first.threat = tmp\_sg.where(damagePotential.max).threat
-\State \algemph{tmp\_sg.first.threat.control = tmp\_sg.where(damagePotential.max) \\ .threat.controls}
-\State final\_sgs.add(tmp\_sg.first)
+\Function{controlAggregation}{$L_{sg}$}
+\State final\_controls $\gets$ empty
+\ForAll {c in $L_{ctrl}$}
+\State tmp\_c = $L_{ctrl}$.where(\_c => \_c.attackPotential == c.attackPotential  \&\& \_c.threat == c.threat)
+\State tmp\_c.first.attackPotential = tmp\_sg.where(attackPotential.min)
+\State final\_ctrls.add(tmp\_c.first)
 \EndFor
 \EndFunction
 \end{algorithmic}
 \end{algorithm}
 
-This code snippet is self-explanatory. All controls mitigating the aggregated threat are being added to the resulting security concept.
+When aggregating controls we search for the ones that have the lowest attack potential, i.e. for the ones that lower the threat potential as much as possible. References for the aggregated control have to be adjusted as well.
 
 \section{Implementation}
 \label{sec:implementation}
