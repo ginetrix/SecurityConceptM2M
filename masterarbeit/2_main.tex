@@ -532,6 +532,7 @@ Similar conclusions can be made for the \textit{Integrity} of sub-components and
 For \textit{Availability} however, the situation differs. The connection between components (\textit{subComponent}) has been defined as a composition. This means that the availability of a specific sub-component is pre-determined by the structural features of the SUS. If the availability of a component $C1$ is protected it necessarily means that the availability of its sub-components is protected as well. To have the availability of a component protected all of the sub-components have to be protected individually. At the same time a component $C1$ may have different data or interconnections that are independent from their sub-components. We therefore cannot draw conclusions based on the availability of sub-components. 
 
 \subsubsection*{Threats}
+\label{subsubsec:threats}
 
 Similar to SGs one can look into propagation rules for threats. Firstly we will look at the important attributes of a threat. The key attribute here will be \textit{attackPotential} which will be considered during the transformation steps in Section \ref{subsec:sec_goals_rules}.  
  
@@ -571,11 +572,17 @@ For the propagation from abstraction layers depicting lower granularities ($C1$)
 
 Now if the confidentiality is being threatened by $T\_SG\_KD$ it is not clear how it will propagate to the layers below since $C1.1$ is not addressing key data in any observable way. 
 
-Threats that threaten SGs with \textit{Integrity} as their security goal classes behave differently. Contrary to confidentiality, assumptions can be made when looking at propagation from higher abstraction layers to lower ones. When integrity of a component $C_n$ is being threatened the integrity of all respective sub-components $C_{n.1} ... C_{n.m}$ is being threatened as well. If the integrity of a sub-component $C_{n.i}$ is being threatened it will also propagate to its parental node $C_n$ since a node can only be as secure as its sub-nodes.
+Threats that threaten SGs with \textit{Integrity} as their security goal classes behave differently. Contrary to confidentiality, assumptions can be made when looking at propagation from higher abstraction layers to lower ones.  
 
-Lastly, for \textit{Availability} the propagation is pre-determined by the structural features and the definition of sub-components. If the availability of a component $C_n$ is threatened it propagates to its sub-components $C_{n.1} ... C_{n.m}$. 
+When integrity of a component $C_n$ is being threatened the integrity of all respective sub-components $C_{n.1} ... C_{n.m}$ is being threatened as well. If the integrity of a sub-component $C_{n.i}$ is being threatened it will also propagate to its parental node $C_n$ since a node can only be as secure as its sub-nodes.
+
+Lastly, for \textit{Availability} the propagation is pre-determined by the structural features and the definition of sub-components. If the availability of a component $C_n$ is threatened it propagates to its sub-components $C_{n.1} ... C_{n.m}$. Sub-components can either be physical or virtual. Virtual components are seen as sub-components of a physical system. If the physical component is compromised, so is the virtual component.
 
 If the availability of one sub-component is being threatened it will also propagate to its parental nodes. This however does not provide information on how severely the availability of $C_n$ as a whole will be impaired in case of an attack on the availability of $C_{n.i}$. This propagation from sub-components to their parental nodes is very similar to the just mentioned integrity behavior. The availability of $C_n$ is a union of availabilities of its sub-components and one threat on a specific $C_{n.i}$ would alter said set.
+
+It is certainly possible that a security breach of a component might have no effect on the security of its sub-components, e.g. compromising a server does not necessarily mean a compromised cryptoprocessor. This characteristic however would have to be made recognizable in the metamodel. 
+
+This feature amongst others will be discussed in Section \ref{sec:conclusion} as possible enhancements of future versions. 
 
 We can therefore conclude that to ensure a SG of a component $C_n$ all its sub-components have to be protected as well. For threats however it is enough to threaten one sub-component to have an effect on its parental node.
 
@@ -606,7 +613,7 @@ This section was only giving an overview on the conclusions for security attribu
 
 \subsection{Model Transformation}
 
-Let $SG_{CIA}(SUS)$ be the set of security goals for a SUS. A security goal $sg$ is defined as $sg(cl, c, asset, dmg)$ where $cl$ is the security goal class ($C$ for confidentiality, $I$ for Integrity and $A$ for availability), $c$ being the component, $asset$ being the element of interest which the security goal was defined for, i.e. the component itself or data which is being processed by it and $dmg$ is the damage potential in case of a security breach ($H$ = high, $M$ = medium and $L$ = low).
+A security goal $sg$ is defined as $sg(cl, c, asset, dmg)$ where $cl$ is the security goal class ($C$ for confidentiality, $I$ for Integrity and $A$ for availability), $c$ being the component, $asset$ being the element of interest which the security goal was defined for, i.e. the component itself or data which is being processed by it and $dmg$ is the damage potential in case of a security breach ($H$ = high, $M$ = medium and $L$ = low).
 
 Similarly we define a threat set $T_{STRIDE}$ for a SUS where STRIDE is the threat modeling technique developed by Microsoft. According to \cite{torr} a component can be exposed to the following threats:
 
@@ -627,6 +634,12 @@ Each asset can be viewed separately when looking at security goals and threats. 
 
 \begin{theorem}
 $SG_{CIA}(c) = SG_C(c) \cup SG_I(c) \cup SG_A(c)$
+\end{theorem}
+
+Let $SG_{CIA}(SUS)$ be the set of security goals for a SUS. 
+
+\begin{theorem}
+$SG_{CIA}(SUS) = SG_{CIA}(c_i) \cup SG_{CIA}(c_{i+1}) ... \cup SG_{CIA}(c_n) | c_i \in SUS$
 \end{theorem}
 
 The respective sets covering one security goal class can be defined as follows:
@@ -868,11 +881,11 @@ The initial security goal had $C1.1$ as the component. This will be changed to $
 \begin{figure}[H]
 \centering
         \includegraphics[scale=0.9]{pictures/block_c1_data2}
-    \caption{Component $C1$ with Data 2 as asset (UML)}
+    \caption{Component $C1$ with Data 2 and sub-components as assets (UML)}
 \end{figure}
 
 \begin{align*}
-L_{sg} = \{sg(I,C1,C1*,"low"), sg(C,C1,D2, "medium")\}
+L_{sg} = \{sg(I,C1,C1,"low"), sg(C,C1,D2, "medium")\}
 \end{align*}
 
 After having the security goal added we will proceed with the sub-component of $C1.1$, namely $C1.1.1$.
@@ -967,7 +980,7 @@ The transformation result as well as a comparison between the initial set of sec
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{pictures/finished_transformation}
+\includegraphics[width=0.8\textwidth]{pictures/block_final_trans}
 \caption{Security concept after the transformation}
 \end{figure} 
 
@@ -1028,7 +1041,7 @@ We have now two options. We either take this, possibly redundant, set as the res
 SG_{CIA}(C_i) = \{&sg(I,C_i,C_i,"high"),\\ &sg(C,C_i,D_j, "medium")\} \\
 \end{align*}
 
-This aggregation is optional and should be carried out by the user if needed. When aggregating security goals we also have to discuss the effect it has on the closely coupled attributes. Threats that addressed the old security goal have to be adjusted.
+This aggregation is optional and should be carried out by the user if needed. When aggregating security goals we also have to discuss the effect it has on the closely coupled attributes. Threats that addressed the old security goal have to be adjusted as well as dependencies between security goals. 
    
 \subsection{Transformation Rule Set for Threats}
 \label{subsec:threat_rules}
@@ -1262,18 +1275,62 @@ The \textit{Eclipse Modeling Framework} (EMF) was used to create the security co
 
 The automatically generated code can be used to interact with the metamodel and its elements. \textit{Xtend} \footnote{Xtend, online: \url{http://www.eclipse.org/xtend/}} was chosen as the language for the implementation of the transformation rules. \textit{Xtend} is a Java dialect that is being compiled to Java code. It can therefore be seamlessly integrated into the EMF environment and can interact with the auto-generated code by the EMF framework.    
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.6\textwidth]{pictures/dynamic_instance}
-\caption{Dynamic Instance}
-\end{figure}
+Figure \ref{fig:ecore_meta} shows the metamodel for a security concept that has been implemented. The attributes for the elements have already been discussed in Section \ref{subsec:sec_concept}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{pictures/ecore}
-\caption{Ecore Model}
+\caption{Ecore Metamodel (Ecore)}
+\label{fig:ecore_meta}
 \end{figure}
 
+EMF allows users to create a dynamic instance that is conform to the defined metamodel. Here the example from previous chapters has been chosen. The initial elements have been created accordingly.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{pictures/dynamic_instance}
+\caption{Dynamic Instance (Ecore)}
+\label{fig:ecore_instance}
+\end{figure}
+
+\subsection{Result}
+
+The transformation rules that were defined in the previous sections have been implemented and tested with various security concepts. Ecore models do not provide enough clarity and the capabilities are limited. 
+
+In our example child nodes have been added as assets to the aggregated parental nodes. In Ecore every single reference has to address an existing node. If for example component $C$ would have components $C_i ... C_n$ as assets all these components would have to be added to the resulting model. This would contradict the abstraction which we try to achieve in this thesis. 
+
+An automatic generation of a useful representations from the output provide potential directions for future work.
+
+The sample output for component $C1$ is now being shown:
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[floatplacement=H,caption=Output for Component C1,label=code1,basicstyle=\scriptsize]
+SEC GOAL: CLASS: Integrity ASSET: Asset_C1 DMG: low
+SEC GOAL THREAT: CLASS: Spoofing ASSET: Asset_C1 ATTACK: medium
+DATA GOAL: CLASS: Confidentiality ASSET: Data 2 DMG: medium
+DATA GOAL: CLASS: Confidentiality ASSET: Data 1 DMG: high
+DATA GOAL: CLASS: Confidentiality ASSET: Data 3 DMG: medium
+DATA THREAT: CLASS: Tampering ASSET: Data 2 ATTACK: high
+DATA THREAT: CLASS: InformationDisclosure ASSET: Data 1 ATTACK: low
+DATA THREAT: CLASS: InformationDisclosure ASSET: Data 1 ATTACK: medium
+DATA THREAT: CLASS: InformationDisclosure ASSET: Data 3 ATTACK: medium
+DATA THREAT: CLASS: ElevationOfPrivilege ASSET: Data 3 ATTACK: high
+OTHER THREAT: CLASS: DenialOfService ASSET: Asset_C1 ATTACK: low
+#########
+SG BEFORE AGGREGATION: 4
+SG AFTER AGGREGATION: 4
+#########
+THREATS BEFORE AGGREGATION: 7
+AGGREGATED THREAT: CLASS: InformationDisclosure ASSET: Data 1 ATTACK: low
+THREATS AFTER AGGREGATION: 6
+#########
+CONNECTION: SOURCE: C2 TARGET: C1 DATA: Data 1
+CONNECTION: SOURCE: C2 TARGET: C1 DATA: Data 3
+#########
+VALIDATION: 
+true
+\end{lstlisting}
+\end{minipage}
 \subsection{Validity \& Verification}
 \label{subsec:validation}
 
@@ -1287,39 +1344,91 @@ A possibility would be to iterate through the components of the resulting set an
 
 \begin{algorithm}[H]
 \begin{algorithmic}
-\Function{securityConceptValidation}{$sc\_old$, $sc\_new$}
-\ForAll {$comp$ in $sc\_new$}
-\ForAll {$asset$ in $comp$.assets}
-\State $\_comp$ = $findComponentById(sc\_old, comp.id)$
-\If{$\_comp$.asset.securityGoals.size > \\ 
-\hspace{2cm} $comp$.asset.securityGoals.size || \\ 
-\hspace{2cm}$\_comp$.asset.securityGoals.threats.size > \\
-\hspace{2cm}$comp$.asset.securityGoals.threats.size || \\ 
-\hspace{2cm}$\_comp$.asset.securityGoals.threats.controls.size > \\
-\hspace{2cm}$comp$.asset.securityGoals.threats.controls.size}
-return false
+\Function{securityConceptValidation}{$oldSecurityConcept$, $newSecurityConcept$, $componentsOfInterest$}
+\State Boolean $valid$ = true
+\ForAll {$comp$ in $componentsOfInterest$}
+\State oldSGList = getFullSGList($oldSecurityConcept$, $comp$)
+\State newSGList = getFullSGList($newSecurityConcept$, $comp$)
+\State oldThreatList = getFullThreatList($oldSecurityConcept$, $comp$)
+\State newThreatList = getFullThreatList($newSecurityConcept$, $comp$)
+\State oldControls = getFullControls($oldSecurityConcept$, $comp$)
+\State newControls = getFullControls($newSecurityConcept$, $comp$)
+\ForAll {sg : oldSGList}
+\If {!securityGoalInList($newSGList$, $sg$)}
+\State $valid$ = false
+\State return $valid$
+\EndIf
+\EndFor
+\ForAll {t : oldThreatList}
+\If {!threatInList($newThreatList$, $t$)}
+\State $valid$ = false
+\State return $valid$
+\EndIf
+\EndFor
+
+\ForAll {c : oldControls}
+\If {!controlInList($newControls$, $c$)}
+\State $valid$ = false
+\State return $valid$
 \EndIf
 \EndFor
 \EndFor
+\State return $valid$
 \EndFunction
 \end{algorithmic}
 \end{algorithm}
 
-It is a very trivial oracle that only compares the number of security attributes of the resulting model with the initial set of security attributes. If the set after the model transformation is equal or bigger than the initial set then the transformation was successful. The validation function has to be called prior to $securityGoalAggregation$ because it is possible that security goals might be united with others and be therefore non-existent in the form they were in the initial set. 
+This oracle compares the number of security attributes of the resulting model with the initial set of security attributes. Every . The validation function checks whether all security goals, threats and controls from the initial set are still present. 
 
-\subsection{Runtime \& Complexity}
+The oracle has to be called prior to $securityGoalAggregation$ because it is possible that security goals might be united with others and be therefore non-existent in the form they were in the initial set. 
 
-\begin{itemize}
-\item provide two \glqq extreme\grqq \ examples
-\end{itemize}
+\subsection{Scalability}
 
-One unbalanced tree with nodes of interest, testing recursion and dependencies
+To be able to assess the scalability of the implementation once has to look at larger examples. Security concepts with 50, 100 and 150 components have been created where only one security goal was added for the root component. The chosen component of interest was the very last component in the lowest abstraction layer. The execution times were recorded the following way:
 
-\includegraphics[scale=1]{pictures/unbalanced}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{pictures/examples}
+\caption{Structure for sample security concepts (UML)}
+\end{figure}
 
-One security concept with multiple hundred of nodes where every node is a node of interest. 
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[floatplacement=H,caption=Execution time in nanoseconds ,label=code1,basicstyle=\scriptsize]
+long startTime = System.nanoTime();
+methodToTime();
+long endTime = System.nanoTime();
 
-\includegraphics[scale=1]{pictures/many_nodes}
+long duration = (endTime - startTime);
+\end{lstlisting}
+\end{minipage}
+
+Each security concept was processed 10 times, the average time in milliseconds is shown below:
+
+\begin{align*}
+computeSG(secConcept50) &= 843ms \\
+computeSG(secConcept100) &= 1213ms \\
+computeSG(secConcept150) &= 2168ms
+\end{align*} 
+
+These security concepts cannot be compared to real-life examples but provide an estimation of how well the application will scale. The execution times will surely depend on the complexity of the given security concept, the overall results however show that the goal of providing a solution for the aggregation of security concepts based on the granularity level of the system was achieved.
 
 \section{Conclusion}
 \label{sec:conclusion}
+
+\subsection{Summary}
+
+In this thesis an approach for the aggregation of security attributes based on the granularity system was proposed. Researchers have already discussed aggregation rules for security attributes such as security requirements (\cite{Menzel2008}) or vulnerabilities/exploits (\cite{Noel:2004:MAG:1029208.1029225}) but have either provided only theoretical or limited solutions in terms of security attribute types. 
+
+We have discussed the propagation of security attributes through different abstraction layers to derive new information in terms of attributes for components of interest. In Section \ref{sec:approach} we have shown that such an aggregation can result in newly derived attributes and can therefore potentially enhance the security assessment of a system.
+
+The transformation rules have also been implemented in a framework using EMF thus providing a working, scalable solution.  
+
+\subsection{Future Work}
+
+The metamodel that has been used throughout this thesis provides a solid basis for aggregation but could be extended by adding new dependencies or elements. One could for example define dependencies between threats or controls and could thus assess the security of a system in even more detail. Special characteristics of components could also be added to the metamodel such as attack resistance. We could indicate which sub-components of a system are resistant to attacks and to which degree. An example would be a cryptoprocessor of a server as mentioned in Section \ref{subsubsec:threats}.  
+
+Further we have briefly covered that an automatic generation of a suitable representation is needed. The transformation rules could either be used in other environments/frameworks or graphical solutions could be created using the provided output.
+
+Although we have shown that the solution can be used to derive new attributes, the applicability of the approach should be tested using real-life systems and security concepts.
+
+Lastly one could think of possibilities of using other metamodels and security concepts providing either an Application Programming Interface (API ) or extension methods.
