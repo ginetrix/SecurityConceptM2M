@@ -61,6 +61,7 @@
         eType="#//Threat" eOpposite="#//Threat/controls"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="securitygoal" lowerBound="1"
         upperBound="-1" eType="#//SecurityGoal" eOpposite="#//SecurityGoal/controls"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attackPotential" eType="#//Damages"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Component">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
@@ -68,14 +69,14 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="componentID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponents" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subComponents" upperBound="-1"
         eType="#//Component" eOpposite="#//Component/ancestor">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="SecurityGoal"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ancestor" eType="#//Component"
-        eOpposite="#//Component/subcomponents"/>
+        eOpposite="#//Component/subComponents"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="asset" eType="#//Asset"
         eOpposite="#//Asset/components" eKeys="#//Asset/assetID">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

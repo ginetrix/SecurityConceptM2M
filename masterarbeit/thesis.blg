@@ -1,0 +1,20 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
+A level-1 auxiliary file: declaration.aux
+A level-1 auxiliary file: abkuerzungsverzeichnis.aux
+A level-1 auxiliary file: abbildungsverzeichnis.aux
+A level-1 auxiliary file: 0_summary.aux
+A level-1 auxiliary file: 1_introduction.aux
+A level-1 auxiliary file: 2_main.aux
+The style file: plain.bst
+Database file #1: refs.bib
+Warning--entry type for "commoncriteria" isn't style-file defined
+--line 277 of file refs.bib
+Warning--entry type for "omg2013mof" isn't style-file defined
+--line 335 of file refs.bib
+Warning--to sort, need author or key in iso27001
+Warning--empty author in iso27001
+Warning--empty institution in iso27001
+Warning--empty journal in branagan
+Warning--can't use both author and editor fields in Lenstra2004
+Warning--can't use both author and editor fields in Menzel2008
+(There were 8 warnings)

@@ -1,0 +1,39 @@
+\select@language {english}
+\select@language {english}
+\contentsline {figure}{\numberline {1}{\ignorespaces Four acts that cause security harm (extracted from \cite {Pfleeger:2006:SC:1177321})\relax }}{4}{figure.caption.6}
+\contentsline {figure}{\numberline {2}{\ignorespaces Overview of the Security Target contents (extracted from \cite {commoncriteria})\relax }}{7}{figure.caption.8}
+\contentsline {figure}{\numberline {3}{\ignorespaces Relationships between Model and Metamodel (UML)\relax }}{9}{figure.caption.10}
+\contentsline {figure}{\numberline {4}{\ignorespaces Model transformation (extracted from \cite {modeltrans})\relax }}{11}{figure.caption.11}
+\contentsline {figure}{\numberline {5}{\ignorespaces Model transformation (UML)\relax }}{12}{figure.caption.12}
+\contentsline {figure}{\numberline {6}{\ignorespaces Security Concept Metamodel (UML)\relax }}{18}{figure.caption.13}
+\contentsline {figure}{\numberline {7}{\ignorespaces Two different representations of data (UML)\relax }}{19}{figure.caption.14}
+\contentsline {figure}{\numberline {8}{\ignorespaces Structural information (UML)\relax }}{20}{figure.caption.15}
+\contentsline {figure}{\numberline {9}{\ignorespaces Attributes of a Security Goal (UML)\relax }}{23}{figure.caption.22}
+\contentsline {figure}{\numberline {10}{\ignorespaces Relationships between Security Goals (UML)\relax }}{24}{figure.caption.23}
+\contentsline {figure}{\numberline {11}{\ignorespaces Ambiguous propagation (UML)\relax }}{24}{figure.caption.24}
+\contentsline {figure}{\numberline {12}{\ignorespaces Ambiguous propagation (UML)\relax }}{25}{figure.caption.25}
+\contentsline {figure}{\numberline {13}{\ignorespaces Attributes of a Threat (UML)\relax }}{27}{figure.caption.27}
+\contentsline {figure}{\numberline {14}{\ignorespaces Underspecified Security Concept with a Threat (UML)\relax }}{27}{figure.caption.28}
+\contentsline {figure}{\numberline {15}{\ignorespaces Underspecified Security Concept with a Control (UML)\relax }}{29}{figure.caption.30}
+\contentsline {figure}{\numberline {16}{\ignorespaces Security Concept Model (UML)\relax }}{35}{figure.caption.31}
+\contentsline {figure}{\numberline {17}{\ignorespaces Component $C1.1.1$ block definition diagram (UML)\relax }}{36}{figure.caption.32}
+\contentsline {figure}{\numberline {18}{\ignorespaces Component $C1$ block definition diagram (UML)\relax }}{37}{figure.caption.33}
+\contentsline {figure}{\numberline {19}{\ignorespaces Component $C1$ with Data 2 and sub-components as assets (UML)\relax }}{38}{figure.caption.34}
+\contentsline {figure}{\numberline {20}{\ignorespaces Component $C1$ with sub-sub-components added as assets (UML)\relax }}{39}{figure.caption.35}
+\contentsline {figure}{\numberline {22}{\ignorespaces Connection adjustment (UML)\relax }}{40}{figure.caption.37}
+\contentsline {figure}{\numberline {23}{\ignorespaces Component $C1$ with security goals addressing D1 and D3 (UML)\relax }}{40}{figure.caption.38}
+\contentsline {figure}{\numberline {24}{\ignorespaces Component $C1.1.1$ with a new security goal addressing its integrity (UML)\relax }}{41}{figure.caption.39}
+\contentsline {figure}{\numberline {25}{\ignorespaces Connection adjustment (UML)\relax }}{42}{figure.caption.40}
+\contentsline {figure}{\numberline {26}{\ignorespaces Component $C2$ with addressing D1 and D3 (UML)\relax }}{42}{figure.caption.41}
+\contentsline {figure}{\numberline {27}{\ignorespaces Security concept after the transformation (UML)\relax }}{43}{figure.caption.42}
+\contentsline {figure}{\numberline {28}{\ignorespaces Security goal set before aggregation\relax }}{43}{figure.28}
+\contentsline {figure}{\numberline {29}{\ignorespaces Security goal set after aggregation\relax }}{43}{figure.29}
+\contentsline {figure}{\numberline {30}{\ignorespaces Security Concept Model (UML)\relax }}{46}{figure.caption.43}
+\contentsline {figure}{\numberline {31}{\ignorespaces Initial threat for component C1.1.1 (UML)\relax }}{47}{figure.caption.44}
+\contentsline {figure}{\numberline {32}{\ignorespaces Initial threat for component C1 (UML)\relax }}{47}{figure.caption.45}
+\contentsline {figure}{\numberline {33}{\ignorespaces Threat addressing data 2 of component C1 (UML)\relax }}{48}{figure.caption.46}
+\contentsline {figure}{\numberline {34}{\ignorespaces Threat addressing the availability of component C1 (UML)\relax }}{49}{figure.caption.47}
+\contentsline {figure}{\numberline {35}{\ignorespaces Final threats for component C1 (UML)\relax }}{50}{figure.caption.48}
+\contentsline {figure}{\numberline {36}{\ignorespaces Ecore Metamodel (Ecore)\relax }}{54}{figure.caption.49}
+\contentsline {figure}{\numberline {37}{\ignorespaces Dynamic Instance (Ecore)\relax }}{54}{figure.caption.50}
+\contentsline {figure}{\numberline {38}{\ignorespaces Structure for sample security concepts (UML)\relax }}{57}{figure.caption.51}
