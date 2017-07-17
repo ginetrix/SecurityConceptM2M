@@ -58,7 +58,7 @@ To put everything into perspective the term \textit{Security Architecture} will 
 
 \subsubsection{Security Architecture}
 
-Gacek et al. \cite{Gacek95onthe} discussed the definition of a \textit{Software System Architecture} (SSA) which will be used and adapted in the security context with the security context simply being the usage in the Computer Security field. According to the authors a \textit{Software System Architecture} is:
+Gacek et al. \cite{Gacek95onthe} discussed the definition of a \textit{Software System Architecture} (SSA) which will be used and adapted in the security context with the security context being the usage in the Computer Security field. According to the authors a \textit{Software System Architecture} is:
 
 \begin{itemize}
 \item A collection of software and system components, connections and constraints
@@ -146,7 +146,7 @@ Common Criteria proposes an evaluation by using a so called \textit{Security Tar
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth]{pictures/sectarget.png}
-\caption{Overview of the Security Target contents}
+\caption{Overview of the Security Target contents (extracted from \cite{commoncriteria})}
 \label{fig:sectarget}
 \end{figure}
 
@@ -258,7 +258,7 @@ Throughout the introduction and the background chapter the derivation of securit
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.55\textwidth]{pictures/transformation.png}
-\caption{Model transformation}
+\caption{Model transformation (UML)}
 \label{fig:transformation}
 \end{figure}
 
@@ -269,7 +269,7 @@ Prior to the actual rule set definition one final concept has to be introduced. 
 \subsubsection{Granularity Levels}
 \label{subsubsec:granularity}
 
-Information systems are often complex because of the number of interconnections and interdependencies between components and therefore it might be difficult to assess potential impacts and risks of a system \cite{branagan}.
+Information systems are often complex because of the number of interconnections and interdependencies between components. It might be therefore difficult to assess potential impacts and risks of a system \cite{branagan}.
 
 One logical goal would be to decrease the overall complexity to enable a better risk assessment. \textit{System abstraction} tries to achieve this by reducing the level of details \cite{branagan}. Thyssen et al. presented a framework which allowed them to view models under different levels of abstraction \cite{thyssen2010system}. This abstraction is achieved by introducing granularity levels which are based on the different needs of the stakeholders. 
 
@@ -294,7 +294,7 @@ A user will select a certain granularity level, i.e. a certain set of components
 \section{Related Work}
 \label{sec:related_work}
 
-Several publications that provide an essential basis for this thesis will now be presented. A variety of different topics will be briefly covered such as abstraction layers/granularity layers, security attribute aggregation and propagation as well as model transformations and formal verification. 
+Several publications that provide an essential basis for this thesis will now be presented. A variety of different topics will be briefly covered such as security attribute aggregation and propagation as well as model transformations and formal verification. 
 
 \subsection{Security Attribute Aggregation}
 \label{subsec:aggregation}
@@ -334,7 +334,7 @@ When proposing the model transformation one has to determine its correctness. Va
 
 The fourth criterion is the \textit{semantic correctness} which usually implies a semantic equivalence between source and target model. Here however, the model transformation is a projection, i.e. a possible gain/loss of information is possible.  
 
-Oracle functions serve the purpose of validating a model transformation output. The definition of such may become very difficult because of the complex nature of models as data structures \cite{mottu}. Model comparison is described as one possible solution to validate a model transformation. Mottu et al. introduce a general oracle containing six different functions validating a given test case. Our primary goal however is the semantic gain of the projection and to verify this we have to define a very specific oracle in the security context. 
+Oracle functions serve the purpose of validating a model transformation output. The definition of such may become very difficult because of the complex nature of models as data structures \cite{mottu}. Model comparison is described as one possible solution to validate a model transformation. Mottu et al. \cite{mottu} introduce a general oracle containing six different functions validating a given test case. Our primary goal however is the semantic gain of the projection and to verify this we have to define a very specific oracle in the security context. 
 
 Model verification through testing is the most common form of validation \cite{fleurey} and thus, we will provide an implementation of the transformation rules and will validate its results by testing with sample models as inputs. The purpose of the testing process is the \textit{detection of errors in the implementation}, the \textit{completion of the specification} and lastly the \textit{assessment of the result}, as mentioned by Fleurey et al.
 
@@ -399,7 +399,7 @@ Lastly the selection of \textit{Granularity Levels} by users should be enabled. 
 
 Having this extra reference one can create infinitely deep structural dependencies within the model. Therefore the actual transformation will only require one model instead of two separate ones.
 
-\subsection{Security attributes of metamodel elements }
+\subsection{Security Attributes of Metamodel Elements }
 To put the different elements of the metamodel into a security context one has to clearly define the Security Goal Classes for possible assets. Interpretations of the classes are not unambiguous and it is necessary to discuss how security attributes propagate through different abstraction layers and what kind of impact interrelated components on different layers have on each other. 
 
 \subsubsection{Components}
@@ -432,7 +432,7 @@ The distinctions between the different data types are very minor but noteworthy 
 
 \subsubsection*{Processed Data}
 
-Processed data applies to data that is being processed by a component, i.e. is being used by a service running on a component. An example would be data that is being processed by an API on a server. The API being the \textit{Virtual Component} and the server being the \textit{Physical Component}. The \textit{Data in Use} would be the processed information by the API backend.
+Processed data applies to data that is being processed by a component, i.e. is being used by a service running on a component. An example would be data that is being processed by an Application Programming Interface (API) on a server. The API being the \textit{Virtual Component} and the server being the \textit{Physical Component}. The \textit{Data in Use} would be the processed information by the API backend.
 
 \begin{enumerate}
 \item \textbf{Confidentiality} - Ensured when the data is protected from unauthorized disclosure during processing
@@ -453,14 +453,14 @@ Data in Motion applies to all data transmitted between components. We do not spe
 
 The different component/data types shown here should only show the different interpretations of the elements of the security concept metamodel. The interpretation of the element itself does not have an influence on the chosen metamodel element, i.e. the element for both physical and virtual components will still be \textit{Component}. The only difference can be found in data since transmitted data always belongs to a \textit{Connection}. For both processed and stored data however the metamodel element \textit{Data} will be used.
 
-\subsubsection{Propagation of security attributes between different abstraction layers}
+\subsubsection{Propagation of Security Attributes Between Different Abstraction Layers}
 \label{subsubsec:propagation}
 
-The gathering of information has been briefly mentioned when addressing the overall goal in Section \ref{subsec:goal}. In this section the propagation of security attributes through the respective abstraction layers will be discussed. Here we will look into the dependencies between components and their security properties during transformations.
+The gathering of information has been briefly mentioned when the overall goal in Section \ref{subsec:goal} was addressed. In this section the propagation of security attributes through the respective abstraction layers will be discussed. Here we will look into the dependencies between components and their security properties during transformations.
 
 \subsubsection*{Sub-component}
 \label{subsubsec:sub_comp}
-A sub-component \textit{SC} will be defined as a component that directly belongs to a component \textit{C} which is in an abstraction layer above, i.e. encapsulates one or more sub-components. According to the previously defined metamodel such a relationship between components is being defined by the \textit{subcomponents} composition, i.e. a sub-component cannot exist without a component here. This also means that sub-components cannot possess data that does not exist in the abstraction layer above. An example would be a database encapsulating a sub-component such as a secure key storage.   
+A sub-component \textit{SC} will be defined as a component that directly belongs to a component \textit{C} which is in an abstraction layer above, i.e. encapsulates one or more sub-components. According to the previously defined metamodel such a relationship between components is being defined by the \textit{subComponents} composition, i.e. a sub-component cannot exist without a component here. This also means that sub-components cannot possess data that does not exist in the abstraction layer above. An example would be a database encapsulating a sub-component such as a secure key storage.   
 
 \subsubsection*{Security Goals}
 \label{subsubsec:sec_goal}
@@ -539,7 +539,7 @@ Similar to SGs one can look into propagation rules for threats. Firstly we will 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.85]{pictures/threat.png}
-\caption{Attributes of a Threat}
+\caption{Attributes of a Threat (UML)}
 \label{fig:threat}
 \end{figure} 
 
@@ -550,7 +550,7 @@ Every defined threat threatens at least one SG according to the metamodel (Figur
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.85]{pictures/threat_overview.png}
-\caption{Underspecified Security Concept with a Threat}
+\caption{Underspecified Security Concept with a Threat (UML)}
 \label{fig:threat_overview}
 \end{figure} 
 
@@ -582,7 +582,7 @@ If the availability of one sub-component is being threatened it will also propag
 
 It is certainly possible that a security breach of a component might have no effect on the security of its sub-components, e.g. compromising a server does not necessarily mean a compromised cryptoprocessor. This characteristic however would have to be made recognizable in the metamodel. 
 
-This feature amongst others will be discussed in Section \ref{sec:conclusion} as possible enhancements of future versions. 
+This feature amongst others will be discussed in Section \ref{sec:conclusion} as possible enhancements for future versions. 
 
 We can therefore conclude that to ensure a SG of a component $C_n$ all its sub-components have to be protected as well. For threats however it is enough to threaten one sub-component to have an effect on its parental node.
 
@@ -593,7 +593,7 @@ Controls try to mitigate threats and are directly linked to at least one threat 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{pictures/control_propagation.png}
-\caption{Underspecified Security Concept with a Control}
+\caption{Underspecified Security Concept with a Control (UML)}
 \label{fig:control_propagation}
 \end{figure} 
 
@@ -826,7 +826,7 @@ The following security concept serves as an example. The selected granularity le
 For every component of interest the function $compute\_sg$ will be called. First the list of components $L_c$ will be populated with the three components $C1$, $C2$ and $C1.1.1$. Prior to applying the algorithm, we have to define the security goals. A definition follows:
 
 \begin{align*}
-SG_{CIA}(sec\_concept) = \{sg(A,C1.1.1,C1.1.1,"high") &, \\ sg(C,C1.1,D2,"medium")&, \\
+SG_{CIA}(SUS) = \{sg(A,C1.1.1,C1.1.1,"high") &, \\ sg(C,C1.1,D2,"medium")&, \\
 sg(I,C1,C1,"low")&, \\
 sg(C,-,D1,"high")&, \\
 sg(C,-,D3,"medium")\} 
@@ -924,7 +924,7 @@ When processing the second sub-component of $C1$ we find another connection that
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{pictures/con_c12}
-\caption{Connection adjustment}
+\caption{Connection adjustment (UML)}
 \label{fig:con_c1.2}
 \end{figure} 
 
@@ -935,6 +935,10 @@ Lastly the function $addSGfromConnections$ will be called for the component $C1$
         \includegraphics[scale=0.9]{pictures/block_c1_final}
     \caption{Component $C1$ with security goals addressing D1 and D3 (UML)}
 \end{figure}
+
+\begin{align*}
+SG_{CIA}(C1) = \{sg(I,C1,C1,"low"), sg(C,C1,D2, "medium"), \\ sg(C,C1,D3,"medium"), sg(C,C1,D1,"high")\}
+\end{align*} 
 
 The aggregation for $C1$ has been carried out while iterating through the ancestors of $C1.1.1$. To conclude the aggregation the function $addSGAtoC$ will be called. $C1$ now has two security goals that might have an influence on $C1.1.1$. In Section \ref{subsubsec:sec_goal} the propagation of security attributes through abstraction layers has been discussed. If the integrity for a component $C$ is being protected it necessarily means that the integrity of its sub-components $C_i ... C_n$ is being protected as well. We can therefore add $SG\_C1$ to $L_{sg}$ for $C1.1.1$ while adjusting the properties of the security goal. The attributes component and assets will be changed from $C1$ to $C1.1.1$.
 
@@ -955,7 +959,7 @@ While processing $C2.1$ the function $fixConnection$ will be called that will  p
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{pictures/con_c2}
-\caption{Connection adjustment}
+\caption{Connection adjustment (UML)}
 \label{fig:con_c2}
 \end{figure}
 
@@ -971,17 +975,12 @@ Both security goals that address Data 1 and Data 3 will be added to the security
 SG_{CIA}(C2) = \{sg(C,C2,D1,"high"), sg(C,C2,D3,"medium")\}
 \end{align*}
 
-
-\begin{align*}
-SG_{CIA}(C1) = \{sg(I,C1,C1,"low"), sg(C,C1,D2, "medium"), \\ SG(C,C1,D3,"medium"), sg(C,C1,D1,"high")\}
-\end{align*} 
-
 The transformation result as well as a comparison between the initial set of security attributes and the resulting set follows.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{pictures/block_final_trans}
-\caption{Security concept after the transformation}
+\caption{Security concept after the transformation (UML)}
 \end{figure} 
 
 
@@ -1062,7 +1061,7 @@ We will therefore define multiple threats addressing the just mentioned security
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{pictures/threat_transformation}
-\caption{Security Concept Model}
+\caption{Security Concept Model (UML)}
 \label{fig:con_c2}
 \end{figure}
 
@@ -1288,7 +1287,7 @@ EMF allows users to create a dynamic instance that is conform to the defined met
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\textwidth]{pictures/dynamic_instance}
+\includegraphics[width=0.5\textwidth]{pictures/dynamic_instance}
 \caption{Dynamic Instance (Ecore)}
 \label{fig:ecore_instance}
 \end{figure}
@@ -1417,7 +1416,7 @@ These security concepts cannot be compared to real-life examples but provide an 
 
 \subsection{Summary}
 
-In this thesis an approach for the aggregation of security attributes based on the granularity system was proposed. Researchers have already discussed aggregation rules for security attributes such as security requirements (\cite{Menzel2008}) or vulnerabilities/exploits (\cite{Noel:2004:MAG:1029208.1029225}) but have either provided only theoretical or limited solutions in terms of security attribute types. 
+In this thesis an approach for the aggregation of security attributes based on the granularity system was proposed. Researchers have already discussed aggregation rules for security attributes such as security requirements \cite{Menzel2008} or vulnerabilities/exploits \cite{Noel:2004:MAG:1029208.1029225} but have either provided only theoretical or limited solutions in terms of security attribute types. 
 
 We have discussed the propagation of security attributes through different abstraction layers to derive new information in terms of attributes for components of interest. In Section \ref{sec:approach} we have shown that such an aggregation can result in newly derived attributes and can therefore potentially enhance the security assessment of a system.
 
