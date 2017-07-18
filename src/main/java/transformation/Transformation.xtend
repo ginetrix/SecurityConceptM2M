@@ -76,7 +76,7 @@ class Transformation {
 		for (Component comp : componentsOfInterest) {
 			generateSG(comp)
 		}
-
+		
 		// Generate output for now
 		for (componentID : componentIDs) {
 
@@ -149,8 +149,6 @@ class Transformation {
 		var value = securityOracleValidation(oldSecurityConcept, newSecurityConcept, componentsOfInterest)
 		println(value)
 
-		var SecurityConcept myConcept = genereTateConcept(50)
-		writeToSecrutiyConcept(myConcept)
 	}
 
 	def Boolean componentExistsInSC(SecurityConcept concept, Component component) {
@@ -380,9 +378,9 @@ class Transformation {
 			oldSecurityConcept.assets.add(tmpAsset)
 		}
 		if (child != anc) {
-			for (sg : child?.asset?.securityGoals) {
 				for (threat : child.asset.threats) {
 					if (!threatExists(anc.asset, threat)) {
+						println("THREAT: threat")
 						tmpThreat = createThreat
 						tmpThreat = copyThreat(tmpThreat, threat)
 						tmpThreat.description = anc.name
@@ -390,7 +388,6 @@ class Transformation {
 						tmpThreat.asset.components.addAll(anc.asset.components)
 						oldSecurityConcept.threats.add(tmpThreat)
 					}
-				}
 			}
 		}
 		// Check the data and add the corresponding security goals accordingly
