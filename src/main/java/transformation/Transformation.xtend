@@ -12,8 +12,6 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier
 
-import java.io.IOException
-import java.util.Collections
 import java.util.List
 import java.util.Stack
 import SC.SCFactory
@@ -38,9 +36,7 @@ class Transformation {
 	SecurityConcept initialConcept
 
 	def static void main(String[] args) {
-//		new Transformation().generate("MetaModel/minitest.xmi")
 		new Transformation().generate("MetaModel/SecurityConcept_MT_example.xmi")
-//		new Transformation().generate("MetaModel/SecurityConceptTransformation.xmi")
 	}
 
 	def generate(String file) {
@@ -65,7 +61,7 @@ class Transformation {
 		copier.copyReferences
 		oldSecurityConcept = securityConcept
 		// Select the IDs of components that should be aggregated
-		val int[] componentIDs = #[1]
+		val int[] componentIDs = #[1, 4, 6]
 		componentIDs.stream.filter(id|findComponentByID(securityConcept, id) !== null).forEach [ id |
 			componentsOfInterest.add(findComponentByID(securityConcept, id))
 		]
@@ -159,7 +155,6 @@ class Transformation {
 
 		var value = securityOracleValidation(oldSecurityConcept, newSecurityConcept, componentsOfInterest)
 		println(value)
-
 	}
 
 	def Boolean componentExistsInSC(SecurityConcept concept, Component component) {
@@ -325,9 +320,7 @@ class Transformation {
 						// Add the security goal to the old security concept
 						if(!securityGoalExists(child.asset, tmpSG)) oldSecurityConcept.securityGoals.add(tmpSG)
 					}
-
 				}
-
 			}
 		}
 		// Iterate through all the data of the ancestor and check if it exists in the layer below
@@ -535,7 +528,7 @@ class Transformation {
 		return foundData != null
 	}
 
-	// Check whether a component has a specific asset
+// Check whether a component has a specific asset
 	def Data findData(
 		Component component,
 		Data data
@@ -706,18 +699,42 @@ class Transformation {
 
 	def List<SecurityGoal> securityGoalAggregation(List<SecurityGoal> securityGoalList) {
 		var List<SecurityGoal> finalSecurityGoals = new ArrayList<SecurityGoal>
-		var List<SecurityGoal> tmpList
+		var List<SecurityGoal> tmpList = new ArrayList<SecurityGoal>
 		for (sg : securityGoalList) {
 			tmpList = new ArrayList<SecurityGoal>
 			tmpList.addAll(securityGoalList.filter [ secgoal |
 				secgoal.asset?.name.equals(sg.asset.name) && secgoal.securityGoalClass.equals(sg.securityGoalClass)
 			])
-			tmpList = chooseMaxPotentialSG(tmpList)
-			for (sec : tmpList) {
+
+			var List<SecurityGoal> maxPot = chooseMaxPotentialSG(tmpList)
+			// Adjust controls
+			if (maxPot.size > 1) {
+				var aggSG = createSecurityGoal
+				getAggSG(maxPot, aggSG)
+				adjustDependenciesSG(tmpList, aggSG)
+				adjustSGReferences(tmpList, aggSG)
+			} else {
+				adjustDependenciesSG(tmpList, maxPot.get(0))
+				adjustSGReferences(tmpList, maxPot.get(0))
+			}
+			for (sec : maxPot) {
 				if(!securityGoalInList(finalSecurityGoals, sg)) finalSecurityGoals.add(sec)
 			}
 		}
 		return finalSecurityGoals
+	}
+	
+	def getAggSG(List<SecurityGoal> tmpList, SecurityGoal sg){
+		sg.name = "AGGREGATED"
+		for (secgoal : tmpList){
+			for (threat : secgoal.threats){
+				if (!threatExists(sg.asset, threat)) sg.threats.add(threat)
+				for (control : threat.controls){
+					if (!controlExists(sg.asset, control)) sg.asset.controls.add(control)
+				}
+			}
+			oldSecurityConcept.securityGoals.remove(secgoal)
+		}
 	}
 
 	def List<Threat> threatAggregation(List<Threat> threatList) {
@@ -728,12 +745,28 @@ class Transformation {
 			tmpList.addAll(threatList.filter [ threat |
 				threat.asset.name.equals(t.asset.name) && threat.threatClass.equals(t.threatClass)
 			])
-			tmpList = chooseMaxPotentialThreats(tmpList)
-			for (threat : tmpList) {
+			var List<Threat> maxPot = chooseMaxPotentialThreats(tmpList)
+			// Adjust controls
+			if (maxPot.size > 1) {
+				var aggThreat = createThreat
+				getAggThreatControls(aggThreat, maxPot)
+				adjustThreatReferences(tmpList, aggThreat)
+			} else {
+				adjustThreatReferences(tmpList, maxPot.get(0))
+			}
+			for (threat : maxPot) {
 				if(!threatInList(finalThreats, threat)) finalThreats.add(threat)
 			}
 		}
 		return finalThreats
+	}
+
+	def getAggThreatControls(Threat tmpThreat, List<Threat> threatList) {
+		for (t : threatList) {
+			for (c : t.controls) {
+				if(!controlExists(tmpThreat.asset, c)) tmpThreat.controls.add(c)
+			}
+		}
 	}
 
 	def List<Control> controlAggregation(List<Control> controlList) {
@@ -852,6 +885,55 @@ class Transformation {
 		return fullList
 	}
 
+	def adjustSGReferences(List<SecurityGoal> oldSGs, SecurityGoal aggregatedSG) {
+		for (sg : oldSGs) {
+			for (threat : sg.threats) {
+				if(!threatExists(aggregatedSG.asset, threat)) aggregatedSG.threats.add(threat)
+				for (control : threat.controls) {
+					if(!controlExists(aggregatedSG.asset, control)) aggregatedSG.asset.controls.add(control)
+				}
+			}
+		}
+	}
+
+	def adjustDependenciesSG(List<SecurityGoal> oldSGs, SecurityGoal aggregatedSG) {
+		for (sg : oldSecurityConcept.securityGoals) {
+			for (oldSG : oldSGs) {
+				if (sg.dependsOnSecurityGoals.contains(oldSG)) {
+					for (threat : oldSG.threats) {
+						if(!threatExists(aggregatedSG.asset, threat)) aggregatedSG.threats.add(threat)
+						for (control : threat.controls) {
+							if(!controlExists(aggregatedSG.asset, control)) aggregatedSG.asset.controls.add(control)
+						}
+					}
+					sg.dependsOnSecurityGoals.add(aggregatedSG)
+					sg.dependsOnSecurityGoals.remove(oldSG)
+				}
+			}
+		}
+	}
+
+	def Boolean controlExists(Asset asset, Control control) {
+		var foundControl = asset.controls.findFirst [ ctrl |
+			ctrl.attackPotential.equals(control.attackPotential) && ctrl.threats.equals(control.threats)
+		]
+		return foundControl != null
+	}
+
+	def adjustThreatReferences(
+		List<Threat> oldThreats,
+		Threat aggregatedThreat
+	) {
+		for (t : oldThreats) {
+			for (c : t.controls) {
+				if (!controlExists(aggregatedThreat.asset, c)) {
+					aggregatedThreat.controls.add(c)
+				}
+			}
+			oldSecurityConcept.threats.remove(t)
+		}
+	}
+
 	def List<SecurityGoal> getFullSecurityGoalList(SecurityConcept securityConcept, Component component) {
 		var List<SecurityGoal> fullList = new ArrayList<SecurityGoal>
 		// Add the direct security goals
@@ -918,39 +1000,6 @@ class Transformation {
 		}
 	}
 
-	def SecurityConcept genereTateConcept(int numberOfComponents) {
-		var SecurityConcept generatedConcept = createSecurityConcept
-		var Component tmpComp
-		var Asset tmpAsset
-		var SecurityGoal tmpSG
-		for (var int i = 0; i < numberOfComponents; i++) {
-			if (i != 0) {
-				tmpComp = createComponent
-				tmpAsset = createAsset
-				tmpComp.componentID = i
-				tmpAsset.name = tmpComp.componentID.toString
-				tmpComp.asset = tmpAsset
-				tmpComp.ancestor = findComponentByID(generatedConcept, i - 1)
-				tmpComp.ancestor.subcomponents.add(tmpComp)
-				generatedConcept.assets.add(tmpAsset)
-				generatedConcept.components.add(tmpComp)
-			} else {
-				tmpComp = createComponent
-				tmpAsset = createAsset
-				tmpComp.componentID = i
-				tmpComp.asset = tmpAsset
-				tmpComp.name = "Comp + " + i
-				tmpSG = createSecurityGoal
-				tmpSG.asset = tmpAsset
-				tmpSG.securityGoalClass = SecurityGoalClassType.AVAILABILITY
-				generatedConcept.assets.add(tmpAsset)
-				generatedConcept.securityGoals.add(tmpSG)
-				generatedConcept.components.add(tmpComp)
-			}
-		}
-		return generatedConcept
-	}
-
 	def getAggregatedThreats(List<Threat> initialList, List<Threat> newList) {
 		for (threat : initialList) {
 			if (!newList.contains(threat)) {
@@ -972,34 +1021,6 @@ class Transformation {
 			if (!newList.contains(c)) {
 				println("AGGREGATED CONTROL: " + controlOutput(c))
 			}
-		}
-	}
-
-	def writeToSecrutiyConcept(SecurityConcept newSecurityConcept) {
-		val resourceSet = new ResourceSetImpl
-		Resource$Factory.Registry.INSTANCE.extensionToFactoryMap.put(SCPackage.eNS_URI, SCPackage.eINSTANCE)
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl())
-		val resource = resourceSet.createResource(URI.createURI("MetaModel/SecurityConceptTransformation.xmi"))
-		val assets = newSecurityConcept.assets
-		val sg = newSecurityConcept.securityGoals
-		val comp = newSecurityConcept.components
-		val threats = newSecurityConcept.threats
-		val data = newSecurityConcept.data
-		val connections = newSecurityConcept.connections
-
-		resource.contents.addAll(assets)
-		resource.contents.addAll(sg)
-		resource.contents.addAll(comp)
-		resource.contents.addAll(threats)
-		resource.contents.addAll(data)
-		resource.contents.addAll(connections)
-
-		println("############################")
-		print("DONE!!!")
-		try {
-			resource.save(Collections.EMPTY_MAP)
-		} catch (IOException exception) {
-			exception.printStackTrace
 		}
 	}
 }
