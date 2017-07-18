@@ -4,6 +4,7 @@ package SC.impl;
 
 import SC.Asset;
 import SC.Control;
+import SC.Damages;
 import SC.SCPackage;
 import SC.SecurityGoal;
 import SC.Threat;
@@ -37,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link SC.impl.ControlImpl#getDependsOn <em>Depends On</em>}</li>
  *   <li>{@link SC.impl.ControlImpl#getAsset <em>Asset</em>}</li>
  *   <li>{@link SC.impl.ControlImpl#getThreats <em>Threats</em>}</li>
+ *   <li>{@link SC.impl.ControlImpl#getAttackPotential <em>Attack Potential</em>}</li>
  * </ul>
  * </p>
  *
@@ -112,6 +114,26 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 	 * @ordered
 	 */
 	protected EList<Threat> threats;
+
+	/**
+	 * The default value of the '{@link #getAttackPotential() <em>Attack Potential</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttackPotential()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Damages ATTACK_POTENTIAL_EDEFAULT = Damages.LOW;
+
+	/**
+	 * The cached value of the '{@link #getAttackPotential() <em>Attack Potential</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttackPotential()
+	 * @generated
+	 * @ordered
+	 */
+	protected Damages attackPotential = ATTACK_POTENTIAL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -215,6 +237,27 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Damages getAttackPotential() {
+		return attackPotential;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAttackPotential(Damages newAttackPotential) {
+		Damages oldAttackPotential = attackPotential;
+		attackPotential = newAttackPotential == null ? ATTACK_POTENTIAL_EDEFAULT : newAttackPotential;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SCPackage.CONTROL__ATTACK_POTENTIAL, oldAttackPotential, attackPotential));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -261,6 +304,8 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 				return getAsset();
 			case SCPackage.CONTROL__THREATS:
 				return getThreats();
+			case SCPackage.CONTROL__ATTACK_POTENTIAL:
+				return getAttackPotential();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -292,6 +337,9 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 				getThreats().clear();
 				getThreats().addAll((Collection<? extends Threat>)newValue);
 				return;
+			case SCPackage.CONTROL__ATTACK_POTENTIAL:
+				setAttackPotential((Damages)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -319,6 +367,9 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 			case SCPackage.CONTROL__THREATS:
 				getThreats().clear();
 				return;
+			case SCPackage.CONTROL__ATTACK_POTENTIAL:
+				setAttackPotential(ATTACK_POTENTIAL_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -341,6 +392,8 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 				return asset != null && !asset.isEmpty();
 			case SCPackage.CONTROL__THREATS:
 				return threats != null && !threats.isEmpty();
+			case SCPackage.CONTROL__ATTACK_POTENTIAL:
+				return attackPotential != ATTACK_POTENTIAL_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -359,6 +412,8 @@ public class ControlImpl extends MinimalEObjectImpl.Container implements Control
 		result.append(controlID);
 		result.append(", name: ");
 		result.append(name);
+		result.append(", attackPotential: ");
+		result.append(attackPotential);
 		result.append(')');
 		return result.toString();
 	}

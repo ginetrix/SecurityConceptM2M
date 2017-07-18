@@ -33,6 +33,7 @@ Package SC <http://www.example.org/securityconcept>
     Reference dependsOn : SecurityGoal<<0..*>>
     Reference asset : Asset<<1..*>>
     Reference threats : Threat<<0..*>>
+    Attribute attackPotential : Damages
 
   Class Component
     Attribute name : EString

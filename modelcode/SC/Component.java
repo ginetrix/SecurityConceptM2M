@@ -66,7 +66,7 @@ public interface Component extends EObject {
 	 * @return the value of the '<em>Component ID</em>' attribute.
 	 * @see #setComponentID(int)
 	 * @see SC.SCPackage#getComponent_ComponentID()
-	 * @model
+	 * @model id="true"
 	 * @generated
 	 */
 	int getComponentID();

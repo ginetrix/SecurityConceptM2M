@@ -5,6 +5,7 @@
 package SC.validation;
 
 import SC.Asset;
+import SC.Damages;
 import SC.SecurityGoal;
 import SC.Threat;
 
@@ -25,6 +26,8 @@ public interface ControlValidator {
 	boolean validateAsset(EList<Asset> value);
 
 	boolean validateThreats(EList<Threat> value);
+
+	boolean validateAttackPotential(Damages value);
 
 	boolean validateMitigates(EList<Threat> value);
 }

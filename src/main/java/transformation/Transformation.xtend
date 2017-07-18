@@ -23,7 +23,7 @@ import SC.Asset
 import org.eclipse.emf.ecore.resource.Resource
 import SC.Threat
 import SC.SecurityGoalClassType
-import SC.ThreatClass
+import SC.Control
 
 class Transformation {
 
@@ -69,14 +69,14 @@ class Transformation {
 		componentIDs.stream.filter(id|findComponentByID(securityConcept, id) !== null).forEach [ id |
 			componentsOfInterest.add(findComponentByID(securityConcept, id))
 		]
-		
+
 		// Create assets for each and every component
-		generateAssets(oldSecurityConcept.components)		
+		generateAssets(oldSecurityConcept.components)
 
 		for (Component comp : componentsOfInterest) {
 			generateSG(comp)
 		}
-		
+
 		// Generate output for now
 		for (componentID : componentIDs) {
 
@@ -121,11 +121,22 @@ class Transformation {
 			println("THREATS AFTER AGGREGATION: " + finalThreats.size)
 
 			getAggregatedThreats(tl, finalThreats)
+			println("#########")
+
+			var List<Control> ctrls = getFullControlList(oldSecurityConcept,
+				findComponentByID(securityConcept, componentID))
+
+			println("CONTROLS BEFORE AGGREGATION: " + ctrls.size)
+
+			var List<Control> finalControls = controlAggregation(ctrls)
+
+			println("CONTROLS AFTER AGGREGATION: " + finalControls.size)
+
+			getAggregatedControls(ctrls, finalControls)
 
 			println("#########")
 		}
 
-		// oldSecurityConcept.securityGoals.forEach[sg|println(sg.dependsOnSecurityGoals)]
 		oldSecurityConcept.connections.forEach[con|println("CONNECTION: " + connectionOutput(con))]
 
 		// Add the resulting elements and security attributes to the new security concept
@@ -220,7 +231,7 @@ class Transformation {
 	}
 
 	def dispatch generateCode(EObject object) {
-		println("sss")
+		println("")
 	}
 
 	def findAncestors(
@@ -271,6 +282,7 @@ class Transformation {
 		var Asset tmpAsset
 		var SecurityGoal tmpSG
 		var Threat tmpThreat
+		var Control tmpControl
 		// Check whether the ancestor is an asset 
 		if (anc.asset != null) {
 			for (sg : anc.asset.securityGoals) {
@@ -285,7 +297,6 @@ class Transformation {
 						// Add the new component and its asset to the transformed lists
 						child.asset = tmpAsset
 						oldSecurityConcept.assets.add(tmpAsset)
-						tmpAsset = createAsset
 					}
 					// Create the security goal and assign the new values
 					if (!securityGoalExists(child.asset, sg)) {
@@ -301,6 +312,15 @@ class Transformation {
 							tmpThreat.description = child.name
 							if(!threatExists(child.asset, tmpThreat)) oldSecurityConcept.threats.add(tmpThreat)
 							tmpSG.threats.add(tmpThreat)
+							// Create and adjust control
+							for (control : threat.controls) {
+								tmpControl = createControl
+								tmpControl = copyControl(tmpControl, control)
+								tmpControl.name = "CTRL + " + child.name
+								tmpControl.asset.add(child.asset)
+								tmpControl.threats.add(tmpThreat)
+								oldSecurityConcept.controls.add(tmpControl)
+							}
 						}
 						// Add the security goal to the old security concept
 						if(!securityGoalExists(child.asset, tmpSG)) oldSecurityConcept.securityGoals.add(tmpSG)
@@ -350,6 +370,7 @@ class Transformation {
 		var SecurityGoal tmpSG
 		var EObject tmpComp
 		var Threat tmpThreat
+		var Control tmpControl
 		var Copier copier = new Copier
 		// Add the child component to the ancestor asset list
 		if (!componentExists(anc.asset, child)) {
@@ -378,16 +399,24 @@ class Transformation {
 			oldSecurityConcept.assets.add(tmpAsset)
 		}
 		if (child != anc) {
-				for (threat : child.asset.threats) {
-					if (!threatExists(anc.asset, threat)) {
-						println("THREAT: threat")
-						tmpThreat = createThreat
-						tmpThreat = copyThreat(tmpThreat, threat)
-						tmpThreat.description = anc.name
-						tmpThreat.asset = anc.asset
-						tmpThreat.asset.components.addAll(anc.asset.components)
-						oldSecurityConcept.threats.add(tmpThreat)
+			for (threat : child.asset.threats) {
+				if (!threatExists(anc.asset, threat)) {
+					tmpThreat = createThreat
+					tmpThreat = copyThreat(tmpThreat, threat)
+					tmpThreat.description = anc.name
+					tmpThreat.asset = anc.asset
+					tmpThreat.asset.components.addAll(anc.asset.components)
+					oldSecurityConcept.threats.add(tmpThreat)
+					// Create and adjust control
+					for (control : threat.controls) {
+						tmpControl = createControl
+						tmpControl = copyControl(tmpControl, control)
+						tmpControl.name = "CTRL " + anc.name
+						tmpControl.asset.add(anc.asset)
+						tmpControl.threats.add(tmpThreat)
+						oldSecurityConcept.controls.add(tmpControl)
 					}
+				}
 			}
 		}
 		// Check the data and add the corresponding security goals accordingly
@@ -424,8 +453,18 @@ class Transformation {
 						for (threat : sg.threats) {
 							tmpThreat = createThreat
 							tmpThreat = copyThreat(tmpThreat, threat)
+							tmpControl.name = "CTRL " + anc.name
 							tmpThreat.asset = tmpAsset
 							oldSecurityConcept.threats.add(tmpThreat)
+							// Create and adjust control
+							for (control : threat.controls) {
+								tmpControl = createControl
+								tmpControl = copyControl(tmpControl, control)
+								tmpControl.name = "CTRL " + anc.name
+								tmpControl.asset.add(anc.asset)
+								tmpControl.threats.add(tmpThreat)
+								oldSecurityConcept.controls.add(tmpControl)
+							}
 						}
 					}
 				} else {
@@ -454,6 +493,14 @@ class Transformation {
 								tmpThreat = copyThreat(tmpThreat, threat)
 								tmpThreat.asset = tmpAsset
 								oldSecurityConcept.threats.add(tmpThreat)
+								// Create and adjust control
+								for (control : threat.controls) {
+									tmpControl = createControl
+									tmpControl = copyControl(tmpControl, control)
+									tmpControl.asset.add(anc.asset)
+									tmpControl.threats.add(tmpThreat)
+									oldSecurityConcept.controls.add(tmpControl)
+								}
 							}
 						}
 					}
@@ -469,6 +516,10 @@ class Transformation {
 
 	def String threatOutput(Threat threat) {
 		return "CLASS: " + threat.threatClass + " ASSET: " + threat.asset.name + " ATTACK: " + threat.attackPotential
+	}
+
+	def String controlOutput(Control control) {
+		return "NAME: " + control.name + " ATTACK: " + control.attackPotential
 	}
 
 	def String connectionOutput(Connection con) {
@@ -517,6 +568,10 @@ class Transformation {
 		return factory.createConnection
 	}
 
+	def Control createControl() {
+		return factory.createControl
+	}
+
 	def SecurityConcept createSecurityConcept() {
 		return factory.createSecurityConcept
 	}
@@ -525,6 +580,12 @@ class Transformation {
 		var copy = createData
 		copy.name = data.name
 		return copy
+	}
+
+	def Control copyControl(Control tmpControl, Control control) {
+		tmpControl.attackPotential = control.attackPotential
+		tmpControl.controlID = oldSecurityConcept.controls.last.controlID + 1
+		return tmpControl
 	}
 
 	def Asset copyAsset(Asset asset) {
@@ -600,10 +661,10 @@ class Transformation {
 		]
 		return foundThreat
 	}
-	
-	def generateAssets(List<Component> initialComponents){
-		for (comp : initialComponents){
-			if (comp.asset == null){
+
+	def generateAssets(List<Component> initialComponents) {
+		for (comp : initialComponents) {
+			if (comp.asset == null) {
 				var tmpAsset = createAsset
 				tmpAsset.name = comp.name
 				tmpAsset.components.add(comp)
@@ -618,7 +679,8 @@ class Transformation {
 
 	def Component getComponent(Asset asset, Component c) {
 		var foundComponent = asset.components.findFirst [ component |
-			component.componentID.equals(c.componentID) && component.name.equals(c.name)]
+			component.componentID.equals(c.componentID) && component.name.equals(c.name)
+		]
 		return foundComponent
 	}
 
@@ -652,7 +714,7 @@ class Transformation {
 			])
 			tmpList = chooseMaxPotentialSG(tmpList)
 			for (sec : tmpList) {
-				if(!securityGoalInList(finalSecurityGoals, sec)) finalSecurityGoals.add(sec)
+				if(!securityGoalInList(finalSecurityGoals, sg)) finalSecurityGoals.add(sec)
 			}
 		}
 		return finalSecurityGoals
@@ -668,10 +730,48 @@ class Transformation {
 			])
 			tmpList = chooseMaxPotentialThreats(tmpList)
 			for (threat : tmpList) {
-				if(!threatInList(finalThreats, t)) finalThreats.add(threat)
+				if(!threatInList(finalThreats, threat)) finalThreats.add(threat)
 			}
 		}
 		return finalThreats
+	}
+
+	def List<Control> controlAggregation(List<Control> controlList) {
+		var List<Control> finalControls = new ArrayList<Control>
+		var List<Control> tmpList
+		for (ctrl : controlList) {
+			tmpList = new ArrayList<Control>
+			tmpList.addAll(controlList.filter [ c |
+				c.threats.equals(ctrl.threats)
+			])
+			tmpList = chooseMinPotentialControls(tmpList)
+			for (control : tmpList) {
+				if(!controlInList(finalControls, control)) finalControls.add(control)
+			}
+		}
+		return finalControls
+	}
+
+	def List<Control> chooseMinPotentialControls(List<Control> controls) {
+		var potential = controls.get(0).attackPotential.value
+		var List<Control> minPotentials = new ArrayList<Control>
+		for (c : controls) {
+			if (c.attackPotential.value < potential) {
+				minPotentials.clear
+				potential = c.attackPotential.value
+				minPotentials.add(c)
+			} else if (c.attackPotential.value == potential && !controlInList(minPotentials, c)) {
+				minPotentials.add(c)
+			}
+		}
+		return minPotentials
+	}
+
+	def Boolean controlInList(List<Control> controls, Control ctrl) {
+		var foundControl = controls.findFirst [ c |
+			c.threats.equals(ctrl.threats) && c.attackPotential.equals(ctrl.attackPotential)
+		]
+		return foundControl != null
 	}
 
 	def List<SecurityGoal> chooseMaxPotentialSG(List<SecurityGoal> securityGoalList) {
@@ -679,9 +779,6 @@ class Transformation {
 		var List<SecurityGoal> maxPotentials = new ArrayList<SecurityGoal>
 		for (sg : securityGoalList) {
 			if (sg.damagePotential.value > potential) {
-				for (sec : maxPotentials) {
-					println("AGGREGATED SG: " + securityGoalOutput(sec))
-				}
 				maxPotentials.clear
 				potential = sg.damagePotential.value
 				maxPotentials.add(sg)
@@ -772,6 +869,29 @@ class Transformation {
 		return fullList
 	}
 
+	def List<Control> getFullControlList(SecurityConcept securityConcept, Component component) {
+		var List<Control> fullList = new ArrayList<Control>
+		// Add the direct controls
+		var tmpComp = securityConcept.components.findFirst[c|c.componentID.equals(component.componentID)]
+		if (tmpComp.asset != null) {
+			for (threat : tmpComp.asset.threats) {
+				fullList.addAll(threat.controls)
+			}
+		}
+		// Add the controls addressing the data
+		var List<Data> dataList = securityConcept.components.findFirst [ c |
+			c.componentID.equals(component.componentID)
+		].data
+		for (data : dataList) {
+			if (data.asset != null) {
+				for (threat : data.asset.threats) {
+					fullList.addAll(threat.controls)
+				}
+			}
+		}
+		return fullList
+	}
+
 	def Boolean securityOracleValidation(SecurityConcept initialConcept, SecurityConcept newSecurityConcept,
 		List<Component> components) {
 		var Boolean valid = true
@@ -843,6 +963,14 @@ class Transformation {
 		for (sg : initialList) {
 			if (!newList.contains(sg)) {
 				println("AGGREGATED SG: " + securityGoalOutput(sg))
+			}
+		}
+	}
+
+	def getAggregatedControls(List<Control> initialList, List<Control> newList) {
+		for (c : initialList) {
+			if (!newList.contains(c)) {
+				println("AGGREGATED CONTROL: " + controlOutput(c))
 			}
 		}
 	}

@@ -313,13 +313,22 @@ public interface SCPackage extends EPackage {
 	int CONTROL__THREATS = 4;
 
 	/**
+	 * The feature id for the '<em><b>Attack Potential</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTROL__ATTACK_POTENTIAL = 5;
+
+	/**
 	 * The number of structural features of the '<em>Control</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTROL_FEATURE_COUNT = 5;
+	int CONTROL_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Control</em>' class.
@@ -1071,6 +1080,17 @@ public interface SCPackage extends EPackage {
 	EReference getControl_Threats();
 
 	/**
+	 * Returns the meta object for the attribute '{@link SC.Control#getAttackPotential <em>Attack Potential</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Attack Potential</em>'.
+	 * @see SC.Control#getAttackPotential()
+	 * @see #getControl()
+	 * @generated
+	 */
+	EAttribute getControl_AttackPotential();
+
+	/**
 	 * Returns the meta object for class '{@link SC.Component <em>Component</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1721,6 +1741,14 @@ public interface SCPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONTROL__THREATS = eINSTANCE.getControl_Threats();
+
+		/**
+		 * The meta object literal for the '<em><b>Attack Potential</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTROL__ATTACK_POTENTIAL = eINSTANCE.getControl_AttackPotential();
 
 		/**
 		 * The meta object literal for the '{@link SC.impl.ComponentImpl <em>Component</em>}' class.

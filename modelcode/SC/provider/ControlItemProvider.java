@@ -65,6 +65,7 @@ public class ControlItemProvider
 			addDependsOnPropertyDescriptor(object);
 			addAssetPropertyDescriptor(object);
 			addThreatsPropertyDescriptor(object);
+			addAttackPotentialPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -180,6 +181,28 @@ public class ControlItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Attack Potential feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAttackPotentialPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Control_attackPotential_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Control_attackPotential_feature", "_UI_Control_type"),
+				 SCPackage.Literals.CONTROL__ATTACK_POTENTIAL,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Control.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -219,6 +242,7 @@ public class ControlItemProvider
 		switch (notification.getFeatureID(Control.class)) {
 			case SCPackage.CONTROL__CONTROL_ID:
 			case SCPackage.CONTROL__NAME:
+			case SCPackage.CONTROL__ATTACK_POTENTIAL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

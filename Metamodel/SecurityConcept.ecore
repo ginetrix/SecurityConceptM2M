@@ -70,7 +70,8 @@
       <details key="name" value="SecurityGoal"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="componentID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="componentID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subcomponents" upperBound="-1"
         eType="#//Component" eOpposite="#//Component/ancestor">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

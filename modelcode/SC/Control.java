@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link SC.Control#getDependsOn <em>Depends On</em>}</li>
  *   <li>{@link SC.Control#getAsset <em>Asset</em>}</li>
  *   <li>{@link SC.Control#getThreats <em>Threats</em>}</li>
+ *   <li>{@link SC.Control#getAttackPotential <em>Attack Potential</em>}</li>
  * </ul>
  * </p>
  *
@@ -131,5 +132,34 @@ public interface Control extends EObject {
 	 * @generated
 	 */
 	EList<Threat> getThreats();
+
+	/**
+	 * Returns the value of the '<em><b>Attack Potential</b></em>' attribute.
+	 * The literals are from the enumeration {@link SC.Damages}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Attack Potential</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Attack Potential</em>' attribute.
+	 * @see SC.Damages
+	 * @see #setAttackPotential(Damages)
+	 * @see SC.SCPackage#getControl_AttackPotential()
+	 * @model
+	 * @generated
+	 */
+	Damages getAttackPotential();
+
+	/**
+	 * Sets the value of the '{@link SC.Control#getAttackPotential <em>Attack Potential</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Attack Potential</em>' attribute.
+	 * @see SC.Damages
+	 * @see #getAttackPotential()
+	 * @generated
+	 */
+	void setAttackPotential(Damages value);
 
 } // Control
