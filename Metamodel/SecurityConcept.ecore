@@ -63,6 +63,7 @@
         eType="#//Asset" eOpposite="#//Asset/controls"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="threats" upperBound="-1"
         eType="#//Threat" eOpposite="#//Threat/controls"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attackPotential" eType="#//Damages"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Component">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

@@ -1,69 +1,104 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:SC="http://www.example.org/securityconcept">
-  <SC:Asset name="Asset_C1" assetID="1" securityGoals="/15" component="/30" threats="/39 /47"/>
-  <SC:Asset name="Asset_D2" assetID="2" securityGoals="/16" data="/61" threats="/38"/>
-  <SC:Asset name="Asset_C1.1.1" assetID="3" securityGoals="/17 /21 /26 /27" component="/33" threats="/37"/>
-  <SC:Asset name="Asset_D1" assetID="4" securityGoals="/18" data="/60" threats="/40 /41"/>
-  <SC:Asset name="Asset_D3" assetID="5" securityGoals="/19" data="/62" threats="/42 /43"/>
-  <SC:Asset name="Asset_C1.1" assetID="6" securityGoals="/20 /25" component="/31" threats="/46"/>
-  <SC:Asset name="Asset_C1.1.2" assetID="7" component="/34"/>
-  <SC:Asset name="Data 2" assetID="8" securityGoals="/22" data="/63" threats="/48"/>
-  <SC:Asset name="Asset_C1.2" assetID="9" component="/32"/>
-  <SC:Asset name="Data 1" assetID="10" securityGoals="/23" threats="/49 /50"/>
-  <SC:Asset name="Data 3" assetID="11" securityGoals="/24" threats="/51 /52"/>
-  <SC:Asset name="Asset_C2" assetID="12" component="/35"/>
-  <SC:Asset name="Asset_C2.1" assetID="13" component="/36"/>
-  <SC:Asset name="Data 1" assetID="14" securityGoals="/28" threats="/56 /57"/>
-  <SC:Asset name="Data 3" assetID="15" securityGoals="/29" threats="/58 /59"/>
-  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="1" name="SG_C1" asset="/0" threats="/39" component="/30"/>
-  <SC:SecurityGoal damagePotential="medium" securityGoalID="2" name="SG_D2" asset="/1" threats="/38" component="/31"/>
-  <SC:SecurityGoal securityGoalClass="Availability" damagePotential="high" securityGoalID="3" name="SG_C1.1.1" asset="/2" threats="/37" component="/33"/>
-  <SC:SecurityGoal damagePotential="high" description="" securityGoalID="4" name="SG_D1" asset="/3" threats="/40 /41"/>
-  <SC:SecurityGoal damagePotential="medium" description="" securityGoalID="5" name="SG_D3" asset="/4" threats="/42 /43"/>
-  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="6" name="C1.1" asset="/5" threats="/44" component="/31"/>
-  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="7" name="C1.1.1" asset="/2" threats="/45" component="/33"/>
-  <SC:SecurityGoal damagePotential="medium" securityGoalID="8" name="Data 2_C1" asset="/7" component="/30"/>
-  <SC:SecurityGoal damagePotential="high" description="" securityGoalID="9" name="Data 1_C1" asset="/9" component="/30"/>
-  <SC:SecurityGoal damagePotential="medium" description="" securityGoalID="10" name="Data 3_C1" asset="/10" component="/30"/>
-  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="11" name="C1.1" asset="/5" threats="/53" component="/31"/>
-  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="12" name="C1.1.1" asset="/2" threats="/54" component="/33"/>
-  <SC:SecurityGoal securityGoalClass="Integrity" securityGoalID="13" name="C1.1.1" asset="/2" threats="/55" component="/33"/>
-  <SC:SecurityGoal damagePotential="high" description="" securityGoalID="14" name="Data 1_C2" asset="/13" component="/35"/>
-  <SC:SecurityGoal damagePotential="medium" description="" securityGoalID="15" name="Data 3_C2" asset="/14" component="/35"/>
-  <SC:Component name="C1" componentID="1" subcomponents="/31 /32" asset="/0" data="/63"/>
-  <SC:Component name="C1.1" componentID="2" subcomponents="/33 /34" ancestor="/30" asset="/5" data="/61" connections="/64"/>
-  <SC:Component name="C1.2" componentID="3" ancestor="/30" asset="/8" connections="/65"/>
-  <SC:Component name="C1.1.1" componentID="4" ancestor="/31" asset="/2"/>
-  <SC:Component name="C1.1.2" componentID="5" ancestor="/31" asset="/6"/>
-  <SC:Component name="C2" componentID="6" subcomponents="/36" asset="/11" connections="/65"/>
-  <SC:Component name="C2.1" componentID="7" ancestor="/35" asset="/12" connections="/64"/>
-  <SC:Threat threatClass="DenialOfService" description="T_SG_C1.1.1" threatID="1" securityGoals="/17" asset="/2"/>
-  <SC:Threat threatClass="Tampering" description="T_SG_D2" threatID="2" attackPotential="high" securityGoals="/16" asset="/1"/>
-  <SC:Threat description="T_SG_C1" threatID="3" securityGoals="/15" asset="/0"/>
-  <SC:Threat threatClass="InformationDisclosure" description="T1_SG_D1" threatID="4" securityGoals="/18" asset="/3"/>
-  <SC:Threat threatClass="InformationDisclosure" description="T2_SG_D1" threatID="5" attackPotential="medium" securityGoals="/18" asset="/3"/>
-  <SC:Threat threatClass="InformationDisclosure" description="T1_SG_D3" threatID="6" attackPotential="medium" securityGoals="/19" asset="/4"/>
-  <SC:Threat threatClass="ElevationOfPrivilege" description="T2_SG_D3" threatID="7" attackPotential="high" securityGoals="/19" asset="/4"/>
-  <SC:Threat description="C1.1" threatID="8" securityGoals="/20"/>
-  <SC:Threat description="C1.1.1" threatID="9" securityGoals="/21"/>
-  <SC:Threat threatClass="DenialOfService" description="C1.1" threatID="10" asset="/5"/>
-  <SC:Threat threatClass="DenialOfService" description="C1" threatID="11" asset="/0"/>
-  <SC:Threat threatClass="Tampering" threatID="12" attackPotential="high" asset="/7"/>
-  <SC:Threat threatClass="InformationDisclosure" threatID="13" asset="/9"/>
-  <SC:Threat threatClass="InformationDisclosure" threatID="14" attackPotential="medium" asset="/9"/>
-  <SC:Threat threatClass="InformationDisclosure" threatID="15" attackPotential="medium" asset="/10"/>
-  <SC:Threat threatClass="ElevationOfPrivilege" threatID="16" attackPotential="high" asset="/10"/>
-  <SC:Threat description="C1.1" threatID="17" securityGoals="/25"/>
-  <SC:Threat description="C1.1.1" threatID="18" securityGoals="/26"/>
-  <SC:Threat description="C1.1.1" threatID="19" securityGoals="/27"/>
-  <SC:Threat threatClass="InformationDisclosure" threatID="20" asset="/13"/>
-  <SC:Threat threatClass="InformationDisclosure" threatID="21" attackPotential="medium" asset="/13"/>
-  <SC:Threat threatClass="InformationDisclosure" threatID="22" attackPotential="medium" asset="/14"/>
-  <SC:Threat threatClass="ElevationOfPrivilege" threatID="23" attackPotential="high" asset="/14"/>
-  <SC:Data name="Data 1" dataID="1" asset="/3"/>
-  <SC:Data name="Data 2" dataID="2" asset="/1"/>
-  <SC:Data name="Data 3" dataID="3" asset="/4"/>
-  <SC:Data name="Data 2" asset="/7"/>
-  <SC:Connection name="C2_C1 Data 1" connectionID="1" source="/35" target="/30" data="/60"/>
-  <SC:Connection name="C2_C1 Data 3" connectionID="2" source="/35" target="/30" data="/62"/>
+  <SC:Asset securityGoals="/50" components="/51"/>
+  <SC:Asset name="1" components="/52"/>
+  <SC:Asset name="2" components="/53"/>
+  <SC:Asset name="3" components="/54"/>
+  <SC:Asset name="4" components="/55"/>
+  <SC:Asset name="5" components="/56"/>
+  <SC:Asset name="6" components="/57"/>
+  <SC:Asset name="7" components="/58"/>
+  <SC:Asset name="8" components="/59"/>
+  <SC:Asset name="9" components="/60"/>
+  <SC:Asset name="10" components="/61"/>
+  <SC:Asset name="11" components="/62"/>
+  <SC:Asset name="12" components="/63"/>
+  <SC:Asset name="13" components="/64"/>
+  <SC:Asset name="14" components="/65"/>
+  <SC:Asset name="15" components="/66"/>
+  <SC:Asset name="16" components="/67"/>
+  <SC:Asset name="17" components="/68"/>
+  <SC:Asset name="18" components="/69"/>
+  <SC:Asset name="19" components="/70"/>
+  <SC:Asset name="20" components="/71"/>
+  <SC:Asset name="21" components="/72"/>
+  <SC:Asset name="22" components="/73"/>
+  <SC:Asset name="23" components="/74"/>
+  <SC:Asset name="24" components="/75"/>
+  <SC:Asset name="25" components="/76"/>
+  <SC:Asset name="26" components="/77"/>
+  <SC:Asset name="27" components="/78"/>
+  <SC:Asset name="28" components="/79"/>
+  <SC:Asset name="29" components="/80"/>
+  <SC:Asset name="30" components="/81"/>
+  <SC:Asset name="31" components="/82"/>
+  <SC:Asset name="32" components="/83"/>
+  <SC:Asset name="33" components="/84"/>
+  <SC:Asset name="34" components="/85"/>
+  <SC:Asset name="35" components="/86"/>
+  <SC:Asset name="36" components="/87"/>
+  <SC:Asset name="37" components="/88"/>
+  <SC:Asset name="38" components="/89"/>
+  <SC:Asset name="39" components="/90"/>
+  <SC:Asset name="40" components="/91"/>
+  <SC:Asset name="41" components="/92"/>
+  <SC:Asset name="42" components="/93"/>
+  <SC:Asset name="43" components="/94"/>
+  <SC:Asset name="44" components="/95"/>
+  <SC:Asset name="45" components="/96"/>
+  <SC:Asset name="46" components="/97"/>
+  <SC:Asset name="47" components="/98"/>
+  <SC:Asset name="48" components="/99"/>
+  <SC:Asset name="49" components="/100"/>
+  <SC:SecurityGoal securityGoalClass="Availability" asset="/0"/>
+  <SC:Component name="Comp + 0" subcomponents="/52" asset="/0"/>
+  <SC:Component componentID="1" subcomponents="/53" ancestor="/51" asset="/1"/>
+  <SC:Component componentID="2" subcomponents="/54" ancestor="/52" asset="/2"/>
+  <SC:Component componentID="3" subcomponents="/55" ancestor="/53" asset="/3"/>
+  <SC:Component componentID="4" subcomponents="/56" ancestor="/54" asset="/4"/>
+  <SC:Component componentID="5" subcomponents="/57" ancestor="/55" asset="/5"/>
+  <SC:Component componentID="6" subcomponents="/58" ancestor="/56" asset="/6"/>
+  <SC:Component componentID="7" subcomponents="/59" ancestor="/57" asset="/7"/>
+  <SC:Component componentID="8" subcomponents="/60" ancestor="/58" asset="/8"/>
+  <SC:Component componentID="9" subcomponents="/61" ancestor="/59" asset="/9"/>
+  <SC:Component componentID="10" subcomponents="/62" ancestor="/60" asset="/10"/>
+  <SC:Component componentID="11" subcomponents="/63" ancestor="/61" asset="/11"/>
+  <SC:Component componentID="12" subcomponents="/64" ancestor="/62" asset="/12"/>
+  <SC:Component componentID="13" subcomponents="/65" ancestor="/63" asset="/13"/>
+  <SC:Component componentID="14" subcomponents="/66" ancestor="/64" asset="/14"/>
+  <SC:Component componentID="15" subcomponents="/67" ancestor="/65" asset="/15"/>
+  <SC:Component componentID="16" subcomponents="/68" ancestor="/66" asset="/16"/>
+  <SC:Component componentID="17" subcomponents="/69" ancestor="/67" asset="/17"/>
+  <SC:Component componentID="18" subcomponents="/70" ancestor="/68" asset="/18"/>
+  <SC:Component componentID="19" subcomponents="/71" ancestor="/69" asset="/19"/>
+  <SC:Component componentID="20" subcomponents="/72" ancestor="/70" asset="/20"/>
+  <SC:Component componentID="21" subcomponents="/73" ancestor="/71" asset="/21"/>
+  <SC:Component componentID="22" subcomponents="/74" ancestor="/72" asset="/22"/>
+  <SC:Component componentID="23" subcomponents="/75" ancestor="/73" asset="/23"/>
+  <SC:Component componentID="24" subcomponents="/76" ancestor="/74" asset="/24"/>
+  <SC:Component componentID="25" subcomponents="/77" ancestor="/75" asset="/25"/>
+  <SC:Component componentID="26" subcomponents="/78" ancestor="/76" asset="/26"/>
+  <SC:Component componentID="27" subcomponents="/79" ancestor="/77" asset="/27"/>
+  <SC:Component componentID="28" subcomponents="/80" ancestor="/78" asset="/28"/>
+  <SC:Component componentID="29" subcomponents="/81" ancestor="/79" asset="/29"/>
+  <SC:Component componentID="30" subcomponents="/82" ancestor="/80" asset="/30"/>
+  <SC:Component componentID="31" subcomponents="/83" ancestor="/81" asset="/31"/>
+  <SC:Component componentID="32" subcomponents="/84" ancestor="/82" asset="/32"/>
+  <SC:Component componentID="33" subcomponents="/85" ancestor="/83" asset="/33"/>
+  <SC:Component componentID="34" subcomponents="/86" ancestor="/84" asset="/34"/>
+  <SC:Component componentID="35" subcomponents="/87" ancestor="/85" asset="/35"/>
+  <SC:Component componentID="36" subcomponents="/88" ancestor="/86" asset="/36"/>
+  <SC:Component componentID="37" subcomponents="/89" ancestor="/87" asset="/37"/>
+  <SC:Component componentID="38" subcomponents="/90" ancestor="/88" asset="/38"/>
+  <SC:Component componentID="39" subcomponents="/91" ancestor="/89" asset="/39"/>
+  <SC:Component componentID="40" subcomponents="/92" ancestor="/90" asset="/40"/>
+  <SC:Component componentID="41" subcomponents="/93" ancestor="/91" asset="/41"/>
+  <SC:Component componentID="42" subcomponents="/94" ancestor="/92" asset="/42"/>
+  <SC:Component componentID="43" subcomponents="/95" ancestor="/93" asset="/43"/>
+  <SC:Component componentID="44" subcomponents="/96" ancestor="/94" asset="/44"/>
+  <SC:Component componentID="45" subcomponents="/97" ancestor="/95" asset="/45"/>
+  <SC:Component componentID="46" subcomponents="/98" ancestor="/96" asset="/46"/>
+  <SC:Component componentID="47" subcomponents="/99" ancestor="/97" asset="/47"/>
+  <SC:Component componentID="48" subcomponents="/100" ancestor="/98" asset="/48"/>
+  <SC:Component componentID="49" ancestor="/99" asset="/49"/>
 </xmi:XMI>

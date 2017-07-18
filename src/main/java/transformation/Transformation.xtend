@@ -23,6 +23,7 @@ import SC.Asset
 import org.eclipse.emf.ecore.resource.Resource
 import SC.Threat
 import SC.SecurityGoalClassType
+import SC.ThreatClass
 
 class Transformation {
 
@@ -39,6 +40,7 @@ class Transformation {
 	def static void main(String[] args) {
 //		new Transformation().generate("MetaModel/minitest.xmi")
 		new Transformation().generate("MetaModel/SecurityConcept_MT_example.xmi")
+//		new Transformation().generate("MetaModel/SecurityConceptTransformation.xmi")
 	}
 
 	def generate(String file) {
@@ -63,62 +65,68 @@ class Transformation {
 		copier.copyReferences
 		oldSecurityConcept = securityConcept
 		// Select the IDs of components that should be aggregated
-		val int[] componentIDs = #[1, 4, 6]
+		val int[] componentIDs = #[1]
 		componentIDs.stream.filter(id|findComponentByID(securityConcept, id) !== null).forEach [ id |
 			componentsOfInterest.add(findComponentByID(securityConcept, id))
 		]
+		
+		// Create assets for each and every component
+		generateAssets(oldSecurityConcept.components)		
 
-//		oldSecurityConcept.securityGoals.forEach[sg|println(sg.toString)]
-//		oldSecurityConcept.connection.forEach[con|println(con.source.toString + con.target.toString)]
 		for (Component comp : componentsOfInterest) {
 			generateSG(comp)
 		}
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.securityGoals.forEach [ sg |
-			println("SEC GOAL: " + sg.toString)
-		]
+		// Generate output for now
+		for (componentID : componentIDs) {
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.securityGoals.forEach [ sg |
-			sg.threats.forEach[t|println("SEC GOAL THREAT: " + t)]
-		]
+			println("COMPONENT " + componentID)
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].data.forEach [ d |
-			println("DATA " + d.asset.securityGoals)
-		]
+			oldSecurityConcept.components.findFirst[c|c.componentID.equals(componentID)].asset.securityGoals.forEach [ sg |
+				println("SEC GOAL: " + securityGoalOutput(sg))
+			]
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].data.forEach [ d |
-			println("DATA THREAT " + d.asset.threats + " " + d.asset)
-		]
+			oldSecurityConcept.components.findFirst[c|c.componentID.equals(componentID)].asset.securityGoals.forEach [ sg |
+				sg.threats.forEach[t|println("SEC GOAL THREAT: " + threatOutput(t))]
+			]
 
-		oldSecurityConcept.components.findFirst[c|c.componentID.equals(1)].asset.threats.filter [ t |
-			t.securityGoals.empty == true
-		].forEach[threat|println("OTHER THREAT: " + threat)]
-		println("#########")
+			var componentData = oldSecurityConcept.components.findFirst[c|c.componentID.equals(componentID)].data
 
-		var List<SecurityGoal> sgl = getFullSecurityGoalList(oldSecurityConcept, findComponentByID(securityConcept, 4))
+			componentData.forEach[d|d.asset.securityGoals.forEach[sg|println("DATA GOAL: " + securityGoalOutput(sg))]]
 
-		println("SG BEFORE AGGREGATION: " + sgl.size)
-		var List<SecurityGoal> finalSecurityGoals = securityGoalAggregation(sgl)
+			componentData.forEach[d|d.asset.threats.forEach[t|println("DATA THREAT: " + threatOutput(t))]]
 
-		println("SG AFTER AGGREGATION: " + finalSecurityGoals.size)
-		println("#########")
+			oldSecurityConcept.components.findFirst[c|c.componentID.equals(componentID)].asset.threats.filter [ t |
+				t.securityGoals.empty == true
+			].forEach[threat|println("OTHER THREAT: " + threatOutput(threat))]
+			println("#########")
 
-		var List<Threat> tl = getFullThreatList(oldSecurityConcept, findComponentByID(securityConcept, 4))
+			var List<SecurityGoal> sgl = getFullSecurityGoalList(oldSecurityConcept,
+				findComponentByID(securityConcept, componentID))
 
-		println("THREATS BEFORE AGGREGATION: " + tl.size)
+			println("SG BEFORE AGGREGATION: " + sgl.size)
+			var List<SecurityGoal> finalSecurityGoals = securityGoalAggregation(sgl)
 
-		var List<Threat> finalThreats = threatAggregation(tl)
+			println("SG AFTER AGGREGATION: " + finalSecurityGoals.size)
+			println("#########")
 
-		println("THREATS AFTER AGGREGATION: " + finalThreats.size)
+			getAggregatedSG(sgl, finalSecurityGoals)
 
-//		oldSecurityConcept.components.findFirst[c|c.componentID.equals(6)].connections.forEach [con|
-//			println(con.data.asset.securitygoals)
-//		]
-//		oldSecurityConcept.connection.forEach[con|println(con.source.toString + con.target.toString)]
-//		oldSecurityConcept.securityGoals.forEach[sg|println(sg)]
-		println("#########")
+			var List<Threat> tl = getFullThreatList(oldSecurityConcept, findComponentByID(securityConcept, componentID))
 
-		oldSecurityConcept.connections.forEach[con|println("CONNECTION: " + con.source + con.target + con.data)]
+			println("THREATS BEFORE AGGREGATION: " + tl.size)
+
+			var List<Threat> finalThreats = threatAggregation(tl)
+
+			println("THREATS AFTER AGGREGATION: " + finalThreats.size)
+
+			getAggregatedThreats(tl, finalThreats)
+
+			println("#########")
+		}
+
+		// oldSecurityConcept.securityGoals.forEach[sg|println(sg.dependsOnSecurityGoals)]
+		oldSecurityConcept.connections.forEach[con|println("CONNECTION: " + connectionOutput(con))]
 
 		// Add the resulting elements and security attributes to the new security concept
 		println("#########")
@@ -127,21 +135,22 @@ class Transformation {
 		componentIDs.stream.filter(id|findComponentByID(oldSecurityConcept, id) !== null).forEach [ id |
 			transformedComponents.add(findComponentByID(oldSecurityConcept, id))
 		]
-		
-		transformedComponents.forEach[c|println(c.asset.threats)]
 
 		newSecurityConcept = createSecurityConcept
 
 		for (component : transformedComponents) {
 			var tmpC = copier.copy(component) as Component
-			var threats = copier.copyAll(component.asset.threats) 
+			var threats = copier.copyAll(component.asset.threats)
 			copier.copyReferences
 			newSecurityConcept.threats.addAll(threats as ArrayList<Threat>)
 			newSecurityConcept.components.add(tmpC)
 		}
-		
+
 		var value = securityOracleValidation(oldSecurityConcept, newSecurityConcept, componentsOfInterest)
 		println(value)
+
+		var SecurityConcept myConcept = genereTateConcept(50)
+		writeToSecrutiyConcept(myConcept)
 	}
 
 	def Boolean componentExistsInSC(SecurityConcept concept, Component component) {
@@ -213,7 +222,7 @@ class Transformation {
 	}
 
 	def dispatch generateCode(EObject object) {
-		println("")
+		println("sss")
 	}
 
 	def findAncestors(
@@ -457,6 +466,22 @@ class Transformation {
 
 	}
 
+	def String securityGoalOutput(SecurityGoal sg) {
+		return "CLASS: " + sg.securityGoalClass + " ASSET: " + sg.asset.name + " DMG: " + sg.damagePotential
+	}
+
+	def String threatOutput(Threat threat) {
+		return "CLASS: " + threat.threatClass + " ASSET: " + threat.asset.name + " ATTACK: " + threat.attackPotential
+	}
+
+	def String connectionOutput(Connection con) {
+		return "SOURCE: " + con.source.name + " TARGET: " + con.target.name + " DATA: " + con.data.name
+	}
+
+	def String dataOutput(Data data) {
+		return "NAME: " + data.name
+	}
+
 	def Boolean dataExists(SecurityConcept securityConcept, Data data) {
 		var foundData = securityConcept.data.findFirst[dt|dt.name.equals(data.name)]
 		return foundData != null
@@ -579,14 +604,24 @@ class Transformation {
 		return foundThreat
 	}
 	
+	def generateAssets(List<Component> initialComponents){
+		for (comp : initialComponents){
+			if (comp.asset == null){
+				var tmpAsset = createAsset
+				tmpAsset.name = comp.name
+				tmpAsset.components.add(comp)
+				oldSecurityConcept.assets.add(tmpAsset)
+			}
+		}
+	}
+
 	def Boolean componentExists(Asset asset, Component component) {
 		return getComponent(asset, component) != null
 	}
-	
+
 	def Component getComponent(Asset asset, Component c) {
 		var foundComponent = asset.components.findFirst [ component |
-			component.componentID.equals(c.componentID) && component.name.equals(c.name)
-		]
+			component.componentID.equals(c.componentID) && component.name.equals(c.name)]
 		return foundComponent
 	}
 
@@ -647,6 +682,9 @@ class Transformation {
 		var List<SecurityGoal> maxPotentials = new ArrayList<SecurityGoal>
 		for (sg : securityGoalList) {
 			if (sg.damagePotential.value > potential) {
+				for (sec : maxPotentials) {
+					println("AGGREGATED SG: " + securityGoalOutput(sec))
+				}
 				maxPotentials.clear
 				potential = sg.damagePotential.value
 				maxPotentials.add(sg)
@@ -665,7 +703,7 @@ class Transformation {
 				maxPotentials.clear
 				potential = t.attackPotential.value
 				maxPotentials.add(t)
-			} else if (t.attackPotential.value == potential) {
+			} else if (t.attackPotential.value == potential && !threatInList(maxPotentials, t)) {
 				maxPotentials.add(t)
 			}
 		}
@@ -739,12 +777,12 @@ class Transformation {
 
 	def Boolean securityOracleValidation(SecurityConcept initialConcept, SecurityConcept newSecurityConcept,
 		List<Component> components) {
+		var Boolean valid = true
 		for (comp : components) {
 			var oldSGList = getFullSecurityGoalList(initialConcept, comp)
 			var newSGList = getFullSecurityGoalList(newSecurityConcept, comp)
 			var oldThreatList = getFullThreatList(initialConcept, comp)
 			var newThreatList = getFullThreatList(newSecurityConcept, comp)
-			var Boolean valid = true
 			// Check whether all old security goals are in the new concept
 			for (sg : oldSGList) {
 				if (!securityGoalInList(newSGList, sg)) {
@@ -760,6 +798,55 @@ class Transformation {
 				}
 			}
 			return valid
+		}
+	}
+
+	def SecurityConcept genereTateConcept(int numberOfComponents) {
+		var SecurityConcept generatedConcept = createSecurityConcept
+		var Component tmpComp
+		var Asset tmpAsset
+		var SecurityGoal tmpSG
+		for (var int i = 0; i < numberOfComponents; i++) {
+			if (i != 0) {
+				tmpComp = createComponent
+				tmpAsset = createAsset
+				tmpComp.componentID = i
+				tmpAsset.name = tmpComp.componentID.toString
+				tmpComp.asset = tmpAsset
+				tmpComp.ancestor = findComponentByID(generatedConcept, i - 1)
+				tmpComp.ancestor.subcomponents.add(tmpComp)
+				generatedConcept.assets.add(tmpAsset)
+				generatedConcept.components.add(tmpComp)
+			} else {
+				tmpComp = createComponent
+				tmpAsset = createAsset
+				tmpComp.componentID = i
+				tmpComp.asset = tmpAsset
+				tmpComp.name = "Comp + " + i
+				tmpSG = createSecurityGoal
+				tmpSG.asset = tmpAsset
+				tmpSG.securityGoalClass = SecurityGoalClassType.AVAILABILITY
+				generatedConcept.assets.add(tmpAsset)
+				generatedConcept.securityGoals.add(tmpSG)
+				generatedConcept.components.add(tmpComp)
+			}
+		}
+		return generatedConcept
+	}
+
+	def getAggregatedThreats(List<Threat> initialList, List<Threat> newList) {
+		for (threat : initialList) {
+			if (!newList.contains(threat)) {
+				println("AGGREGATED THREAT: " + threatOutput(threat))
+			}
+		}
+	}
+
+	def getAggregatedSG(List<SecurityGoal> initialList, List<SecurityGoal> newList) {
+		for (sg : initialList) {
+			if (!newList.contains(sg)) {
+				println("AGGREGATED SG: " + securityGoalOutput(sg))
+			}
 		}
 	}
 
